@@ -72,22 +72,22 @@ const MEGA_MENU_DATA = {
   work: {
     thumbnails: {
       title: "Thumbnails",
-      image: "images/mega-work-gfx-01.png",
+      image: "/images/mega-work-gfx-01.png",
       description: "Game and YouTube thumbnails."
     },
     "game-icons": {
       title: "Game Icons",
-      image: "images/mega-work-thumbnail-01.png",
+      image: "/images/mega-work-thumbnail-01.png",
       description: "Small squares, big first impressions."
     },
     ui: {
       title: "UI",
-      image: "images/mega-work-ui-01.png",
+      image: "/images/mega-work-ui-01.png",
       description: "Roblox interface and UI design."
     },
     more: {
       title: "More",
-      image: "images/mega-work-logo-01.png",
+      image: "/images/mega-work-logo-01.png",
       description: "Everything else I make."
     }
   }
@@ -103,7 +103,7 @@ const MEGA_MENU_DATA = {
 // ----------------------------------------------------------
 const MEGA_BANNER_DATA = {
   work: {
-    image: "images/mega-work-banner-01.png"
+    image: "/images/mega-work-banner-01.png"
   }
 };
 
@@ -115,7 +115,7 @@ const MEGA_BANNER_DATA = {
 // (On a phone, tapping the item still opens its list of links.)
 // ----------------------------------------------------------
 const MEGA_TRIGGER_LINKS = {
-  work: "work.html#all"
+  work: "/work/#all"
 };
 
 
@@ -237,14 +237,14 @@ const SUMMER_DECOR = CURRENT_SEASON === "summer";
 // ==========================================================
 const HALLOWEEN_POPUP = {
   enabled: CURRENT_SEASON === "halloween",
-  image: "images/halloween-popup-01.png",
+  image: "/images/halloween-popup-01.png",
   alt: "Halloween sale artwork",
   eyebrow: "Halloween Sale",
   percent: "20%",
   off: "off",
   note: "",
   buttonText: "Commission Me",
-  buttonLink: "pricing.html",
+  buttonLink: "/pricing/",
   tabText: "20% off",
   delay: 1200,
   endsAt: SEASON_YEAR + "-10-31T23:59:59"
@@ -262,14 +262,14 @@ const HALLOWEEN_POPUP = {
 // ==========================================================
 const CHRISTMAS_POPUP = {
   enabled: CURRENT_SEASON === "christmas",
-  image: "images/christmas-popup-01.png",
+  image: "/images/christmas-popup-01.png",
   alt: "Christmas sale artwork",
   eyebrow: "Christmas Sale",
   percent: "25%",
   off: "off",
   note: "",
   buttonText: "Commission Me",
-  buttonLink: "pricing.html",
+  buttonLink: "/pricing/",
   tabText: "25% off",
   delay: 1200,
   endsAt: SEASON_YEAR + "-12-26T23:59:59"
@@ -290,14 +290,14 @@ const CHRISTMAS_POPUP = {
 // ==========================================================
 const SUMMER_POPUP = {
   enabled: CURRENT_SEASON === "summer",
-  image: "images/summer-popup-01.png",
+  image: "/images/summer-popup-01.png",
   alt: "Summer sale artwork",
   eyebrow: "Summer Sale",
   percent: "20%",
   off: "off",
   note: "",
   buttonText: "Commission Me",
-  buttonLink: "pricing.html",
+  buttonLink: "/pricing/",
   tabText: "20% off",
   delay: 1200,
   endsAt: SEASON_YEAR + "-08-31T23:59:59"
@@ -315,11 +315,11 @@ const SUMMER_POPUP = {
 // ==========================================================
 const HERO_ARTWORK = {
   main: {
-    image: "images/hero-main-01.png",
+    image: "/images/hero-main-01.png",
     alt: "Featured Bcraft Designs artwork"
   },
   secondary: {
-    image: "images/hero-secondary-01.png",
+    image: "/images/hero-secondary-01.png",
     alt: "Bcraft Designs artwork"
   }
 };
@@ -330,14 +330,14 @@ const HERO_ARTWORK = {
 //   images    - leave [] to auto-detect: it loads images/hero-main-01.png,
 //               hero-main-02.png, hero-main-03.png ... in order and stops at
 //               the first missing number. Or list the files yourself, e.g.
-//               ["images/a.png", "images/b.png"] (they play in that order).
+//               ["/images/a.png", "/images/b.png"] (they play in that order).
 //   folder / prefix / maxSlides - how auto-detect names and counts the files.
 //   interval  - milliseconds each piece stays on screen.
 // With only one image there is no slideshow and no dots.
 // ==========================================================
 const HERO_SLIDESHOW = {
   images: [],
-  folder: "images/",
+  folder: "/images/",
   prefix: "hero-main-",
   maxSlides: 10,
   interval: 6500
@@ -414,8 +414,8 @@ function loadImageFlex(img, src) {
 // HOW TO REMOVE A PIECE:  delete its line.
 // That is all. The portfolio, the homepage and the viewer update by themselves.
 //
-//   "images/my-new-piece.png",                    <- the simplest line
-//   { image: "images/my-new-piece.png", featured: true },   <- with extras
+//   "/images/my-new-piece.png",                    <- the simplest line
+//   { image: "/images/my-new-piece.png", featured: true },   <- with extras
 //
 // Extras you can add inside { }:
 //   featured - true = also shown in Featured Work on the homepage.
@@ -475,46 +475,46 @@ const WORK_FORMATS = {
 
 // One block per category. Use exactly the names from WORK_CATEGORIES above.
 // Example with an extra:
-//   { image: "images/new-piece.png", featured: true }
+//   { image: "/images/new-piece.png", featured: true }
 // A category with nothing in it (like "More") just shows "More coming soon".
 const WORK = {
   "Game Thumbnails": [
-    { image: "images/featured-gfx-01.png",              id: 1,  featured: 1 },
-    { image: "images/portfolio-thumbnail-01.png",       id: 9,  featured: 3 },
-    { image: "images/portfolio-game-thumbnail-03.png",  id: 17 },
-    { image: "images/portfolio-game-thumbnail-04.png",  id: 18 },
-    { image: "images/portfolio-game-thumbnail-05.png",  id: 19 },
-    { image: "images/portfolio-game-thumbnail-06.png",  id: 20 }
+    { image: "/images/featured-gfx-01.png",              id: 1,  featured: 1 },
+    { image: "/images/portfolio-thumbnail-01.png",       id: 9,  featured: 3 },
+    { image: "/images/portfolio-game-thumbnail-03.png",  id: 17 },
+    { image: "/images/portfolio-game-thumbnail-04.png",  id: 18 },
+    { image: "/images/portfolio-game-thumbnail-05.png",  id: 19 },
+    { image: "/images/portfolio-game-thumbnail-06.png",  id: 20 }
   ],
   "Game Icons": [
-    { image: "images/featured-logo-01.png",             id: 4,  featured: 5 }
+    { image: "/images/featured-logo-01.png",             id: 4,  featured: 5 }
   ],
   "Profile Pictures": [
-    { image: "images/featured-pfp-01.png",              id: 26, featured: 4 },
-    { image: "images/portfolio-logo-01.png",            id: 8 },
-    { image: "images/portfolio-pfp-02.png",             id: 24 },
-    { image: "images/portfolio-pfp-03.png",             id: 25 }
+    { image: "/images/featured-pfp-01.png",              id: 26, featured: 4 },
+    { image: "/images/portfolio-logo-01.png",            id: 8 },
+    { image: "/images/portfolio-pfp-02.png",             id: 24 },
+    { image: "/images/portfolio-pfp-03.png",             id: 25 }
   ],
   "Commission Sheets": [
-    { image: "images/portfolio-gfx-02.png",             id: 11 }
+    { image: "/images/portfolio-gfx-02.png",             id: 11 }
   ],
   "Ads & Posters": [
-    { image: "images/portfolio-ad-01.png",              id: 22 }
+    { image: "/images/portfolio-ad-01.png",              id: 22 }
   ],
   "Renders": [
-    { image: "images/featured-gfx-02.png",              id: 6,  featured: 7 },
-    { image: "images/portfolio-gfx-01.png",             id: 7 },
-    { image: "images/portfolio-render-03.png",          id: 21 }
+    { image: "/images/featured-gfx-02.png",              id: 6,  featured: 7 },
+    { image: "/images/portfolio-gfx-01.png",             id: 7 },
+    { image: "/images/portfolio-render-03.png",          id: 21 }
   ],
   "YouTube Thumbnails": [
-    { image: "images/featured-thumbnail-01.png",        id: 2,  featured: 2 },
-    { image: "images/featured-thumbnail-02.png",        id: 5,  featured: 6 }
+    { image: "/images/featured-thumbnail-01.png",        id: 2,  featured: 2 },
+    { image: "/images/featured-thumbnail-02.png",        id: 5,  featured: 6 }
   ],
   "YouTube Banners": [
-    { image: "images/portfolio-thumbnail-02.png",       id: 13 }
+    { image: "/images/portfolio-thumbnail-02.png",       id: 13 }
   ],
   "UI/UX": [
-    { image: "images/featured-ui-01.png",               id: 3 }
+    { image: "/images/featured-ui-01.png",               id: 3 }
   ],
   "More": []
 };
@@ -667,7 +667,7 @@ const REVIEWS = [
     pageOrder: 3,
     rating: 5,
     text: "5/5 Stars, absolutely exceeded my expectations. Id rate it more if I could, super patient and listens very well. I will definitely be returning for more work. I also have someone interested in working with Bcraft after seeing the work.",
-    avatar: "images/avatars/Scott.jpg",
+    avatar: "/images/avatars/Scott.jpg",
     premium: true,
     featured: true
   },
@@ -677,7 +677,7 @@ const REVIEWS = [
     pageOrder: 7,
     rating: 5,
     text: "Amazing service, lovely to work with, would definitely recommend to others! 🙂",
-    avatar: "images/avatars/Nadz.jpg",
+    avatar: "/images/avatars/Nadz.jpg",
     premium: true,
     verified: true,
     featured: true
@@ -688,7 +688,7 @@ const REVIEWS = [
     pageOrder: 13,
     rating: 5,
     text: "This GFX is AMAZING. Went beyond expectations and let me have alot of revisions. Highly recommend! 5/5 stars!",
-    avatar: "images/avatars/HobPlayzRoblox.jpg",
+    avatar: "/images/avatars/HobPlayzRoblox.jpg",
     premium: true,
     verified: true,
     youtuber: true,
@@ -700,7 +700,7 @@ const REVIEWS = [
     pageOrder: 29,
     rating: 4,
     text: "fast worker. Does what you ask 🙂",
-    avatar: "images/avatars/Masol.jpg",
+    avatar: "/images/avatars/Masol.jpg",
     featured: true
   },
   {
@@ -709,7 +709,7 @@ const REVIEWS = [
     pageOrder: 19,
     rating: 5,
     text: "Definitely exceeded my expectations, and was patient with my revisions.",
-    avatar: "images/avatars/Hero_Ravensong.jpg",
+    avatar: "/images/avatars/Hero_Ravensong.jpg",
     featured: true
   },
   {
@@ -718,7 +718,7 @@ const REVIEWS = [
     pageOrder: 11,
     rating: 5,
     text: "fast worker good art and cheap not much else to say 5 stars",
-    avatar: "images/avatars/supaa.jpg",
+    avatar: "/images/avatars/supaa.jpg",
     featured: true
   },
   {
@@ -727,7 +727,7 @@ const REVIEWS = [
     pageOrder: 9,
     rating: 5,
     text: "🌟 5-Star Review for Bcraft! 🌟\n\nBcraft did an amazing job on the graphics for my Roblox game. Professional, creative, and timely, they delivered outstanding quality that perfectly matched my vision. Great customer service and reasonable pricing make Bcraft my go‒to for Roblox graphics. Highly recommend!\n\nThank you, Bcraft! ⭐⭐⭐⭐⭐",
-    avatar: "images/avatars/%E2%9C%9D%20dankz.jpg",
+    avatar: "/images/avatars/%E2%9C%9D%20dankz.jpg",
     featured: true
   },
   {
@@ -736,7 +736,7 @@ const REVIEWS = [
     pageOrder: 6,
     rating: 5,
     text: "Finished work in a timely manner, was very communicative, made necessary changes, and over all high quality product.",
-    avatar: "images/avatars/fadeluc_123.jpg",
+    avatar: "/images/avatars/fadeluc_123.jpg",
     featured: true
   },
   {
@@ -745,7 +745,7 @@ const REVIEWS = [
     pageOrder: 25,
     rating: 4,
     text: "This pfp is vibrant and eye-catching, showcasing a unique outfit that reflects creativity. The background complements the character but feels a bit generic; incorporating thematic elements could enhance its appeal. Overall, it’s a fun and engaging pfp that effectively represents the my style.",
-    avatar: "images/avatars/Leviathan.jpg",
+    avatar: "/images/avatars/Leviathan.jpg",
     featured: true
   },
   {
@@ -754,7 +754,7 @@ const REVIEWS = [
     pageOrder: 24,
     rating: 5,
     text: "This is so good fast reply and perfectly graphic.",
-    avatar: "images/avatars/TeenTitansgoneu.jpg",
+    avatar: "/images/avatars/TeenTitansgoneu.jpg",
     featured: true
   },
   {
@@ -763,7 +763,7 @@ const REVIEWS = [
     pageOrder: 22,
     rating: 5,
     text: "Worked with BCraft to get a few thumbnails done, He was very accommodating and quick to implemented changes. 5/5 Would recommend 👍",
-    avatar: "images/avatars/ChrisC.jpg",
+    avatar: "/images/avatars/ChrisC.jpg",
     featured: true
   },
   {
@@ -772,7 +772,7 @@ const REVIEWS = [
     pageOrder: 8,
     rating: 5,
     text: "I’ll rate it a 5, very quick and just how I imagined it.",
-    avatar: "images/avatars/%21%20Xonlz.jpg",
+    avatar: "/images/avatars/%21%20Xonlz.jpg",
     featured: true
   },
   {
@@ -781,7 +781,7 @@ const REVIEWS = [
     pageOrder: 5,
     rating: 5,
     text: "He's very trusted in my opinion and cheap! I asked to change a lot of things and he didnt complain once! He deserves 5 stars! Go check him out!\n\nRating: (5/5)\n\n⭐ ⭐ ⭐ ⭐ ⭐",
-    avatar: "images/avatars/V4lkran.jpg",
+    avatar: "/images/avatars/V4lkran.jpg",
     featured: true
   },
   {
@@ -790,7 +790,7 @@ const REVIEWS = [
     pageOrder: 14,
     rating: 5,
     text: "5 Stars, perfect work, and very good communication with this man! Totally recommend him.",
-    avatar: "images/avatars/trickytactical.jpg",
+    avatar: "/images/avatars/trickytactical.jpg",
     featured: true
   },
   {
@@ -799,7 +799,7 @@ const REVIEWS = [
     pageOrder: 10,
     rating: 5,
     text: "Great person to work with not only a good person but also a very talented artist. They made sure I was happy with my product and made the necessary changes. I have worked with many artists, but he is by far one of the best!",
-    avatar: "images/avatars/exodus.jpg",
+    avatar: "/images/avatars/exodus.jpg",
     featured: true
   },
   {
@@ -808,7 +808,7 @@ const REVIEWS = [
     pageOrder: 2,
     rating: 5,
     text: "Bcraft is an outstanding GFX artist, Fast, Efficient, and really cooperative....will soon hire him more for future commissions.",
-    avatar: "images/avatars/mitrix.jpg",
+    avatar: "/images/avatars/mitrix.jpg",
     featured: true
   },
   {
@@ -817,7 +817,7 @@ const REVIEWS = [
     pageOrder: 18,
     rating: 5,
     text: "paid for a icon and thumbnail, both came out crazy good. fast worker and knows how to shape it into what u like",
-    avatar: "images/avatars/jaytee.jpg",
+    avatar: "/images/avatars/jaytee.jpg",
     featured: true
   },
   {
@@ -826,7 +826,7 @@ const REVIEWS = [
     pageOrder: 1,
     rating: 5,
     text: "perfect experince fast and easy and is easy to talk to no matter what and walks you through the proccess you can fully custumize it to your liking",
-    avatar: "images/avatars/CvshLvrs_29k.jpg",
+    avatar: "/images/avatars/CvshLvrs_29k.jpg",
     featured: true
   },
   {
@@ -835,7 +835,7 @@ const REVIEWS = [
     pageOrder: 17,
     rating: 5,
     text: "responded quick asked for 50% first and got to work showed me progress and and asked me if i wanted the add or change something too and not a scam great service",
-    avatar: "images/avatars/sonny.jpg",
+    avatar: "/images/avatars/sonny.jpg",
     featured: true
   },
   {
@@ -844,7 +844,7 @@ const REVIEWS = [
     pageOrder: 16,
     rating: 4,
     text: "The Thumbnails Were Great, Captivating and Full Of Bright Colous. Bcraft Did Exactly What I Said !! Plus The Delivery Was Always On Time.",
-    avatar: "images/avatars/Shadow_Hunter.jpg",
+    avatar: "/images/avatars/Shadow_Hunter.jpg",
     featured: true
   },
   {
@@ -853,7 +853,7 @@ const REVIEWS = [
     pageOrder: 27,
     rating: 5,
     text: "I have ordered a game Thumbnail and a game Icon, I was speechless when I saw the high quality of these! This guy is an absolute professional! I can only recommend you buying from him! This is just such an amazing, fantastic, unforgettable experience!!!",
-    avatar: "images/avatars/bobbetadev_32611.jpg",
+    avatar: "/images/avatars/bobbetadev_32611.jpg",
     featured: true
   },
   {
@@ -862,7 +862,7 @@ const REVIEWS = [
     pageOrder: 20,
     rating: 5,
     text: "Good service, 5 stars",
-    avatar: "images/avatars/jehrice.jpg",
+    avatar: "/images/avatars/jehrice.jpg",
     featured: true
   },
   {
@@ -871,7 +871,7 @@ const REVIEWS = [
     pageOrder: 28,
     rating: 5,
     text: "5 Stars\n\nQuick and quality! Matched the style of my game perfectly.",
-    avatar: "images/avatars/Dante.jpg",
+    avatar: "/images/avatars/Dante.jpg",
     featured: true
   },
   {
@@ -880,7 +880,7 @@ const REVIEWS = [
     pageOrder: 12,
     rating: 5,
     text: "The work was done quickly and with high quality👍 We could make changes and discuss every detail during the process. I highly recommend this author 10/10",
-    avatar: "images/avatars/MJBroski.jpg",
+    avatar: "/images/avatars/MJBroski.jpg",
     featured: true
   },
   {
@@ -889,7 +889,7 @@ const REVIEWS = [
     pageOrder: 26,
     rating: 5,
     text: "5 Stars: Extremely professional and an expert at graphics. Very quick response and adaptable to changes, giving the buyer the perfect product based on their needs.",
-    avatar: "images/avatars/Bodeyo.jpg",
+    avatar: "/images/avatars/Bodeyo.jpg",
     featured: true
   },
   {
@@ -898,7 +898,7 @@ const REVIEWS = [
     pageOrder: 23,
     rating: 5,
     text: "🔥epic service, he literally works as hard as he can to get the one you feel the most satisfaction!! He reacts to messages almost instantly except for when he has work! He includes every small detail you ask for!! Also he has good attitude for a seller lmao (If u mess with braft I come for u)🔥",
-    avatar: "images/avatars/%F0%9D%99%88%F0%9D%99%A7.%20%F0%9D%98%BF%F0%9D%99%9E%F0%9D%99%A3%F0%9D%99%A4%F0%9F%A6%96.jpg",
+    avatar: "/images/avatars/%F0%9D%99%88%F0%9D%99%A7.%20%F0%9D%98%BF%F0%9D%99%9E%F0%9D%99%A3%F0%9D%99%A4%F0%9F%A6%96.jpg",
     featured: true
   },
   {
@@ -907,7 +907,7 @@ const REVIEWS = [
     pageOrder: 15,
     rating: 4,
     text: "Very attentive, he leaves it as you want, good treat, very recommended!",
-    avatar: "images/avatars/ItsDavid_Dev.jpg",
+    avatar: "/images/avatars/ItsDavid_Dev.jpg",
     featured: true
   },
   {
@@ -916,7 +916,7 @@ const REVIEWS = [
     pageOrder: 4,
     rating: 5,
     text: "Great service, very quick respond. The work was done at it's highest level, all expectation were done! I could only recommend this GFX maker, @Bcraft! I would definitely purchase more in future!",
-    avatar: "images/avatars/shocly.jpg",
+    avatar: "/images/avatars/shocly.jpg",
     featured: true
   },
   {
@@ -925,7 +925,7 @@ const REVIEWS = [
     pageOrder: 21,
     rating: 5,
     text: "The delivery was very fast and the price was extremely reasonable. Bcraft was easy to work with and realized my vision well. I'm highly satisfied with the final product.",
-    avatar: "images/avatars/propemet.jpg",
+    avatar: "/images/avatars/propemet.jpg",
     featured: true
   }
 ];
@@ -947,7 +947,7 @@ const SOCIAL_LINKS = {
   github:          "https://github.com/realbcraft",
   robloxCommunity: "https://www.roblox.com/communities/35405048/Bcraft-Designs",
   robloxProfile:   "",                 // paste your Roblox profile link here. Until then, links that use it are hidden
-  commission:      "pricing.html"      // where "commission" links go (or a Discord invite, form, mailto: ...)
+  commission:      "/pricing/"      // where "commission" links go (or a Discord invite, form, mailto: ...)
 };
 
 
@@ -1005,7 +1005,7 @@ const PAYMENT_METHODS = [
 ];
 
 // Robux icon: the image below (a PNG). To host it yourself, save it as
-// images/robux.png and change this to "images/robux.png".
+// images/robux.png and change this to "/images/robux.png".
 const ROBUX_ICON_URL = "https://devforum-uploads.s3.dualstack.us-east-2.amazonaws.com/uploads/original/4X/e/d/f/edfae9388da4cd8496b885a8a2df613372500d9c.png";
 
 const PAYMENT_ICONS = {
@@ -1013,7 +1013,7 @@ const PAYMENT_ICONS = {
 };
 
 // Images shown on the PayPal / Roblox / Steam cards. Change the links here.
-// (To host one yourself, save it in the images folder and use e.g. "images/paypal.png".)
+// (To host one yourself, save it in the images folder and use e.g. "/images/paypal.png".)
 // If a link ever stops working, the card falls back to the drawn mark below.
 const PAYMENT_IMAGES = {
   paypal: "https://newsroom.deatch.paypal-corp.com/images/fillers/Library_PayPal_VenmoBlue.png",
@@ -1442,7 +1442,7 @@ window.addEventListener("resize", () => {
     }
 
     const art = make("a", "portfolio-art");
-    art.href = "work.html#" + slug;
+    art.href = "/work/#" + slug;
     art.setAttribute("aria-label", "View in portfolio: " + item.title + ", " + item.category);
 
     // Shown until the artwork loads (or if the file is missing)
@@ -2474,7 +2474,7 @@ const LIGHTBOX_SETTINGS = {
   function copyLink() {
     const item = currentList[viewerIndex];
     if (!item) return;
-    const url = new URL("work.html", window.location.href);
+    const url = new URL("/work/", window.location.href);
     url.hash = slugify(item.category) + "/" + encodeURIComponent(item.id);
     copyText(url.toString()).then((ok) => showToast(ok ? "Link copied" : "Could not copy the link"));
   }
@@ -2495,7 +2495,7 @@ const LIGHTBOX_SETTINGS = {
     try {
       sessionStorage.setItem(LIKED_PIECE_KEY, JSON.stringify({ id: item.id, category: item.category, image: item.image, slug: slug || "" }));
     } catch (error) { /* storage blocked: the banner is simply skipped */ }
-    window.location.href = "pricing.html" + (slug ? "#" + slug : "");
+    window.location.href = "/pricing/" + (slug ? "#" + slug : "");
   }
 
   // ----- Open and close -----
@@ -4065,7 +4065,7 @@ const SEASON_ART = {
 (function () {
   document.querySelectorAll("a[href]").forEach((link) => {
     const match = link.getAttribute("href").match(/^(?:\.{1,2}\/|\/)*about(?:\.html?)?\/?([?#].*)?$/i);
-    if (match) link.setAttribute("href", "about.html" + (match[1] || ""));
+    if (match) link.setAttribute("href", "/about/" + (match[1] || ""));
   });
 })();
 
@@ -4519,14 +4519,14 @@ const SEASON_ART = {
 // (until they like another piece).
 // ==========================================================
 (function () {
-  const page = (window.location.pathname.split("/").pop() || "").replace(/\.html$/i, "").toLowerCase();
+  const page = window.location.pathname.replace(/\/+$/, "").split("/").pop().replace(/\.html$/i, "").toLowerCase();   // "/pricing/" -> "pricing"
   if (page !== "pricing" && page !== "contact") return;
   let liked = null;
   try { liked = JSON.parse(sessionStorage.getItem(LIKED_PIECE_KEY) || "null"); } catch (error) { liked = null; }
-  if (!liked || typeof liked.category !== "string" || typeof liked.image !== "string" || liked.image.indexOf("images/") !== 0) return;
+  if (!liked || typeof liked.category !== "string" || typeof liked.image !== "string" || !/^\/?images\//.test(liked.image)) return;
 
   const slugOk = typeof liked.slug === "string" && /^[a-z0-9-]*$/.test(liked.slug);
-  const productLink = "pricing.html" + (slugOk && liked.slug ? "#" + liked.slug : "");
+  const productLink = "/pricing/" + (slugOk && liked.slug ? "#" + liked.slug : "");
 
   const wrap = createEl("div", "liked-banner-wrap");
   const banner = createEl("aside", "liked-banner");
@@ -4548,7 +4548,7 @@ const SEASON_ART = {
   text.appendChild(createEl("p", "liked-banner-sub", liked.category + " \u00b7 want one made for you?"));
 
   const button = createEl("a", "button button-primary liked-banner-button", page === "pricing" ? "Start my order" : "See the pricing");
-  button.href = page === "pricing" ? "contact.html" : productLink;
+  button.href = page === "pricing" ? "/contact/" : productLink;
 
   const close = createEl("button", "liked-banner-close");
   close.type = "button";
@@ -4600,20 +4600,20 @@ const SEASON_ART = {
   const items = Array.from(list.children);
   const holding = (href) => items.find((li) => li.querySelector('a[href="' + href + '"]'));
 
-  let news = holding("news.html");
+  let news = holding("/news/");
   if (!news) {
     news = document.createElement("li");
     news.className = "nav-item";
-    news.innerHTML = '<a class="nav-link" href="news.html">News</a>';
+    news.innerHTML = '<a class="nav-link" href="/news/">News</a>';
     list.appendChild(news);
   }
-  const contact = holding("contact.html");
+  const contact = holding("/contact/");
   if (contact) {
     list.insertBefore(news, contact);
     list.appendChild(contact);
   }
 
-  if (/(^|\/)news(\.html)?$/i.test(window.location.pathname)) {
+  if (/(^|\/)news(\.html|\/)?$/i.test(window.location.pathname)) {
     news.querySelector("a").setAttribute("aria-current", "page");
   }
 })();
@@ -4842,7 +4842,7 @@ const SEASON_ART = {
     const avatar = make("span", "mock-avatar mock-avatar--pfp", "B");
     avatar.setAttribute("aria-hidden", "true");
     const pfp = document.createElement("img");
-    pfp.src = "images/homepage-twitter-pfp-01.png";
+    pfp.src = "/images/homepage-twitter-pfp-01.png";
     pfp.alt = "";
     pfp.loading = "lazy";
     pfp.addEventListener("error", () => pfp.remove());

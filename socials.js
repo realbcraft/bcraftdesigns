@@ -9,17 +9,17 @@
   /* ---------- SETTINGS ---------- */
   var PAGE_URL = "https://bcraftdesigns.com/socials";       // used by Copy link, Share and the QR code
   // Images in images/ are found without an extension (.png, .webp, .jpg, .jpeg are tried in that order)
-  var IMG_PFP = "images/socials-pfp";
-  var IMG_BANNER = "images/socials-banner";
-  var IMG_ROBLOX_AVATAR = "images/socials-roblox-avatar";   // optional; falls back to the profile picture
-  var IMG_YT_BANNER = "images/socials-yt-banner";            // YouTube card banner only (2560 x 423). Falls back to the page banner until this file exists
-  var IMG_RBX_ART = "images/social-gfx-01";                 // picture on the Roblox card (same file as the homepage Roblox card)
-  var IMG_COMM_DESIGNS_BANNER = "images/socials-comm-designs-banner";   // Bcraft Designs community card: banner (3:1) and icon (square). Cards show a placeholder until the files exist
-  var IMG_COMM_DESIGNS_ICON = "images/socials-comm-designs-icon";
-  var IMG_COMM_COMMUNITY_BANNER = "images/socials-comm-community-banner"; // Bcraft's Community card
-  var IMG_COMM_COMMUNITY_ICON = "images/socials-comm-community-icon";
-  var IMG_REVIEW_AVATAR = "images/avatars/HobPlayzRoblox";            // picture of the client in the review under the Bcraft Designs card (same file the reviews page uses)
-  var X_AVATAR = "images/homepage-twitter-pfp-01.png";       // same X picture the main site uses
+  var IMG_PFP = "/images/socials-pfp";
+  var IMG_BANNER = "/images/socials-banner";
+  var IMG_ROBLOX_AVATAR = "/images/socials-roblox-avatar";   // optional; falls back to the profile picture
+  var IMG_YT_BANNER = "/images/socials-yt-banner";            // YouTube card banner only (2560 x 423). Falls back to the page banner until this file exists
+  var IMG_RBX_ART = "/images/social-gfx-01";                 // picture on the Roblox card (same file as the homepage Roblox card)
+  var IMG_COMM_DESIGNS_BANNER = "/images/socials-comm-designs-banner";   // Bcraft Designs community card: banner (3:1) and icon (square). Cards show a placeholder until the files exist
+  var IMG_COMM_DESIGNS_ICON = "/images/socials-comm-designs-icon";
+  var IMG_COMM_COMMUNITY_BANNER = "/images/socials-comm-community-banner"; // Bcraft's Community card
+  var IMG_COMM_COMMUNITY_ICON = "/images/socials-comm-community-icon";
+  var IMG_REVIEW_AVATAR = "/images/avatars/HobPlayzRoblox";            // picture of the client in the review under the Bcraft Designs card (same file the reviews page uses)
+  var X_AVATAR = "/images/homepage-twitter-pfp-01.png";       // same X picture the main site uses
   var QR_SCRIPT = "https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js";
   var X_HANDLE_FALLBACK = "realbcraft";
   var COMMISSIONS = { open: true, slots: 2, total: 5, from: "$5", next: "June 15" };   // the green/red pill. open: true/false. slots: free spots (0 hides the dots). total: how many spots you offer (the dots). from: e.g. "\u20ac15" shows "from \u20ac15". next: e.g. "May 12" shows when closed
@@ -415,7 +415,7 @@
   var left = ITEMS.length;
   if (!left) decoReady();
   ITEMS.forEach(function (it) {
-    probe(["images/socials-deco-" + it.id], function (src) {
+    probe(["/images/socials-deco-" + it.id], function (src) {
       if (src) avail[it.id] = src;
       if (--left === 0) decoReady();
     }, ["gif", "png", "webp"]);

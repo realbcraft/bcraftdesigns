@@ -22,7 +22,7 @@
   /* ---------- SETTINGS ---------- */
   var AFK_MS = 5000;                                       // no activity for this long = the bubble hides
   var ROTATE_SCREENS = 1.4;                                // in a long section with several lines (gallery, reviews): next line every this many screens of scrolling
-  var IMG_PFP = "images/socials-pfp";                      // .png, .webp, .jpg, .jpeg are tried in that order
+  var IMG_PFP = "/images/socials-pfp";                      // .png, .webp, .jpg, .jpeg are tried in that order
   var DECO_KEY = "sx-deco";                                // same avatar decoration the socials page remembers
   var MUTE_KEY = "sx-pal-mute";                            // "Mute comments" is remembered on this device
   var SEASON_DECO = { 9: "halloween-ghosts", 11: "christmas-aurora" };   // first-visit decoration when nothing is saved (month 0-11)
@@ -32,9 +32,9 @@
   //   { label, href, external: true }   opens in a new tab
   //   { label, act: "quip" | "mute" }   built-in actions
   var MENU = [
-    { label: "Commission me", href: "pricing.html" },
-    { label: "See my work", href: "work.html" },
-    { label: "Contact me", href: "contact.html" },
+    { label: "Commission me", href: "/pricing/" },
+    { label: "See my work", href: "/work/" },
+    { label: "Contact me", href: "/contact/" },
     { label: "Say something", act: "quip" },
     { label: "Mute comments", act: "mute" }
   ];
@@ -130,7 +130,7 @@
   };
 
   /* ---------- Which page is this? (works with and without .html) ---------- */
-  var page = (location.pathname.split("/").pop() || "index").replace(/\.html?$/i, "") || "index";
+  var page = (location.pathname.replace(/\/+$/, "").split("/").pop() || "index").replace(/\.html?$/i, "") || "index";
   var lines = LINES[page] || [];
   var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -214,7 +214,7 @@
   MENU.forEach(function (it) {
     var el;
     if (it.href) {
-      if (!it.external && it.href.replace(/\.html?$/i, "") === page) return;      // no link to the page you are on
+      if (!it.external && it.href.replace(/\/+$/, "").replace(/\.html?$/i, "").split("/").pop() === page) return;      // no link to the page you are on
       el = make("a", "", it.label);
       el.href = it.href;
       if (it.external) { el.target = "_blank"; el.rel = "noopener noreferrer"; }
@@ -258,7 +258,7 @@
   var decoId = saved === "none" ? null : (saved || SEASON_DECO[new Date().getMonth()] || null);
   var decoSet = false;                                     // true once the socials picker has told us what is active
   if (decoId && /^[a-z0-9-]+$/i.test(decoId)) {
-    probe(["images/socials-deco-" + decoId], ["gif", "png", "webp"], function (src) {
+    probe(["/images/socials-deco-" + decoId], ["gif", "png", "webp"], function (src) {
       if (src && !decoSet) { deco.src = src; deco.hidden = false; }
     });
   }

@@ -35,7 +35,7 @@
      featured  optional. true = shown large at the top of "All".
                If no post is marked, the newest one is featured.
      badge     optional label on the post, e.g. "Draft".
-     cta       optional button: { text: "Button text", href: "page.html" }
+     cta       optional button: { text: "Button text", href: "/page/" }
 
    IMAGE FILE NAMES: save each thumbnail in the images/ folder with
    exactly the name written in its "image" line below:
@@ -70,7 +70,7 @@ const NEWS_POSTS = [
     image: "images/halloween-popup-01.png",
     imageAlt: "Halloween sale: 20% off everything",
     summary: "Everything is 20% off during our Halloween sale, which runs until October 31st.",
-    cta: { text: "Commission Me", href: "pricing.html" }
+    cta: { text: "Commission Me", href: "/pricing/" }
     }
   
 ];
@@ -145,3 +145,11 @@ function parseNewsDate(value) {
     time: Date.UTC(Number(m[1]), month - 1, day || 1)
   };
 }
+
+/* Image paths: "images/x.png" and "/images/x.png" both work. Pages now live in
+   folders (/news/, /socials/ ...), so a relative path is turned into a root path here. */
+(function () {
+  const root = (p) => (p && !/^(\/|[a-z][a-z0-9+.-]*:)/i.test(p) ? "/" + p : p);
+  NEWS_POSTS.forEach((p) => { p.image = root(p.image); });
+  X_POSTS.forEach((p) => { p.image = root(p.image); });
+})();
