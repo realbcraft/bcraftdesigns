@@ -67,6 +67,14 @@
       .news-card, .news-card:hover, .news-card-body, .news-strip-all svg { transition: none; transform: none; }
     }
 
+    /* Most recent X posts: phones show only the newest post, and the heading says "post" (not "posts") */
+    .x-title-single { display: none; }
+    @media (max-width: 640px) {
+      .x-title-multi { display: none; }
+      .x-title-single { display: inline; }
+      #x-posts .x-posts-list > .x-post:nth-child(n+2) { display: none; }
+    }
+
   </style>
 
 </head>
@@ -457,7 +465,7 @@
       <div class="container">
         <div class="x-posts-head" data-reveal>
           <div>
-            <h2 id="x-posts-title" class="section-title">Most recent X posts</h2>
+            <h2 id="x-posts-title" class="section-title"><span class="x-title-multi">Most recent X posts</span><span class="x-title-single">Most recent X post</span></h2>
             <p class="x-posts-lead">The latest from @realbcraft.</p>
           </div>
           <a class="x-posts-all" href="https://x.com/realbcraft" target="_blank" rel="noopener noreferrer">Follow @realbcraft on X <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
@@ -1024,6 +1032,11 @@
       // Thumbnail: the post image, or the Bcraft logo tile when there is none (or the file is missing)
       function thumb(post) {
         var box = el("div", "news-card-thumb");
+        // Shape comes from the post's imageSize ("1430x731"); default 1280x720, same as the news page
+        var size = /^\s*(\d{2,5})\s*[x\u00d7]\s*(\d{2,5})\s*$/i.exec(post.imageSize || "");
+        var imgW = size ? Number(size[1]) : 1280;
+        var imgH = size ? Number(size[2]) : 720;
+        box.style.aspectRatio = imgW + " / " + imgH;
         function template() {
           box.classList.add("is-template");
           var logo = document.createElement("img");
@@ -1037,8 +1050,8 @@
           var img = document.createElement("img");
           img.className = "news-card-img";
           img.alt = post.imageAlt || "";
-          img.width = 1430;
-          img.height = 731;
+          img.width = imgW;
+          img.height = imgH;
           img.loading = "lazy";
           img.decoding = "async";
           img.addEventListener("error", function () { img.remove(); template(); });

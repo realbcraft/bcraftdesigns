@@ -22,13 +22,13 @@
   var X_AVATAR = "/images/homepage-twitter-pfp-01.png";       // same X picture the main site uses
   var QR_SCRIPT = "https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js";
   var X_HANDLE_FALLBACK = "realbcraft";
-  var COMMISSIONS = { open: true, slots: 2, total: 5, from: "$5", next: "June 15" };   // the green/red pill. open: true/false. slots: free spots (0 hides the dots). total: how many spots you offer (the dots). from: e.g. "\u20ac15" shows "from \u20ac15". next: e.g. "May 12" shows when closed
+  var COMMISSIONS = { open: true, slots: 3, total: 3, from: "$7", next: "" };   // the green/red pill. open: true/false. slots: free spots (0 hides the dots). total: how many spots you offer (the dots). from: e.g. "\u20ac15" shows "from \u20ac15". next: e.g. "May 12" shows when closed
   var YT_CHANNEL_ID = "UCPNySTRqrKEo8vA8EzB_sTA";                                   // your channel (@realbcraft). The "Watch latest video" card finds your newest upload by itself (through the free rss2json service) and remembers it for 30 minutes
   var YT_API_KEY = "";                                      // optional but the most reliable: a free YouTube Data API v3 key (restrict it to your domain in Google Cloud). Empty = use the free feed services
   var YT_LATEST_ID = "";                                    // or pin a video yourself: the part after watch?v= in its link (11 characters). When set, nothing is looked up
   var YT_LATEST_TITLE = "";                                 // optional title shown on the card for YT_LATEST_ID
   var TIMEZONE = "Europe/Berlin";                           // your timezone (IANA name, e.g. "America/New_York") for the "My time" chip under your handle. "" hides it
-  var ROLES = ["GFX wizard", "UI/UX designer", "thumbnail nerd", "icon crafter"];   // the words that rotate after "Your friendly ..."
+  var ROLES = ["GFX wizard", "UI/UX designer", "thumbnail nerd", "YouTuber", "Roblox dev"];   // the words that rotate after "Your friendly ..."
   var ROLE_MS = 2800;                                       // how long each word stays (milliseconds)
   var HERO_ROLE = "handle";                                 // where the rotating role sits: "handle" (same line as @realbcraft) or "under" (own line below it)
   var HERO_CLOCK = "bio";                                   // where "My time" sits: "bio" (footer of the bio bubble), "status" (under the social icons, next to the commissions pill) or "under" (below the handle)

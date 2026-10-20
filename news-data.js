@@ -109,26 +109,30 @@ const X_HANDLE = "realbcraft";
 const X_NAME = "Bcraft | bcraftdesigns.com";
 const X_POSTS = [
   {
-    url: "https://x.com/realbcraft/status/2111673604496670964",
-    date: "2026-10-18",
+    url: "https://x.com/realbcraft/status/2112657102183506230",
+    date: "2026-10-20",
     image: "images/x-post-thumbnail-01.webp",
+    text: [
+      "🌐 Bcraft Designs is officially LIVE! 🎉",
+      "After countless hours of looking at Html's, my new website is finally here! 🚀",
+      "🤩Now everything in one place!",
+      "🌐 https://bcraftdesigns.com",
+      "Go check it out & let me know what you think! 🔥",
+      "👀Expect Updates soon!"
+    ],
+    tags: ["BcraftDesigns", "robloxGFX"]
+  },
+  {
+     url: "https://x.com/realbcraft/status/2111673604496670964",
+    date: "2026-10-18",
+    image: "images/x-post-thumbnail-02.webp",
     text: [
       "👀New Profile Picture!",
       "🌐https://bcraftdesigns.com",
       "💙Like & 🔄Repost if you like this one"
     ],
     tags: ["robloxart", "robloxGFX", "pfp"]
-  },
-  {
-    url: "https://x.com/realbcraft/status/2109093911549681764",
-    date: "2026-10-11",
-    image: "images/x-post-thumbnail-02.png",
-        text: [
-      "The new BcraftDesigns Website is set to launch on October 20th.",
-      "🎃 Until then, enjoy the Halloween Promotion!",
-    ],
-    tags: ["roblox", "robloxart", "website", "RobloxGFX"]
-  }
+    }
 ];
 
 /* Reads "2026-10" or "2026-10-20". Used by both pages; no need to edit. */
