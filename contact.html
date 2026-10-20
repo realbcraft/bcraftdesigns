@@ -1,0 +1,2513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#060a14">
+  <title>Contact | Bcraft Designs</title>
+  <meta name="description" content="Get in touch with Bcraft Designs: start a commission, ask a quick question, or tell me about your Roblox graphics project.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Figtree:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ==========================================================
+       CONTACT PAGE
+       Page-specific styles. They only use the tokens from style.css
+       (colours, spacing, fonts) and reuse .button, .brick, .hero-line,
+       .cta-panel etc., so the page follows the rest of the site.
+       ========================================================== */
+
+    /* ----- 1. Hero ----- */
+    .contact-hero {
+      position: relative;
+      padding: var(--space-5) 0 var(--space-3);
+    }
+
+    .contact-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 45% 80% at 80% 45%, rgba(60, 130, 255, 0.12), transparent 70%),
+        radial-gradient(ellipse 40% 60% at 10% 30%, rgba(40, 90, 210, 0.07), transparent 70%);
+      pointer-events: none;
+    }
+
+    .contact-hero-inner {
+      position: relative;
+      display: grid;
+      gap: var(--space-4);
+      align-items: center;
+      animation: fade-in 0.7s ease both;
+    }
+
+    .contact-title {
+      font-size: clamp(2.7rem, 9vw, 4.9rem);
+      font-weight: 800;
+      line-height: 0.95;
+      letter-spacing: -0.045em;
+    }
+
+    .contact-text {
+      max-width: 30rem;
+      margin-top: var(--space-3);
+      color: var(--color-text-muted);
+      font-size: 1.08rem;
+      line-height: 1.65;
+    }
+
+    .contact-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      margin-top: var(--space-4);
+    }
+
+    .contact-actions .button svg,
+    .contact-card .button svg,
+    .form-output-actions .button svg {
+      flex: none;
+      width: 1.05rem;
+      height: 1.05rem;
+    }
+
+    .contact-actions .button,
+    .contact-card .button,
+    .form-output-actions .button {
+      gap: 0.55rem;
+    }
+
+    /* Decorative chat scene: the real logo in a speech bubble, a typing
+       reply, and a few tiny bricks like the orange full stop. */
+    .contact-visual {
+      display: none;
+      position: relative;
+      width: min(100%, 21rem);
+      aspect-ratio: 1 / 0.82;
+      margin: 0 auto;
+    }
+
+    .bubble-main {
+      position: absolute;
+      top: 2%;
+      left: 0;
+      display: grid;
+      place-items: center;
+      width: 78%;
+      padding: 1.5rem 1.2rem;
+      border: 1px solid rgba(var(--rgb-blue), 0.32);
+      border-radius: 22px 22px 22px 6px;
+      background: linear-gradient(150deg, var(--color-surface-raised), var(--color-surface));
+      box-shadow: 0 24px 50px -28px rgba(0, 0, 0, 0.9), 0 0 44px -12px rgba(var(--rgb-blue), 0.3);
+      transform: rotate(-3deg);
+    }
+
+    .bubble-main img {
+      display: block;
+      width: auto;
+      height: 4.6rem;
+    }
+
+    .bubble-reply {
+      position: absolute;
+      right: 2%;
+      bottom: 8%;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.95rem 1.15rem;
+      border: 1px solid rgba(var(--rgb-blue), 0.4);
+      border-radius: 18px 18px 6px 18px;
+      background: rgba(var(--rgb-blue), 0.16);
+      box-shadow: 0 16px 34px -22px rgba(0, 0, 0, 0.9);
+      transform: rotate(2deg);
+    }
+
+    .bubble-reply span {
+      width: 0.55rem;
+      height: 0.55rem;
+      border-radius: 50%;
+      background: var(--color-accent-bright);
+      animation: contact-dot 1.4s ease-in-out infinite;
+    }
+
+    .bubble-reply span:nth-child(2) { animation-delay: 0.18s; }
+
+    .bubble-reply span:nth-child(3) {
+      background: var(--color-orange);
+      animation-delay: 0.36s;
+    }
+
+    @keyframes contact-dot {
+      0%, 60%, 100% { opacity: 0.35; transform: translateY(0); }
+      30% { opacity: 1; transform: translateY(-3px); }
+    }
+
+    /* Selected product: a check mark (same as the open status on Pricing) instead of the orange block */
+    #selected-product {
+      gap: 0.6rem;
+      padding: 0.3rem 1.1rem 0.32rem 0.4rem;
+      font-size: 1rem;
+    }
+
+    #selected-product::before {
+      width: 1.6rem;
+      height: 1.6rem;
+      border-radius: 50%;
+      clip-path: none;
+      background: var(--color-accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4.2 8.6 7 11.3 11.9 5.2' fill='none' stroke='%2304101f' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 80% no-repeat;
+      box-shadow: 0 0 10px var(--color-accent-glow);
+    }
+
+    /* ----- 2. Two contact options ----- */
+    .contact-section {
+      position: relative;
+      padding: var(--space-3) 0 var(--space-4);
+    }
+
+    .contact-options {
+      display: grid;
+      gap: var(--space-3);
+    }
+
+    .contact-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.7rem;
+      padding: var(--space-3);
+      border-radius: var(--radius-mega);
+      transition: transform 0.25s var(--spring), border-color var(--transition),
+                  background-color var(--transition), box-shadow var(--transition);
+    }
+
+    .contact-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .contact-card-icon {
+      display: grid;
+      place-items: center;
+      width: 2.7rem;
+      height: 2.7rem;
+      border-radius: 12px;
+    }
+
+    .contact-card-icon svg {
+      width: 1.35rem;
+      height: 1.35rem;
+    }
+
+    .contact-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    .contact-tag::before {
+      content: "";
+      width: 0.45rem;
+      height: 0.45rem;
+      border-radius: 0.08rem;
+      background: var(--color-orange);
+      transform: rotate(12deg);
+    }
+
+    .contact-card h2 {
+      font-size: clamp(1.7rem, 3.4vw, 2.2rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.035em;
+    }
+
+    .contact-card p {
+      max-width: 28rem;
+      color: var(--color-text-muted);
+    }
+
+    .contact-card .button {
+      margin-top: 0.6rem;
+    }
+
+    .contact-card-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 0.6rem;
+    }
+
+    .contact-card-actions .button {
+      margin-top: 0;
+    }
+
+    /* Commission: solid, blue, confident */
+    .contact-card-commission {
+      border: 1px solid rgba(var(--rgb-blue), 0.38);
+      background: linear-gradient(150deg, rgba(28, 100, 220, 0.24), rgba(11, 18, 38, 0.86) 62%);
+      box-shadow: 0 18px 40px -26px rgba(37, 118, 242, 0.6);
+    }
+
+    .contact-card-commission:hover {
+      border-color: rgba(var(--rgb-blue), 0.62);
+      box-shadow: 0 22px 44px -24px rgba(37, 118, 242, 0.75);
+    }
+
+    .contact-card-commission .contact-card-icon {
+      background: rgba(var(--rgb-blue), 0.18);
+      color: var(--color-accent-bright);
+    }
+
+    .contact-card-commission .contact-tag { color: var(--color-accent-bright); }
+
+    /* Quick question: light, dashed, relaxed */
+    .contact-card-question {
+      border: 2px dashed rgba(var(--rgb-silver), 0.26);
+      background: rgba(var(--rgb-silver), 0.035);
+    }
+
+    .contact-card-question:hover {
+      border-color: rgba(var(--rgb-silver), 0.5);
+      background: rgba(var(--rgb-silver), 0.065);
+    }
+
+    .contact-card-question .contact-card-icon {
+      background: rgba(var(--rgb-silver), 0.1);
+      color: var(--color-silver);
+    }
+
+    .contact-card-question .contact-tag { color: var(--color-silver); }
+
+    /* ----- 3. Form ----- */
+    .contact-form-grid {
+      display: grid;
+      gap: var(--space-4);
+      align-items: start;
+    }
+
+    .contact-optional {
+      display: inline-block;
+      padding: 0.15rem 0.65rem;
+      border: 1px dashed rgba(var(--rgb-orange), 0.55);
+      border-radius: 999px;
+      color: var(--color-orange-bright);
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    .contact-form {
+      display: grid;
+      gap: 1rem;
+      padding: var(--space-3);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-mega);
+      background: rgba(11, 18, 38, 0.72);
+    }
+
+    .form-row {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .field {
+      display: grid;
+      gap: 0.4rem;
+      min-width: 0;
+      margin: 0;
+      padding: 0;
+      border: 0;
+    }
+
+    .field-label {
+      padding: 0;
+      color: var(--color-silver);
+      font-size: 0.86rem;
+      font-weight: 600;
+    }
+
+    .field input[type="text"],
+    .field input[type="email"],
+    .field select,
+    .field textarea {
+      width: 100%;
+      padding: 0.7rem 0.9rem;
+      border: 1px solid rgba(var(--rgb-silver), 0.22);
+      border-radius: 10px;
+      background-color: rgba(6, 10, 20, 0.7);
+      color: var(--color-text);
+      font: inherit;
+      font-size: 0.97rem;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+
+    .field textarea {
+      min-height: 8.5rem;
+      resize: vertical;
+    }
+
+    .field select {
+      padding-right: 2.4rem;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 10 10'%3E%3Cpath d='M1.5 3.5 5 7l3.5-3.5' fill='none' stroke='%2386c5ff' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.9rem center;
+    }
+
+    .field select option { background: #0b1226; color: #f1f5fc; }
+
+    .field input::placeholder,
+    .field textarea::placeholder {
+      color: rgba(154, 168, 192, 0.65);
+    }
+
+    .field input:hover,
+    .field select:hover,
+    .field textarea:hover {
+      border-color: rgba(var(--rgb-silver), 0.4);
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      outline: none;
+      border-color: var(--color-accent);
+      box-shadow: 0 0 0 3px rgba(var(--rgb-blue), 0.22);
+    }
+
+    /* Discord / Email picker */
+    .method-options {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .method-option {
+      position: relative;
+      flex: 1;
+    }
+
+    .method-option input {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .method-option span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      padding: 0.7rem 0.6rem;
+      border: 1px solid rgba(var(--rgb-silver), 0.22);
+      border-radius: 10px;
+      background: rgba(6, 10, 20, 0.7);
+      color: var(--color-text-muted);
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: color var(--transition), border-color var(--transition), background-color var(--transition);
+    }
+
+    .method-option svg { width: 1rem; height: 1rem; }
+
+    .method-option:hover span { border-color: rgba(var(--rgb-silver), 0.42); }
+
+    .method-option input:checked + span {
+      border-color: var(--color-accent);
+      background: rgba(var(--rgb-blue), 0.14);
+      color: var(--color-accent-bright);
+    }
+
+    .method-option input:focus-visible + span {
+      outline: 2px solid var(--color-accent-bright);
+      outline-offset: 2px;
+    }
+
+    .form-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .form-status {
+      min-height: 1.3em;
+      color: var(--color-accent-bright);
+      font-size: 0.9rem;
+    }
+
+    .form-output {
+      display: grid;
+      gap: 0.7rem;
+    }
+
+    .form-output textarea {
+      min-height: 9.5rem;
+      font-size: 0.9rem;
+    }
+
+    .form-output-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+    }
+
+    /* ----- 4. Bottom: portfolio invite + socials ----- */
+    .contact-bottom {
+      padding: var(--space-3) 0 var(--space-4);
+    }
+
+    .contact-socials {
+      margin-top: var(--space-4);
+    }
+
+    .contact-eyebrow {
+      color: var(--color-text-muted);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    .contact-social-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 0.8rem;
+    }
+
+    .contact-social {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.5rem 0.95rem 0.5rem 0.8rem;
+      border: 1px solid rgba(var(--rgb-silver), 0.2);
+      border-radius: 999px;
+      background: rgba(var(--rgb-silver), 0.04);
+      color: var(--color-text-muted);
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: color var(--transition), border-color var(--transition),
+                  background-color var(--transition), transform 0.25s var(--spring);
+    }
+
+    .contact-social svg {
+      width: 1.05rem;
+      height: 1.05rem;
+    }
+
+    .contact-social:hover,
+    .contact-social:focus-visible {
+      border-color: rgba(var(--rgb-blue), 0.55);
+      background: rgba(var(--rgb-blue), 0.1);
+      color: var(--color-accent-bright);
+      transform: translateY(-2px);
+    }
+
+    /* ----- Larger screens ----- */
+    @media (min-width: 640px) {
+      .form-row { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (min-width: 760px) {
+      .contact-options { grid-template-columns: 1fr 1fr; }
+      .contact-card { padding: var(--space-4) var(--space-3); }
+    }
+
+    @media (min-width: 860px) {
+      .contact-hero-inner { grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.6fr); }
+      .contact-visual { display: block; }
+    }
+
+    @media (min-width: 960px) {
+      .contact-form-grid { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: var(--space-5); }
+      .contact-form { padding: var(--space-4); }
+    }
+
+
+    /* ----- Email icon: three mail providers, each tilted a little differently ----- */
+    .mail-trio {
+      flex: none;
+      overflow: visible;
+      filter: drop-shadow(0 1px 1.5px rgba(0, 0, 0, 0.45));
+    }
+
+    .contact-actions .button svg.mail-trio {
+      width: 2.4rem;
+      height: 1.65rem;
+      margin-block: -0.3rem;
+    }
+
+    .contact-social svg.mail-trio {
+      width: 2rem;
+      height: 1.37rem;
+    }
+
+    /* ----- Hero: each contact button has a short line saying when to use it ----- */
+    .contact-channels {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      gap: 1.1rem 1.1rem;
+    }
+
+    /* The button is only as wide as its text; the hint wraps to the button's width (at least 10.5rem) */
+    .contact-channel {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.55rem;
+      width: fit-content;
+      min-width: 10.5rem;
+    }
+
+    /* Wraps a button and its copy chip, so the chip can be centred on the button itself */
+    .contact-channel-btn {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    /* Each hero button keeps its own steady layer (stops buttons blinking out while scrolling) */
+    .contact-channels .button { will-change: transform; }
+
+    .contact-channel-hint {
+      width: 0;
+      min-width: 100%;
+      padding: 0 0.2rem;
+      color: var(--color-text-muted);
+      font-size: 0.85rem;
+      line-height: 1.45;
+    }
+
+    /* ----- Copy chips (copy username / address / handle) ----- */
+    .copy-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin: 0 0 0.35rem 0.15rem;
+      padding: 0.2rem 0.6rem 0.2rem 0.45rem;
+      border: 1px solid rgba(var(--rgb-silver), 0.22);
+      border-radius: 999px;
+      background: rgba(var(--rgb-silver), 0.05);
+      color: var(--color-text-muted);
+      font: inherit;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: color var(--transition), border-color var(--transition), background-color var(--transition);
+    }
+
+    .copy-chip[hidden] { display: none; }
+
+    /* Hover devices: the chip floats above the button and only shows on hover / keyboard focus.
+       Touch devices have no hover, so the chip stays visible there. */
+    @media (hover: hover) {
+      .contact-channel-btn .copy-chip {
+        position: absolute;
+        bottom: calc(100% + 0.55rem);
+        left: 50%;
+        margin: 0;
+        white-space: nowrap;
+        opacity: 0;
+        visibility: hidden;
+        transform: translate(-50%, 4px);
+        transition: opacity 0.18s ease, transform 0.18s ease, visibility 0s linear 0.18s,
+                    color var(--transition), border-color var(--transition), background-color var(--transition);
+      }
+
+      /* invisible bridge so the chip doesn't vanish while the mouse crosses the gap to it */
+      .contact-channel-btn .copy-chip::after {
+        content: "";
+        position: absolute;
+        left: -0.3rem;
+        right: -0.3rem;
+        top: 100%;
+        height: 0.8rem;
+      }
+
+      .contact-channels { row-gap: 2.6rem; }
+
+      /* :focus-visible (not :focus-within), so a clicked chip or a button that got focus
+         after the Terms popup doesn't keep it pinned open */
+      .contact-channel-btn:hover .copy-chip,
+      .contact-channel-btn .copy-chip:focus-visible,
+      .contact-channel-btn .copy-chip.is-copied {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%);
+        transition-delay: 0s;
+      }
+    }
+    .copy-chip svg { flex: none; width: 0.85rem; height: 0.85rem; }
+
+    .copy-chip:hover,
+    .copy-chip:focus-visible {
+      border-color: rgba(var(--rgb-blue), 0.55);
+      background: rgba(var(--rgb-blue), 0.1);
+      color: var(--color-accent-bright);
+    }
+
+    .copy-chip:focus-visible {
+      outline: 2px solid var(--color-accent-bright);
+      outline-offset: 2px;
+    }
+
+    .copy-chip.is-copied {
+      border-color: rgba(var(--rgb-blue), 0.7);
+      background: rgba(var(--rgb-blue), 0.16);
+      color: var(--color-accent-bright);
+    }
+
+    /* ----- Working together ----- */
+    .contact-collab { padding: var(--space-3) 0 var(--space-4); }
+
+    /* The open collaboration, drawn like a YouTube video card.
+       Two colours (--p1 / --p2) like the premium perk cards on the homepage: YouTube red + blue. */
+    .collab-yt {
+      --p1: 255, 62, 62;
+      --p2: var(--rgb-blue);
+      position: relative;
+      display: grid;
+      gap: 0.75rem;
+      align-items: center;
+      overflow: hidden;
+      margin-top: var(--space-3);
+      padding: 1.1rem 1.25rem;
+      border: 1px solid transparent;
+      border-radius: 22px;
+      background:
+        radial-gradient(circle at 100% 0, rgba(var(--p1), 0.18), transparent 58%),
+        radial-gradient(circle at 0 100%, rgba(var(--p2), 0.16), transparent 55%),
+        linear-gradient(180deg, var(--color-surface-raised), var(--color-surface)) padding-box,
+        linear-gradient(135deg, rgba(var(--p1), 0.85), rgba(var(--p2), 0.55) 55%, rgba(var(--p1), 0.18)) border-box;
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        0 24px 50px -30px rgba(0, 0, 0, 0.9),
+        0 0 60px -34px rgba(var(--p1), 0.8),
+        0 0 60px -40px rgba(var(--p2), 0.7);
+    }
+
+    /* Right side of the card: the full render, floating gently, with slowly turning rays behind it */
+    .yt-visual {
+      position: relative;
+      align-self: stretch;
+      min-height: 13rem;
+    }
+
+    .yt-rays {
+      position: absolute;
+      inset: -1.5rem -1.5rem -1.5rem -1rem;
+      overflow: hidden;
+      -webkit-mask-image: radial-gradient(circle at 50% 55%, #000 10%, transparent 68%);
+              mask-image: radial-gradient(circle at 50% 55%, #000 10%, transparent 68%);
+    }
+
+    .yt-rays::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 55%;
+      width: 220%;
+      aspect-ratio: 1;
+      background: repeating-conic-gradient(from 0deg, rgba(255, 255, 255, 0.08) 0 6deg, transparent 6deg 16deg);
+      transform: translate(-50%, -50%);
+      animation: yt-spin 60s linear infinite;
+    }
+
+    /* Soft red glow behind the character that slowly breathes */
+    .yt-visual::before {
+      content: "";
+      position: absolute;
+      inset: 8% 4%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 60, 60, 0.38), transparent 68%);
+      animation: yt-glow 5s ease-in-out infinite;
+    }
+
+    .yt-render {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      transform: rotate(-3deg);
+      transform-origin: 50% 85%;
+      filter: drop-shadow(0 12px 16px rgba(0, 0, 0, 0.55)) drop-shadow(0 0 18px rgba(255, 70, 70, 0.3));
+      animation: yt-float 5s ease-in-out infinite;
+    }
+
+    .yt-spark {
+      position: absolute;
+      width: 1.1rem;
+      height: 1.1rem;
+      background: #fff;
+      -webkit-clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
+              clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
+      opacity: 0.9;
+      animation: yt-twinkle 3.2s ease-in-out infinite;
+    }
+
+    .yt-spark--a { top: 4%; left: 12%; }
+    .yt-spark--b { top: 52%; right: 0; width: 0.8rem; height: 0.8rem; background: var(--color-orange-bright); animation-delay: 1.1s; }
+    .yt-spark--c { top: 20%; right: 4%; width: 0.6rem; height: 0.6rem; animation-delay: 2.1s; }
+
+    @keyframes yt-spin { to { transform: translate(-50%, -50%) rotate(360deg); } }
+
+    @keyframes yt-float {
+      0%, 100% { transform: translateY(0) rotate(-3deg); }
+      50% { transform: translateY(-0.55rem) rotate(-0.5deg); }
+    }
+
+    @keyframes yt-glow {
+      0%, 100% { opacity: 0.6; transform: scale(0.94); }
+      50% { opacity: 1; transform: scale(1.06); }
+    }
+
+    @keyframes yt-twinkle {
+      0%, 100% { opacity: 0.25; transform: scale(0.65) rotate(0deg); }
+      50% { opacity: 1; transform: scale(1.1) rotate(35deg); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .yt-rays::before,
+      .yt-visual::before,
+      .yt-render,
+      .yt-spark { animation: none; }
+    }
+
+    /* The video details */
+    .yt-info { min-width: 0; padding: 0.2rem 0; }
+
+    .yt-brand {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .yt-logo { flex: none; width: 1.7rem; height: 1.2rem; }
+
+    .yt-brand-name {
+      color: var(--color-text);
+      font-family: var(--font-display);
+      font-size: 0.98rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+    }
+
+    .collab-tag {
+      display: inline-block;
+      margin-left: 0.2rem;
+      padding: 0.22rem 0.65rem;
+      border: 1px solid rgba(var(--rgb-orange), 0.5);
+      border-radius: 999px;
+      background: rgba(var(--rgb-orange), 0.12);
+      color: var(--color-orange-bright);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .collab-title {
+      margin: 0.8rem 0 0;
+      color: var(--color-text);
+      font-family: var(--font-display);
+      font-size: clamp(1.35rem, 2.6vw, 1.85rem);
+      font-weight: 800;
+      line-height: 1.12;
+      letter-spacing: -0.03em;
+      text-wrap: balance;
+    }
+
+    .yt-meta {
+      margin: 0.4rem 0 0;
+      color: var(--color-text-muted);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .yt-channel {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-top: 0.9rem;
+    }
+
+    .yt-avatar {
+      position: relative;
+      flex: none;
+      display: grid;
+      place-items: center;
+      width: 2.2rem;
+      height: 2.2rem;
+      overflow: hidden;
+      border: 1px solid rgba(var(--rgb-blue), 0.5);
+      border-radius: 50%;
+      background-color: var(--color-surface);
+      color: var(--color-accent-bright);
+      font-family: var(--font-display);
+      font-weight: 700;
+    }
+
+    .yt-avatar img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .yt-channel-name {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      color: var(--color-text);
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .yt-check { flex: none; width: 0.95rem; height: 0.95rem; color: var(--color-text-muted); }
+
+    .collab-text {
+      max-width: 34rem;
+      margin: 0.85rem 0 0;
+      color: var(--color-silver);
+      font-size: 1rem;
+      line-height: 1.55;
+    }
+
+    .collab-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.6rem 0.75rem;
+      margin-top: 0.9rem;
+    }
+
+    .collab-actions .button { gap: 0.55rem; }
+    .collab-actions .button svg { flex: none; width: 1.05rem; height: 1.05rem; }
+
+    .collab-note {
+      color: var(--color-text-muted);
+      font-size: 0.88rem;
+    }
+
+    /* Bulk + business: same recipe as the premium perk cards (two colours, gradient edge, corner glows, small mock-up) */
+    .collab-grid {
+      display: grid;
+      gap: var(--space-2);
+      margin-top: var(--space-2);
+      align-items: stretch;
+    }
+
+    .collab-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      min-width: 0;
+      padding: 1.25rem 1.4rem 1.3rem;
+      border: 1px solid transparent;
+      border-radius: 14px;
+      background:
+        radial-gradient(circle at 100% 0, rgba(var(--p1), 0.2), transparent 58%),
+        radial-gradient(circle at 0 100%, rgba(var(--p2), 0.16), transparent 55%),
+        linear-gradient(180deg, var(--color-surface-raised), var(--color-surface)) padding-box,
+        linear-gradient(135deg, rgba(var(--p1), 0.85), rgba(var(--p2), 0.55) 55%, rgba(var(--p1), 0.18)) border-box;
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        0 24px 50px -30px rgba(0, 0, 0, 0.9),
+        0 0 60px -34px rgba(var(--p1), 0.8),
+        0 0 60px -40px rgba(var(--p2), 0.7);
+    }
+
+    .collab-card--bulk { --p1: var(--rgb-blue); --p2: 150, 130, 255; }
+    /* Business & teams: blue glass-tower look to match its render (the sky, the towers, the blue hoodie).
+       The picture lives in images/contact-business.webp (.png / .jpg also work). Until it exists, a CSS
+       sky + window grid is shown instead, so the card never looks empty. */
+    .collab-card--biz { --p1: 90, 175, 255; --p2: 47, 111, 224; overflow: hidden; }
+
+    /* Small screens / narrow cards: the picture is a banner across the top with a slanted bottom edge */
+    .biz-visual {
+      position: relative;
+      height: 9rem;
+      margin: -1.25rem -1.4rem 0.9rem;
+      filter: drop-shadow(0 6px 14px rgba(var(--p1), 0.35));
+    }
+
+    .biz-visual-clip {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      clip-path: polygon(0 0, 100% 0, 100% 78%, 0 100%);
+      background:
+        radial-gradient(circle at 86% 8%, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.35) 7%, transparent 22%),
+        linear-gradient(100deg, transparent 0 28%, rgba(255, 255, 255, 0.07) 28% 52%, transparent 52% 70%, rgba(255, 255, 255, 0.05) 70%),
+        repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.13) 0 1px, transparent 1px 16px),
+        repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.13) 0 1px, transparent 1px 16px),
+        linear-gradient(165deg, #3f93f5 0%, #1f5fd0 40%, #0b2a6b 100%);
+    }
+
+    .biz-visual-clip img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 28%;
+      transition: transform 0.6s ease;
+    }
+
+    .biz-visual-clip::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 55%, rgba(11, 18, 38, 0.55));
+      pointer-events: none;
+    }
+
+    .collab-card--biz:hover .biz-visual-clip img { transform: scale(1.05); }
+
+    /* Wide cards: the picture moves to the right side, with a slanted (building-edge) left side and a blue glow along it */
+    @media (min-width: 1060px) {
+      .collab-card--biz { min-height: 12.5rem; padding-right: calc(40% + 1.25rem); }
+
+      .biz-visual {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 40%;
+        height: auto;
+        margin: 0;
+        filter: drop-shadow(-6px 0 14px rgba(var(--p1), 0.4));
+      }
+
+      .biz-visual-clip { clip-path: polygon(24% 0, 100% 0, 100% 100%, 0 100%); }
+      .biz-visual-clip::after { background: linear-gradient(90deg, rgba(11, 18, 38, 0.5), transparent 40%); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .biz-visual-clip img { transition: none; }
+      .collab-card--biz:hover .biz-visual-clip img { transform: none; }
+    }
+
+    .collab-card-title {
+      margin: 0;
+      color: var(--color-text);
+      font-size: 1.65rem;
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.035em;
+    }
+
+    .collab-card-title::after {
+      content: "";
+      display: inline-block;
+      width: 0.15em;
+      height: 0.15em;
+      margin-left: 0.1em;
+      border-radius: 0.03em;
+      background-color: var(--color-orange);
+    }
+
+    .collab-card-text {
+      margin: 0;
+      color: var(--color-silver);
+      font-size: 1rem;
+      line-height: 1.55;
+    }
+
+    .collab-link {
+      margin-top: 0.5rem;
+      color: var(--color-accent-bright);
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .collab-link:hover,
+    .collab-link:focus-visible { color: var(--color-orange-bright); }
+
+    @media (min-width: 760px) {
+      .collab-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (min-width: 860px) {
+      .collab-yt {
+        grid-template-columns: minmax(0, 1fr) 15rem;
+        gap: 1.5rem;
+        padding: 1.25rem 1.5rem 1.25rem 1.75rem;
+      }
+    }
+
+    /* ----- Trust badges: small pills (open status, reply time, rating) ----- */
+    .contact-trust {
+      padding: var(--space-1) 0 var(--space-3);
+    }
+
+    .contact-trust-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .trust-badge {
+      --tb: var(--rgb-blue);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 0;
+      padding: 0.28rem 0.85rem 0.28rem 0.3rem;
+      border: 1px solid rgba(var(--tb), 0.3);
+      border-radius: 999px;
+      background: rgba(var(--tb), 0.08);
+      color: var(--color-text);
+      font-size: 0.82rem;
+      line-height: 1;
+      text-decoration: none;
+      transition: border-color var(--transition), background-color var(--transition), transform 0.25s var(--spring);
+    }
+
+    .trust-badge[hidden] { display: none; }
+
+    .trust-badge[data-status="limited"] { --tb: var(--rgb-orange); }
+    .trust-badge[data-status="closed"] { --tb: var(--rgb-silver); }
+
+    .trust-icon {
+      position: relative;
+      flex: none;
+      display: grid;
+      place-items: center;
+      width: 1.45rem;
+      height: 1.45rem;
+      border-radius: 50%;
+      background: rgba(var(--tb), 0.2);
+      color: rgb(var(--tb));
+    }
+
+    .trust-icon svg {
+      width: 0.82rem;
+      height: 0.82rem;
+    }
+
+    /* Open status: a still ring around the check mark (no looping animation) */
+    .trust-badge[data-status] .trust-icon {
+      box-shadow: 0 0 0 3px rgba(var(--tb), 0.14);
+    }
+
+    .trust-copy {
+      display: flex;
+      align-items: baseline;
+      gap: 0.4rem;
+      min-width: 0;
+    }
+
+    .trust-label {
+      color: var(--color-text-muted);
+      font-size: 0.82rem;
+      font-weight: 500;
+    }
+
+    /* The status and rating badges say enough without a caption */
+    .trust-badge[data-status] .trust-label,
+    .trust-badge--rating .trust-label { display: none; }
+
+    .trust-value {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--color-text);
+      font-size: 0.82rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    /* Rating badge (script.js fills in the score, stars and count from REVIEWS) */
+    .trust-badge--rating { --tb: 255, 196, 77; }
+
+    .trust-badge--rating .hero-rating-score { font-size: 0.86rem; }
+
+    .trust-badge--rating .rating-star {
+      width: 12px;
+      height: 12px;
+    }
+
+    .trust-badge--rating .hero-rating-count {
+      color: var(--color-text-muted);
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    @media (hover: hover) {
+      .trust-badge--rating:hover {
+        border-color: rgba(var(--tb), 0.6);
+        background: rgba(var(--tb), 0.14);
+        transform: translateY(-1px);
+      }
+    }
+
+    .trust-badge--rating:focus-visible { border-color: rgba(var(--tb), 0.8); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .trust-badge,
+      .trust-badge--rating:hover { transition: none; transform: none; }
+    }
+
+    /* ----- 5. Terms modal -----
+       Opens when someone clicks Discord / Email / X in the hero. They have to
+       tick the box before the Continue button works. Only uses the site's tokens. */
+    /* While the Terms are open the page behind is frozen: scrolling is locked
+       WITHOUT the scrollbar disappearing (that used to shift and re-lay out the
+       whole page), and the decorative animations behind it are paused so the
+       modal opens and scrolls smoothly. */
+    html.tos-lock {
+      overflow: hidden;
+      scrollbar-gutter: stable;
+    }
+
+    html.tos-lock :is(.site-background, .site-header, main, .site-footer) *,
+    html.tos-lock :is(.site-background, .site-header, main, .site-footer) *::before,
+    html.tos-lock :is(.site-background, .site-header, main, .site-footer) *::after {
+      animation-play-state: paused !important;
+    }
+
+    html.tos-lock .cursor-light,
+    html.tos-lock .fx-layer { visibility: hidden; }
+
+    /* No blur here on purpose: a blur over a busy page is recomputed every
+       frame and was the main cause of the lag. A darker solid veil looks the same. */
+    .tos-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 2100; /* above the header, sale popup and lightbox */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      background: rgba(2, 4, 10, 0.88);
+      opacity: 0;
+      transition: opacity 0.18s ease-out;
+    }
+
+    .tos-modal.is-open { opacity: 1; }
+
+    .tos-panel {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      width: min(100%, 64rem);
+      max-height: min(100%, 47rem);
+      overflow: hidden;
+      border: 1px solid rgba(var(--rgb-blue), 0.34);
+      border-radius: 24px;
+      background:
+        radial-gradient(ellipse 70% 34% at 100% 0, rgba(var(--rgb-blue), 0.16), transparent 70%),
+        radial-gradient(ellipse 60% 26% at 0% 100%, rgba(var(--rgb-orange), 0.06), transparent 70%),
+        var(--color-surface);
+      box-shadow: 0 28px 60px -26px rgba(0, 0, 0, 0.95), 0 0 0 1px rgba(var(--rgb-blue), 0.08);
+      transform: translateY(12px);
+      transition: transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .tos-modal.is-open .tos-panel { transform: none; }
+
+    /* Fine orange light along the top edge, same as the sale popup */
+    .tos-panel::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 10%;
+      right: 10%;
+      z-index: 3;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(var(--rgb-orange), 0.9), transparent);
+      pointer-events: none;
+    }
+    .tos-panel:focus { outline: none; }
+
+    .tos-head {
+      flex: none;
+      padding: 1.35rem 4.5rem 1rem 1.9rem;
+    }
+
+    .tos-eyebrow {
+      display: block;
+      margin-bottom: 0.45rem;
+      color: var(--color-accent-bright);
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .tos-title {
+      margin-top: 0;
+      font-size: clamp(1.9rem, 4.6vw, 2.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.035em;
+    }
+
+    .tos-intro {
+      margin-top: 0.55rem;
+      color: var(--color-text-muted);
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    .tos-intro strong { color: var(--color-text); }
+
+    .tos-close {
+      position: absolute;
+      top: 1.15rem;
+      right: 1.15rem;
+      z-index: 4;
+      display: grid;
+      place-items: center;
+      width: 2.6rem;
+      height: 2.6rem;
+      padding: 0;
+      border: 1px solid rgba(var(--rgb-silver), 0.28);
+      border-radius: 50%;
+      background-color: rgba(5, 9, 20, 0.85);
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.25s var(--spring);
+    }
+
+    .tos-close svg { width: 1rem; height: 1rem; }
+
+    .tos-close:hover,
+    .tos-close:focus-visible {
+      border-color: rgba(var(--rgb-orange), 0.7);
+      background-color: rgba(var(--rgb-orange), 0.22);
+      transform: rotate(90deg);
+    }
+
+    .tos-close:focus-visible {
+      outline: 2px solid var(--color-orange-bright);
+      outline-offset: 3px;
+    }
+
+    /* The scrolling part. The soft fade at the bottom hints that there is more. */
+    .tos-scroll {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(var(--rgb-blue), 0.45) transparent;
+      border-top: 2px dashed rgba(var(--rgb-silver), 0.18);
+    }
+
+    .tos-scroll:focus-visible { outline-offset: -3px; }
+
+    .tos-scroll::-webkit-scrollbar { width: 8px; }
+    .tos-scroll::-webkit-scrollbar-thumb {
+      border-radius: 8px;
+      background: rgba(var(--rgb-blue), 0.4);
+    }
+
+    .tos-scroll::after {
+      content: "";
+      position: sticky;
+      bottom: 0;
+      display: block;
+      height: 2rem;
+      margin-top: -2rem;
+      background: linear-gradient(to bottom, transparent, var(--color-surface));
+      pointer-events: none;
+    }
+
+    .tos-inner { padding: 1.1rem 1.9rem 2rem; }
+
+    /* Every term is its own small card; two columns when there is room */
+    .tos-list {
+      display: grid;
+      gap: 0.8rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: tos;
+    }
+
+    .tos-list > li {
+      position: relative;
+      padding: 0.95rem 1.1rem 1.05rem 3.7rem;
+      border: 1px solid rgba(var(--rgb-silver), 0.12);
+      border-radius: 16px;
+      background-color: rgba(var(--rgb-silver), 0.035);
+      counter-increment: tos;
+    }
+
+    .tos-list > li::before {
+      content: counter(tos);
+      position: absolute;
+      top: 0.95rem;
+      left: 1rem;
+      display: grid;
+      place-items: center;
+      width: 2rem;
+      height: 2rem;
+      border: 1px solid rgba(var(--rgb-blue), 0.4);
+      border-radius: 9px;
+      background-color: rgba(var(--rgb-blue), 0.12);
+      color: var(--color-accent-bright);
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 800;
+      transform: rotate(-4deg);
+    }
+
+    .tos-list > li:nth-child(even)::before {
+      border-radius: 12px 6px 12px 6px;
+      transform: rotate(3deg);
+    }
+
+    .tos-list h3 {
+      margin: 0;
+      color: var(--color-text);
+      font-size: 1.08rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .tos-list p {
+      margin-top: 0.2rem;
+      color: var(--color-text-muted);
+      font-size: 0.96rem;
+      line-height: 1.55;
+    }
+
+    .tos-list p strong { color: var(--color-text); font-weight: 600; }
+
+    .tos-list a {
+      color: var(--color-accent-bright);
+      text-decoration: underline;
+      text-decoration-color: rgba(var(--rgb-blue), 0.45);
+      text-underline-offset: 2px;
+    }
+
+    .tos-list a:hover { color: var(--color-orange-bright); }
+
+    .tos-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin: 0.6rem 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    /* Plain tags: no category shape in front */
+    .tos-chips .tag::before { display: none; }
+
+    .tos-chips b {
+      color: var(--color-orange-bright);
+      font-weight: 800;
+    }
+
+    .tos-list .tos-extra {
+      margin-top: 0.8rem;
+      padding-left: 0.8rem;
+      border-left: 3px solid var(--color-orange);
+    }
+
+    @media (min-width: 680px) {
+      .tos-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .tos-list > li:last-child { grid-column: 1 / -1; }
+    }
+
+    @media (min-width: 960px) {
+      .tos-panel { max-height: min(100%, 50rem); }
+      .tos-head { padding: 1.1rem 4.2rem 0.8rem 1.7rem; }
+      .tos-eyebrow { margin-bottom: 0.3rem; font-size: 0.7rem; }
+      .tos-title { font-size: 1.85rem; }
+      .tos-intro { margin-top: 0.35rem; font-size: 0.92rem; }
+      .tos-close { top: 0.9rem; right: 0.9rem; width: 2.4rem; height: 2.4rem; }
+      .tos-inner { padding: 0.9rem 1.7rem 0.9rem; }
+      .tos-scroll::after { display: none; }
+      .tos-list { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.55rem; }
+      .tos-list > li { padding: 0.65rem 0.85rem 0.75rem 3rem; border-radius: 14px; }
+      .tos-list > li::before { left: 0.75rem; top: 0.68rem; width: 1.8rem; height: 1.8rem; font-size: 0.92rem; }
+      .tos-list h3 { font-size: 0.98rem; }
+      .tos-list p { margin-top: 0.12rem; font-size: 0.85rem; line-height: 1.45; }
+      .tos-chips { gap: 0.3rem; margin-top: 0.4rem; }
+      .tos-chips .tag { padding: 0.18rem 0.6rem; font-size: 0.78rem; }
+      .tos-list .tos-extra { margin-top: 0.5rem; }
+      .tos-foot { padding: 0.8rem 1.7rem 1rem; }
+      .tos-check { padding: 0.65rem 0.9rem; font-size: 0.92rem; }
+      .tos-actions .button { padding: 0.75rem 1.2rem; font-size: 0.97rem; }
+    }
+
+    .tos-foot {
+      flex: none;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.85rem 1.2rem;
+      padding: 1.05rem 1.9rem 1.35rem;
+      border-top: 2px dashed rgba(var(--rgb-silver), 0.18);
+      background: var(--color-surface);
+    }
+
+    /* The agreement is a full row you can click anywhere on */
+    .tos-check {
+      position: relative;
+      display: flex;
+      flex: 1 1 22rem;
+      align-items: center;
+      gap: 0.75rem;
+      min-width: 0;
+      padding: 0.8rem 1rem;
+      border: 1px solid rgba(var(--rgb-silver), 0.2);
+      border-radius: 14px;
+      background-color: rgba(6, 10, 20, 0.5);
+      color: var(--color-silver);
+      font-size: 0.96rem;
+      line-height: 1.4;
+      cursor: pointer;
+      transition: border-color var(--transition), background-color var(--transition);
+    }
+
+    .tos-check:hover { border-color: rgba(var(--rgb-blue), 0.5); }
+
+    .tos-check:has(input:checked) {
+      border-color: rgba(var(--rgb-blue), 0.65);
+      background-color: rgba(var(--rgb-blue), 0.1);
+    }
+
+    .tos-check input {
+      position: absolute;
+      width: 1.5rem;
+      height: 1.5rem;
+      margin: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .tos-box {
+      flex: none;
+      width: 1.5rem;
+      height: 1.5rem;
+      border: 1.5px solid rgba(var(--rgb-silver), 0.42);
+      border-radius: 7px;
+      background-color: rgba(6, 10, 20, 0.7);
+      transition: border-color var(--transition), background-color var(--transition), box-shadow var(--transition);
+    }
+
+    .tos-check:hover .tos-box { border-color: var(--color-accent-bright); }
+
+    .tos-check input:checked + .tos-box {
+      border-color: var(--color-accent);
+      background: var(--color-accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4.2 8.6 7 11.3 11.9 5.2' fill='none' stroke='%2304101f' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 82% no-repeat;
+      box-shadow: 0 0 10px var(--color-accent-glow);
+    }
+
+    .tos-check input:focus-visible + .tos-box {
+      outline: 2px solid var(--color-accent-bright);
+      outline-offset: 2px;
+    }
+
+    .tos-check a {
+      color: var(--color-accent-bright);
+      text-decoration: underline;
+      text-decoration-color: rgba(var(--rgb-blue), 0.45);
+      text-underline-offset: 2px;
+    }
+
+    .tos-check a:hover { color: var(--color-orange-bright); }
+
+    .tos-actions {
+      display: flex;
+      flex: none;
+      gap: 0.6rem;
+    }
+
+    .tos-actions .button {
+      gap: 0.5rem;
+      padding: 0.85rem 1.3rem;
+      font-size: 1rem;
+    }
+
+    .tos-actions .button svg { flex: none; width: 1rem; height: 1rem; }
+
+    /* Locked until the box is ticked */
+    .tos-actions .button[disabled],
+    .tos-actions .button[disabled]:hover {
+      background-color: var(--color-button);
+      box-shadow: none;
+      opacity: 0.38;
+      transform: none;
+      cursor: not-allowed;
+    }
+
+    /* Phones: the Terms slide up as a sheet from the bottom edge */
+    @media (max-width: 679px) {
+      .tos-modal { align-items: flex-end; padding: 0; }
+      .tos-panel {
+        width: 100%;
+        max-height: 92%;
+        border-bottom: 0;
+        border-radius: 22px 22px 0 0;
+        transform: translateY(28px);
+      }
+      .tos-head { padding: 1.3rem 4rem 1rem 1.2rem; }
+      .tos-close { top: 1rem; right: 1rem; }
+      .tos-inner { padding: 1rem 1.2rem 1.8rem; }
+      .tos-foot { flex-direction: column; align-items: stretch; padding: 0.95rem 1.2rem calc(1.2rem + env(safe-area-inset-bottom, 0px)); }
+      .tos-check { flex: none; }
+      .tos-actions { flex-direction: column; }
+      .tos-actions .button { width: 100%; justify-content: center; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .tos-modal,
+      .tos-panel,
+      .tos-close { transition: none; }
+      .tos-close:hover { transform: none; }
+    }
+  </style>
+  <script src="script.js" defer></script>
+  <script src="companion.js" defer></script>
+</head>
+<body>
+
+  <!-- ===== BACKGROUND (decorative, sits behind everything) =====
+       The design grid and its details are drawn by style.css (section 3b).
+       Only the soft cursor light lives in here. -->
+  <div class="site-background" aria-hidden="true">
+    <div class="cursor-light" id="cursor-light"></div>
+  </div>
+
+  <!-- ===== HEADER / NAVIGATION (same as the homepage, Contact marked as current) ===== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="site-logo" href="index.html" aria-label="Bcraft Designs, go to homepage" data-tooltip="Go to homepage">
+        <img class="site-logo-image" src="images/logo.png" alt="" width="512" height="329">
+      </a>
+
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Open menu">
+        <span class="menu-toggle-bar"></span>
+        <span class="menu-toggle-bar"></span>
+      </button>
+
+      <div class="site-menu" id="site-menu">
+        <nav class="site-nav" aria-label="Main navigation">
+          <ul class="nav-list">
+
+            <!-- WORK mega menu (preview images are set in script.js) -->
+            <li class="nav-item has-mega">
+              <button class="nav-link nav-trigger" type="button" aria-expanded="false" aria-controls="mega-work">
+                Work <svg class="nav-chevron" width="10" height="10" viewBox="0 0 10 10" aria-hidden="true" focusable="false"><path d="M1.5 3.5 5 7l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <div class="mega mega-work" id="mega-work" data-mega="work">
+                <div class="mega-inner">
+                  <div class="mega-main">
+                    <p class="mega-eyebrow">Browse the work</p>
+                    <ul class="mega-links">
+                  <li>
+                    <a class="mega-link" href="work.html#game-thumbnails" data-preview="thumbnails">
+                      <span class="mega-link-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10" r="1.6"/><path d="m21 16-5-5-8 8"/></svg></span>
+                      <span class="mega-link-body">
+                        <span class="mega-link-title">Thumbnails</span>
+                        <span class="mega-link-text">Game and YouTube thumbnails.</span>
+                      </span>
+                      <svg class="mega-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="mega-link" href="work.html#game-icons" data-preview="game-icons">
+                      <span class="mega-link-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/></svg></span>
+                      <span class="mega-link-body">
+                        <span class="mega-link-title">Game Icons</span>
+                        <span class="mega-link-text">Small squares, big first impressions.</span>
+                      </span>
+                      <svg class="mega-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="mega-link" href="work.html#ui" data-preview="ui">
+                      <span class="mega-link-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M3 9h18M9 9v11"/></svg></span>
+                      <span class="mega-link-body">
+                        <span class="mega-link-title">UI</span>
+                        <span class="mega-link-text">Roblox interface and UI design.</span>
+                      </span>
+                      <svg class="mega-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="mega-link" href="work.html#more" data-preview="more">
+                      <span class="mega-link-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="6" cy="12" r="1.5" fill="currentColor"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/><circle cx="18" cy="12" r="1.5" fill="currentColor"/></svg></span>
+                      <span class="mega-link-body">
+                        <span class="mega-link-title">More</span>
+                        <span class="mega-link-text">Everything else I make.</span>
+                      </span>
+                      <svg class="mega-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </a>
+                  </li>
+                    </ul>
+                    <div class="mega-foot">
+                      <a class="mega-all" href="work.html">View all work <svg class="mega-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                      <a class="mega-aside" href="pricing.html">
+                        <span class="mega-aside-text">Need something custom?</span>
+                        <span class="mega-aside-link">See pricing</span>
+                      </a>
+                    </div>
+                    <!-- Large banner slot. Image path is set in script.js (MEGA_BANNER_DATA) -->
+                    <figure class="mega-banner" aria-hidden="true">
+                      <div class="mega-banner-placeholder">
+                        <p class="mega-banner-label">Featured artwork</p>
+                        <p class="mega-banner-hint">1430 &times; 731</p>
+                      </div>
+                      <img class="mega-banner-image" src="" alt="">
+                    </figure>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li class="nav-item"><a class="nav-link" href="pricing.html">Pricing</a></li>
+            <li class="nav-item"><a class="nav-link" href="reviews.html">Reviews</a></li>
+            <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="news.html">News</a></li>
+            <li class="nav-item"><a class="nav-link" href="contact.html" aria-current="page">Contact</a></li>
+          </ul>
+        </nav>
+        <!-- Social icons. The links are set in script.js (SOCIAL_LINKS), not here. -->
+        <ul class="nav-socials" aria-label="Bcraft Designs on social media">
+          <li>
+            <a class="nav-social" href="#" data-social="robloxCommunity" data-tooltip="Roblox" aria-label="Bcraft Designs on Roblox">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.926 23.998 0 18.892 5.075 0 24 5.108ZM15.348 10.09l-5.282-1.453-1.414 5.273 5.282 1.453z"/></svg>
+            </a>
+          </li>
+          <li>
+            <a class="nav-social" href="#" data-social="youtube" data-tooltip="YouTube" aria-label="Bcraft Designs on YouTube">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+          </li>
+          <li>
+            <a class="nav-social" href="#" data-social="x" data-tooltip="X / Twitter" aria-label="Bcraft Designs on X (Twitter)">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>
+            </a>
+          </li>
+          <li>
+            <a class="nav-social" href="#" data-social="github" data-tooltip="GitHub" aria-label="Bcraft Designs on GitHub">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+            </a>
+          </li>
+          <li>
+            <a class="nav-social" href="#" data-social="discord" data-tooltip="Discord" aria-label="Bcraft Designs on Discord">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
+            </a>
+          </li>
+        </ul>
+        <a class="button button-primary" href="pricing.html">Commission Me</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ===== 1. CONTACT HERO ===== -->
+    <section class="contact-hero" aria-labelledby="contact-title">
+      <div class="container contact-hero-inner">
+        <div>
+          <h1 id="contact-title" class="contact-title">
+            <span class="hero-line">Let's create</span>
+            <span class="hero-line hero-line-indent">something</span>
+            <span class="hero-line">great<span class="brick" aria-hidden="true"></span></span>
+          </h1>
+          <p class="contact-text">
+            Got a project in mind, a half-formed idea, or just a question? Tell me what you're
+            building and let's see what we can make together.
+          </p>
+          <!-- Selected product: filled in by the script at the bottom from ?product=<slug> (set by the Pricing page buttons). Stays hidden when there is no valid product. -->
+          <p class="tag" id="selected-product" style="display:none; margin-top: var(--space-3);"></p>
+          <div class="contact-actions contact-channels">
+            <div class="contact-channel">
+              <div class="contact-channel-btn">
+              <button type="button" class="copy-chip" data-copy-key="discord"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M5 15V6.2A2.2 2.2 0 0 1 7.2 4H15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span class="copy-chip-text" aria-live="polite">Copy username</span></button>
+              <a class="button button-primary button-lg" href="#" data-social="discord" data-contact-gate="Discord"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>Contact Me Directly</a>
+              </div>
+              <p class="contact-channel-hint">Fastest replies, and the easiest place to share references.</p>
+            </div>
+            <div class="contact-channel">
+              <div class="contact-channel-btn">
+              <button type="button" class="copy-chip" data-copy-key="email"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M5 15V6.2A2.2 2.2 0 0 1 7.2 4H15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span class="copy-chip-text" aria-live="polite">Copy address</span></button>
+              <a class="button button-secondary button-lg" href="mailto:bcraftforbusiness@gmail.com" data-contact-gate="Email"><svg class="mail-trio" viewBox="0 0 38 26" aria-hidden="true" focusable="false"><g transform="translate(1 8) rotate(-16 8 8)"><rect width="16" height="16" rx="3.4" fill="#6001d2"/><path d="M4.2 4.2 8 9.1l3.8-4.9M8 9.1v4" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></g><g transform="translate(21 7) rotate(14 8 8)"><rect width="16" height="16" rx="3.4" fill="#0f6cbd"/><circle cx="8" cy="8" r="3.9" fill="none" stroke="#fff" stroke-width="1.9"/></g><g transform="translate(10 2.5) rotate(-4 9 7)"><rect width="18" height="14" rx="3" fill="#fff"/><path d="M3 11V4.4l6 4.5 6-4.5V11" fill="none" stroke="#ea4335" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g></svg>Email Me</a>
+              </div>
+              <p class="contact-channel-hint">Best for business enquiries and invoices.</p>
+            </div>
+            <div class="contact-channel">
+              <div class="contact-channel-btn">
+              <button type="button" class="copy-chip" data-copy-key="x"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M5 15V6.2A2.2 2.2 0 0 1 7.2 4H15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span class="copy-chip-text" aria-live="polite">Copy handle</span></button>
+              <a class="button button-secondary button-lg" href="#" data-social="x" data-contact-gate="X"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>DM Me on X</a>
+              </div>
+              <p class="contact-channel-hint">Quick questions, or if you'd rather chat on X.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Decorative only: the official logo in a speech bubble, plus a typing reply -->
+        <div class="contact-visual" aria-hidden="true">
+          <div class="bubble-main"><img src="images/logo.png" alt="" width="512" height="329"></div>
+          <div class="bubble-reply"><span></span><span></span><span></span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TRUST STRIP =====
+         Status: change data-status to "limited" or "closed" (and the words) when needed.
+         The rating is filled in by script.js from REVIEWS, the same as on the homepage. -->
+    <section class="contact-trust" aria-label="Availability and reply time">
+      <div class="container">
+        <div class="contact-trust-list" data-reveal>
+          <p class="trust-badge" data-status="open">
+            <span class="trust-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="trust-copy">
+              <span class="trust-label">Availability</span>
+              <strong class="trust-value">Open for commissions</strong>
+            </span>
+          </p>
+          <p class="trust-badge">
+            <span class="trust-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="trust-copy">
+              <span class="trust-label">Typical reply time</span>
+              <strong class="trust-value">1&ndash;24 hours</strong>
+            </span>
+          </p>
+          <p class="trust-badge" data-local-time hidden>
+            <span class="trust-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 12h17M12 3c2.6 2.6 3.9 5.6 3.9 9s-1.3 6.4-3.9 9c-2.6-2.6-3.9-5.6-3.9-9S9.4 5.6 12 3z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="trust-copy">
+              <span class="trust-label">My time</span>
+              <strong class="trust-value" data-local-time-value></strong>
+            </span>
+          </p>
+          <a class="trust-badge trust-badge--rating" href="reviews.html" data-rating-summary hidden>
+            <span class="trust-icon" aria-hidden="true">
+              <svg viewBox="0 0 16 16" focusable="false"><path fill="currentColor" d="M8 1.3l2.08 4.36 4.77.62-3.5 3.3.88 4.74L8 11.95 3.77 14.32l.88-4.74-3.5-3.3 4.77-.62z"/></svg>
+            </span>
+            <span class="trust-copy">
+              <span class="trust-label">Client rating</span>
+              <span class="trust-value">
+                <span class="hero-rating-score" data-rating-score></span>
+                <span class="rating-stars" aria-hidden="true">
+                  <span class="rating-stars-base"><svg class="rating-star" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 1.3l2.08 4.36 4.77.62-3.5 3.3.88 4.74L8 11.95 3.77 14.32l.88-4.74-3.5-3.3 4.77-.62z"/></svg><svg class="rating-star" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 1.3l2.08 4.36 4.77.62-3.5 3.3.88 4.74L8 11.95 3.77 14.32l.88-4.74-3.5-3.3 4.77-.62z"/></svg><svg class="rating-star" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 1.3l2.08 4.36 4.77.62-3.5 3.3.88 4.74L8 11.95 3.77 14.32l.88-4.74-3.5-3.3 4.77-.62z"/></svg><svg class="rating-star" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 1.3l2.08 4.36 4.77.62-3.5 3.3.88 4.74L8 11.95 3.77 14.32l.88-4.74-3.5-3.3 4.77-.62z"/></svg><svg class="rating-star" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 1.3l2.08 4.36 4.77.62-3.5 3.3.88 4.74L8 11.95 3.77 14.32l.88-4.74-3.5-3.3 4.77-.62z"/></svg></span>
+                  <span class="rating-stars-fill" data-rating-fill><svg class="rating-star" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 1.3l2.08 4.36 4.77.62-3.5 3.3.88 4.74L8 11.95 3.77 14.32l.88-4.74-3.5-3.3 4.77-.62z"/></svg><svg class="rating-star" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 1.3l2.08 4.36 4.77.62-3.5 3.3.88 4.74L8 11.95 3.77 14.32l.88-4.74-3.5-3.3 4.77-.62z"/></svg><svg class="rating-star" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 1.3l2.08 4.36 4.77.62-3.5 3.3.88 4.74L8 11.95 3.77 14.32l.88-4.74-3.5-3.3 4.77-.62z"/></svg><svg class="rating-star" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 1.3l2.08 4.36 4.77.62-3.5 3.3.88 4.74L8 11.95 3.77 14.32l.88-4.74-3.5-3.3 4.77-.62z"/></svg><svg class="rating-star" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 1.3l2.08 4.36 4.77.62-3.5 3.3.88 4.74L8 11.95 3.77 14.32l.88-4.74-3.5-3.3 4.77-.62z"/></svg></span>
+                </span>
+                <span class="hero-rating-count" data-rating-count></span>
+              </span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== WORKING TOGETHER =====
+         The big card is the open collaboration, drawn like a YouTube video card (title / channel / details on the left,
+         the render on the right). The render is images/collab-youtube-render-01.webp.
+         The two cards below are bulk/custom orders and business enquiries (same look as the homepage perks). -->
+    <section class="contact-collab" aria-labelledby="collab-title">
+      <div class="container">
+        <h2 id="collab-title" class="payments-title">Working together</h2>
+        <p class="payments-lead">More than a one-off? Let&rsquo;s talk.</p>
+
+        <article class="collab-yt" data-reveal>
+          <div class="yt-info">
+            <div class="yt-brand">
+              <svg class="yt-logo" viewBox="0 0 28 20" aria-hidden="true" focusable="false"><rect width="28" height="20" rx="5.6" fill="#f00"/><path d="M11.2 5.6v8.8l7.6-4.4z" fill="#fff"/></svg>
+              <span class="yt-brand-name">YouTube</span>
+              <span class="collab-tag">Open collaboration</span>
+            </div>
+            <h3 class="collab-title">Looking for a YouTuber to work with long&#8209;term</h3>
+            <p class="yt-meta">Thumbnails &middot; Long&#8209;term &middot; Price can be discussed</p>
+            <div class="yt-channel">
+              <span class="yt-avatar" aria-hidden="true">B<img src="images/homepage-twitter-pfp-01.png" alt="" width="64" height="64" loading="lazy" decoding="async" onerror="this.remove()"></span>
+              <span class="yt-channel-name">Bcraft <svg class="yt-check" viewBox="0 0 24 24" role="img" aria-label="Verified" focusable="false"><circle cx="12" cy="12" r="10" fill="currentColor"/><path d="M7.4 12.4l3.2 3.1 6-6.6" fill="none" stroke="#0b1226" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </div>
+            <p class="collab-text">I&rsquo;m looking for long-term work with a YouTuber to create YouTube thumbnails. Price can be discussed.</p>
+            <div class="collab-actions">
+              <a class="button button-primary" href="mailto:bcraftforbusiness@gmail.com?subject=Long-term%20YouTube%20thumbnails">Email me about it &rarr;</a>
+              <a class="button button-secondary" href="#" data-social="discord" data-contact-gate="Discord"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>Message on Discord</a>
+              <span class="collab-note">Please include a link to your channel.</span>
+            </div>
+          </div>
+          <div class="yt-visual" aria-hidden="true">
+            <span class="yt-rays"></span>
+            <span class="yt-spark yt-spark--a"></span>
+            <span class="yt-spark yt-spark--b"></span>
+            <span class="yt-spark yt-spark--c"></span>
+            <img class="yt-render" src="images/collab-youtube-render-01.webp" alt="" width="524" height="550" loading="lazy" decoding="async">
+          </div>
+        </article>
+
+        <div class="collab-grid">
+          <article class="collab-card collab-card--bulk" data-reveal>
+            <h3 class="collab-card-title">Bulk &amp; custom orders</h3>
+            <p class="collab-card-text">Need several pieces, or something that isn&rsquo;t on the price list? Ask about bulk discounts and custom requests.</p>
+            <a class="collab-link" href="#top">Start a message &rarr;</a>
+          </article>
+          <article class="collab-card collab-card--biz" data-reveal data-reveal-index="1">
+            <div class="biz-visual" aria-hidden="true">
+              <div class="biz-visual-clip">
+                <img id="biz-render" alt="" width="546" height="560" decoding="async" hidden>
+              </div>
+            </div>
+            <h3 class="collab-card-title">Business &amp; teams</h3>
+            <p class="collab-card-text">Working with a studio or a team? Email me for invoices and long-term projects.</p>
+            <a class="collab-link" href="mailto:bcraftforbusiness@gmail.com?subject=Business%20enquiry">Email me &rarr;</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      /* Business & teams picture: finds images/contact-business.webp (or .png / .jpg / .jpeg). If none exists the CSS placeholder stays. */
+      (function () {
+        var img = document.getElementById("biz-render");
+        if (!img) return;
+        var list = ["webp", "png", "jpg", "jpeg"].map(function (e) { return "images/contact-business." + e; }), i = 0;
+        (function next() {
+          if (i >= list.length) return;
+          var src = list[i++], t = new Image();
+          t.onload = function () { img.src = src; img.hidden = false; };
+          t.onerror = next;
+          t.src = src;
+        })();
+      })();
+    </script>
+
+    <!-- ===== PAYMENT METHODS =====
+         Five informational cards (not checkout buttons). PayPal, Roblox and Steam use the
+         simple-icons marks (white); Robux uses the Robux icon (ROBUX_ICON in the script at the bottom).
+         No fees, rates or instructions are shown.
+         To hide the whole section until the list is confirmed, add the hidden attribute
+         to the <section> tag below. -->
+    <section class="payments payments-compact" id="payments" aria-labelledby="payments-title">
+      <div class="container">
+        <div class="payments-panel payments-panel-solo" data-reveal>
+          <div class="payments-content">
+            <h2 id="payments-title" class="payments-title">Payment Methods</h2>
+            <p class="payments-lead">Available payment methods.</p>
+            <ul class="pay-grid">
+              <li class="pay-card pay-card--robux pay-card--featured">
+                <div class="pay-card-stage">
+                  <div class="pay-card-face">
+                    <div class="pay-card-bg"></div>
+                    <div class="pay-card-mark" aria-hidden="true"><img class="pay-logo-img" data-robux-icon src="https://devforum-uploads.s3.dualstack.us-east-2.amazonaws.com/uploads/original/4X/e/d/f/edfae9388da4cd8496b885a8a2df613372500d9c.png" alt="" width="64" height="64"></div>
+                    <div class="pay-card-glare"></div>
+                  </div>
+                </div>
+                <div class="pay-card-caption">
+                  <h3 class="pay-card-name">Robux</h3>
+                  <p class="pay-card-desc">Pay with Robux for your Roblox-related commission.</p>
+                </div>
+              </li>
+              <li class="pay-card pay-card--paypal pay-card--featured">
+                <div class="pay-card-stage">
+                  <div class="pay-card-face">
+                    <div class="pay-card-bg"></div>
+                    <div class="pay-card-mark" aria-hidden="true"><svg class="pay-logo" viewBox="0 0 24 24" focusable="false" aria-hidden="true"><path fill="currentColor" d="M15.607 4.653H8.941L6.645 19.251H1.82L4.862 0h7.995c3.754 0 6.375 2.294 6.473 5.513-.648-.478-2.105-.86-3.722-.86m6.57 5.546c0 3.41-3.01 6.853-6.958 6.853h-2.493L11.595 24H6.74l1.845-11.538h3.592c4.208 0 7.346-3.634 7.153-6.949a5.24 5.24 0 0 1 2.848 4.686M9.653 5.546h6.408c.907 0 1.942.222 2.363.541-.195 2.741-2.655 5.483-6.441 5.483H8.714Z"/></svg></div>
+                    <div class="pay-card-glare"></div>
+                  </div>
+                </div>
+                <div class="pay-card-caption">
+                  <h3 class="pay-card-name">PayPal</h3>
+                  <p class="pay-card-desc">A convenient digital payment option.</p>
+                </div>
+              </li>
+              <li class="pay-card pay-card--roblox">
+                <div class="pay-card-stage">
+                  <div class="pay-card-face">
+                    <div class="pay-card-bg"></div>
+                    <div class="pay-card-mark" aria-hidden="true"><svg class="pay-logo" viewBox="0 0 24 24" focusable="false" aria-hidden="true"><path fill="currentColor" d="M18.926 23.998 0 18.892 5.075.002 24 5.108ZM15.348 10.09l-5.282-1.453-1.414 5.273 5.282 1.453z"/></svg></div>
+                    <div class="pay-card-glare"></div>
+                  </div>
+                </div>
+                <div class="pay-card-caption">
+                  <h3 class="pay-card-name">Roblox Gift Cards</h3>
+                  <p class="pay-card-desc">Roblox gift cards accepted.</p>
+                </div>
+              </li>
+              <li class="pay-card pay-card--steam">
+                <div class="pay-card-stage">
+                  <div class="pay-card-face">
+                    <div class="pay-card-bg"></div>
+                    <div class="pay-card-mark" aria-hidden="true"><svg class="pay-logo" viewBox="0 0 24 24" focusable="false" aria-hidden="true"><path fill="currentColor" d="M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658c.545-.371 1.203-.59 1.912-.59.063 0 .125.004.188.006l2.861-4.142V8.91c0-2.495 2.028-4.524 4.524-4.524 2.494 0 4.524 2.031 4.524 4.527s-2.03 4.525-4.524 4.525h-.105l-4.076 2.911c0 .052.004.105.004.159 0 1.875-1.515 3.396-3.39 3.396-1.635 0-3.016-1.173-3.331-2.727L.436 15.27C1.862 20.307 6.486 24 11.979 24c6.627 0 11.999-5.373 11.999-12S18.605 0 11.979 0zM7.54 18.21l-1.473-.61c.262.543.714.999 1.314 1.25 1.297.539 2.793-.076 3.332-1.375.263-.63.264-1.319.005-1.949s-.75-1.121-1.377-1.383c-.624-.26-1.29-.249-1.878-.03l1.523.63c.956.4 1.409 1.5 1.009 2.455-.397.957-1.497 1.41-2.454 1.012H7.54zm11.415-9.303c0-1.662-1.353-3.015-3.015-3.015-1.665 0-3.015 1.353-3.015 3.015 0 1.665 1.35 3.015 3.015 3.015 1.663 0 3.015-1.35 3.015-3.015zm-5.273-.005c0-1.252 1.013-2.266 2.265-2.266 1.249 0 2.266 1.014 2.266 2.266 0 1.251-1.017 2.265-2.266 2.265-1.253 0-2.265-1.014-2.265-2.265z"/></svg></div>
+                    <div class="pay-card-glare"></div>
+                  </div>
+                </div>
+                <div class="pay-card-caption">
+                  <h3 class="pay-card-name">Steam Gift Cards</h3>
+                  <p class="pay-card-desc">Steam gift cards in EUR (&euro;).</p>
+                </div>
+              </li>
+              <li class="pay-card pay-card--gift">
+                <div class="pay-card-stage">
+                  <div class="pay-card-face">
+                    <div class="pay-card-bg"></div>
+                    <div class="pay-card-mark" aria-hidden="true"><svg class="pay-logo pay-logo-line" viewBox="0 0 24 24" focusable="false" aria-hidden="true"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7M7.5 8a2.5 2.5 0 1 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 1 1 0 5"/></svg></div>
+                    <div class="pay-card-glare"></div>
+                  </div>
+                </div>
+                <div class="pay-card-caption">
+                  <h3 class="pay-card-name">Other Gift Cards</h3>
+                  <p class="pay-card-desc">Have another gift card in mind? <a href="#top">Contact me</a> to discuss it.</p>
+                </div>
+              </li>
+            </ul>
+            <p class="pc-roblox-note">
+              <img class="pc-roblox-plus" src="https://static.wikia.nocookie.net/roblox/images/4/40/BuilderIcons-Filled_Regular_-_roblox_plus.svg/revision/latest/scale-to-width-down/213?cb=20261005191530" alt="Roblox Plus" width="20" height="20" loading="lazy" referrerpolicy="no-referrer">
+              <span>Robux payments need to cover the 30% Roblox gamepass tax, unless you have Roblox Plus. With Roblox Plus you don&rsquo;t need to cover it.</span>
+            </p>
+            <p class="payments-note">Looking to pay with another gift card? <a href="#top">Contact me</a> to discuss your options.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FREQUENTLY ASKED QUESTIONS (same as the homepage; accordion script at the bottom of this page) ===== -->
+    <section class="faq" id="faq" aria-labelledby="faq-title">
+          <div class="container">
+            <div class="section-head" data-reveal>
+              <h2 id="faq-title" class="section-title">Frequently Asked Questions</h2>
+              <p class="services-lead">Quick answers before you commission.</p>
+            </div>
+            <div class="faq-list" data-faq data-reveal>
+              <div class="faq-item">
+                <h3 class="faq-q">
+                  <button class="faq-trigger" type="button" id="faq-q1" aria-expanded="false" aria-controls="faq-a1">
+                    <span class="faq-q-text">Can I request a custom design?</span>
+                    <span class="faq-icon" aria-hidden="true"></span>
+                  </button>
+                </h3>
+                <div class="faq-panel" id="faq-a1" role="region" aria-labelledby="faq-q1">
+                  <div class="faq-panel-inner"><p class="faq-answer">Yes! Custom requests are welcome. Contact me with your idea, and the price will depend on the product or service it most closely matches.</p></div>
+                </div>
+              </div>
+              <div class="faq-item">
+                <h3 class="faq-q">
+                  <button class="faq-trigger" type="button" id="faq-q2" aria-expanded="false" aria-controls="faq-a2">
+                    <span class="faq-q-text">Are bulk orders available?</span>
+                    <span class="faq-icon" aria-hidden="true"></span>
+                  </button>
+                </h3>
+                <div class="faq-panel" id="faq-a2" role="region" aria-labelledby="faq-q2">
+                  <div class="faq-panel-inner"><p class="faq-answer">Bulk order discounts are available for renders. Contact me to discuss your requirements.</p></div>
+                </div>
+              </div>
+              <div class="faq-item">
+                <h3 class="faq-q">
+                  <button class="faq-trigger" type="button" id="faq-q3" aria-expanded="false" aria-controls="faq-a3">
+                    <span class="faq-q-text">How do I start a commission?</span>
+                    <span class="faq-icon" aria-hidden="true"></span>
+                  </button>
+                </h3>
+                <div class="faq-panel" id="faq-a3" role="region" aria-labelledby="faq-q3">
+                  <div class="faq-panel-inner"><p class="faq-answer">Choose a product from the pricing carousel and use its commission button to contact me. You can also contact me about a custom request.</p></div>
+                </div>
+              </div>
+              <div class="faq-item">
+                <h3 class="faq-q">
+                  <button class="faq-trigger" type="button" id="faq-q4" aria-expanded="false" aria-controls="faq-a4">
+                    <span class="faq-q-text">Are the listed prices final?</span>
+                    <span class="faq-icon" aria-hidden="true"></span>
+                  </button>
+                </h3>
+                <div class="faq-panel" id="faq-a4" role="region" aria-labelledby="faq-q4">
+                  <div class="faq-panel-inner"><p class="faq-answer">The listed prices are the starting prices for the specified products. Contact me to confirm the details of your project before proceeding.</p></div>
+                </div>
+              </div>
+              <div class="faq-item">
+                <h3 class="faq-q">
+                  <button class="faq-trigger" type="button" id="faq-q5" aria-expanded="false" aria-controls="faq-a5">
+                    <span class="faq-q-text">How long does a commission take?</span>
+                    <span class="faq-icon" aria-hidden="true"></span>
+                  </button>
+                </h3>
+                <div class="faq-panel" id="faq-a5" role="region" aria-labelledby="faq-q5">
+                  <div class="faq-panel-inner"><p class="faq-answer">Delivery time is 1-3 days depending on complexity.</p></div>
+                </div>
+              </div>
+              <div class="faq-item">
+                <h3 class="faq-q">
+                  <button class="faq-trigger" type="button" id="faq-q6" aria-expanded="false" aria-controls="faq-a6">
+                    <span class="faq-q-text">Can I ask a question before ordering?</span>
+                    <span class="faq-icon" aria-hidden="true"></span>
+                  </button>
+                </h3>
+                <div class="faq-panel" id="faq-a6" role="region" aria-labelledby="faq-q6">
+                  <div class="faq-panel-inner"><p class="faq-answer">Absolutely. Use the <a href="contact.html">Contact page</a> to discuss your idea or ask any questions before committing.</p></div>
+                </div>
+              </div>
+              <div class="faq-item">
+                <h3 class="faq-q">
+                  <button class="faq-trigger" type="button" id="faq-q7" aria-expanded="false" aria-controls="faq-a7">
+                    <span class="faq-q-text">Do you require a deposit?</span>
+                    <span class="faq-icon" aria-hidden="true"></span>
+                  </button>
+                </h3>
+                <div class="faq-panel" id="faq-a7" role="region" aria-labelledby="faq-q7">
+                  <div class="faq-panel-inner"><p class="faq-answer">Yes &mdash; I require a 50% deposit before starting work, with the remaining balance due once your order is delivered.</p></div>
+                </div>
+              </div>
+              <div class="faq-item">
+                <h3 class="faq-q">
+                  <button class="faq-trigger" type="button" id="faq-q8" aria-expanded="false" aria-controls="faq-a8">
+                    <span class="faq-q-text">What details do I need to provide for my GFX order?</span>
+                    <span class="faq-icon" aria-hidden="true"></span>
+                  </button>
+                </h3>
+                <div class="faq-panel" id="faq-a8" role="region" aria-labelledby="faq-q8">
+                  <div class="faq-panel-inner"><p class="faq-answer">Please provide character references, poses, background ideas, models and any specific features you&rsquo;d like included.</p></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+    <!-- ===== EXPLORE + SOCIALS (closing section) =====
+         Links come from SOCIAL_LINKS in script.js, the same list as the navbar. -->
+    <section class="contact-bottom" aria-labelledby="explore-title">
+      <div class="container">
+        <div class="cta-panel" data-reveal>
+          <div>
+            <h2 id="explore-title" class="cta-title">Still looking around?</h2>
+            <p class="cta-text">Have a browse through my work, or see what other creators have said.</p>
+          </div>
+          <div class="contact-actions" style="margin-top:0">
+            <a class="button button-primary" href="work.html">Browse My Work</a>
+            <a class="button button-secondary" href="reviews.html">Read Reviews</a>
+          </div>
+        </div>
+
+        <div class="contact-socials" data-reveal>
+          <p class="contact-eyebrow">Find me around</p>
+          <ul class="contact-social-list" aria-label="Bcraft Designs on social media">
+            <li><a class="contact-social" href="https://www.roblox.com/users/2504673556/profile" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.926 23.998 0 18.892 5.075 0 24 5.108ZM15.348 10.09l-5.282-1.453-1.414 5.273 5.282 1.453z"/></svg>Roblox Profile</a></li>
+            <li><a class="contact-social" href="#" data-social="robloxCommunity"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.926 23.998 0 18.892 5.075 0 24 5.108ZM15.348 10.09l-5.282-1.453-1.414 5.273 5.282 1.453z"/></svg>Roblox Community</a></li>
+            <li><a class="contact-social" href="#" data-social="youtube"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube</a></li>
+            <li><a class="contact-social" href="#" data-social="x"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>X / Twitter</a></li>
+            <li><a class="contact-social" href="#" data-social="discord"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>Discord</a></li>
+            <li><a class="contact-social" href="mailto:bcraftforbusiness@gmail.com"><svg class="mail-trio" viewBox="0 0 38 26" aria-hidden="true" focusable="false"><g transform="translate(1 8) rotate(-16 8 8)"><rect width="16" height="16" rx="3.4" fill="#6001d2"/><path d="M4.2 4.2 8 9.1l3.8-4.9M8 9.1v4" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></g><g transform="translate(21 7) rotate(14 8 8)"><rect width="16" height="16" rx="3.4" fill="#0f6cbd"/><circle cx="8" cy="8" r="3.9" fill="none" stroke="#fff" stroke-width="1.9"/></g><g transform="translate(10 2.5) rotate(-4 9 7)"><rect width="18" height="14" rx="3" fill="#fff"/><path d="M3 11V4.4l6 4.5 6-4.5V11" fill="none" stroke="#ea4335" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g></svg>Email</a></li>
+            <li><a class="contact-social" href="#" data-social="github"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>GitHub</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER =====
+       Keep this block identical on every page. Social links are filled in
+       by script.js (SOCIAL_LINKS) through the data-social attributes. -->
+  <footer class="site-footer">
+    <span class="footer-glow" aria-hidden="true"></span>
+    <span class="footer-curve" aria-hidden="true"></span>
+    <div class="container footer-inner">
+      <div class="footer-top">
+        <div class="footer-intro">
+          <a class="footer-brand" href="#top" aria-label="Bcraft Designs, back to top">
+            <img class="footer-logo" src="images/logo.png" alt="" width="512" height="329">
+          </a>
+          <p class="footer-tagline">Custom GFX and UI that make your game look as good as it plays.</p>
+          <a class="button button-primary footer-cta" href="pricing.html">
+            Commission Me
+            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <div class="footer-group">
+            <h2 class="footer-heading">Explore</h2>
+            <ul>
+              <li><a href="work.html">Work</a></li>
+              <li><a href="pricing.html">Pricing</a></li>
+              <li><a href="reviews.html">Reviews</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="news.html">News</a></li>
+            </ul>
+          </div>
+          <div class="footer-group footer-group-legal">
+            <h2 class="footer-heading">Legal</h2>
+            <ul>
+              <li><a href="privacy.html">Privacy Policy</a></li>
+              <li><a href="tos.html">Terms of Service</a></li>
+            </ul>
+          </div>
+          <div class="footer-group">
+            <h2 class="footer-heading">Connect</h2>
+            <ul>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <ul class="footer-socials" aria-label="Bcraft Designs on social media">
+            <li>
+              <a class="footer-social" href="#" data-social="robloxCommunity" aria-label="Bcraft Designs on Roblox" title="Roblox">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.926 23.998 0 18.892 5.075 0 24 5.108ZM15.348 10.09l-5.282-1.453-1.414 5.273 5.282 1.453z"/></svg>
+              </a>
+            </li>
+            <li>
+              <a class="footer-social" href="#" data-social="youtube" aria-label="Bcraft Designs on YouTube" title="YouTube">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+              </a>
+            </li>
+            <li>
+              <a class="footer-social" href="#" data-social="x" aria-label="Bcraft Designs on X (Twitter)" title="X / Twitter">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>
+              </a>
+            </li>
+            <li>
+              <a class="footer-social" href="#" data-social="github" aria-label="Bcraft Designs on GitHub" title="GitHub">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+              </a>
+            </li>
+            <li>
+              <a class="footer-social" href="#" data-social="discord" aria-label="Bcraft Designs on Discord" title="Discord">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
+              </a>
+            </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span data-year>2024</span> Bcraft Designs</p>
+        <a class="footer-top-link" href="#top">Back to top <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 10V2M2.5 5.5 6 2l3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== TERMS MODAL =====
+       Opens from the three hero buttons marked data-contact-gate (Discord, Email, X).
+       The text is a short version of tos.html. Change it here if the Terms change. -->
+  <div class="tos-modal" id="tos-modal" hidden>
+    <div class="tos-panel" role="dialog" aria-modal="true" aria-labelledby="tos-title" aria-describedby="tos-intro" tabindex="-1">
+      <button class="tos-close" type="button" data-tos-close aria-label="Close">
+        <svg viewBox="0 0 14 14" aria-hidden="true" focusable="false"><path d="M2 2l10 10M12 2 2 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+
+      <div class="tos-head">
+        <span class="tos-eyebrow" aria-hidden="true">Terms of Service</span>
+        <h2 id="tos-title" class="tos-title">Before we chat<span class="brick" aria-hidden="true"></span></h2>
+        <p id="tos-intro" class="tos-intro">Every commission follows these terms. Clear expectations, better commissions.</p>
+      </div>
+
+      <div class="tos-scroll" tabindex="0" role="region" aria-label="Terms of Service summary, scrollable">
+        <div class="tos-inner">
+          <ol class="tos-list">
+            <li>
+              <h3>Payment</h3>
+              <p><strong>50% upfront</strong> before I start. It protects against scams and values my time.</p>
+            </li>
+            <li>
+              <h3>Refunds</h3>
+              <p>No refunds once work has started or is halfway done.</p>
+            </li>
+            <li>
+              <h3>Age</h3>
+              <p>You must be <strong>12 or older</strong>. Transfers (PayPal, bank) need a parent or guardian's permission. Discord's own Terms also apply there.</p>
+            </li>
+            <li>
+              <h3>Respect &amp; communication</h3>
+              <p>Be respectful, rude behavior isn't tolerated. Follow the <a href="https://nohello.net/en/" target="_blank" rel="noopener noreferrer">NoHello</a> method: get to the point instead of just saying "Hi."</p>
+            </li>
+            <li>
+              <h3>Delays</h3>
+              <p>They can happen. I'll tell you, and may offer a discount depending on how long.</p>
+            </li>
+            <li>
+              <h3>Cancellation</h3>
+              <p>I can cancel an order if the work looks like it will be used inappropriately or I'm uncomfortable with the request. If I cancel after payment, you get a refund.</p>
+            </li>
+            <li>
+              <h3>Character limits</h3>
+              <p>Maximum characters per order:</p>
+              <ul class="tos-chips">
+                <li class="tag">Profile pictures <b>1</b></li>
+                <li class="tag">Thumbnails <b>3</b></li>
+                <li class="tag">Commission sheets <b>1</b></li>
+                <li class="tag">Ads <b>2</b></li>
+                <li class="tag">Game icons <b>2</b></li>
+                <li class="tag">Renders <b>1</b></li>
+                <li class="tag">YouTube thumbnails <b>2</b></li>
+                <li class="tag">YouTube banners <b>2</b></li>
+              </ul>
+              <p class="tos-extra">Extra characters: 789 Robux or $3 each.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="tos-foot">
+        <label class="tos-check">
+          <input type="checkbox" id="tos-agree">
+          <span class="tos-box" aria-hidden="true"></span>
+          <span>I have read and agree to the <a href="tos.html" target="_blank" rel="noopener noreferrer">Terms of Service</a>.</span>
+        </label>
+        <div class="tos-actions">
+          <button class="button button-primary" type="button" data-tos-continue disabled>
+            <span>Continue to <span data-tos-dest>Discord</span></span>
+            <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button class="button button-secondary" type="button" data-tos-close>Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Selected product note. Product names for each ?product= value: add or rename them here. -->
+  <script>
+    (function () {
+      var PRODUCT_NAMES = {
+        "game-thumbnails": "Thumbnails",
+        "game-icons": "Game Icons",
+        "renders": "Renders",
+        "profile-pictures": "Profile Pictures",
+        "youtube-thumbnails": "YouTube Thumbnails",
+        "ads-posters": "Ads & Posters",
+        "youtube-banners": "YouTube Banners",
+        "commission-sheets": "Commission / Price Sheet Designs",
+        "custom-request": "Custom request"
+      };
+      var note = document.getElementById("selected-product");
+      if (!note) return;
+      var key = "";
+      try { key = new URLSearchParams(window.location.search).get("product") || ""; } catch (e) { return; }
+      if (!Object.prototype.hasOwnProperty.call(PRODUCT_NAMES, key)) return;
+      note.textContent = "Selected product: " + PRODUCT_NAMES[key];
+      note.style.display = "";
+    })();
+  </script>
+  <!-- Terms modal: Discord / Email / X buttons in the hero ask for agreement first -->
+  <script>
+    (function () {
+      var modal = document.getElementById("tos-modal");
+      if (!modal) return;
+
+      var panel = modal.querySelector(".tos-panel");
+      var scroller = modal.querySelector(".tos-scroll");
+      var check = document.getElementById("tos-agree");
+      var go = modal.querySelector("[data-tos-continue]");
+      var names = modal.querySelectorAll("[data-tos-dest]");
+      var html = document.documentElement;
+
+      var pendingUrl = "";
+      var opener = null;
+      var isOpen = false;
+      var closeTimer = 0;
+
+      function sync() {
+        go.disabled = !check.checked;
+      }
+
+      function openModal(link) {
+        // The link is read now, because script.js fills in the social URLs after the page loads
+        pendingUrl = link.href;
+        opener = link;
+        var label = link.getAttribute("data-contact-gate") || "them";
+        names.forEach(function (node) { node.textContent = label; });
+
+        check.checked = false;
+        sync();
+        scroller.scrollTop = 0;
+
+        clearTimeout(closeTimer);
+        modal.hidden = false;
+        html.classList.add("tos-lock");
+        isOpen = true;
+        // One frame later, so the fade-in animation runs
+        requestAnimationFrame(function () {
+          modal.classList.add("is-open");
+          panel.focus({ preventScroll: true });
+        });
+      }
+
+      function closeModal(returnFocus) {
+        if (!isOpen) return;
+        isOpen = false;
+        modal.classList.remove("is-open");
+        html.classList.remove("tos-lock");
+        closeTimer = setTimeout(function () { modal.hidden = true; }, 220);
+        if (returnFocus && opener && document.contains(opener)) opener.focus({ preventScroll: true });
+      }
+
+      function proceed() {
+        if (!check.checked || !pendingUrl) return;
+        var url = pendingUrl;
+        closeModal(false);
+        if (/^mailto:/i.test(url)) window.location.href = url;
+        else window.open(url, "_blank", "noopener,noreferrer");
+      }
+
+      // Click on one of the three buttons (read at click time, so it also works for links set later)
+      document.addEventListener("click", function (event) {
+        var link = event.target.closest("[data-contact-gate]");
+        if (!link) return;
+        event.preventDefault();
+        openModal(link);
+      });
+
+      // A middle click would open the link in a new tab and skip the Terms
+      document.addEventListener("auxclick", function (event) {
+        if (event.target.closest("[data-contact-gate]")) event.preventDefault();
+      });
+
+      check.addEventListener("change", sync);
+      go.addEventListener("click", proceed);
+
+      modal.addEventListener("click", function (event) {
+        if (event.target === modal || event.target.closest("[data-tos-close]")) closeModal(true);
+      });
+
+      document.addEventListener("keydown", function (event) {
+        if (!isOpen) return;
+
+        if (event.key === "Escape") {
+          event.preventDefault();
+          event.stopPropagation();
+          closeModal(true);
+          return;
+        }
+
+        // Keep keyboard focus inside the modal
+        if (event.key === "Tab") {
+          var items = Array.prototype.filter.call(
+            panel.querySelectorAll("button, a[href], input, [tabindex=\"0\"]"),
+            function (node) { return !node.disabled && node.offsetParent !== null; }
+          );
+          if (!items.length) return;
+          var first = items[0];
+          var last = items[items.length - 1];
+          if (event.shiftKey && (document.activeElement === first || document.activeElement === panel)) {
+            event.preventDefault();
+            last.focus();
+          } else if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault();
+            first.focus();
+          } else if (!panel.contains(document.activeElement)) {
+            event.preventDefault();
+            first.focus();
+          }
+        }
+      }, true);
+    })();
+  </script>
+  <!-- FAQ accordion (same script as the homepage) -->
+  <script>
+    (function () {
+      var list = document.querySelector('[data-faq]');
+      if (!list) return;
+      var items = Array.prototype.slice.call(list.querySelectorAll('.faq-item'));
+      var triggers = items.map(function (item) { return item.querySelector('.faq-trigger'); });
+
+      items.forEach(function (item, n) {
+        triggers[n].addEventListener('click', function () {
+          var open = !item.classList.contains('is-open');
+          item.classList.toggle('is-open', open);
+          triggers[n].setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+      });
+
+      list.addEventListener('keydown', function (e) {
+        var n = triggers.indexOf(document.activeElement);
+        if (n < 0 || e.altKey || e.ctrlKey || e.metaKey) return;
+        var to = -1;
+        if (e.key === 'ArrowDown') to = (n + 1) % triggers.length;
+        else if (e.key === 'ArrowUp') to = (n - 1 + triggers.length) % triggers.length;
+        else if (e.key === 'Home') to = 0;
+        else if (e.key === 'End') to = triggers.length - 1;
+        if (to > -1) { e.preventDefault(); triggers[to].focus(); }
+      });
+
+      // Collapsed styles only apply once the script has run, so the answers never get stuck hidden.
+      list.classList.add('is-ready');
+    })();
+  </script>
+  <!-- Contact page extras: copy buttons and "my time". Change the three values at the top. -->
+  <script>
+    (function () {
+      var DISCORD_USERNAME = "realbcraft";                       // <-- your Discord username (until it is filled in, the Discord chip copies your profile link instead)
+      var CONTACT_EMAIL = "bcraftforbusiness@gmail.com";
+      var X_HANDLE = "@realbcraft";
+      var MY_TIMEZONE = "Europe/Berlin";               // <-- the time zone shown in the "My time" badge
+
+      var DISCORD_LINK = "https://discordid.netlify.app/?id=1433205220892217496";   // used until DISCORD_USERNAME is filled in
+      var values = { discord: DISCORD_USERNAME || DISCORD_LINK, email: CONTACT_EMAIL, x: X_HANDLE };
+
+      function copyText(text) {
+        if (navigator.clipboard && window.isSecureContext) {
+          return navigator.clipboard.writeText(text);
+        }
+        return new Promise(function (resolve, reject) {
+          var area = document.createElement("textarea");
+          area.value = text;
+          area.setAttribute("readonly", "");
+          area.style.cssText = "position:fixed;top:0;left:0;opacity:0";
+          document.body.appendChild(area);
+          area.select();
+          try { document.execCommand("copy") ? resolve() : reject(); } catch (e) { reject(e); }
+          document.body.removeChild(area);
+        });
+      }
+
+      document.querySelectorAll("[data-copy-key]").forEach(function (chip) {
+        var value = values[chip.getAttribute("data-copy-key")];
+        var label = chip.querySelector(".copy-chip-text");
+        if (chip.getAttribute("data-copy-key") === "discord" && !DISCORD_USERNAME) label.textContent = "Copy Discord link";
+        var original = label.textContent;
+        if (!value) { chip.hidden = true; return; }
+        chip.hidden = false;
+        chip.setAttribute("aria-label", original + ": " + value);
+        var timer;
+        chip.addEventListener("click", function (e) {
+          if (e.detail > 0) chip.blur();   // mouse click: don't leave focus (and the visible chip) behind
+          copyText(value).then(function () {
+            label.textContent = "Copied";
+            chip.classList.add("is-copied");
+          }, function () {
+            label.textContent = value;   // clipboard blocked: show the text so it can be copied by hand
+          });
+          clearTimeout(timer);
+          timer = setTimeout(function () {
+            label.textContent = original;
+            chip.classList.remove("is-copied");
+          }, 1800);
+        });
+      });
+
+      var timeBadge = document.querySelector("[data-local-time]");
+      var timeValue = timeBadge && timeBadge.querySelector("[data-local-time-value]");
+      if (timeValue) {
+        try {
+          var fmt = new Intl.DateTimeFormat("en-GB", { timeZone: MY_TIMEZONE, hour: "2-digit", minute: "2-digit", hour12: false, timeZoneName: "short" });
+          var tick = function () { timeValue.textContent = fmt.format(new Date()); };
+          tick();
+          setInterval(tick, 30000);
+          timeBadge.hidden = false;
+        } catch (e) { /* unknown time zone: the badge stays hidden */ }
+      }
+    })();
+  </script>
+</body>
+</html>

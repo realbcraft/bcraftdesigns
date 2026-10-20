@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#060a14">
+  <title>About | Bcraft Designs</title>
+  <meta name="description" content="Meet the designer behind Bcraft Designs: a Roblox UI and GFX designer who started in Roblox Studio at 11 and now makes custom GFX and UI for game developers.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Figtree:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+  <script src="companion.js" defer></script>
+</head>
+<body>
+
+  <!-- ===== BACKGROUND (decorative, sits behind everything) =====
+       The design grid and its details are drawn by style.css (section 3b).
+       Only the soft cursor light lives in here. -->
+  <div class="site-background" aria-hidden="true">
+    <div class="cursor-light" id="cursor-light"></div>
+  </div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="site-logo" href="index.html" aria-label="Bcraft Designs, go to homepage" data-tooltip="Go to homepage">
+        <img class="site-logo-image" src="images/logo.png" alt="" width="512" height="329">
+      </a>
+
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Open menu">
+        <span class="menu-toggle-bar"></span>
+        <span class="menu-toggle-bar"></span>
+      </button>
+
+      <div class="site-menu" id="site-menu">
+        <nav class="site-nav" aria-label="Main navigation">
+          <ul class="nav-list">
+
+            <!-- WORK mega menu (preview images are set in script.js) -->
+            <li class="nav-item has-mega">
+              <button class="nav-link nav-trigger" type="button" aria-expanded="false" aria-controls="mega-work">
+                Work <svg class="nav-chevron" width="10" height="10" viewBox="0 0 10 10" aria-hidden="true" focusable="false"><path d="M1.5 3.5 5 7l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <div class="mega mega-work" id="mega-work" data-mega="work">
+                <div class="mega-inner">
+                  <div class="mega-main">
+                    <p class="mega-eyebrow">Browse the work</p>
+                    <ul class="mega-links">
+                  <li>
+                    <a class="mega-link" href="work.html#game-thumbnails" data-preview="thumbnails">
+                      <span class="mega-link-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10" r="1.6"/><path d="m21 16-5-5-8 8"/></svg></span>
+                      <span class="mega-link-body">
+                        <span class="mega-link-title">Thumbnails</span>
+                        <span class="mega-link-text">Game and YouTube thumbnails.</span>
+                      </span>
+                      <svg class="mega-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="mega-link" href="work.html#game-icons" data-preview="game-icons">
+                      <span class="mega-link-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/></svg></span>
+                      <span class="mega-link-body">
+                        <span class="mega-link-title">Game Icons</span>
+                        <span class="mega-link-text">Small squares, big first impressions.</span>
+                      </span>
+                      <svg class="mega-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="mega-link" href="work.html#ui" data-preview="ui">
+                      <span class="mega-link-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M3 9h18M9 9v11"/></svg></span>
+                      <span class="mega-link-body">
+                        <span class="mega-link-title">UI</span>
+                        <span class="mega-link-text">Roblox interface and UI design.</span>
+                      </span>
+                      <svg class="mega-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="mega-link" href="work.html#more" data-preview="more">
+                      <span class="mega-link-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="6" cy="12" r="1.5" fill="currentColor"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/><circle cx="18" cy="12" r="1.5" fill="currentColor"/></svg></span>
+                      <span class="mega-link-body">
+                        <span class="mega-link-title">More</span>
+                        <span class="mega-link-text">Everything else I make.</span>
+                      </span>
+                      <svg class="mega-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </a>
+                  </li>
+                    </ul>
+                    <div class="mega-foot">
+                      <a class="mega-all" href="work.html">View all work <svg class="mega-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                      <a class="mega-aside" href="pricing.html">
+                        <span class="mega-aside-text">Need something custom?</span>
+                        <span class="mega-aside-link">See pricing</span>
+                      </a>
+                    </div>
+                    <!-- Large banner slot. Image path is set in script.js (MEGA_BANNER_DATA) -->
+                    <figure class="mega-banner" aria-hidden="true">
+                      <div class="mega-banner-placeholder">
+                        <p class="mega-banner-label">Featured artwork</p>
+                        <p class="mega-banner-hint">1430 &times; 731</p>
+                      </div>
+                      <img class="mega-banner-image" src="" alt="">
+                    </figure>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li class="nav-item"><a class="nav-link" href="pricing.html">Pricing</a></li>
+            <li class="nav-item"><a class="nav-link" href="reviews.html">Reviews</a></li>
+            <li class="nav-item"><a class="nav-link" href="about.html" aria-current="page">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="news.html">News</a></li>
+            <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          </ul>
+        </nav>
+        <!-- Social icons. The links are set in script.js (SOCIAL_LINKS), not here. -->
+        <ul class="nav-socials" aria-label="Bcraft Designs on social media">
+          <li>
+            <a class="nav-social" href="#" data-social="robloxCommunity" data-tooltip="Roblox" aria-label="Bcraft Designs on Roblox">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.926 23.998 0 18.892 5.075 0 24 5.108ZM15.348 10.09l-5.282-1.453-1.414 5.273 5.282 1.453z"/></svg>
+            </a>
+          </li>
+          <li>
+            <a class="nav-social" href="#" data-social="youtube" data-tooltip="YouTube" aria-label="Bcraft Designs on YouTube">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+          </li>
+          <li>
+            <a class="nav-social" href="#" data-social="x" data-tooltip="X / Twitter" aria-label="Bcraft Designs on X (Twitter)">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>
+            </a>
+          </li>
+          <li>
+            <a class="nav-social" href="#" data-social="github" data-tooltip="GitHub" aria-label="Bcraft Designs on GitHub">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+            </a>
+          </li>
+          <li>
+            <a class="nav-social" href="#" data-social="discord" data-tooltip="Discord" aria-label="Bcraft Designs on Discord">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
+            </a>
+          </li>
+        </ul>
+        <a class="button button-primary" href="pricing.html">Commission Me</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ===== 1. INTRO =====
+         MY ROBLOX AVATAR: save it as  images/about-avatar.png  (a PNG with a
+         transparent background looks best; about 1000 x 1250 px, full body,
+         standing). .webp / .jpg / .jpeg with the same name also work.
+         Until the file exists, a labeled slot is shown instead. -->
+    <section class="about-hero" aria-labelledby="page-title">
+      <div class="container about-hero-inner">
+        <div class="about-hero-copy">
+          <h1 id="page-title" class="page-title">The Creator Behind Bcraft Designs</h1>
+          <p class="page-text">
+            Hey, I'm the designer behind Bcraft Designs. I'm 17 now, and I make GFX and
+            UI for Roblox developers. I also make YouTube videos. It all started when I
+            opened Roblox Studio at 11 and wanted to see what I could build.
+          </p>
+          <ul class="about-roles" aria-label="What I do">
+            <li>Roblox GFX</li>
+            <li>UI design</li>
+            <li>Blender</li>
+            <li>YouTube</li>
+          </ul>
+          <!-- Stats strip. Numbers count up when scrolled into view (small script at the bottom of this page).
+               data-count-to = final number, data-decimals = digits after the point, data-suffix = text after it.
+               data-from-reviews = the number is the amount of reviews in REVIEWS (script.js), so it updates itself. -->
+          <ul class="stats-strip" aria-label="Bcraft Designs in numbers">
+            <li class="stat">
+              <span class="stat-number" data-count-to="29" data-decimals="0" data-suffix="+" data-from-reviews>29+</span>
+              <span class="stat-label">Happy Clients</span>
+            </li>
+            <li class="stat">
+              <span class="stat-number" data-count-to="1.48" data-decimals="2" data-suffix="M+">1.48M+</span>
+              <span class="stat-label">Combined group members</span>
+            </li>
+          </ul>
+        </div>
+
+        <figure class="about-avatar">
+          <!-- One shared seal shape for the round badges -->
+          <svg class="about-defs" width="0" height="0" aria-hidden="true" focusable="false"><defs><symbol id="about-seal" viewBox="0 0 24 24"><path d="M23.50 12.00L23.33 12.74L22.86 13.43L22.20 14.03L21.51 14.55L20.95 15.04L20.59 15.56L20.47 16.18L20.53 16.92L20.65 17.78L20.69 18.67L20.54 19.49L20.13 20.13L19.49 20.54L18.67 20.69L17.78 20.65L16.93 20.53L16.18 20.47L15.56 20.59L15.04 20.95L14.55 21.51L14.03 22.20L13.43 22.86L12.74 23.33L12.00 23.50L11.26 23.33L10.57 22.86L9.97 22.20L9.45 21.51L8.96 20.95L8.44 20.59L7.82 20.47L7.08 20.53L6.22 20.65L5.33 20.69L4.51 20.54L3.87 20.13L3.46 19.49L3.31 18.67L3.35 17.78L3.47 16.92L3.53 16.18L3.41 15.56L3.05 15.04L2.49 14.55L1.80 14.03L1.14 13.43L0.67 12.74L0.50 12.00L0.67 11.26L1.14 10.57L1.80 9.97L2.49 9.45L3.05 8.96L3.41 8.44L3.53 7.82L3.47 7.08L3.35 6.22L3.31 5.33L3.46 4.51L3.87 3.87L4.51 3.46L5.33 3.31L6.22 3.35L7.07 3.47L7.82 3.53L8.44 3.41L8.96 3.05L9.45 2.49L9.97 1.80L10.57 1.14L11.26 0.67L12.00 0.50L12.74 0.67L13.43 1.14L14.03 1.80L14.55 2.49L15.04 3.05L15.56 3.41L16.18 3.53L16.93 3.47L17.78 3.35L18.67 3.31L19.49 3.46L20.13 3.87L20.54 4.51L20.69 5.33L20.65 6.22L20.53 7.07L20.47 7.82L20.59 8.44L20.95 8.96L21.51 9.45L22.20 9.97L22.86 10.57L23.33 11.26Z"/></symbol></defs></svg>
+
+          <span class="about-avatar-orbit" aria-hidden="true"></span>
+          <div class="about-avatar-panel" aria-hidden="true"></div>
+          <span class="hero-sticker">That's me</span>
+          <img class="about-avatar-image" data-service-art="images/about-avatar.png" alt="My Roblox avatar" width="1000" height="1250">
+          <div class="about-avatar-placeholder" aria-hidden="true">
+            <span class="work-placeholder-label">Roblox avatar</span>
+            <span class="work-placeholder-hint">Image slot</span>
+            <span class="work-placeholder-path">images/about-avatar.png</span>
+          </div>
+
+          <!-- Animated chat bubble: typing dots, then "Hi!" -->
+          <div class="about-bubble" aria-hidden="true">
+            <span class="about-bubble-dots"><i></i><i></i><i></i></span>
+            <span class="about-bubble-hi">Hi!</span>
+          </div>
+
+          <!-- Name plate with badges. Same idea as the verified badges in the
+               review cards: hover (or tap) a badge to see what it means. -->
+          <figcaption class="about-nameplate">
+            <span class="about-name">Bcraft</span>
+            <span class="about-badges">
+              <span class="about-badge about-badge-verified" tabindex="0" role="img" aria-label="Verified" data-tooltip="Verified">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#about-seal" class="about-badge-fill"/><path class="about-badge-glyph" d="m7.6 12.4 3 3 5.8-6.4"/></svg>
+              </span>
+              <span class="about-badge about-badge-youtube" tabindex="0" role="img" aria-label="YouTuber" data-tooltip="YouTuber">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect class="about-badge-fill" x="1" y="4" width="22" height="16" rx="5.5"/><path d="M10 8.8v6.4l5.6-3.2z" fill="#fff"/></svg>
+              </span>
+              <span class="about-badge about-badge-gfx" tabindex="0" role="img" aria-label="Graphics designer" data-tooltip="Graphics designer">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#about-seal" class="about-badge-fill"/><rect class="about-badge-glyph" x="7" y="7.5" width="10" height="9" rx="2"/><path class="about-badge-glyph" d="m17 14.3-2.9-2.9-5.4 5"/><circle cx="10.3" cy="10.6" r=".9" class="about-badge-dot"/></svg>
+              </span>
+              <span class="about-badge about-badge-ui" tabindex="0" role="img" aria-label="UI designer" data-tooltip="UI designer">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#about-seal" class="about-badge-fill"/><rect class="about-badge-glyph" x="7" y="7.5" width="10" height="9" rx="2"/><path class="about-badge-glyph" d="M7 11h10M11 11v5.5"/></svg>
+              </span>
+              <span class="about-badge about-badge-roblox" tabindex="0" role="img" aria-label="Roblox dev" data-tooltip="Roblox dev">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#about-seal" class="about-badge-fill"/><g transform="translate(6.4 6.4) scale(.47)"><path class="about-badge-dot" d="M18.926 23.998 0 18.892 5.075 0 24 5.108ZM15.348 10.09l-5.282-1.453-1.414 5.273 5.282 1.453z"/></g></svg>
+              </span>
+            </span>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ===== 2. MY JOURNEY ===== -->
+    <section class="section about-journey" aria-labelledby="journey-title">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <h2 id="journey-title" class="section-title">My Journey</h2>
+          <p class="about-section-lead">From a first Studio project to custom GFX and UI for other developers.</p>
+        </div>
+
+        <ol class="journey" data-reveal>
+          <li class="journey-step">
+            <span class="journey-node"><span class="journey-mark" aria-hidden="true">11</span><span class="journey-kicker">Age</span></span>
+            <h3 class="journey-title">Roblox Studio</h3>
+            <p class="journey-text">I opened Studio at 11 to see what I could build. Everything else grew out of that.</p>
+          </li>
+          <li class="journey-step">
+            <span class="journey-node"><span class="journey-mark" aria-hidden="true">UI</span><span class="journey-kicker">Then</span></span>
+            <h3 class="journey-title">Falling for interfaces</h3>
+            <p class="journey-text">I slowly got more interested in UI design, and I really enjoyed creating interfaces.</p>
+          </li>
+          <li class="journey-step">
+            <span class="journey-node"><span class="journey-mark" aria-hidden="true">13</span><span class="journey-kicker">Age</span></span>
+            <h3 class="journey-title">GFX commissions</h3>
+            <p class="journey-text">Around 13, I started taking GFX commissions, and Blender and its workflow pulled me in more and more.</p>
+          </li>
+          <li class="journey-step journey-step-now">
+            <span class="journey-node"><span class="journey-mark" aria-hidden="true">17</span><span class="journey-kicker">Age</span></span>
+            <h3 class="journey-title">Bcraft Designs</h3>
+            <p class="journey-text">I'm 17 now. I can make different kinds of GFX depending on how complex and difficult a project is.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===== 2b. THEN VS. NOW =====
+         Two drag-to-compare sliders. Left of the handle = 2024, right = Now.
+         Save the artwork (16:9, 1920 x 1080 each, png / webp / jpg) as:
+           images/progress-2024-thumbnail-01.png   images/progress-now-thumbnail-01.png
+           images/progress-2024-thumbnail-02.png   images/progress-now-thumbnail-02.png
+         Until a file exists, a labeled slot is shown. For the best comparison,
+         use the same kind of piece in both images. -->
+    <section class="section about-progress" id="progress" aria-labelledby="progress-title">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <h2 id="progress-title" class="section-title">Then vs. Now</h2>
+          <p class="about-section-lead">Work from 2024 next to work from today. Drag the handle to see how far it has come.</p>
+        </div>
+
+        <div class="progress-grid" data-reveal>
+          <figure class="progress" data-compare>
+            <div class="progress-frame">
+              <div class="progress-pane progress-pane--now">
+                <img class="progress-img" data-service-art="images/progress-now-thumbnail-01.png" alt="Game thumbnail from today" width="1920" height="1080">
+                <div class="progress-empty" aria-hidden="true"><strong>Now &middot; Game thumbnail</strong><span>images/progress-now-thumbnail-01.png</span></div>
+              </div>
+              <div class="progress-pane progress-pane--then">
+                <img class="progress-img" data-service-art="images/progress-2024-thumbnail-01.png" alt="Game thumbnail from 2024" width="1920" height="1080">
+                <div class="progress-empty" aria-hidden="true"><strong>2024 &middot; Game thumbnail</strong><span>images/progress-2024-thumbnail-01.png</span></div>
+              </div>
+              <span class="progress-chip progress-chip--then" aria-hidden="true">2024</span>
+              <span class="progress-chip progress-chip--now" aria-hidden="true">Now</span>
+              <span class="progress-handle" aria-hidden="true"></span>
+              <input class="progress-range" type="range" min="0" max="100" value="50" aria-label="Game thumbnail 1: slide between 2024 and now">
+            </div>
+            <figcaption class="progress-caption"><span class="progress-caption-title">Game thumbnail &middot; 01</span><span>2024 &rarr; Now</span></figcaption>
+          </figure>
+
+          <figure class="progress" data-compare>
+            <div class="progress-frame">
+              <div class="progress-pane progress-pane--now">
+                <img class="progress-img" data-service-art="images/progress-now-thumbnail-02.png" alt="Second game thumbnail from today" width="1920" height="1080">
+                <div class="progress-empty" aria-hidden="true"><strong>Now &middot; Game thumbnail 02</strong><span>images/progress-now-thumbnail-02.png</span></div>
+              </div>
+              <div class="progress-pane progress-pane--then">
+                <img class="progress-img" data-service-art="images/progress-2024-thumbnail-02.png" alt="Second game thumbnail from 2024" width="1920" height="1080">
+                <div class="progress-empty" aria-hidden="true"><strong>2024 &middot; Game thumbnail 02</strong><span>images/progress-2024-thumbnail-02.png</span></div>
+              </div>
+              <span class="progress-chip progress-chip--then" aria-hidden="true">2024</span>
+              <span class="progress-chip progress-chip--now" aria-hidden="true">Now</span>
+              <span class="progress-handle" aria-hidden="true"></span>
+              <input class="progress-range" type="range" min="0" max="100" value="50" aria-label="Game thumbnail 2: slide between 2024 and now">
+            </div>
+            <figcaption class="progress-caption"><span class="progress-caption-title">Game thumbnail &middot; 02</span><span>2024 &rarr; Now</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 3. A GLIMPSE OF MY WORK =====
+         The cards are built by script.js from WORK_ITEMS, using the ids listed
+         in data-glimpse-grid. They come in pairs, one wide piece next to one
+         square piece (1 Game Thumbnails + 6 Renders, 2 YouTube Thumbnail +
+         4 Game Icons), so each row lines up. They use the same artwork files
+         as work.html and open in the same full-size viewer. To show other
+         pieces, change the ids but keep the wide / square pairs. -->
+    <section class="section about-glimpse" aria-labelledby="glimpse-title">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <h2 id="glimpse-title" class="section-title">A Glimpse of My Work</h2>
+          <p class="about-section-lead">A few pieces from the portfolio. Click one to see it full size.</p>
+        </div>
+
+        <div class="glimpse-grid" data-glimpse-grid="1,6,2,4"></div>
+        <noscript><p class="portfolio-empty">The gallery needs JavaScript to display.</p></noscript>
+
+        <div class="work-footer" data-reveal>
+          <span class="work-footer-rule" aria-hidden="true"></span>
+          <a class="button button-secondary" href="work.html">View All Work</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 4. CLOSING CALL TO ACTION ===== -->
+    <section class="page-cta" aria-labelledby="cta-title">
+      <div class="container">
+        <div class="cta-panel" data-reveal>
+          <div>
+            <h2 id="cta-title" class="cta-title">Let's make your game stand out.</h2>
+            <p class="cta-text">My goal is to help your game feel alive. Tell me what you're building.</p>
+          </div>
+          <div class="about-cta-actions">
+            <a class="button button-primary button-lg" href="pricing.html">Commission Me</a>
+            <a class="button button-secondary button-lg" href="work.html">View My Work</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER =====
+       Keep this block identical on every page. Social links are filled in
+       by script.js (SOCIAL_LINKS) through the data-social attributes. -->
+  <footer class="site-footer">
+    <span class="footer-glow" aria-hidden="true"></span>
+    <span class="footer-curve" aria-hidden="true"></span>
+    <div class="container footer-inner">
+      <div class="footer-top">
+        <div class="footer-intro">
+          <a class="footer-brand" href="#top" aria-label="Bcraft Designs, back to top">
+            <img class="footer-logo" src="images/logo.png" alt="" width="512" height="329">
+          </a>
+          <p class="footer-tagline">Custom GFX and UI that make your game look as good as it plays.</p>
+          <a class="button button-primary footer-cta" href="pricing.html">
+            Commission Me
+            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <div class="footer-group">
+            <h2 class="footer-heading">Explore</h2>
+            <ul>
+              <li><a href="work.html">Work</a></li>
+              <li><a href="pricing.html">Pricing</a></li>
+              <li><a href="reviews.html">Reviews</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="news.html">News</a></li>
+            </ul>
+          </div>
+          <div class="footer-group footer-group-legal">
+            <h2 class="footer-heading">Legal</h2>
+            <ul>
+              <li><a href="privacy.html">Privacy Policy</a></li>
+              <li><a href="tos.html">Terms of Service</a></li>
+            </ul>
+          </div>
+          <div class="footer-group">
+            <h2 class="footer-heading">Connect</h2>
+            <ul>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <ul class="footer-socials" aria-label="Bcraft Designs on social media">
+            <li>
+              <a class="footer-social" href="#" data-social="robloxCommunity" aria-label="Bcraft Designs on Roblox" title="Roblox">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.926 23.998 0 18.892 5.075 0 24 5.108ZM15.348 10.09l-5.282-1.453-1.414 5.273 5.282 1.453z"/></svg>
+              </a>
+            </li>
+            <li>
+              <a class="footer-social" href="#" data-social="youtube" aria-label="Bcraft Designs on YouTube" title="YouTube">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+              </a>
+            </li>
+            <li>
+              <a class="footer-social" href="#" data-social="x" aria-label="Bcraft Designs on X (Twitter)" title="X / Twitter">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>
+              </a>
+            </li>
+            <li>
+              <a class="footer-social" href="#" data-social="github" aria-label="Bcraft Designs on GitHub" title="GitHub">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+              </a>
+            </li>
+            <li>
+              <a class="footer-social" href="#" data-social="discord" aria-label="Bcraft Designs on Discord" title="Discord">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
+              </a>
+            </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span data-year>2024</span> Bcraft Designs</p>
+        <a class="footer-top-link" href="#top">Back to top <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 10V2M2.5 5.5 6 2l3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </div>
+  </footer>
+  <script>
+    /* Stats strip: count up once when it scrolls into view.
+       Runs after script.js (deferred), so "Happy Clients" can use the real review count. */
+    document.addEventListener('DOMContentLoaded', function () {
+      var nums = document.querySelectorAll('[data-count-to]');
+      if (!nums.length) return;
+      if (typeof REVIEWS !== 'undefined' && REVIEWS.length) {
+        document.querySelectorAll('[data-from-reviews]').forEach(function (el) {
+          el.dataset.countTo = REVIEWS.length;
+          el.textContent = REVIEWS.length + (el.dataset.suffix || '');
+        });
+      }
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      function fmt(el, v) {
+        el.textContent = v.toFixed(+el.dataset.decimals || 0) + (el.dataset.suffix || '');
+      }
+      function run(el) {
+        var end = parseFloat(el.dataset.countTo), start = null, dur = 1600;
+        function tick(t) {
+          if (start === null) start = t;
+          var p = Math.min((t - start) / dur, 1);
+          fmt(el, end * (1 - Math.pow(1 - p, 3)));
+          if (p < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      }
+      if (reduce || !('IntersectionObserver' in window)) return;
+      nums.forEach(function (el) { fmt(el, 0); });
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { run(e.target); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.6 });
+      nums.forEach(function (el) { io.observe(el); });
+    });
+  </script>
+</body>
+</html>

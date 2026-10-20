@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#060a14">
+  <title>Portfolio | Bcraft Designs</title>
+  <meta name="description" content="The Bcraft Designs portfolio: Roblox GFX, game thumbnails, icons, renders, YouTube art and UI/UX design.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Figtree:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+  <script src="companion.js" defer></script>
+</head>
+<body>
+
+  <!-- ===== BACKGROUND (decorative, sits behind everything) =====
+       The design grid and its details are drawn by style.css (section 3b).
+       Only the soft cursor light lives in here. -->
+  <div class="site-background" aria-hidden="true">
+    <div class="cursor-light" id="cursor-light"></div>
+  </div>
+
+  <!-- ===== HEADER / NAVIGATION (same as the other pages) ===== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="site-logo" href="index.html" aria-label="Bcraft Designs, go to homepage" data-tooltip="Go to homepage">
+        <img class="site-logo-image" src="images/logo.png" alt="" width="512" height="329">
+      </a>
+
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Open menu">
+        <span class="menu-toggle-bar"></span>
+        <span class="menu-toggle-bar"></span>
+      </button>
+
+      <div class="site-menu" id="site-menu">
+        <nav class="site-nav" aria-label="Main navigation">
+          <ul class="nav-list">
+
+            <!-- WORK mega menu (preview images are set in script.js) -->
+            <li class="nav-item has-mega">
+              <button class="nav-link nav-trigger" type="button" aria-expanded="false" aria-controls="mega-work" aria-current="page">
+                Work <svg class="nav-chevron" width="10" height="10" viewBox="0 0 10 10" aria-hidden="true" focusable="false"><path d="M1.5 3.5 5 7l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <div class="mega mega-work" id="mega-work" data-mega="work">
+                <div class="mega-inner">
+                  <div class="mega-main">
+                    <p class="mega-eyebrow">Browse the work</p>
+                    <ul class="mega-links">
+                  <li>
+                    <a class="mega-link" href="work.html#game-thumbnails" data-preview="thumbnails">
+                      <span class="mega-link-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10" r="1.6"/><path d="m21 16-5-5-8 8"/></svg></span>
+                      <span class="mega-link-body">
+                        <span class="mega-link-title">Thumbnails</span>
+                        <span class="mega-link-text">Game and YouTube thumbnails.</span>
+                      </span>
+                      <svg class="mega-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="mega-link" href="work.html#game-icons" data-preview="game-icons">
+                      <span class="mega-link-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/></svg></span>
+                      <span class="mega-link-body">
+                        <span class="mega-link-title">Game Icons</span>
+                        <span class="mega-link-text">Small squares, big first impressions.</span>
+                      </span>
+                      <svg class="mega-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="mega-link" href="work.html#ui" data-preview="ui">
+                      <span class="mega-link-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M3 9h18M9 9v11"/></svg></span>
+                      <span class="mega-link-body">
+                        <span class="mega-link-title">UI</span>
+                        <span class="mega-link-text">Roblox interface and UI design.</span>
+                      </span>
+                      <svg class="mega-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="mega-link" href="work.html#more" data-preview="more">
+                      <span class="mega-link-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="6" cy="12" r="1.5" fill="currentColor"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/><circle cx="18" cy="12" r="1.5" fill="currentColor"/></svg></span>
+                      <span class="mega-link-body">
+                        <span class="mega-link-title">More</span>
+                        <span class="mega-link-text">Everything else I make.</span>
+                      </span>
+                      <svg class="mega-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </a>
+                  </li>
+                    </ul>
+                    <div class="mega-foot">
+                      <a class="mega-all" href="work.html">View all work <svg class="mega-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                      <a class="mega-aside" href="pricing.html">
+                        <span class="mega-aside-text">Need something custom?</span>
+                        <span class="mega-aside-link">See pricing</span>
+                      </a>
+                    </div>
+                    <!-- Large banner slot. Image path is set in script.js (MEGA_BANNER_DATA) -->
+                    <figure class="mega-banner" aria-hidden="true">
+                      <div class="mega-banner-placeholder">
+                        <p class="mega-banner-label">Featured artwork</p>
+                        <p class="mega-banner-hint">1430 &times; 731</p>
+                      </div>
+                      <img class="mega-banner-image" src="" alt="">
+                    </figure>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li class="nav-item"><a class="nav-link" href="pricing.html">Pricing</a></li>
+            <li class="nav-item"><a class="nav-link" href="reviews.html">Reviews</a></li>
+            <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="news.html">News</a></li>
+            <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          </ul>
+        </nav>
+        <!-- Social icons. The links are set in script.js (SOCIAL_LINKS), not here. -->
+        <ul class="nav-socials" aria-label="Bcraft Designs on social media">
+          <li>
+            <a class="nav-social" href="#" data-social="robloxCommunity" data-tooltip="Roblox" aria-label="Bcraft Designs on Roblox">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.926 23.998 0 18.892 5.075 0 24 5.108ZM15.348 10.09l-5.282-1.453-1.414 5.273 5.282 1.453z"/></svg>
+            </a>
+          </li>
+          <li>
+            <a class="nav-social" href="#" data-social="youtube" data-tooltip="YouTube" aria-label="Bcraft Designs on YouTube">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+          </li>
+          <li>
+            <a class="nav-social" href="#" data-social="x" data-tooltip="X / Twitter" aria-label="Bcraft Designs on X (Twitter)">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>
+            </a>
+          </li>
+          <li>
+            <a class="nav-social" href="#" data-social="github" data-tooltip="GitHub" aria-label="Bcraft Designs on GitHub">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+            </a>
+          </li>
+          <li>
+            <a class="nav-social" href="#" data-social="discord" data-tooltip="Discord" aria-label="Bcraft Designs on Discord">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
+            </a>
+          </li>
+        </ul>
+        <a class="button button-primary" href="pricing.html">Commission Me</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ===== PAGE HEADER ===== -->
+    <section class="page-hero" aria-labelledby="page-title">
+      <div class="container page-hero-inner">
+        <div class="page-hero-copy">
+          <h1 id="page-title" class="page-title">The Portfolio</h1>
+          <p class="page-text">
+            Graphics, thumbnails, icons, renders and interfaces made for Roblox creators and communities.
+            Pick a category to filter the gallery.
+          </p>
+        </div>
+
+        <!-- Floating hero render. Put your image at images/work-hero.png
+             (a transparent PNG with the board at the bottom works best). -->
+        <div class="page-hero-visual" aria-hidden="true">
+          <div class="hover-stage">
+            <span class="hover-glow"></span>
+            <span class="hover-underglow"></span>
+            <span class="hover-ripple"></span>
+            <span class="hover-ripple hover-ripple-2"></span>
+            <span class="hover-shadow"></span>
+            <div class="hover-float">
+              <img class="hover-image" src="images/work-hero.png" alt="" width="725" height="851" onerror="this.hidden=true">
+              <!-- Chat bubble, same as on the About page: typing dots, then the text.
+                   Change the words here. -->
+              <div class="about-bubble hover-bubble" aria-hidden="true">
+                <span class="about-bubble-dots"><i></i><i></i><i></i></span>
+                <span class="about-bubble-hi"> I update regularly ;) </span>
+              </div>
+            </div>
+            <span class="hover-spark" style="--x:34%; --d:5.2s; --delay:0s;"></span>
+            <span class="hover-spark" style="--x:43%; --d:4.4s; --delay:1.1s; --s:3px;"></span>
+            <span class="hover-spark" style="--x:52%; --d:6s;   --delay:2.2s;"></span>
+            <span class="hover-spark" style="--x:61%; --d:4.8s; --delay:0.6s; --s:3px;"></span>
+            <span class="hover-spark" style="--x:70%; --d:5.6s; --delay:1.8s; --s:5px;"></span>
+            <span class="hover-spark" style="--x:50%; --d:6.4s; --delay:3s;   --s:3px;"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== GALLERY =====
+         Every piece in the WORK list (script.js) is shown here automatically.
+         To add or remove artwork, add or delete a line in WORK (script.js) and put the images in images/. -->
+    <section class="portfolio" aria-label="Portfolio gallery">
+      <div class="container">
+        <div class="filter-bar" role="group" aria-label="Filter the portfolio by category" data-portfolio-filters>
+          <button class="filter-chip" type="button" data-filter="All" aria-pressed="true">All</button>
+          <button class="filter-chip" type="button" data-filter="Game Thumbnails" aria-pressed="false">Game Thumbnails</button>
+          <button class="filter-chip" type="button" data-filter="Game Icons" aria-pressed="false">Game Icons</button>
+          <button class="filter-chip" type="button" data-filter="Profile Pictures" aria-pressed="false">Profile Pictures</button>
+          <button class="filter-chip" type="button" data-filter="Commission Sheets" aria-pressed="false">Commission Sheets</button>
+          <button class="filter-chip" type="button" data-filter="Ads &amp; Posters" aria-pressed="false">Ads &amp; Posters</button>
+          <button class="filter-chip" type="button" data-filter="Renders" aria-pressed="false">Renders</button>
+          <button class="filter-chip" type="button" data-filter="YouTube Thumbnails" aria-pressed="false">YouTube Thumbnails</button>
+          <button class="filter-chip" type="button" data-filter="YouTube Banners" aria-pressed="false">YouTube Banners</button>
+          <button class="filter-chip" type="button" data-filter="UI/UX" aria-pressed="false">UI/UX</button>
+          <button class="filter-chip" type="button" data-filter="More" aria-pressed="false">More</button>
+          <!-- Surprise me: opens a random piece. Dashed, so it is clearly not a filter. -->
+          <button class="tool-chip" type="button" data-surprise title="Open a random piece">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3.5"/><circle cx="9" cy="9" r="1" fill="currentColor"/><circle cx="15" cy="15" r="1" fill="currentColor"/><circle cx="15" cy="9" r="1" fill="currentColor"/><circle cx="9" cy="15" r="1" fill="currentColor"/></svg>
+            Surprise me
+          </button>
+        </div>
+        <p class="filter-note" data-filter-note aria-live="polite"></p>
+
+        <div class="portfolio-grid" data-portfolio-grid></div>
+        <noscript><p class="portfolio-empty">The portfolio needs JavaScript to display.</p></noscript>
+      </div>
+    </section>
+
+    <!-- ===== CLOSING CALL TO ACTION ===== -->
+    <section class="page-cta" aria-labelledby="cta-title">
+      <div class="container">
+        <div class="cta-panel" data-reveal>
+          <div>
+          <h2 id="cta-title" class="cta-title">Like what you see?</h2>
+          <p class="cta-text">Tell me what you need.</p>
+          </div>
+          <a class="button button-primary button-lg" href="pricing.html">Commission Me</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER =====
+       Keep this block identical on every page. Social links are filled in
+       by script.js (SOCIAL_LINKS) through the data-social attributes. -->
+  <footer class="site-footer">
+    <span class="footer-glow" aria-hidden="true"></span>
+    <span class="footer-curve" aria-hidden="true"></span>
+    <div class="container footer-inner">
+      <div class="footer-top">
+        <div class="footer-intro">
+          <a class="footer-brand" href="#top" aria-label="Bcraft Designs, back to top">
+            <img class="footer-logo" src="images/logo.png" alt="" width="512" height="329">
+          </a>
+          <p class="footer-tagline">Custom GFX and UI that make your game look as good as it plays.</p>
+          <a class="button button-primary footer-cta" href="pricing.html">
+            Commission Me
+            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <div class="footer-group">
+            <h2 class="footer-heading">Explore</h2>
+            <ul>
+              <li><a href="work.html">Work</a></li>
+              <li><a href="pricing.html">Pricing</a></li>
+              <li><a href="reviews.html">Reviews</a></li>
+              <li><a href="about.html">About</a></li>
+            </ul>
+          </div>
+          <div class="footer-group footer-group-legal">
+            <h2 class="footer-heading">Legal</h2>
+            <ul>
+              <li><a href="privacy.html">Privacy Policy</a></li>
+              <li><a href="terms.html">Terms of Service</a></li>
+            </ul>
+          </div>
+          <div class="footer-group">
+            <h2 class="footer-heading">Connect</h2>
+            <ul>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <ul class="footer-socials" aria-label="Bcraft Designs on social media">
+            <li>
+              <a class="footer-social" href="#" data-social="robloxCommunity" aria-label="Bcraft Designs on Roblox" title="Roblox">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.926 23.998 0 18.892 5.075 0 24 5.108ZM15.348 10.09l-5.282-1.453-1.414 5.273 5.282 1.453z"/></svg>
+              </a>
+            </li>
+            <li>
+              <a class="footer-social" href="#" data-social="youtube" aria-label="Bcraft Designs on YouTube" title="YouTube">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+              </a>
+            </li>
+            <li>
+              <a class="footer-social" href="#" data-social="x" aria-label="Bcraft Designs on X (Twitter)" title="X / Twitter">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>
+              </a>
+            </li>
+            <li>
+              <a class="footer-social" href="#" data-social="github" aria-label="Bcraft Designs on GitHub" title="GitHub">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+              </a>
+            </li>
+            <li>
+              <a class="footer-social" href="#" data-social="discord" aria-label="Bcraft Designs on Discord" title="Discord">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
+              </a>
+            </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span data-year>2024</span> Bcraft Designs</p>
+        <a class="footer-top-link" href="#top">Back to top <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 10V2M2.5 5.5 6 2l3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

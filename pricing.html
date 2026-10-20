@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#060a14">
+  <title>Pricing | Bcraft Designs</title>
+  <meta name="description" content="Bcraft Designs pricing: custom Roblox GFX and UI commissions including game thumbnails, game icons, profile pictures, commission sheets, renders, YouTube thumbnails, YouTube banners and UI/UX.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Figtree:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+  <script src="companion.js" defer></script>
+</head>
+<body>
+
+  <!-- ===== BACKGROUND (decorative, sits behind everything) =====
+       The design grid and its details are drawn by style.css (section 3b).
+       Only the soft cursor light lives in here. -->
+  <div class="site-background" aria-hidden="true">
+    <div class="cursor-light" id="cursor-light"></div>
+  </div>
+
+  <!-- ===== HEADER / NAVIGATION (same as the homepage; links point back to index.html) ===== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="site-logo" href="index.html" aria-label="Bcraft Designs, go to homepage" data-tooltip="Go to homepage">
+        <img class="site-logo-image" src="images/logo.png" alt="" width="512" height="329">
+      </a>
+
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Open menu">
+        <span class="menu-toggle-bar"></span>
+        <span class="menu-toggle-bar"></span>
+      </button>
+
+      <div class="site-menu" id="site-menu">
+        <nav class="site-nav" aria-label="Main navigation">
+          <ul class="nav-list">
+
+            <!-- WORK mega menu (preview images are set in script.js) -->
+            <li class="nav-item has-mega">
+              <button class="nav-link nav-trigger" type="button" aria-expanded="false" aria-controls="mega-work">
+                Work <svg class="nav-chevron" width="10" height="10" viewBox="0 0 10 10" aria-hidden="true" focusable="false"><path d="M1.5 3.5 5 7l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <div class="mega mega-work" id="mega-work" data-mega="work">
+                <div class="mega-inner">
+                  <div class="mega-main">
+                    <p class="mega-eyebrow">Browse the work</p>
+                    <ul class="mega-links">
+                  <li>
+                    <a class="mega-link" href="work.html#game-thumbnails" data-preview="thumbnails">
+                      <span class="mega-link-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10" r="1.6"/><path d="m21 16-5-5-8 8"/></svg></span>
+                      <span class="mega-link-body">
+                        <span class="mega-link-title">Thumbnails</span>
+                        <span class="mega-link-text">Game and YouTube thumbnails.</span>
+                      </span>
+                      <svg class="mega-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="mega-link" href="work.html#game-icons" data-preview="game-icons">
+                      <span class="mega-link-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/></svg></span>
+                      <span class="mega-link-body">
+                        <span class="mega-link-title">Game Icons</span>
+                        <span class="mega-link-text">Small squares, big first impressions.</span>
+                      </span>
+                      <svg class="mega-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="mega-link" href="work.html#ui" data-preview="ui">
+                      <span class="mega-link-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M3 9h18M9 9v11"/></svg></span>
+                      <span class="mega-link-body">
+                        <span class="mega-link-title">UI</span>
+                        <span class="mega-link-text">Roblox interface and UI design.</span>
+                      </span>
+                      <svg class="mega-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="mega-link" href="work.html#more" data-preview="more">
+                      <span class="mega-link-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="6" cy="12" r="1.5" fill="currentColor"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/><circle cx="18" cy="12" r="1.5" fill="currentColor"/></svg></span>
+                      <span class="mega-link-body">
+                        <span class="mega-link-title">More</span>
+                        <span class="mega-link-text">Everything else I make.</span>
+                      </span>
+                      <svg class="mega-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </a>
+                  </li>
+                    </ul>
+                    <div class="mega-foot">
+                      <a class="mega-all" href="work.html">View all work <svg class="mega-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                      <a class="mega-aside" href="pricing.html">
+                        <span class="mega-aside-text">Need something custom?</span>
+                        <span class="mega-aside-link">See pricing</span>
+                      </a>
+                    </div>
+                    <!-- Large banner slot. Image path is set in script.js (MEGA_BANNER_DATA) -->
+                    <figure class="mega-banner" aria-hidden="true">
+                      <div class="mega-banner-placeholder">
+                        <p class="mega-banner-label">Featured artwork</p>
+                        <p class="mega-banner-hint">1430 &times; 731</p>
+                      </div>
+                      <img class="mega-banner-image" src="" alt="">
+                    </figure>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li class="nav-item"><a class="nav-link" href="pricing.html" aria-current="page">Pricing</a></li>
+            <li class="nav-item"><a class="nav-link" href="reviews.html">Reviews</a></li>
+            <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="news.html">News</a></li>
+            <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          </ul>
+        </nav>
+        <!-- Social icons. The links are set in script.js (SOCIAL_LINKS), not here. -->
+        <ul class="nav-socials" aria-label="Bcraft Designs on social media">
+          <li>
+            <a class="nav-social" href="#" data-social="robloxCommunity" data-tooltip="Roblox" aria-label="Bcraft Designs on Roblox">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.926 23.998 0 18.892 5.075 0 24 5.108ZM15.348 10.09l-5.282-1.453-1.414 5.273 5.282 1.453z"/></svg>
+            </a>
+          </li>
+          <li>
+            <a class="nav-social" href="#" data-social="youtube" data-tooltip="YouTube" aria-label="Bcraft Designs on YouTube">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+          </li>
+          <li>
+            <a class="nav-social" href="#" data-social="x" data-tooltip="X / Twitter" aria-label="Bcraft Designs on X (Twitter)">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>
+            </a>
+          </li>
+          <li>
+            <a class="nav-social" href="#" data-social="github" data-tooltip="GitHub" aria-label="Bcraft Designs on GitHub">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+            </a>
+          </li>
+          <li>
+            <a class="nav-social" href="#" data-social="discord" data-tooltip="Discord" aria-label="Bcraft Designs on Discord">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
+            </a>
+          </li>
+        </ul>
+        <a class="button button-primary" href="pricing.html">Commission Me</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ===== HERO ===== -->
+    <section class="page-hero pc-hero" aria-labelledby="page-title">
+      <div class="container">
+        <h1 id="page-title" class="page-title">Your vision<span class="pc-dot" aria-hidden="true"></span> My next creation<span class="pc-dot" aria-hidden="true"></span></h1>
+        <p class="page-text">
+          Custom Roblox GFX and UI commissions, made around your game, your channel
+          and your ideas. Browse the products below, or tell me about something new.
+        </p>
+        <div class="page-actions pc-actions">
+          <a class="button button-primary button-lg" href="#catalogue">Explore Pricing</a>
+          <a class="button button-secondary button-lg" href="contact.html">Discuss a Project</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== COMMISSION AVAILABILITY =====
+         TO CHANGE THE STATUS: edit COMMISSION_STATUS at the top of the script at the bottom
+         of this page (set it to "open", "limited" or "closed"). The wording for each
+         status is in STATUS_TEXT right below it. -->
+    <section class="pc-status-strip" aria-label="Commission availability">
+      <div class="container">
+        <p class="pc-status" data-status="open" data-commission-status>
+          <span class="pc-status-dot" aria-hidden="true"></span>
+          <span class="pc-status-label">Commission status</span>
+          <span class="pc-status-text">Commissions are open.</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== PRODUCT CAROUSEL =====
+         Each slide has id / data-product = the slug used in the commission link:
+         contact.html?product=<slug>
+         The first two slides are the featured ones (class "is-featured", shown with a Popular badge).
+         The carousel loops: after the last slide comes the first again.
+         ARTWORK: each preview loads the file named in data-pc-art. Until that file
+         exists, the labelled slot shows instead. Swap the path for any real artwork.
+         PRICES: edit PRICES in the script at the bottom of this page. -->
+    <section class="pc-catalogue" id="catalogue" aria-labelledby="catalogue-title">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <h2 id="catalogue-title" class="section-title">Products</h2>
+          <div class="pc-head-aside">
+            <p class="services-lead">Starting prices. Every price is for one piece.</p>
+            <!-- Shared by every product, so it is not repeated on each card -->
+            <ul class="pc-includes" aria-label="Included with every order">
+              <li>PSD available upon request</li>
+              <li>Details confirmed with you before work starts</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="pc-carousel" data-carousel role="region" aria-roledescription="carousel" aria-label="Products">
+        <div class="pc-track">
+          <div class="pc-viewport" data-viewport tabindex="0" aria-label="Product slides. Use the left and right arrow keys to move between products.">
+            <article class="pc-slide is-featured" id="game-thumbnails" data-product="game-thumbnails" role="group" aria-roledescription="slide" aria-label="1 of 8: Thumbnails">
+              <div class="pc-stage">
+                <span class="pc-badge">Popular</span>
+                <p class="tag pc-price-note" data-note hidden></p>
+                <div class="pc-art r-wide">
+                  <div class="work-placeholder" aria-hidden="true">
+                    <span class="work-placeholder-label">Thumbnails</span>
+                    <span class="work-placeholder-hint">Artwork slot</span>
+                    <span class="work-placeholder-path">images/price-game-thumbnails-01.png</span>
+                  </div>
+                  <img class="work-image" data-pc-art="images/price-game-thumbnails-01.png" data-pc-fallback="images/featured-gfx-01.png" alt="Example of Thumbnails artwork by Bcraft Designs" loading="lazy">
+                </div>
+              </div>
+              <div class="pc-body">
+                <h3 class="pc-name">Thumbnails</h3>
+                <p class="pc-desc">Custom thumbnail artwork that represents your Roblox game and helps it stand out.</p>
+                <ul class="pc-specs" aria-label="Details"><li class="pc-spec-size">1920 &times; 1080</li><li>PNG</li><li>1&ndash;3 days</li></ul>
+                <div class="pc-buy">
+                  <!-- PRICE: filled in from PRICES in the script at the bottom of this page. Edit prices there only. -->
+                  <p class="pc-price" data-price-for="game-thumbnails"><span class="pc-price-from">From</span><span class="pc-price-row"><span class="pc-price-amount is-unset" data-usd>Price coming soon</span><span class="pc-price-robux" data-robux hidden></span></span></p>
+                  <a class="button button-primary pc-button" href="contact.html?product=game-thumbnails" aria-label="Commission Thumbnails">Commission <svg class="pc-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                </div>
+                <a class="pc-portfolio" href="work.html#game-thumbnails" aria-label="See Thumbnails in the portfolio">View in portfolio <svg class="pc-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+              </div>
+            </article>
+            <article class="pc-slide is-featured" id="game-icons" data-product="game-icons" role="group" aria-roledescription="slide" aria-label="2 of 8: Game Icons">
+              <div class="pc-stage">
+                <span class="pc-badge">Popular</span>
+                <p class="tag pc-price-note" data-note hidden></p>
+                <div class="pc-art r-square">
+                  <div class="work-placeholder" aria-hidden="true">
+                    <span class="work-placeholder-label">Game Icons</span>
+                    <span class="work-placeholder-hint">Artwork slot</span>
+                    <span class="work-placeholder-path">images/price-game-icons-01.png</span>
+                  </div>
+                  <img class="work-image" data-pc-art="images/price-game-icons-01.png" data-pc-fallback="images/featured-logo-01.png" alt="Example of Game Icons artwork by Bcraft Designs" loading="lazy">
+                </div>
+              </div>
+              <div class="pc-body">
+                <h3 class="pc-name">Game Icons</h3>
+                <p class="pc-desc">Small squares, big first impressions. Custom icons designed to stay clear at small sizes.</p>
+                <ul class="pc-specs" aria-label="Details"><li class="pc-spec-size">1000 &times; 1000</li><li>PNG</li><li>1&ndash;3 days</li></ul>
+                <div class="pc-buy">
+                  <!-- PRICE: filled in from PRICES in the script at the bottom of this page. Edit prices there only. -->
+                  <p class="pc-price" data-price-for="game-icons"><span class="pc-price-from">From</span><span class="pc-price-row"><span class="pc-price-amount is-unset" data-usd>Price coming soon</span><span class="pc-price-robux" data-robux hidden></span></span></p>
+                  <a class="button button-primary pc-button" href="contact.html?product=game-icons" aria-label="Commission Game Icons">Commission <svg class="pc-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                </div>
+                <a class="pc-portfolio" href="work.html#game-icons" aria-label="See Game Icons in the portfolio">View in portfolio <svg class="pc-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+              </div>
+            </article>
+            <article class="pc-slide" id="renders" data-product="renders" role="group" aria-roledescription="slide" aria-label="3 of 8: Renders">
+              <div class="pc-stage">
+                
+                <p class="tag pc-price-note" data-note hidden></p>
+                <div class="pc-art r-square">
+                  <div class="work-placeholder" aria-hidden="true">
+                    <span class="work-placeholder-label">Renders</span>
+                    <span class="work-placeholder-hint">Artwork slot</span>
+                    <span class="work-placeholder-path">images/price-renders-01.png</span>
+                  </div>
+                  <img class="work-image" data-pc-art="images/price-renders-01.png" data-pc-fallback="images/featured-gfx-02.png" alt="Example of Renders artwork by Bcraft Designs" loading="lazy">
+                </div>
+              </div>
+              <div class="pc-body">
+                <h3 class="pc-name">Renders</h3>
+                <p class="pc-desc">Polished custom renders built around your character or concept.</p>
+                <ul class="pc-specs" aria-label="Details"><li class="pc-spec-size">1000 &times; 1000</li><li>PNG</li><li>1&ndash;3 days</li></ul>
+                <div class="pc-buy">
+                  <!-- PRICE: filled in from PRICES in the script at the bottom of this page. Edit prices there only. -->
+                  <p class="pc-price" data-price-for="renders"><span class="pc-price-from">From</span><span class="pc-price-row"><span class="pc-price-amount is-unset" data-usd>Price coming soon</span><span class="pc-price-robux" data-robux hidden></span></span></p>
+                  <a class="button button-primary pc-button" href="contact.html?product=renders" aria-label="Commission Renders">Commission <svg class="pc-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                </div>
+                <a class="pc-portfolio" href="work.html#renders" aria-label="See Renders in the portfolio">View in portfolio <svg class="pc-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+              </div>
+            </article>
+            <article class="pc-slide" id="profile-pictures" data-product="profile-pictures" role="group" aria-roledescription="slide" aria-label="4 of 8: Profile Pictures">
+              <div class="pc-stage">
+                
+                <p class="tag pc-price-note" data-note hidden></p>
+                <div class="pc-art r-square">
+                  <div class="work-placeholder" aria-hidden="true">
+                    <span class="work-placeholder-label">Profile Pictures</span>
+                    <span class="work-placeholder-hint">Artwork slot</span>
+                    <span class="work-placeholder-path">images/price-profile-pictures-01.png</span>
+                  </div>
+                  <img class="work-image" data-pc-art="images/price-profile-pictures-01.png" data-pc-fallback="images/featured-pfp-01.png" alt="Example of Profile Pictures artwork by Bcraft Designs" loading="lazy">
+                </div>
+              </div>
+              <div class="pc-body">
+                <h3 class="pc-name">Profile Pictures</h3>
+                <p class="pc-desc">Custom profile pictures made to suit your character, style or brand.</p>
+                <ul class="pc-specs" aria-label="Details"><li class="pc-spec-size">1000 &times; 1000</li><li>PNG</li><li>1&ndash;3 days</li></ul>
+                <div class="pc-buy">
+                  <!-- PRICE: filled in from PRICES in the script at the bottom of this page. Edit prices there only. -->
+                  <p class="pc-price" data-price-for="profile-pictures"><span class="pc-price-from">From</span><span class="pc-price-row"><span class="pc-price-amount is-unset" data-usd>Price coming soon</span><span class="pc-price-robux" data-robux hidden></span></span></p>
+                  <a class="button button-primary pc-button" href="contact.html?product=profile-pictures" aria-label="Commission Profile Pictures">Commission <svg class="pc-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                </div>
+                <a class="pc-portfolio" href="work.html#profile-pictures" aria-label="See Profile Pictures in the portfolio">View in portfolio <svg class="pc-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+              </div>
+            </article>
+            <article class="pc-slide" id="youtube-thumbnails" data-product="youtube-thumbnails" role="group" aria-roledescription="slide" aria-label="5 of 8: YouTube Thumbnails">
+              <div class="pc-stage">
+                
+                <p class="tag pc-price-note" data-note hidden></p>
+                <div class="pc-art r-wide">
+                  <div class="work-placeholder" aria-hidden="true">
+                    <span class="work-placeholder-label">YouTube Thumbnails</span>
+                    <span class="work-placeholder-hint">Artwork slot</span>
+                    <span class="work-placeholder-path">images/price-youtube-thumbnails-01.png</span>
+                  </div>
+                  <img class="work-image" data-pc-art="images/price-youtube-thumbnails-01.png" data-pc-fallback="images/featured-thumbnail-01.png" alt="Example of YouTube Thumbnails artwork by Bcraft Designs" loading="lazy">
+                </div>
+              </div>
+              <div class="pc-body">
+                <h3 class="pc-name">YouTube Thumbnails</h3>
+                <p class="pc-desc">Custom thumbnails made to help your videos stand out.</p>
+                <ul class="pc-specs" aria-label="Details"><li class="pc-spec-size">1920 &times; 1080</li><li>PNG</li><li>1&ndash;3 days</li></ul>
+                <div class="pc-buy">
+                  <!-- PRICE: filled in from PRICES in the script at the bottom of this page. Edit prices there only. -->
+                  <p class="pc-price" data-price-for="youtube-thumbnails"><span class="pc-price-from">From</span><span class="pc-price-row"><span class="pc-price-amount is-unset" data-usd>Price coming soon</span><span class="pc-price-robux" data-robux hidden></span></span></p>
+                  <a class="button button-primary pc-button" href="contact.html?product=youtube-thumbnails" aria-label="Commission YouTube Thumbnails">Commission <svg class="pc-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                </div>
+                <a class="pc-portfolio" href="work.html#youtube-thumbnails" aria-label="See YouTube Thumbnails in the portfolio">View in portfolio <svg class="pc-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+              </div>
+            </article>
+            <article class="pc-slide" id="youtube-banners" data-product="youtube-banners" role="group" aria-roledescription="slide" aria-label="6 of 8: YouTube Banners">
+              <div class="pc-stage">
+                
+                <p class="tag pc-price-note" data-note hidden></p>
+                <div class="pc-art r-wide">
+                  <div class="work-placeholder" aria-hidden="true">
+                    <span class="work-placeholder-label">YouTube Banners</span>
+                    <span class="work-placeholder-hint">Artwork slot</span>
+                    <span class="work-placeholder-path">images/price-youtube-banners-01.png</span>
+                  </div>
+                  <img class="work-image" data-pc-art="images/price-youtube-banners-01.png" data-pc-fallback="images/portfolio-thumbnail-02.png" alt="Example of YouTube Banners artwork by Bcraft Designs" loading="lazy">
+                </div>
+              </div>
+              <div class="pc-body">
+                <h3 class="pc-name">YouTube Banners</h3>
+                <p class="pc-desc">Channel banners that give your YouTube channel a consistent look.</p>
+                <ul class="pc-specs" aria-label="Details"><li class="pc-spec-size">2560 &times; 1440</li><li>PNG</li><li>1&ndash;3 days</li></ul>
+                <div class="pc-buy">
+                  <!-- PRICE: filled in from PRICES in the script at the bottom of this page. Edit prices there only. -->
+                  <p class="pc-price" data-price-for="youtube-banners"><span class="pc-price-from">From</span><span class="pc-price-row"><span class="pc-price-amount is-unset" data-usd>Price coming soon</span><span class="pc-price-robux" data-robux hidden></span></span></p>
+                  <a class="button button-primary pc-button" href="contact.html?product=youtube-banners" aria-label="Commission YouTube Banners">Commission <svg class="pc-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                </div>
+                <a class="pc-portfolio" href="work.html#youtube-banners" aria-label="See YouTube Banners in the portfolio">View in portfolio <svg class="pc-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+              </div>
+            </article>
+            <article class="pc-slide" id="ads-posters" data-product="ads-posters" role="group" aria-roledescription="slide" aria-label="7 of 8: Ads and Posters">
+              <div class="pc-stage">
+                
+                <p class="tag pc-price-note" data-note hidden></p>
+                <div class="pc-art r-43">
+                  <div class="work-placeholder" aria-hidden="true">
+                    <span class="work-placeholder-label">Ads &amp; Posters</span>
+                    <span class="work-placeholder-hint">Artwork slot</span>
+                    <span class="work-placeholder-path">images/price-ads-posters-01.png</span>
+                  </div>
+                  <img class="work-image" data-pc-art="images/price-ads-posters-01.png" data-pc-fallback="images/portfolio-ad-01.png" alt="Example of Ads and Posters artwork by Bcraft Designs" loading="lazy">
+                </div>
+              </div>
+              <div class="pc-body">
+                <h3 class="pc-name">Ads &amp; Posters</h3>
+                <p class="pc-desc">Custom ad and poster artwork to promote your game, event or brand.</p>
+                <ul class="pc-specs" aria-label="Details"><li>PNG</li><li>1&ndash;3 days</li></ul>
+                <div class="pc-buy">
+                  <!-- PRICE: filled in from PRICES in the script at the bottom of this page. Edit prices there only. -->
+                  <p class="pc-price" data-price-for="ads-posters"><span class="pc-price-from">From</span><span class="pc-price-row"><span class="pc-price-amount is-unset" data-usd>Price coming soon</span><span class="pc-price-robux" data-robux hidden></span></span></p>
+                  <a class="button button-primary pc-button" href="contact.html?product=ads-posters" aria-label="Commission Ads and Posters">Commission <svg class="pc-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                </div>
+                <a class="pc-portfolio" href="work.html#ads" aria-label="See Ads &amp; Posters in the portfolio">View in portfolio <svg class="pc-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+              </div>
+            </article>
+            <article class="pc-slide" id="commission-sheets" data-product="commission-sheets" role="group" aria-roledescription="slide" aria-label="8 of 8: Commission / Price Sheet Designs">
+              <div class="pc-stage">
+                
+                <p class="tag pc-price-note" data-note hidden></p>
+                <div class="pc-art r-43">
+                  <div class="work-placeholder" aria-hidden="true">
+                    <span class="work-placeholder-label">Commission / Price Sheet Designs</span>
+                    <span class="work-placeholder-hint">Artwork slot</span>
+                    <span class="work-placeholder-path">images/price-sheet-designs-01.png</span>
+                  </div>
+                  <img class="work-image" data-pc-art="images/price-sheet-designs-01.png" data-pc-fallback="images/portfolio-gfx-02.png" alt="Example of Commission / Price Sheet Designs artwork by Bcraft Designs" loading="lazy">
+                </div>
+              </div>
+              <div class="pc-body">
+                <h3 class="pc-name">Commission / Price Sheet Designs</h3>
+                <p class="pc-desc">Designed commission and price sheets for creators who take commissions of their own.</p>
+                <ul class="pc-specs" aria-label="Details"><li class="pc-spec-size">1920 &times; 1080</li><li>PNG</li><li>1&ndash;3 days</li></ul>
+                <div class="pc-buy">
+                  <!-- PRICE: filled in from PRICES in the script at the bottom of this page. Edit prices there only. -->
+                  <p class="pc-price" data-price-for="commission-sheets"><span class="pc-price-from">From</span><span class="pc-price-row"><span class="pc-price-amount is-unset" data-usd>Price coming soon</span><span class="pc-price-robux" data-robux hidden></span></span></p>
+                  <a class="button button-primary pc-button" href="contact.html?product=commission-sheets" aria-label="Commission Commission / Price Sheet Designs">Commission <svg class="pc-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                </div>
+                <a class="pc-portfolio" href="work.html#commission-sheets" aria-label="See Commission / Price Sheet Designs in the portfolio">View in portfolio <svg class="pc-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+              </div>
+            </article>
+          </div>
+            <button class="pc-nav pc-nav-prev" type="button" data-prev aria-label="Previous product"><svg width="18" height="18" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button class="pc-nav pc-nav-next" type="button" data-next aria-label="Next product"><svg width="18" height="18" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="m6 3 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
+
+        <div class="pc-controls">
+          <p class="pc-count" data-count aria-live="polite"><span class="pc-pos" data-pos>1</span> / 8</p>
+        </div>
+
+        <div class="pc-chips" role="group" aria-label="Choose a product">
+          <button class="pc-chip is-featured" type="button" data-chip aria-label="Go to Thumbnails" aria-current="true"><span class="pc-chip-label">Thumbnails</span></button>
+          <button class="pc-chip is-featured" type="button" data-chip aria-label="Go to Game Icons" aria-current="false"><span class="pc-chip-label">Game Icons</span></button>
+          <button class="pc-chip" type="button" data-chip aria-label="Go to Renders" aria-current="false"><span class="pc-chip-label">Renders</span></button>
+          <button class="pc-chip" type="button" data-chip aria-label="Go to Profile Pictures" aria-current="false"><span class="pc-chip-label">Profile Pictures</span></button>
+          <button class="pc-chip" type="button" data-chip aria-label="Go to YouTube Thumbnails" aria-current="false"><span class="pc-chip-label">YouTube Thumbnails</span></button>
+          <button class="pc-chip" type="button" data-chip aria-label="Go to YouTube Banners" aria-current="false"><span class="pc-chip-label">YouTube Banners</span></button>
+          <button class="pc-chip" type="button" data-chip aria-label="Go to Ads and Posters" aria-current="false"><span class="pc-chip-label">Ads &amp; Posters</span></button>
+          <button class="pc-chip" type="button" data-chip aria-label="Go to Commission / Price Sheet Designs" aria-current="false"><span class="pc-chip-label">Commission / Price Sheet Designs</span></button>
+        </div>
+      </div>
+
+      <div class="container pc-extra">
+        <p class="pc-pay-hint">Prices are shown in USD and Robux. Paying in Robux? <a href="#payments">Check the 30% gamepass tax note</a> under Payment Methods.</p>
+      </div>
+    </section>
+
+    <!-- ===== BUNDLES =====
+         Several pieces together for one price. The cards are built by the script at the bottom from
+         BUNDLES (edit them there only). Every card uses the same design as the product cards above, with the artwork arranged on its stage:
+         scene "game", "channel", "cards" or "pinboard". -->
+    <section class="pc-bundles" id="bundles" aria-labelledby="bundles-title">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <h2 id="bundles-title" class="section-title">Bundles</h2>
+          <div class="pc-head-aside">
+            <p class="services-lead">Ordering more than one piece? Bundles cost less together.</p>
+          </div>
+        </div>
+        <ul class="pc-bundle-grid" data-bundle-grid></ul>
+      </div>
+    </section>
+
+    <!-- ===== TERMS OF SERVICE TEASER =====
+         Same plain style as the closing call to action. -->
+    <section class="page-cta tos-teaser" aria-labelledby="tos-strip-title">
+      <div class="container">
+        <div class="cta-panel" data-reveal>
+          <div>
+            <h2 id="tos-strip-title" class="cta-title">Read before ordering</h2>
+            <p class="cta-text">Every commission is subject to the Bcraft Designs Terms of Service. Please take a moment to understand the terms before commissioning.</p>
+            <p class="cta-text">Clear expectations. Better commissions.</p>
+          </div>
+          <a class="button button-primary button-lg" href="tos.html">Read the Terms of Service &rarr;</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PAYMENT METHODS =====
+         Five informational cards (not checkout buttons). PayPal, Roblox and Steam use the
+         simple-icons marks (white); Robux uses the Robux icon (ROBUX_ICON in the script at the bottom).
+         No fees, rates or instructions are shown.
+         To hide the whole section until the list is confirmed, add the hidden attribute
+         to the <section> tag below. -->
+    <section class="payments payments-compact" id="payments" aria-labelledby="payments-title">
+      <div class="container">
+        <div class="payments-panel payments-panel-solo" data-reveal>
+          <div class="payments-content">
+            <h2 id="payments-title" class="payments-title">Payment Methods</h2>
+            <p class="payments-lead">Available payment methods.</p>
+            <ul class="pay-grid">
+              <li class="pay-card pay-card--robux pay-card--featured">
+                <div class="pay-card-stage">
+                  <div class="pay-card-face">
+                    <div class="pay-card-bg"></div>
+                    <div class="pay-card-mark" aria-hidden="true"><img class="pay-logo-img" data-robux-icon alt=""></div>
+                    <div class="pay-card-glare"></div>
+                  </div>
+                </div>
+                <div class="pay-card-caption">
+                  <h3 class="pay-card-name">Robux</h3>
+                  <p class="pay-card-desc">Pay with Robux for your Roblox-related commission.</p>
+                </div>
+              </li>
+              <li class="pay-card pay-card--paypal pay-card--featured">
+                <div class="pay-card-stage">
+                  <div class="pay-card-face">
+                    <div class="pay-card-bg"></div>
+                    <div class="pay-card-mark" aria-hidden="true"><svg class="pay-logo" viewBox="0 0 24 24" focusable="false" aria-hidden="true"><path fill="currentColor" d="M15.607 4.653H8.941L6.645 19.251H1.82L4.862 0h7.995c3.754 0 6.375 2.294 6.473 5.513-.648-.478-2.105-.86-3.722-.86m6.57 5.546c0 3.41-3.01 6.853-6.958 6.853h-2.493L11.595 24H6.74l1.845-11.538h3.592c4.208 0 7.346-3.634 7.153-6.949a5.24 5.24 0 0 1 2.848 4.686M9.653 5.546h6.408c.907 0 1.942.222 2.363.541-.195 2.741-2.655 5.483-6.441 5.483H8.714Z"/></svg></div>
+                    <div class="pay-card-glare"></div>
+                  </div>
+                </div>
+                <div class="pay-card-caption">
+                  <h3 class="pay-card-name">PayPal</h3>
+                  <p class="pay-card-desc">A convenient digital payment option.</p>
+                </div>
+              </li>
+              <li class="pay-card pay-card--roblox">
+                <div class="pay-card-stage">
+                  <div class="pay-card-face">
+                    <div class="pay-card-bg"></div>
+                    <div class="pay-card-mark" aria-hidden="true"><svg class="pay-logo" viewBox="0 0 24 24" focusable="false" aria-hidden="true"><path fill="currentColor" d="M18.926 23.998 0 18.892 5.075.002 24 5.108ZM15.348 10.09l-5.282-1.453-1.414 5.273 5.282 1.453z"/></svg></div>
+                    <div class="pay-card-glare"></div>
+                  </div>
+                </div>
+                <div class="pay-card-caption">
+                  <h3 class="pay-card-name">Roblox Gift Cards</h3>
+                  <p class="pay-card-desc">Roblox gift cards accepted.</p>
+                </div>
+              </li>
+              <li class="pay-card pay-card--steam">
+                <div class="pay-card-stage">
+                  <div class="pay-card-face">
+                    <div class="pay-card-bg"></div>
+                    <div class="pay-card-mark" aria-hidden="true"><svg class="pay-logo" viewBox="0 0 24 24" focusable="false" aria-hidden="true"><path fill="currentColor" d="M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658c.545-.371 1.203-.59 1.912-.59.063 0 .125.004.188.006l2.861-4.142V8.91c0-2.495 2.028-4.524 4.524-4.524 2.494 0 4.524 2.031 4.524 4.527s-2.03 4.525-4.524 4.525h-.105l-4.076 2.911c0 .052.004.105.004.159 0 1.875-1.515 3.396-3.39 3.396-1.635 0-3.016-1.173-3.331-2.727L.436 15.27C1.862 20.307 6.486 24 11.979 24c6.627 0 11.999-5.373 11.999-12S18.605 0 11.979 0zM7.54 18.21l-1.473-.61c.262.543.714.999 1.314 1.25 1.297.539 2.793-.076 3.332-1.375.263-.63.264-1.319.005-1.949s-.75-1.121-1.377-1.383c-.624-.26-1.29-.249-1.878-.03l1.523.63c.956.4 1.409 1.5 1.009 2.455-.397.957-1.497 1.41-2.454 1.012H7.54zm11.415-9.303c0-1.662-1.353-3.015-3.015-3.015-1.665 0-3.015 1.353-3.015 3.015 0 1.665 1.35 3.015 3.015 3.015 1.663 0 3.015-1.35 3.015-3.015zm-5.273-.005c0-1.252 1.013-2.266 2.265-2.266 1.249 0 2.266 1.014 2.266 2.266 0 1.251-1.017 2.265-2.266 2.265-1.253 0-2.265-1.014-2.265-2.265z"/></svg></div>
+                    <div class="pay-card-glare"></div>
+                  </div>
+                </div>
+                <div class="pay-card-caption">
+                  <h3 class="pay-card-name">Steam Gift Cards</h3>
+                  <p class="pay-card-desc">Steam gift cards in EUR (&euro;).</p>
+                </div>
+              </li>
+              <li class="pay-card pay-card--gift">
+                <div class="pay-card-stage">
+                  <div class="pay-card-face">
+                    <div class="pay-card-bg"></div>
+                    <div class="pay-card-mark" aria-hidden="true"><svg class="pay-logo pay-logo-line" viewBox="0 0 24 24" focusable="false" aria-hidden="true"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7M7.5 8a2.5 2.5 0 1 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 1 1 0 5"/></svg></div>
+                    <div class="pay-card-glare"></div>
+                  </div>
+                </div>
+                <div class="pay-card-caption">
+                  <h3 class="pay-card-name">Other Gift Cards</h3>
+                  <p class="pay-card-desc">Have another gift card in mind? <a href="contact.html">Contact me</a> to discuss it.</p>
+                </div>
+              </li>
+            </ul>
+            <p class="pc-roblox-note">
+              <img class="pc-roblox-plus" src="https://static.wikia.nocookie.net/roblox/images/4/40/BuilderIcons-Filled_Regular_-_roblox_plus.svg/revision/latest/scale-to-width-down/213?cb=20261005191530" alt="Roblox Plus" width="20" height="20" loading="lazy" referrerpolicy="no-referrer">
+              <span>Robux payments need to cover the 30% Roblox gamepass tax, unless you have Roblox Plus. With Roblox Plus you don&rsquo;t need to cover it.</span>
+            </p>
+            <p class="payments-note">Looking to pay with another gift card? <a href="contact.html">Contact me</a> to discuss your options.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CUSTOM REQUESTS ===== -->
+    <section class="pc-custom" aria-labelledby="custom-title">
+      <div class="container">
+        <div class="pc-custom-panel" data-reveal>
+          <div>
+            <h2 id="custom-title" class="pc-custom-title">Custom requests are always welcome.</h2>
+            <p class="pc-custom-text">
+              Custom work is priced according to the most closely associated product above.
+              If your idea doesn&rsquo;t clearly fit one, let&rsquo;s discuss the project.
+            </p>
+          </div>
+          <a class="button button-secondary" href="contact.html?product=custom-request">Discuss a custom request <svg class="pc-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== HOW IT WORKS ===== -->
+    <section class="process" aria-labelledby="process-title">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <h2 id="process-title" class="section-title">How It Works</h2>
+        </div>
+
+        <ol class="process-steps process-steps-4">
+          <li class="process-step" data-reveal>
+            <span class="process-num" aria-hidden="true">1</span>
+            <h3 class="process-title">Choose Your Product</h3>
+            <p class="process-text">Browse the pricing carousel and select the service that fits your project. Custom requests are welcome too.</p>
+          </li>
+          <li class="process-step" data-reveal data-reveal-index="1">
+            <span class="process-num" aria-hidden="true">2</span>
+            <h3 class="process-title">Share Your Vision</h3>
+            <p class="process-text">Contact me with your idea, references, and any important details.</p>
+          </li>
+          <li class="process-step" data-reveal data-reveal-index="2">
+            <span class="process-num" aria-hidden="true">3</span>
+            <h3 class="process-title">Confirm the Details</h3>
+            <p class="process-text">We&rsquo;ll discuss your requirements and confirm the project details before proceeding.</p>
+          </li>
+          <li class="process-step" data-reveal data-reveal-index="3">
+            <span class="process-num" aria-hidden="true">4</span>
+            <h3 class="process-title">Get Your Creation</h3>
+            <p class="process-text">Once the arrangements are confirmed, I&rsquo;ll create your custom design.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===== FREQUENTLY ASKED QUESTIONS (accordion; script at the bottom of this page) ===== -->
+    <section class="faq" id="faq" aria-labelledby="faq-title">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <h2 id="faq-title" class="section-title">Frequently Asked Questions</h2>
+          <p class="services-lead">Quick answers before you commission.</p>
+        </div>
+        <div class="faq-list" data-faq data-reveal>
+          <div class="faq-item">
+            <h3 class="faq-q">
+              <button class="faq-trigger" type="button" id="faq-q1" aria-expanded="false" aria-controls="faq-a1">
+                <span class="faq-q-text">Can I request a custom design?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq-panel" id="faq-a1" role="region" aria-labelledby="faq-q1">
+              <div class="faq-panel-inner"><p class="faq-answer">Yes! Custom requests are welcome. Contact me with your idea, and the price will depend on the product or service it most closely matches.</p></div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <h3 class="faq-q">
+              <button class="faq-trigger" type="button" id="faq-q2" aria-expanded="false" aria-controls="faq-a2">
+                <span class="faq-q-text">Are bulk orders available?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq-panel" id="faq-a2" role="region" aria-labelledby="faq-q2">
+              <div class="faq-panel-inner"><p class="faq-answer">Bulk order discounts are available for renders. Contact me to discuss your requirements.</p></div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <h3 class="faq-q">
+              <button class="faq-trigger" type="button" id="faq-q3" aria-expanded="false" aria-controls="faq-a3">
+                <span class="faq-q-text">How do I start a commission?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq-panel" id="faq-a3" role="region" aria-labelledby="faq-q3">
+              <div class="faq-panel-inner"><p class="faq-answer">Choose a product from the pricing carousel and use its commission button to contact me. You can also contact me about a custom request.</p></div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <h3 class="faq-q">
+              <button class="faq-trigger" type="button" id="faq-q4" aria-expanded="false" aria-controls="faq-a4">
+                <span class="faq-q-text">Are the listed prices final?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq-panel" id="faq-a4" role="region" aria-labelledby="faq-q4">
+              <div class="faq-panel-inner"><p class="faq-answer">The listed prices are the starting prices for the specified products. Contact me to confirm the details of your project before proceeding.</p></div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <h3 class="faq-q">
+              <button class="faq-trigger" type="button" id="faq-q5" aria-expanded="false" aria-controls="faq-a5">
+                <span class="faq-q-text">How long does a commission take?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq-panel" id="faq-a5" role="region" aria-labelledby="faq-q5">
+              <div class="faq-panel-inner"><p class="faq-answer">Delivery time is 1-3 days depending on complexity.</p></div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <h3 class="faq-q">
+              <button class="faq-trigger" type="button" id="faq-q6" aria-expanded="false" aria-controls="faq-a6">
+                <span class="faq-q-text">Can I ask a question before ordering?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq-panel" id="faq-a6" role="region" aria-labelledby="faq-q6">
+              <div class="faq-panel-inner"><p class="faq-answer">Absolutely. Use the <a href="contact.html">Contact page</a> to discuss your idea or ask any questions before committing.</p></div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <h3 class="faq-q">
+              <button class="faq-trigger" type="button" id="faq-q7" aria-expanded="false" aria-controls="faq-a7">
+                <span class="faq-q-text">Do you require a deposit?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq-panel" id="faq-a7" role="region" aria-labelledby="faq-q7">
+              <div class="faq-panel-inner"><p class="faq-answer">Yes &mdash; I require a 50% deposit before starting work, with the remaining balance due once your order is delivered.</p></div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <h3 class="faq-q">
+              <button class="faq-trigger" type="button" id="faq-q8" aria-expanded="false" aria-controls="faq-a8">
+                <span class="faq-q-text">What details do I need to provide for my GFX order?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq-panel" id="faq-a8" role="region" aria-labelledby="faq-q8">
+              <div class="faq-panel-inner"><p class="faq-answer">Please provide character references, poses, background ideas, models and any specific features you&rsquo;d like included.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CLOSING CALL TO ACTION ===== -->
+    <section class="page-cta" aria-labelledby="cta-title">
+      <div class="container">
+        <div class="cta-panel" data-reveal>
+          <div>
+            <h2 id="cta-title" class="cta-title">Let&rsquo;s discuss your project.</h2>
+            <p class="cta-text">Tell me what you have in mind and we&rsquo;ll take it from there.</p>
+          </div>
+          <a class="button button-primary button-lg" href="contact.html">Discuss a Project</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER =====
+       Keep this block identical on every page. Social links are filled in
+       by script.js (SOCIAL_LINKS) through the data-social attributes. -->
+  <footer class="site-footer">
+    <span class="footer-glow" aria-hidden="true"></span>
+    <span class="footer-curve" aria-hidden="true"></span>
+    <div class="container footer-inner">
+      <div class="footer-top">
+        <div class="footer-intro">
+          <a class="footer-brand" href="#top" aria-label="Bcraft Designs, back to top">
+            <img class="footer-logo" src="images/logo.png" alt="" width="512" height="329">
+          </a>
+          <p class="footer-tagline">Custom GFX and UI that make your game look as good as it plays.</p>
+          <a class="button button-primary footer-cta" href="pricing.html">
+            Commission Me
+            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <div class="footer-group">
+            <h2 class="footer-heading">Explore</h2>
+            <ul>
+              <li><a href="work.html">Work</a></li>
+              <li><a href="pricing.html">Pricing</a></li>
+              <li><a href="reviews.html">Reviews</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="news.html">News</a></li>
+            </ul>
+          </div>
+          <div class="footer-group footer-group-legal">
+            <h2 class="footer-heading">Legal</h2>
+            <ul>
+              <li><a href="privacy.html">Privacy Policy</a></li>
+              <li><a href="tos.html">Terms of Service</a></li>
+            </ul>
+          </div>
+          <div class="footer-group">
+            <h2 class="footer-heading">Connect</h2>
+            <ul>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <ul class="footer-socials" aria-label="Bcraft Designs on social media">
+            <li>
+              <a class="footer-social" href="#" data-social="robloxCommunity" aria-label="Bcraft Designs on Roblox" title="Roblox">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.926 23.998 0 18.892 5.075 0 24 5.108ZM15.348 10.09l-5.282-1.453-1.414 5.273 5.282 1.453z"/></svg>
+              </a>
+            </li>
+            <li>
+              <a class="footer-social" href="#" data-social="youtube" aria-label="Bcraft Designs on YouTube" title="YouTube">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+              </a>
+            </li>
+            <li>
+              <a class="footer-social" href="#" data-social="x" aria-label="Bcraft Designs on X (Twitter)" title="X / Twitter">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>
+              </a>
+            </li>
+            <li>
+              <a class="footer-social" href="#" data-social="github" aria-label="Bcraft Designs on GitHub" title="GitHub">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+              </a>
+            </li>
+            <li>
+              <a class="footer-social" href="#" data-social="discord" aria-label="Bcraft Designs on Discord" title="Discord">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
+              </a>
+            </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span data-year>2024</span> Bcraft Designs</p>
+        <a class="footer-top-link" href="#top">Back to top <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 10V2M2.5 5.5 6 2l3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Pricing page only. The three things you will edit are right here:
+       COMMISSION_STATUS ("open", "limited" or "closed"), PRICES (set usd and robux as text;
+       a product left out or null shows "Price coming soon"; note adds a small tag on the artwork)
+       and BUNDLES (the cards in the Bundles section). -->
+  <script>
+    (function () {
+      var COMMISSION_STATUS = "open";   // "open" | "limited" | "closed"
+
+      // BACKDROP_BLUR: what sits behind artwork that does not fill the frame on the product cards.
+      //   "none"   = nothing, the card colour shows through (transparent, fastest)
+      //   "css"    = a real blur filter; the strength is --pc-blur in style.css (try 4px to 10px)
+      //   "canvas" = the cheap tiny-canvas backdrop (almost free, but looks flatter)
+      var BACKDROP_BLUR = "css";
+
+      // Artwork files to try for a product, in order: its own price-... file (png, webp, jpg, jpeg),
+      // then the portfolio piece named in data-pc-fallback (taken from the WORK list in script.js).
+      function artCandidates(src, fallback) {
+        var base = src ? src.replace(/\.[a-z0-9]+$/i, '') : '';
+        var all = src ? [src, base + '.webp', base + '.jpg', base + '.jpeg', base + '.png'] : [];
+        if (fallback) all.push(fallback);
+        return all.filter(function (u, i) { return all.indexOf(u) === i; });
+      }
+
+      // The Robux icon: used after the Robux prices and on the Robux payment card.
+      var ROBUX_ICON = "https://devforum-uploads.s3.dualstack.us-east-2.amazonaws.com/uploads/original/4X/e/d/f/edfae9388da4cd8496b885a8a2df613372500d9c.png";
+
+      var STATUS_TEXT = {
+        open:    "Commissions are open.",
+        limited: "Commissions are limited right now.",
+        closed:  "Commissions are currently closed."
+      };
+
+      var PRICES = {
+        "game-thumbnails":    { usd: "$30", robux: "8K R$" },
+        "game-icons":         { usd: "$25", robux: "7.5K R$" },
+        "renders":            { usd: "$7",  robux: "2K R$", note: "Bulk Order Discounts Available!" },
+        "profile-pictures":   { usd: "$10", robux: "2.5K R$" },
+        "youtube-thumbnails": { usd: "$20", robux: "5K R$" },
+        "ads-posters":        { usd: "$20", robux: "5K R$" },
+        "youtube-banners":    { usd: "$20", robux: "5K R$" },
+        "commission-sheets":  { usd: "$20", robux: "5K R$" }
+      };
+
+      // BUNDLES: several pieces together. The cards in the Bundles section are built from this list.
+      //   items       : { product: <a key from PRICES>, qty: <number>, art: [<image paths>] }
+//                 art is optional: one image per piece (a list shorter than qty repeats). Leave it out to use the product's own artwork.
+      //   usd, robux  : the bundle price as text, like in PRICES. Left out (or "") shows "Price coming soon".
+      //   size        : not used any more (the cards sit in an even grid)
+      //   tone        : the card's colour: "blue", "red", "violet", "green", "orange", "gold", "cyan", "rose" or "silver"
+      //   icon        : the small emblem next to the name and the faint mark behind the artwork: "rocket", "briefcase", "cube" or "youtube"
+      //   scene       : the little picture on the card, built from the artwork of the pieces inside:
+      //                 "game"     thumbnails and the icon, overlapped (needs game-thumbnails + game-icons)
+      //                 "channel"  banner, profile picture and thumbnails, just the artwork (needs youtube-banners + profile-pictures + youtube-thumbnails)
+      //                 "pinboard" posters and a sheet pinned to a wall (needs ads-posters + commission-sheets)
+      //                 "cards"    collectible cards, works with any pieces (also the fallback)
+      //   The "Separately" price, the saving, the percent sticker and the savings bar are worked out from PRICES.
+      //   The biggest saving gets a tag by itself once two bundles have a price.
+      //   These are EXAMPLES (names, texts and prices too): change or delete them, and add your own.
+      var BUNDLES = [
+        { id: "youtuber-starter-pack", size: "medium", tone: "red", scene: "channel", icon: "youtube", name: "YouTuber Starter Pack",
+          text: "Look like a real channel from your very first upload: profile picture, banner and two thumbnails.",
+          items: [ { product: "profile-pictures", qty: 1 }, { product: "youtube-banners", qty: 1 }, { product: "youtube-thumbnails", qty: 2, art: [ "images/featured-thumbnail-01.png", "images/featured-thumbnail-02.png" ] } ],
+          usd: "$60", robux: "15K R$" },
+        { id: "game-launch-pack", size: "medium", tone: "blue", scene: "game", icon: "rocket", name: "Game Launch Pack",
+          text: "Two thumbnails and an icon: your game page, ready for launch.",
+          items: [ { product: "game-thumbnails", qty: 2, art: [ "images/featured-gfx-01.png", "images/portfolio-thumbnail-01.png" ] }, { product: "game-icons", qty: 1 } ],
+          usd: "$75", robux: "20.5K R$" },
+        { id: "hire-me-kit", size: "medium", tone: "green", scene: "pinboard", icon: "briefcase", name: "Hire Me Kit",
+          text: "Posters to get you noticed, a commission sheet to get you booked.",
+          items: [ { product: "ads-posters", qty: 2 }, { product: "commission-sheets", qty: 1 } ],
+          usd: "$50", robux: "12.5K R$" },
+        { id: "render-pack", size: "medium", tone: "violet", scene: "cards", icon: "cube", name: "Render Pack",
+          text: "Three different renders, one collectible set.",
+          items: [ { product: "renders", qty: 3, art: [ "images/featured-gfx-02.png", "images/portfolio-gfx-01.png", "images/portfolio-render-03.png" ] } ],
+          usd: "$17", robux: "5K R$" },
+
+      ];
+
+      // ---- Price helpers (cards and bundles use these) ----
+      // "$30" -> 30, "7.9K R$" -> 7900, anything else -> null
+      function toNumber(text) {
+        if (!text) return null;
+        var m = String(text).replace(/,/g, '').match(/([\d.]+)\s*(k)?/i);
+        if (!m) return null;
+        var n = parseFloat(m[1]);
+        if (isNaN(n)) return null;
+        return m[2] ? n * 1000 : n;
+      }
+      function formatUsd(n) { return '$' + (n % 1 ? n.toFixed(2) : String(n)); }
+      function formatRobux(n) { return n >= 1000 ? String(Math.round(n / 100) / 10) + 'K' : String(Math.round(n)); }
+      function el(tag, className, text) {
+        var node = document.createElement(tag);
+        if (className) node.className = className;
+        if (text) node.textContent = text;
+        return node;
+      }
+      // "7.9K R$" -> "7.9K" + Robux icon (a trailing "R$" in PRICES is dropped automatically)
+      function fillRobux(node, text) {
+        node.textContent = text.replace(/\s*R\$\s*$/, '');
+        var icon = document.createElement('img');
+        icon.className = 'pc-robux-icon';
+        icon.src = ROBUX_ICON;
+        icon.alt = 'Robux';
+        node.appendChild(icon);
+        node.hidden = false;
+      }
+
+      // ---- Commission status ----
+      var statusEl = document.querySelector('[data-commission-status]');
+      if (statusEl && STATUS_TEXT[COMMISSION_STATUS]) {
+        statusEl.setAttribute('data-status', COMMISSION_STATUS);
+        statusEl.querySelector('.pc-status-text').textContent = STATUS_TEXT[COMMISSION_STATUS];
+      }
+
+      // ---- Robux icon on the payment card ----
+      document.querySelectorAll('img[data-robux-icon]').forEach(function (img) { img.src = ROBUX_ICON; });
+
+      // ---- Prices ----
+      document.querySelectorAll('[data-price-for]').forEach(function (row) {
+        var p = PRICES[row.getAttribute('data-price-for')];
+        if (!p || !p.usd) return;
+        var usd = row.querySelector('[data-usd]');
+        usd.textContent = p.usd;
+        usd.classList.remove('is-unset');
+        row.classList.add('has-price');   // shows the small "From" label
+        var robux = row.querySelector('[data-robux]');
+        if (p.robux) fillRobux(robux, p.robux);
+        var note = row.closest('.pc-slide').querySelector('[data-note]');
+        if (p.note && note) { note.textContent = p.note; note.hidden = false; }
+      });
+
+      // ---- Bundles: a grid of horizontal cards built from BUNDLES ----
+      // Same card design as the products above. The "Separately" price and the saving are worked out from PRICES.
+      var bundleGrid = document.querySelector('[data-bundle-grid]');
+      if (bundleGrid) {
+        // What the cards need to know about each product, read from the product cards above
+        var productInfo = {};
+        document.querySelectorAll('.pc-slide[data-product]').forEach(function (s) {
+          var art = s.querySelector('.pc-art');
+          var photo = s.querySelector('img[data-pc-art]');
+          productInfo[s.getAttribute('data-product')] = {
+            name: s.querySelector('.pc-name').textContent,
+            src: photo ? photo.getAttribute('data-pc-art') : '',
+            fallback: photo ? (photo.getAttribute('data-pc-fallback') || '') : '',
+            shape: art && art.classList.contains('r-square') ? 'square' : (art && art.classList.contains('r-43') ? 'poster' : 'wide')
+          };
+        });
+
+        // Finds each product's artwork once and shares it with every piece and backdrop that needs it.
+        // Tries the path from the product card first, then the same name as .webp, .jpg, .jpeg and .png
+        // (the artwork notes at the top of script.js say all of these work). A product with no file at all
+        // is listed in the browser console, so you can see which image is missing.
+        var artCache = {};
+        function settleArt(entry) {
+          var waiting = entry.waiting;
+          entry.waiting = [];
+          waiting.forEach(function (cb) { cb(entry); });
+        }
+        function loadArt(slug, done, override) {
+          var key = override || slug;
+          var entry = artCache[key];
+          if (!entry) {
+            entry = artCache[key] = { state: 'loading', url: '', w: 0, h: 0, waiting: [] };
+            var info = productInfo[slug];
+            var tries = override ? [override] : (info ? artCandidates(info.src, info.fallback) : []);
+            (function next(i) {
+              if (i >= tries.length) {
+                entry.state = 'missing';
+                if (window.console) console.warn('[bundles] no artwork found for "' + slug + '". Tried: ' + (tries.join(', ') || 'nothing (no data-pc-art on its product card)'));
+                settleArt(entry);
+                return;
+              }
+              var probe = new Image();
+              probe.onload = function () {
+                entry.state = 'ready';
+                entry.url = tries[i];
+                entry.w = probe.naturalWidth;
+                entry.h = probe.naturalHeight;
+                settleArt(entry);
+              };
+              probe.onerror = function () { next(i + 1); };
+              probe.src = tries[i];
+            })(0);
+          }
+          if (entry.state === 'loading') entry.waiting.push(done); else done(entry);
+        }
+
+        // One piece of artwork at its real resolution (the YouTube banner at the PC banner size).
+        // Shows the product name until the picture has loaded; a dashed frame if the file cannot be found.
+        function makePiece(slug, override) {
+          var info = productInfo[slug] || { name: slug, src: '', shape: 'wide' };
+          var piece = el('span', 'pc-piece pc-piece--' + info.shape);
+          if (slug === 'youtube-banners') piece.style.aspectRatio = '2560 / 423';   // PC banner size
+          piece.appendChild(el('span', 'pc-piece-label', info.name));
+          loadArt(slug, function (art) {
+            if (art.state !== 'ready') { piece.classList.add('is-missing'); return; }
+            if (slug !== 'youtube-banners' && art.w && art.h) piece.style.aspectRatio = art.w + ' / ' + art.h;
+            var picture = new Image();
+            picture.alt = '';
+            picture.decoding = 'async';
+            picture.src = art.url;
+            piece.classList.add('has-art');
+            piece.appendChild(picture);
+          }, override);
+          return piece;
+        }
+
+
+        // Emblems: one per bundle (the YouTube mark is the same one used in the footer)
+        var BUNDLE_ICONS = {
+          youtube: '<svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>',
+          rocket: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M12 2c3.5 2 5.5 6 5.5 10v3l-2 2h-7l-2-2v-3C6.5 8 8.5 4 12 2Z"/><circle cx="12" cy="10" r="1.8"/><path d="M6.5 14 4 17l3 .5M17.5 14 20 17l-3 .5M10 20l2 2.5 2-2.5"/></svg>',
+          briefcase: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7M3 13h18M11 13v2h2v-2"/></svg>',
+          cube: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M12 2.5 20 7v10l-8 4.5L4 17V7l8-4.5Z"/><path d="m4 7 8 4.5L20 7M12 11.5v10"/></svg>'
+        };
+
+        // Decoration behind the artwork (no blur): a faint emblem, plus a few touches that fit each bundle
+        function makeDeco(b) {
+          var deco = el('span', 'pc-deco pc-deco--' + (b.tone || 'blue'));
+          deco.setAttribute('aria-hidden', 'true');
+          var mark = el('span', 'pc-deco-mark');
+          mark.innerHTML = BUNDLE_ICONS[b.icon] || '';
+          deco.appendChild(mark);
+          if (b.tone === 'red') deco.appendChild(el('span', 'pc-deco-bar'));                       // a video progress bar along the bottom
+          if (b.tone === 'green') deco.appendChild(el('span', 'pc-deco-stamp', 'Hire me'));        // a stamp
+          if (b.tone === 'violet') {                                                                // sparkles
+            [[14, 24, 0], [82, 18, 0.9], [70, 76, 1.7], [24, 72, 2.4]].forEach(function (s, i) {
+              var spark = el('span', 'pc-deco-spark');
+              spark.style.cssText = 'left:' + s[0] + '%;top:' + s[1] + '%;animation-delay:' + s[2] + 's;' + (i % 2 ? '--s:0.7rem;' : '');
+              deco.appendChild(spark);
+            });
+          }
+          return deco;
+        }
+
+        // The scenes: only the artwork, arranged. Each gets the pieces sorted by product (pool) and returns the scene,
+        // or null when a product it needs is missing (the bundle then falls back to the collectible cards).
+        var SCENES = {
+          // Two thumbnails overlap at an angle, the game icon sits across them
+          game: function (pool) {
+            var shots = pool['game-thumbnails'] || [], icon = (pool['game-icons'] || [])[0];
+            if (!shots.length || !icon) return null;
+            var scene = el('div', 'pc-scene pc-scene--game');
+            shots.slice(0, 2).forEach(function (s, i) {
+              s.classList.add('pc-game-shot', i ? 'is-b' : 'is-a');
+              scene.appendChild(s);
+            });
+            icon.classList.add('pc-game-icon');
+            scene.appendChild(icon);
+            return scene;
+          },
+
+          // The PC banner across the top, the profile picture on its edge, the thumbnails below
+          channel: function (pool) {
+            var banner = (pool['youtube-banners'] || [])[0], pfp = (pool['profile-pictures'] || [])[0], videos = pool['youtube-thumbnails'] || [];
+            if (!banner || !pfp || !videos.length) return null;
+            var scene = el('div', 'pc-scene pc-scene--channel');
+            banner.classList.add('pc-ch-banner');
+            pfp.classList.add('pc-ch-pfp');
+            var row = el('div', 'pc-ch-videos');
+            videos.slice(0, 2).forEach(function (v) { row.appendChild(v); });
+            scene.appendChild(banner);
+            scene.appendChild(row);
+            scene.appendChild(pfp);
+            return scene;
+          },
+
+          // Posters either side of a commission sheet
+          pinboard: function (pool) {
+            var posters = pool['ads-posters'] || [], sheet = (pool['commission-sheets'] || [])[0];
+            if (!posters.length || !sheet) return null;
+            var scene = el('div', 'pc-scene pc-scene--pinboard');
+            posters.slice(0, 2).forEach(function (p, i) {
+              var pin = el('span', 'pc-pin pc-pin--poster ' + (i ? 'is-right' : 'is-left'));
+              pin.appendChild(p);
+              scene.appendChild(pin);
+            });
+            var main = el('span', 'pc-pin pc-pin--sheet');
+            main.appendChild(sheet);
+            scene.appendChild(main);
+            return scene;
+          },
+
+          // Cards fanned out (also the fallback): one per piece, up to five
+          cards: function (pool, b) {
+            var all = [];
+            b.items.forEach(function (it) {
+              (pool[it.product] || []).forEach(function (piece) { all.push(piece); });
+            });
+            all = all.slice(0, 5);
+            if (!all.length) return null;
+            var scene = el('div', 'pc-scene pc-scene--cards');
+            scene.style.setProperty('--k', all.length <= 3 ? '21' : '13');
+            scene.style.setProperty('--w', all.length <= 3 ? '28' : '22');
+            all.forEach(function (piece, i) {
+              var o = i - (all.length - 1) / 2;
+              var card = el('span', 'pc-trade');
+              card.style.setProperty('--o', String(o));
+              card.style.zIndex = String(10 - Math.round(Math.abs(o) * 2));
+              piece.classList.add('pc-trade-art');
+              card.appendChild(piece);
+              scene.appendChild(card);
+            });
+            return scene;
+          }
+        };
+
+        var bestStage = null, bestPercent = 0, pricedCount = 0;
+
+        BUNDLES.forEach(function (b) {
+          var card = el('li', 'pc-bundle');
+          card.setAttribute('data-bundle', b.id);
+          card.classList.add('pc-bundle--' + (b.tone || 'blue'));
+
+          // What is inside + totals
+          var regularUsd = 0, regularRobux = 0, usdKnown = true, robuxKnown = true, pool = {};
+          var inside = el('ul', 'pc-specs');
+          inside.setAttribute('aria-label', 'Included in this bundle');
+          b.items.forEach(function (it) {
+            var p = PRICES[it.product] || {};
+            var info = productInfo[it.product] || { name: it.product };
+            var u = toNumber(p.usd), r = toNumber(p.robux);
+            if (u === null) usdKnown = false; else regularUsd += u * it.qty;
+            if (r === null) robuxKnown = false; else regularRobux += r * it.qty;
+            pool[it.product] = [];
+            for (var k = 0; k < it.qty; k++) pool[it.product].push(makePiece(it.product, it.art && it.art.length ? it.art[k % it.art.length] : ''));
+            inside.appendChild(el('li', '', it.qty + '\u00d7 ' + info.name));
+          });
+
+          // Saving: measured in USD when possible, otherwise in Robux
+          var bu = toNumber(b.usd), br = toNumber(b.robux);
+          var isPriced = bu !== null || br !== null;
+          var regular = null, paid = 0, money = formatUsd;
+          if (bu !== null && usdKnown && regularUsd > 0) { regular = regularUsd; paid = bu; }
+          else if (br !== null && robuxKnown && regularRobux > 0) {
+            regular = regularRobux; paid = br;
+            money = function (n) { return formatRobux(n) + ' Robux'; };
+          }
+          var saved = regular !== null ? regular - paid : 0;
+          var percent = saved > 0 ? Math.round(saved / regular * 100) : 0;
+          if (isPriced) pricedCount++;
+
+          // Stage: transparent, with the bundle's own decoration behind the artwork
+          var stage = el('div', 'pc-stage pc-bundle-stage');
+          stage.setAttribute('aria-hidden', 'true');
+          var scene = (SCENES[b.scene] || SCENES.cards)(pool, b) || SCENES.cards(pool, b);
+          if (scene) stage.appendChild(scene);
+          if (percent > 0) stage.appendChild(el('p', 'tag pc-price-note', 'Save ' + percent + '%'));
+          if (percent > bestPercent) { bestPercent = percent; bestStage = stage; }
+          stage.insertBefore(makeDeco(b), stage.firstChild);
+          // Order in the card: text (name, description, contents), then the artwork, then the price
+          var body = el('div', 'pc-body pc-bundle-head');
+          var title = el('div', 'pc-bundle-title');
+          var emblem = el('span', 'pc-bundle-emblem');
+          emblem.setAttribute('aria-hidden', 'true');
+          emblem.innerHTML = BUNDLE_ICONS[b.icon] || '';
+          title.appendChild(emblem);
+          title.appendChild(el('h3', 'pc-name', b.name));
+          body.appendChild(title);
+          if (b.text) body.appendChild(el('p', 'pc-desc', b.text));
+          body.appendChild(inside);
+
+          var buy = el('div', 'pc-buy');
+          var price = el('p', 'pc-price' + (isPriced ? ' has-price' : ''));
+          // "Separately" comes first and stands out: what the pieces cost on their own, struck through, and what you keep
+          if (percent > 0) {
+            var was = el('span', 'pc-bundle-was');
+            was.appendChild(el('span', 'pc-bundle-was-label', 'Separately'));
+            was.appendChild(el('s', 'pc-bundle-was-price', money(regular)));
+            was.appendChild(el('span', 'pc-bundle-save', 'You save ' + money(saved)));
+            price.appendChild(was);
+          }
+          if (isPriced) price.appendChild(el('span', 'pc-price-from', 'Bundle price'));
+          var amounts = el('span', 'pc-price-row');
+          if (!isPriced) {
+            amounts.appendChild(el('span', 'pc-price-amount is-unset', 'Price coming soon'));
+          } else {
+            if (bu !== null) amounts.appendChild(el('span', 'pc-price-amount', b.usd));
+            if (br !== null) { var rb = el('span', 'pc-price-robux'); fillRobux(rb, b.robux); amounts.appendChild(rb); }
+          }
+          price.appendChild(amounts);
+          buy.appendChild(price);
+
+          var cta = el('a', 'button button-primary pc-button');
+          cta.href = 'contact.html?product=bundle-' + b.id;
+          cta.setAttribute('aria-label', 'Commission the ' + b.name + ' bundle');
+          cta.innerHTML = 'Commission <svg class="pc-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+          buy.appendChild(cta);
+          var foot = el('div', 'pc-body pc-bundle-foot');
+          foot.appendChild(buy);
+          card.appendChild(body);
+          card.appendChild(stage);
+          card.appendChild(foot);
+
+          bundleGrid.appendChild(card);
+        });
+
+        // The biggest percentage saving, once at least two bundles have a price (same orange badge as "Popular")
+        if (pricedCount > 1 && bestStage) bestStage.appendChild(el('span', 'pc-badge', 'Biggest saving'));
+
+        // The scenes fade in when a card scrolls into view (the cards fan out)
+        var section = bundleGrid.closest('.pc-bundles');
+        var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var cards = Array.prototype.slice.call(bundleGrid.children);
+        if ('IntersectionObserver' in window && !calm) {
+          section.classList.add('is-ready');
+          var seen = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+              if (!entry.isIntersecting) return;
+              entry.target.classList.add('is-visible');
+              seen.unobserve(entry.target);
+            });
+          }, { threshold: 0.25 });
+          cards.forEach(function (c) { seen.observe(c); });
+        } else {
+          cards.forEach(function (c) { c.classList.add('is-visible'); });
+        }
+
+      }
+
+      // Backdrop behind square artwork: a tiny copy of the image that the browser smooths when it is stretched.
+      // This looks like a blur but costs almost nothing (no CSS blur filter on a full-size image).
+      function addBackdrop(stage, src) {
+        if (BACKDROP_BLUR === 'none' || stage.querySelector('.pc-stage-blur')) return;
+        if (BACKDROP_BLUR === 'canvas') { addCanvasBackdrop(stage, src); return; }
+        var back = new Image();
+        back.className = 'pc-stage-blur pc-stage-blur--css';
+        back.alt = '';
+        back.decoding = 'async';
+        back.setAttribute('aria-hidden', 'true');
+        back.src = src;
+        stage.insertBefore(back, stage.firstChild);
+      }
+      function addCanvasBackdrop(stage, src) {
+        var canvas = document.createElement('canvas');
+        canvas.className = 'pc-stage-blur';
+        canvas.width = 48;
+        canvas.height = 27;
+        canvas.setAttribute('aria-hidden', 'true');
+        var image = new Image();
+        image.onload = function () {
+          var w = image.naturalWidth, ht = image.naturalHeight;
+          var sh = Math.min(ht, w * 27 / 48), sy = (ht - sh) / 2;   // centre crop in the 16:9 shape of the frame
+          var step = document.createElement('canvas');
+          step.width = 96;
+          step.height = 54;
+          var sctx = step.getContext('2d');
+          sctx.imageSmoothingQuality = 'high';
+          sctx.drawImage(image, 0, sy, w, sh, 0, 0, 96, 54);
+          var ctx = canvas.getContext('2d');
+          ctx.imageSmoothingQuality = 'high';
+          ctx.drawImage(step, 0, 0, 96, 54, 0, 0, 48, 27);
+          ctx.fillStyle = 'rgba(6, 10, 20, 0.35)';   // keeps it dark behind the artwork
+          ctx.fillRect(0, 0, 48, 27);
+          stage.insertBefore(canvas, stage.firstChild);
+        };
+        image.src = src;
+      }
+
+      // ---- Artwork: shows the real file if it exists, otherwise the labelled slot stays ----
+      // Each example is shown at its real resolution (the YouTube banner at the PC banner size, 2560 x 423).
+      // Anything that is not 16:9 is centred at its own shape instead of being cropped to fill the frame.
+      document.querySelectorAll('img[data-pc-art]').forEach(function (img) {
+        var tries = artCandidates(img.getAttribute('data-pc-art'), img.getAttribute('data-pc-fallback'));
+        (function attempt(n) {
+        if (n >= tries.length) return;
+        var artUrl = tries[n];
+        var probe = new Image();
+        probe.onerror = function () { attempt(n + 1); };
+        probe.onload = function () {
+          img.src = artUrl;
+          img.classList.add('is-loaded');
+          var art = img.closest('.pc-art');
+          if (art) art.classList.add('has-art');
+          var stage = art && art.closest('.pc-stage');
+          var slide = img.closest('.pc-slide');
+          if (!art || !stage || !slide) return;
+          var isBanner = slide.getAttribute('data-product') === 'youtube-banners';
+          var ratio = isBanner ? 2560 / 423 : (probe.naturalWidth && probe.naturalHeight ? probe.naturalWidth / probe.naturalHeight : 16 / 9);
+          var wide = 16 / 9;
+          if (!isBanner && art.classList.contains('r-square') && Math.abs(ratio - 1) < 0.02) {
+            // exact square: the existing square frame
+            addBackdrop(stage, artUrl);
+          } else if (Math.abs(ratio - wide) > 0.02) {
+            art.classList.remove('r-wide', 'r-43', 'r-square');
+            art.classList.add(ratio < wide ? 'is-fit-tall' : 'is-fit-wide');
+            art.style.aspectRatio = String(ratio);
+            addBackdrop(stage, artUrl);
+          }
+        };
+        probe.src = artUrl;
+        })(0);
+      });
+
+      // ---- Carousel: loops, no autoplay. Arrows, chips, arrow keys, swipe/drag. ----
+      var root = document.querySelector('[data-carousel]');
+      if (!root) return;
+      var viewport = root.querySelector('[data-viewport]');
+      var slides = Array.prototype.slice.call(viewport.children);
+      var chips = Array.prototype.slice.call(root.querySelectorAll('[data-chip]'));
+      var pos = root.querySelector('[data-pos]');
+      var N = slides.length;
+      var active = 0;
+      var resizeFrame = 0;
+
+      // Circular distance of slide i from the active slide: ..., -2, -1, 0, 1, 2, ...
+      function dist(i) {
+        var raw = ((i - active) % N + N) % N;
+        return raw > N / 2 ? raw - N : raw;
+      }
+
+      // Slide widths and the gap only change when the window is resized, so they are measured once here
+      // instead of on every frame of a drag (reading sizes over and over makes dragging stutter).
+      var widths = [], gapPx = 20;
+      function measure() {
+        gapPx = parseFloat(getComputedStyle(root).getPropertyValue('--pc-gap')) || 20;
+        widths = slides.map(function (s) { return s.offsetWidth; });
+      }
+
+      function layout(dragPx) {
+        dragPx = dragPx || 0;
+        var gap = gapPx;
+        var w = widths;
+        slides.forEach(function (s, i) {
+          var d = dist(i), x = 0, j, idx, edge;
+          if (d > 0) {
+            edge = w[active] / 2;
+            for (j = 1; j <= d; j++) { idx = (active + j) % N; edge += gap; x = edge + w[idx] / 2; edge += w[idx]; }
+          } else if (d < 0) {
+            edge = -w[active] / 2;
+            for (j = 1; j <= -d; j++) { idx = (active - j + N) % N; edge -= gap; x = edge - w[idx] / 2; edge -= w[idx]; }
+          }
+          var far = Math.abs(d) > 2;
+          s.style.transform = 'translateX(' + (x + dragPx) + 'px) scale(' + (d === 0 ? 1 : 0.94) + ')';
+          s.style.opacity = d === 0 ? 1 : (Math.abs(d) === 1 ? 0.55 : (far ? 0 : 0.3));
+          s.style.zIndex = d === 0 ? 2 : 1;
+          s.toggleAttribute('data-far', far);
+        });
+      }
+
+      function render() {
+        slides.forEach(function (s, i) {
+          var on = i === active;
+          s.classList.toggle('is-active', on);
+          s.setAttribute('aria-hidden', on ? 'false' : 'true');
+          s.querySelectorAll('a, button').forEach(function (el) { el.tabIndex = on ? 0 : -1; });
+        });
+        chips.forEach(function (c, n) { c.setAttribute('aria-current', n === active ? 'true' : 'false'); });
+        pos.textContent = active + 1;
+      }
+
+      // "View more": opens the checklist on a card; moving to another card closes it again
+      function setExpanded(slide, on) {
+        var toggle = slide.querySelector('[data-more-toggle]');
+        if (!toggle) return;
+        slide.classList.toggle('is-expanded', on);
+        toggle.setAttribute('aria-expanded', on ? 'true' : 'false');
+        toggle.querySelector('.pc-more-label').textContent = on ? 'View less' : 'View more';
+      }
+      slides.forEach(function (s) {
+        var toggle = s.querySelector('[data-more-toggle]');
+        if (toggle) toggle.addEventListener('click', function () { setExpanded(s, !s.classList.contains('is-expanded')); });
+      });
+
+      function go(i) {
+        var next = ((i % N) + N) % N;
+        if (next !== active) slides.forEach(function (s) { setExpanded(s, false); });
+        active = next;
+        layout(0);
+        render();
+      }
+
+      root.querySelector('[data-prev]').addEventListener('click', function () { go(active - 1); });
+      root.querySelector('[data-next]').addEventListener('click', function () { go(active + 1); });
+      chips.forEach(function (c, n) { c.addEventListener('click', function () { go(n); }); });
+
+      root.addEventListener('keydown', function (e) {
+        if (e.altKey || e.ctrlKey || e.metaKey) return;
+        if (e.key === 'ArrowLeft') { e.preventDefault(); go(active - 1); }
+        else if (e.key === 'ArrowRight') { e.preventDefault(); go(active + 1); }
+      });
+
+      // Swipe / drag
+      var startX = 0, dx = 0, pressing = false, moved = false, blockClick = false, dragFrame = 0;
+      viewport.addEventListener('pointerdown', function (e) {
+        if (e.pointerType === 'mouse' && e.button !== 0) return;
+        pressing = true; moved = false; dx = 0; startX = e.clientX;
+      });
+      viewport.addEventListener('pointermove', function (e) {
+        if (!pressing) return;
+        dx = e.clientX - startX;
+        if (!moved && Math.abs(dx) > 6) {
+          moved = true;
+          root.classList.add('is-dragging');
+          try { viewport.setPointerCapture(e.pointerId); } catch (err) { /* not needed */ }
+        }
+        if (moved && !dragFrame) {
+          // at most one layout per screen frame
+          dragFrame = window.requestAnimationFrame(function () {
+            dragFrame = 0;
+            if (pressing && moved) layout(dx);
+          });
+        }
+      });
+      function endDrag() {
+        if (!pressing) return;
+        pressing = false;
+        if (!moved) return;
+        root.classList.remove('is-dragging');
+        blockClick = true;
+        setTimeout(function () { blockClick = false; }, 0);
+        if (dx < -60) go(active + 1);
+        else if (dx > 60) go(active - 1);
+        else layout(0);
+      }
+      viewport.addEventListener('pointerup', endDrag);
+      viewport.addEventListener('pointercancel', endDrag);
+
+      // A click on a partly visible neighbour brings it to the middle instead of following its button
+      viewport.addEventListener('click', function (e) {
+        if (blockClick) { e.preventDefault(); e.stopPropagation(); return; }
+        var n = slides.indexOf(e.target.closest('.pc-slide'));
+        if (n > -1 && n !== active) { e.preventDefault(); e.stopPropagation(); go(n); }
+      }, true);
+
+      window.addEventListener('resize', function () {
+        if (resizeFrame) return;
+        resizeFrame = window.requestAnimationFrame(function () { resizeFrame = 0; measure(); layout(0); });
+      });
+      measure();
+      go(0);
+
+      // Links like pricing.html#game-icons (the bundle cards) open that product
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      function slideFromHash() {
+        var id = '';
+        try { id = decodeURIComponent(window.location.hash.slice(1)); } catch (err) { /* ignore */ }
+        for (var i = 0; i < N; i++) if (slides[i].id === id) return i;
+        return -1;
+      }
+      function showCatalogue(instant) {
+        var target = document.getElementById('catalogue');
+        if (target) target.scrollIntoView({ behavior: (instant || reduceMotion) ? 'auto' : 'smooth', block: 'start' });
+      }
+      window.addEventListener('hashchange', function () {
+        var n = slideFromHash();
+        if (n > -1) { go(n); showCatalogue(false); }
+      });
+      var fromHash = slideFromHash();
+      if (fromHash > -1) {
+        go(fromHash);
+        // once the browser has finished its own jump to the anchor, line the products up under the top bar
+        window.addEventListener('load', function () { window.setTimeout(function () { showCatalogue(true); }, 0); });
+      }
+
+      window.requestAnimationFrame(function () { root.classList.add('is-ready'); });
+    })();
+  </script>
+  <!-- FAQ accordion: buttons toggle aria-expanded; Up / Down / Home / End move between questions. -->
+  <script>
+    (function () {
+      var list = document.querySelector('[data-faq]');
+      if (!list) return;
+      var items = Array.prototype.slice.call(list.querySelectorAll('.faq-item'));
+      var triggers = items.map(function (item) { return item.querySelector('.faq-trigger'); });
+
+      items.forEach(function (item, n) {
+        triggers[n].addEventListener('click', function () {
+          var open = !item.classList.contains('is-open');
+          item.classList.toggle('is-open', open);
+          triggers[n].setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+      });
+
+      list.addEventListener('keydown', function (e) {
+        var n = triggers.indexOf(document.activeElement);
+        if (n < 0 || e.altKey || e.ctrlKey || e.metaKey) return;
+        var to = -1;
+        if (e.key === 'ArrowDown') to = (n + 1) % triggers.length;
+        else if (e.key === 'ArrowUp') to = (n - 1 + triggers.length) % triggers.length;
+        else if (e.key === 'Home') to = 0;
+        else if (e.key === 'End') to = triggers.length - 1;
+        if (to > -1) { e.preventDefault(); triggers[to].focus(); }
+      });
+
+      // Collapsed styles only apply once the script has run, so the answers never get stuck hidden.
+      list.classList.add('is-ready');
+    })();
+  </script>
+</body>
+</html>

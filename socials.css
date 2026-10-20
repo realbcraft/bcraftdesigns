@@ -1,0 +1,744 @@
+/* ==========================================================
+   BCRAFT SOCIALS  (socials.html)
+   Page-only styles, loaded AFTER style.css (which supplies the colours,
+   fonts, grid background, .button, .nav-social and the X post cards).
+   Everything new starts with "sx-" so it can't touch the main site.
+   ========================================================== */
+:root {
+  color-scheme: dark;
+  scrollbar-gutter: stable;
+  --sx-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.sx-skip {
+  position: absolute;
+  z-index: 100;
+  top: -4rem;
+  left: 1rem;
+  padding: 0.65rem 1rem;
+  border-radius: 10px;
+  background: var(--color-button);
+  color: #fff;
+  font-weight: 700;
+}
+.sx-skip:focus { top: 0.75rem; }
+
+/* ----- Layout: one centred column under a full-width hero ----- */
+.sx-page {
+  display: grid;
+  gap: 2rem;
+  width: 100%;
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: 0 var(--container-padding) 2rem;
+}
+
+
+[data-in], .sx-in { animation: sx-in 0.65s var(--sx-ease) both; animation-delay: calc(var(--i, 0) * 80ms); }
+@keyframes sx-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+/* ----- Hero: full-width banner, profile overlapping it ----- */
+.sx-profile { position: relative; z-index: 2; animation: sx-in 0.65s var(--sx-ease) both; }
+.sx-banner {
+  position: relative;
+  height: clamp(11rem, 27vw, 22rem);
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 80% 0, rgba(var(--rgb-blue), 0.35), transparent 60%),
+    radial-gradient(rgba(var(--rgb-blue), 0.3) 1px, transparent 1.6px) 0 0 / 16px 16px,
+    linear-gradient(135deg, #10204a, #08112a);
+  -webkit-mask-image: linear-gradient(180deg, #000 45%, transparent 100%);
+          mask-image: linear-gradient(180deg, #000 45%, transparent 100%);
+}
+@keyframes sx-fade { from { opacity: 0; } to { opacity: 1; } }
+
+.sx-hero { position: relative; width: 100%; }
+.sx-banner {
+  position: relative;
+  height: clamp(11rem, 27vw, 22rem);
+  overflow: hidden;
+  border-bottom: 1px solid var(--color-border);
+  background:
+    radial-gradient(circle at 80% 0, rgba(var(--rgb-blue), 0.35), transparent 60%),
+    radial-gradient(rgba(var(--rgb-blue), 0.3) 1px, transparent 1.6px) 0 0 / 16px 16px,
+    linear-gradient(135deg, #10204a, #08112a);
+}
+.sx-banner img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+
+.sx-pfp img, .sx-dc-pfp img, .sx-rbx-avatar img, .sx-ytp-avatar img, .sx-say-avatar img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+/* ----- Feed ----- */
+.sx-feed { display: grid; gap: 2rem; min-width: 0; }
+.sx-block { display: grid; gap: 0.75rem; min-width: 0; }
+
+.sx-h {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--color-text-muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.sx-h::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, var(--color-border), transparent); }
+
+.sx-pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: 0.75rem; }
+
+.sx-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.95rem;
+  min-width: 0;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+  transition: transform 0.22s var(--spring), border-color 0.18s ease, background-color 0.18s ease;
+}
+.sx-card:hover, .sx-card:focus-visible { transform: translateY(-2px); border-color: rgba(var(--rgb-blue), 0.55); background: var(--color-surface-raised); }
+
+.sx-card-icon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 2.8rem;
+  height: 2.8rem;
+  border: 1px solid rgba(var(--rgb-blue), 0.35);
+  border-radius: 12px;
+  background: rgba(var(--rgb-blue), 0.1);
+  color: var(--color-accent-bright);
+}
+.sx-card-icon svg { width: 1.3rem; height: 1.3rem; }
+.sx-card-body { display: grid; flex: 1; gap: 0.15rem; min-width: 0; }
+.sx-card-title { font: 700 1.08rem/1.2 var(--font-display); letter-spacing: -0.015em; }
+.sx-card-text { color: var(--color-text-muted); font-size: 0.92rem; line-height: 1.45; }
+.sx-card-arrow { flex: none; width: 1.1rem; height: 1.1rem; color: var(--color-text-muted); transition: transform 0.2s var(--spring), color 0.15s ease; }
+.sx-card:hover .sx-card-arrow, .sx-card:focus-visible .sx-card-arrow { transform: translate(2px, -2px); color: var(--color-accent-bright); }
+
+/* ----- Custom Roblox profile card ----- */
+
+
+/* ----- X posts (cards come from style.css; just fit them to this column) ----- */
+.sx-x { grid-template-columns: minmax(0, 1fr); }
+.sx-x .x-post--custom { max-width: none; }
+.sx-note { color: var(--color-text-muted); }
+.sx-note a { color: var(--color-accent-bright); }
+
+/* ----- Footer ----- */
+
+/* ----- QR dialog ----- */
+.sx-dialog { width: min(92vw, 22rem); padding: 1.5rem; border: 1px solid rgba(var(--rgb-blue), 0.4); border-radius: 20px; background: var(--color-surface-raised); color: var(--color-text); text-align: center; }
+.sx-dialog::backdrop { background: rgba(4, 7, 15, 0.8); }
+.sx-dialog h2 { font-size: 1.5rem; }
+.sx-qr-box { margin: 1rem auto; padding: 0.5rem; width: 15rem; max-width: 100%; border-radius: 14px; background: #fff; line-height: 0; }
+.sx-qr-box svg { display: block; width: 100%; height: auto; }
+.sx-qr-box p { padding: 2rem 0.5rem; color: #111; font-size: 0.9rem; line-height: 1.4; }
+.sx-qr-url { margin-bottom: 1rem; color: var(--color-text-muted); font-size: 0.88rem; overflow-wrap: anywhere; }
+
+
+@media (prefers-reduced-motion: reduce) {
+  [data-in], .sx-in, .sx-profile, .sx-banner { animation: none; }
+  .sx-card, .sx-card-arrow, .sx-rbx { transition: none; }
+  .sx-card:hover, .sx-rbx:hover { transform: none; }
+}
+
+/* Desktop share menu */
+.sx-menu a, .sx-menu button { padding: 0.55rem 0.75rem; border: 0; border-radius: 8px; background: none; color: var(--color-text); font: 600 0.92rem var(--font-main); text-align: left; cursor: pointer; }
+.sx-menu a:hover, .sx-menu button:hover { background: rgba(var(--rgb-blue), 0.14); color: var(--color-accent-bright); }
+
+/* ----- Hero profile: pfp left, name + dock beside it, bio as a speech bubble ----- */
+.sx-id {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-areas: "pfp who dock" "pfp bio bio";
+  column-gap: 1.25rem;
+  align-items: start;
+}
+.sx-who { grid-area: who; padding-top: 0.85rem; min-width: 0; }
+.sx-name { font-size: clamp(2.4rem, 6vw, 3.4rem); font-weight: 800; line-height: 1; letter-spacing: -0.04em; }
+.sx-name::after { content: ""; display: inline-block; width: 0.15em; height: 0.15em; margin-left: 0.07em; border-radius: 0.03em; background: var(--color-orange); transform: rotate(12deg); }
+.sx-handle { margin-top: 0.3rem; color: var(--color-accent-bright); font-weight: 700; }
+
+.sx-dock { grid-area: dock; display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem; margin-top: 0.85rem; }
+/* ----- Hero social icons: glass dock, website icon split off, brand-coloured hover, staggered entrance ----- */
+.sx-icons {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem;
+  max-width: 100%;
+  padding: 0.45rem;
+  border-radius: 22px;
+  /* glass with a little depth: lighter at the top, a soft blue glow gathering at the bottom */
+  background:
+    linear-gradient(180deg, rgba(var(--rgb-silver), 0.13), rgba(var(--rgb-silver), 0.03) 55%, rgba(var(--rgb-blue), 0.1)),
+    rgba(8, 14, 32, 0.55);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 -14px 22px -18px rgba(var(--rgb-blue), 0.55), 0 18px 34px -20px rgba(0, 0, 0, 0.95), 0 0 46px -24px rgba(var(--rgb-blue), 0.95);
+}
+/* hairline gradient border: bright on the top-left and bottom-right corners, quiet in between */
+.sx-icons::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  padding: 1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(var(--rgb-blue), 0.85), rgba(var(--rgb-blue), 0.14) 38%, rgba(var(--rgb-blue), 0.14) 62%, rgba(var(--rgb-blue), 0.6));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  pointer-events: none;
+}
+/* thin highlight along the top edge */
+.sx-icons::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 16%;
+  right: 16%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+  pointer-events: none;
+}
+.sx-icons li { display: block; animation: sx-icon-in 0.5s var(--sx-ease) both; animation-delay: calc(0.25s + var(--n, 0) * 55ms); }
+.sx-icons li:nth-child(1) { --n: 0; margin-right: 0.2rem; padding-right: 0.5rem; background: linear-gradient(180deg, transparent, rgba(var(--rgb-blue), 0.55), transparent) right center / 1px 78% no-repeat; }   /* the Bcraft Designs website icon sits apart from the platforms */
+.sx-icons li:nth-child(2) { --n: 1; }
+.sx-icons li:nth-child(3) { --n: 2; }
+.sx-icons li:nth-child(4) { --n: 3; }
+.sx-icons li:nth-child(5) { --n: 4; }
+.sx-icons li:nth-child(6) { --n: 5; }
+@keyframes sx-icon-in { from { opacity: 0; transform: translateY(8px) scale(0.85); } to { opacity: 1; transform: none; } }
+
+.sx-icons .nav-social {
+  --brand: var(--rgb-blue);
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 13px;
+  transition: transform 0.22s var(--spring), background-color 0.18s ease, color 0.18s ease, box-shadow 0.25s ease;
+}
+.sx-icons .nav-social svg { width: 1.2rem; height: 1.2rem; transition: transform 0.22s var(--spring); }
+.sx-icons .nav-social img { display: block; width: 1.6rem; height: auto; transition: transform 0.22s var(--spring); }
+
+/* each platform glows in its own colour (matched by link, so the HTML stays untouched) */
+.sx-icons .nav-social[href*="roblox.com"]  { --brand: 235, 64, 52; }
+.sx-icons .nav-social[href*="youtube.com"] { --brand: 255, 60, 60; }
+.sx-icons .nav-social[href*="://x.com"]    { --brand: 230, 236, 255; }
+.sx-icons .nav-social[href*="github.com"]  { --brand: 176, 140, 255; }
+.sx-icons .nav-social[href*="discord"]     { --brand: 88, 101, 242; }
+
+.sx-icons .nav-social:hover,
+.sx-icons .nav-social:focus-visible {
+  transform: translateY(-1px) scale(1.02);
+  color: #fff;
+  background: rgba(var(--brand), 0.2);
+  box-shadow: inset 0 0 0 1px rgba(var(--brand), 0.55), 0 10px 22px -10px rgba(var(--brand), 0.95);
+}
+.sx-icons .nav-social:hover svg,
+.sx-icons .nav-social:hover img,
+.sx-icons .nav-social:focus-visible svg,
+.sx-icons .nav-social:focus-visible img { transform: scale(1.03); }
+.sx-icons .nav-social:active { transform: translateY(0) scale(0.98); }
+.sx-icons .nav-social:focus-visible { outline: 2px solid var(--color-accent-bright); outline-offset: 2px; }
+
+@media (max-width: 640px) {
+  .sx-icons { gap: 0.2rem; }
+  .sx-icons .nav-social { width: 2.75rem; height: 2.75rem; }   /* comfortable thumb size */
+}
+@media (prefers-reduced-motion: reduce) {
+  .sx-icons li { animation: none; }
+  .sx-icons .nav-social, .sx-icons .nav-social svg, .sx-icons .nav-social img { transition: none; }
+  .sx-icons .nav-social:hover, .sx-icons .nav-social:focus-visible, .sx-icons .nav-social:active { transform: none; }
+  .sx-icons .nav-social:hover svg, .sx-icons .nav-social:hover img, .sx-icons .nav-social:focus-visible svg, .sx-icons .nav-social:focus-visible img { transform: none; }
+}
+
+.sx-bio {
+  grid-area: bio;
+  position: relative;
+  margin-top: 1rem;
+  padding: 0.95rem 1.15rem 1.05rem;
+  border: 1px solid var(--color-border);
+  border-radius: 6px 16px 16px 16px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+
+@media (max-width: 640px) {
+  .sx-id { grid-template-areas: "pfp who" "dock dock" "bio bio"; column-gap: 1rem; }
+  .sx-dock { flex-direction: row; flex-wrap: wrap; align-items: center; margin-top: 1rem; justify-self: start; }
+  .sx-bio { border-radius: 16px; }
+}
+
+/* ----- Order card: logo + text left, two buttons right, faded artwork behind ----- */
+.sx-order {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 1.25rem;
+  align-items: center;
+  overflow: hidden;
+  padding: 1.25rem;
+  border: 1px solid rgba(var(--rgb-blue), 0.45);
+  border-radius: 20px;
+  background-color: var(--color-surface);
+  box-shadow: 0 24px 50px -34px rgba(var(--rgb-blue), 0.9);
+}
+.sx-order::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(90deg, var(--color-surface) 12%, rgba(11, 18, 38, 0.82) 55%, rgba(11, 18, 38, 0.5) 100%),
+    radial-gradient(circle at 0 50%, rgba(var(--rgb-blue), 0.22), transparent 55%),
+    url("images/hero-main-01.png") right 30% / cover no-repeat;
+}
+.sx-order-logo { display: grid; place-items: center; width: 6.5rem; aspect-ratio: 1; border: 1px solid var(--color-border); border-radius: 16px; background: #08112a; }
+.sx-order-logo img { width: 74%; height: auto; filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 14px rgba(var(--rgb-blue), 0.35)); }
+.sx-order-body { display: grid; gap: 0.4rem; min-width: 0; }
+.sx-order-title { font: 800 clamp(1.25rem, 3vw, 1.55rem)/1.1 var(--font-display); letter-spacing: -0.03em; }
+.sx-order-text { color: var(--color-text-muted); font-size: 0.93rem; line-height: 1.5; }
+.sx-order-actions { display: grid; gap: 0.5rem; }
+.sx-order-actions .button { justify-content: center; white-space: nowrap; }
+@media (max-width: 700px) {
+  .sx-order { grid-template-columns: auto minmax(0, 1fr); }
+  .sx-order-actions { grid-column: 1 / -1; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); }
+}
+@media (max-width: 440px) {
+  .sx-order { grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; }
+}
+
+/* ----- One card, two community buttons ----- */
+.sx-comm { display: grid; gap: 1rem; padding: 1.1rem; border: 1px solid var(--color-border); border-radius: var(--radius-card); background: var(--color-surface); }
+.sx-comm-head { display: flex; align-items: center; gap: 0.95rem; }
+.sx-comm-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: 0.75rem; }
+.sx-comm-item { display: grid; align-content: start; gap: 0.35rem; padding: 0.9rem; border: 1px solid var(--color-border); border-radius: 12px; background: rgba(var(--rgb-silver), 0.04); }
+.sx-comm-name { font: 700 1.05rem var(--font-display); letter-spacing: -0.015em; }
+.sx-comm-item .button { justify-self: start; margin-top: 0.5rem; font-size: 0.9rem; }
+
+/* ----- YouTube channel card (looks like the channel header) ----- */
+.sx-ytp { display: block; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 18px; background: #0f1115; transition: transform 0.22s var(--spring), border-color 0.18s ease; }
+.sx-ytp:hover, .sx-ytp:focus-visible { transform: translateY(-2px); border-color: rgba(255, 60, 60, 0.55); }
+.sx-ytp-banner { display: block; position: relative; aspect-ratio: 6.2 / 1; overflow: hidden; background: radial-gradient(circle at 80% 0, rgba(255, 60, 60, 0.28), transparent 60%), linear-gradient(135deg, #1a1d26, #0f1115); }
+.sx-ytp-banner img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.sx-ytp-main { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.15rem 1.1rem; }
+.sx-ytp-avatar { position: relative; display: grid; flex: none; place-items: center; width: 4.75rem; height: 4.75rem; overflow: hidden; border-radius: 50%; background: #1d2230; color: #fff; font: 800 1.7rem var(--font-display); }
+.sx-ytp-info { display: grid; flex: 1; gap: 0.1rem; min-width: 0; }
+.sx-ytp-name { font: 700 1.5rem/1.15 var(--font-main); letter-spacing: -0.01em; }
+.sx-ytp-meta, .sx-ytp-desc { color: #aab0bd; font-size: 0.9rem; }
+.sx-ytp-desc { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 1; overflow: hidden; }
+.sx-ytp-sub { flex: none; padding: 0.6rem 1.1rem; border-radius: 999px; background: #fff; color: #0f0f0f; font-weight: 700; font-size: 0.93rem; transition: background-color 0.15s ease; }
+.sx-ytp:hover .sx-ytp-sub { background: #e5e5e5; }
+@media (max-width: 520px) { .sx-ytp-main { flex-wrap: wrap; } .sx-ytp-sub { width: 100%; text-align: center; } }
+
+/* ----- "Follow me on X" as a chat bubble ----- */
+.sx-say { display: flex; align-items: flex-end; gap: 0.85rem; }
+.sx-say-av { position: relative; flex: none; width: 3.25rem; height: 3.25rem; margin: 0.35rem; }
+.sx-say-avatar { position: absolute; inset: 0; display: grid; place-items: center; overflow: hidden; border: 2px solid rgba(var(--rgb-blue), 0.55); border-radius: 50%; background: var(--color-surface-raised); color: var(--color-accent-bright); font: 800 1.2rem var(--font-display); }
+.sx-say-bubble { position: relative; display: grid; gap: 0.7rem; justify-items: start; padding: 1rem 1.15rem 1.1rem; border: 1px solid rgba(var(--rgb-blue), 0.4); border-radius: 18px 18px 18px 4px; background: linear-gradient(180deg, var(--color-surface-raised), var(--color-surface)); transition: transform 0.22s var(--spring), border-color 0.18s ease; }
+.sx-say:hover .sx-say-bubble, .sx-say:focus-visible .sx-say-bubble { transform: translateY(-2px); border-color: rgba(var(--rgb-blue), 0.8); }
+.sx-say-text { font: 600 1.05rem/1.4 var(--font-display); }
+.sx-say-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.95rem; border-radius: 999px; background: #fff; color: #0b0f19; font-weight: 700; font-size: 0.92rem; }
+.sx-say-btn svg { width: 0.95rem; height: 0.95rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  .sx-ytp, .sx-say-bubble { transition: none; }
+  .sx-ytp:hover, .sx-say:hover .sx-say-bubble { transform: none; }
+}
+
+/* ----- Aurora: purple-blue wash on top of the site background ----- */
+.sx-aurora {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 65% 50% at 88% 6%, rgba(125, 92, 255, 0.24), transparent 70%),
+    radial-gradient(ellipse 60% 55% at 6% 62%, rgba(72, 112, 255, 0.18), transparent 70%),
+    radial-gradient(ellipse 55% 45% at 70% 100%, rgba(150, 90, 240, 0.14), transparent 70%),
+    linear-gradient(160deg, rgba(110, 70, 230, 0.09), rgba(40, 90, 230, 0.06) 55%, transparent);
+}
+
+/* ----- Share / copy / QR cluster on the banner ----- */
+.sx-tools { position: absolute; z-index: 5; top: 1rem; right: clamp(0.75rem, 2.2vw, 1.75rem); display: flex; gap: 0.4rem; }
+.sx-tool { display: inline-flex; align-items: center; gap: 0.45rem; height: 2.5rem; padding: 0 0.85rem; border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 999px; background: rgba(8, 14, 30, 0.55); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); color: #fff; font: 700 0.86rem var(--font-main); cursor: pointer; transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.2s var(--spring); }
+.sx-tool:hover, .sx-tool:focus-visible, .sx-share-wrap:hover .sx-tool { border-color: rgba(var(--rgb-blue), 0.8); background: rgba(var(--rgb-blue), 0.28); transform: translateY(-2px); }
+.sx-tool svg { width: 1.1rem; height: 1.1rem; }
+@media (max-width: 560px) { .sx-tool span { display: none; } .sx-tool { width: 2.5rem; padding: 0; justify-content: center; } }
+.sx-share-wrap { position: relative; }
+.sx-menu { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); z-index: 6; min-width: 12.5rem; padding-top: 0.5rem; }
+.sx-menu.is-up { top: auto; bottom: 100%; padding: 0 0 0.5rem; }
+.sx-menu-in { display: grid; gap: 0.15rem; padding: 0.35rem; border: 1px solid rgba(var(--rgb-blue), 0.4); border-radius: 14px; background: rgba(15, 24, 51, 0.96); box-shadow: 0 20px 40px -18px #000; animation: sx-fade 0.15s ease both; }
+.sx-menu a, .sx-menu button { display: flex; align-items: center; gap: 0.6rem; padding: 0.6rem 0.75rem; border: 0; border-radius: 9px; background: none; color: var(--color-text); font: 600 0.92rem var(--font-main); text-align: left; cursor: pointer; }
+.sx-menu a:hover, .sx-menu button:hover { background: rgba(var(--rgb-blue), 0.16); color: var(--color-accent-bright); }
+.sx-menu svg { width: 1rem; height: 1rem; }
+.sx-toast { position: fixed; z-index: 90; left: 50%; bottom: 1.25rem; padding: 0.6rem 1.1rem; border: 1px solid rgba(var(--rgb-blue), 0.5); border-radius: 999px; background: rgba(15, 24, 51, 0.96); color: #fff; font-weight: 700; font-size: 0.92rem; opacity: 0; transform: translate(-50%, 12px); pointer-events: none; transition: opacity 0.2s ease, transform 0.25s var(--spring); }
+.sx-toast.is-on { opacity: 1; transform: translate(-50%, 0); }
+
+/* ----- Profile picture + decoration image ----- */
+.sx-pfpwrap { z-index: 3; --pfp: clamp(6.5rem, 18vw, 9rem); grid-area: pfp; position: relative; width: var(--pfp); height: var(--pfp); margin-top: calc(var(--pfp) / -2); }
+.sx-pfp { position: absolute; inset: 0; display: grid; place-items: center; overflow: hidden; border: 5px solid var(--color-bg); border-radius: 50%; background: var(--color-surface-raised); box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.8); color: var(--color-accent-bright); font: 800 2.6rem var(--font-display); }
+
+/* ----- Creative buttons: icon bubble, gradient fill, light sweep, arrow that moves ----- */
+.sx-btn { position: relative; display: inline-flex; align-items: center; gap: 0.6rem; overflow: hidden; padding: 0.4rem 0.9rem 0.4rem 0.4rem; border-radius: 999px; color: #fff; font-weight: 700; font-size: 0.93rem; white-space: nowrap; transition: transform 0.2s var(--spring), box-shadow 0.2s ease, border-color 0.2s ease; }
+.sx-btn::after { content: ""; position: absolute; inset: 0; background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, 0.28) 50%, transparent 65%); transform: translateX(-120%); transition: transform 0.55s ease; }
+.sx-btn:hover::after, .sx-btn:focus-visible::after { transform: translateX(120%); }
+.sx-btn:hover, .sx-btn:focus-visible { transform: translateY(-2px) rotate(-1deg); }
+.sx-btn-ico { display: grid; flex: none; place-items: center; width: 1.9rem; height: 1.9rem; border-radius: 50%; background: rgba(255, 255, 255, 0.2); }
+.sx-btn-ico svg { width: 1rem; height: 1rem; }
+.sx-btn-arrow { width: 0.9rem; height: 0.9rem; margin-left: auto; transition: transform 0.2s var(--spring); }
+.sx-btn:hover .sx-btn-arrow, .sx-btn:focus-visible .sx-btn-arrow { transform: translate(3px, -3px); }
+.sx-btn--primary { background: var(--color-button); box-shadow: 0 10px 24px -12px rgba(var(--rgb-blue), 0.9); }
+.sx-btn--primary:hover, .sx-btn--primary:focus-visible { background: var(--color-button-hover); box-shadow: 0 14px 28px -10px rgba(var(--rgb-blue), 1); }
+.sx-btn--ghost { border: 1px solid rgba(var(--rgb-silver), 0.3); background: rgba(var(--rgb-silver), 0.07); }
+.sx-btn--ghost:hover { border-color: rgba(var(--rgb-blue), 0.7); }
+.sx-order-actions .sx-btn { justify-content: flex-start; }
+.sx-comm-item .sx-btn { justify-self: start; margin-top: 0.5rem; }
+
+/* ----- Discord-style profile card ----- */
+.sx-dc { display: block; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; background: #15171e; transition: transform 0.22s var(--spring), border-color 0.18s ease; }
+.sx-dc:hover, .sx-dc:focus-visible { transform: translateY(-2px); border-color: rgba(138, 107, 255, 0.7); }
+.sx-dc-banner { display: block; height: 4.6rem; background: linear-gradient(120deg, #5865f2, #8a6bff 60%, #4aa3ff); }
+.sx-dc-top { display: flex; align-items: flex-end; justify-content: space-between; margin: -2.4rem 1rem 0; }
+.sx-dc-pfp { position: relative; display: grid; place-items: center; width: 4.8rem; height: 4.8rem; overflow: hidden; border: 5px solid #15171e; border-radius: 50%; background: var(--color-surface-raised); color: var(--color-accent-bright); font: 800 1.7rem var(--font-display); }
+.sx-dc-logo { width: 1.5rem; height: 1.5rem; margin-bottom: 0.4rem; color: #8a93ff; }
+.sx-dc-card { display: grid; gap: 0.1rem; margin: 0.6rem 0.75rem 0.75rem; padding: 0.85rem 0.95rem 0.95rem; border-radius: 12px; background: #0d0f14; }
+.sx-dc-name { font: 700 1.25rem var(--font-main); }
+.sx-dc-user { color: #aab0bd; font-size: 0.9rem; }
+.sx-dc-text { margin-top: 0.5rem; color: #c8cdd8; font-size: 0.92rem; line-height: 1.45; }
+.sx-dc-btn { display: inline-flex; align-items: center; justify-self: start; gap: 0.5rem; margin-top: 0.8rem; padding: 0.5rem 0.95rem; border-radius: 8px; background: #5865f2; color: #fff; font-weight: 700; font-size: 0.9rem; transition: background-color 0.15s ease; }
+.sx-dc-btn svg { width: 1.1rem; height: 1.1rem; }
+.sx-dc:hover .sx-dc-btn { background: #6d79ff; }
+
+/* ----- GitHub-style card ----- */
+.sx-gh { display: grid; align-content: start; gap: 0.85rem; padding: 1.1rem; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; background: #0d1117; transition: transform 0.22s var(--spring), border-color 0.18s ease; }
+.sx-gh:hover, .sx-gh:focus-visible { transform: translateY(-2px); border-color: rgba(var(--rgb-blue), 0.7); }
+.sx-gh-head { display: flex; align-items: center; gap: 0.6rem; font: 700 1.05rem var(--font-main); }
+.sx-gh-head svg { width: 1.5rem; height: 1.5rem; }
+.sx-gh-path b { margin: 0 0.15em; color: #7d8590; font-weight: 400; }
+.sx-gh-graph { display: grid; grid-template-columns: repeat(14, 1fr); grid-template-rows: repeat(5, 1fr); grid-auto-flow: column; gap: 3px; }
+.sx-gh-graph i { aspect-ratio: 1; border-radius: 2px; background: #161b22; }
+.sx-gh-graph i[data-l="1"] { background: rgba(var(--rgb-blue), 0.25); }
+.sx-gh-graph i[data-l="2"] { background: rgba(var(--rgb-blue), 0.45); }
+.sx-gh-graph i[data-l="3"] { background: rgba(var(--rgb-blue), 0.7); }
+.sx-gh-graph i[data-l="4"] { background: var(--color-accent-bright); }
+.sx-gh-text { color: #9aa4b2; font-size: 0.92rem; line-height: 1.45; }
+.sx-gh-btn { display: inline-flex; align-items: center; justify-self: start; gap: 0.45rem; padding: 0.45rem 0.9rem; border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 8px; background: #21262d; font-weight: 700; font-size: 0.9rem; transition: background-color 0.15s ease; }
+.sx-gh:hover .sx-gh-btn { background: #2d333b; }
+.sx-gh-btn svg { width: 0.85rem; height: 0.85rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  .sx-btn, .sx-btn::after, .sx-btn-arrow, .sx-tool, .sx-dc, .sx-gh, .sx-toast { transition: none; }
+  .sx-btn:hover, .sx-tool:hover, .sx-dc:hover, .sx-gh:hover { transform: none; }
+}
+
+/* ----- The X-post glow, on every card: soft corner light + an outer blue/violet halo ----- */
+.sx-order, .sx-comm, .sx-rbx, .sx-ytp, .sx-dc, .sx-gh, .sx-say-bubble {
+  --g1: var(--rgb-blue);
+  --g2: 150, 130, 255;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 24px 50px -30px rgba(0, 0, 0, 0.9),
+    0 0 60px -34px rgba(var(--g1), 0.8),
+    0 0 60px -40px rgba(var(--g2), 0.7);
+  transition: transform 0.22s var(--spring), border-color 0.18s ease, box-shadow 0.25s ease;
+}
+.sx-ytp { --g1: 255, 70, 70; }
+.sx-dc { --g1: 88, 101, 242; }
+.sx-comm, .sx-ytp, .sx-dc, .sx-gh {
+  background-image:
+    radial-gradient(circle at 100% 0, rgba(var(--g1), 0.2), transparent 58%),
+    radial-gradient(circle at 0 100%, rgba(var(--g2), 0.16), transparent 55%);
+}
+.sx-say-bubble {
+  background-image:
+    radial-gradient(circle at 100% 0, rgba(var(--g1), 0.2), transparent 58%),
+    radial-gradient(circle at 0 100%, rgba(var(--g2), 0.16), transparent 55%),
+    linear-gradient(180deg, var(--color-surface-raised), var(--color-surface));
+}
+.sx-order:hover, .sx-rbx:hover, .sx-ytp:hover, .sx-dc:hover, .sx-gh:hover, .sx-say:hover .sx-say-bubble {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 28px 54px -28px rgba(0, 0, 0, 0.9),
+    0 0 70px -28px rgba(var(--g1), 0.95),
+    0 0 70px -34px rgba(var(--g2), 0.85);
+}
+
+/* ----- Custom pfp decoration image (images/socials-pfp-decoration.png): replaces the CSS decoration ----- */
+.sx-deco-img { position: absolute; top: 50%; left: 50%; width: 120%; height: 120%; max-width: none; object-fit: contain; transform: translate(-50%, -50%); pointer-events: none; }
+
+.sx-deco-img--sm { width: 136%; height: 136%; }
+.sx-namerow { display: flex; align-items: center; gap: 0.5rem; }
+.sx-verified { flex: none; width: clamp(1.5rem, 3.6vw, 2rem); height: auto; margin-top: 0.15em; color: var(--color-accent); filter: drop-shadow(0 0 8px rgba(var(--rgb-blue), 0.55)); }
+
+/* ----- Speech-bubble tails: proper triangles, no diamond ----- */
+.sx-bio::before, .sx-bio::after, .sx-say-bubble::before, .sx-say-bubble::after { content: ""; position: absolute; width: 0; height: 0; border: solid transparent; }
+.sx-bio::before { top: 0.9rem; left: -10px; border-width: 8px 10px 8px 0; border-right-color: var(--color-border); }
+.sx-bio::after { top: calc(0.9rem + 1px); left: -8px; border-width: 7px 9px 7px 0; border-right-color: var(--color-surface); }
+.sx-say-bubble::before { bottom: 0.9rem; left: -10px; border-width: 8px 10px 8px 0; border-right-color: rgba(var(--rgb-blue), 0.4); }
+.sx-say-bubble::after { bottom: calc(0.9rem + 1px); left: -8px; border-width: 7px 9px 7px 0; border-right-color: var(--color-surface); }
+@media (max-width: 640px) {
+  .sx-bio::before { top: -10px; left: 1.4rem; border-width: 0 8px 10px 8px; border-color: transparent; border-bottom-color: var(--color-border); }
+  .sx-bio::after { top: -8px; left: calc(1.4rem + 1px); border-width: 0 7px 9px 7px; border-color: transparent; border-bottom-color: var(--color-surface); }
+}
+
+/* ----- Thinking bubble above the pfp (typed text, floating, bobbing dots) ----- */
+.sx-pfpwrap.has-deco .sx-pfp { border: 0; box-shadow: none; }
+.sx-think { position: absolute; z-index: 4; left: 58%; bottom: calc(100% + 1.5rem); width: min(15.5rem, 62vw); min-height: 3.3rem; padding: 0.7rem 1rem; border: 1px solid rgba(var(--rgb-blue), 0.45); border-radius: 26px; background: linear-gradient(180deg, rgba(20, 33, 70, 0.92), rgba(12, 20, 44, 0.92)); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); box-shadow: 0 0 50px -24px rgba(var(--rgb-blue), 0.9), 0 14px 30px -18px #000; color: #fff; font: 600 0.9rem/1.35 var(--font-display); animation: sx-float 4.5s ease-in-out infinite; }
+.sx-think-caret { display: inline-block; width: 2px; height: 1em; margin-left: 2px; background: var(--color-accent-bright); vertical-align: -0.15em; animation: sx-blink 1s steps(2, start) infinite; }
+.sx-think-dot { position: absolute; border: 1px solid rgba(var(--rgb-blue), 0.45); border-radius: 50%; background: rgba(15, 25, 54, 0.95); animation: sx-bob 2.4s ease-in-out infinite; }
+.sx-think-dot.a { left: 1.3rem; bottom: -1.2rem; width: 0.8rem; height: 0.8rem; }
+.sx-think-dot.b { left: 0.7rem; bottom: -1.9rem; width: 0.5rem; height: 0.5rem; animation-delay: 0.35s; }
+@keyframes sx-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+@keyframes sx-bob { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-3px) scale(1.12); } }
+@keyframes sx-blink { to { visibility: hidden; } }
+@media (prefers-reduced-motion: reduce) { .sx-think, .sx-think-dot, .sx-think-caret { animation: none; } .sx-think-caret { display: none; } }
+
+/* ----- Top bar for the YouTube "mimic" card ----- */
+.sx-nav { display: grid; grid-template-columns: 1fr minmax(0, 22rem) 1fr; align-items: center; gap: 0.75rem; padding: 0.6rem 0.9rem; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+.sx-nav-brand { display: inline-flex; align-items: center; gap: 0.4rem; justify-self: start; font: 800 1.02rem var(--font-main); letter-spacing: -0.02em; }
+.sx-nav-brand svg { width: 1.7rem; height: 1.7rem; }
+.sx-nav-search { display: flex; align-items: stretch; height: 2.1rem; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 999px; color: #9aa0a6; font-size: 0.88rem; }
+.sx-nav-search > span { display: flex; flex: 1; align-items: center; padding: 0 1rem; }
+.sx-nav-search i { display: grid; place-items: center; width: 3rem; border-left: 1px solid rgba(255, 255, 255, 0.18); background: rgba(255, 255, 255, 0.07); color: #e8eaed; }
+.sx-nav-search svg { width: 1.05rem; height: 1.05rem; }
+.sx-ytp .sx-nav { background: #0f1115; }
+.sx-yt-logo { color: #ff1a2e; }
+@media (max-width: 560px) {
+  .sx-nav { grid-template-columns: auto minmax(0, 1fr); }
+  .sx-nav > :nth-child(3) { display: none; }
+}
+
+/* ----- Roblox profile card (a general take on the dark Roblox profile page) ----- */
+.sx-rbx { display: block; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 18px; background-color: #17181c; background-image: radial-gradient(circle at 100% 0, rgba(var(--g1), 0.16), transparent 58%), radial-gradient(circle at 0 100%, rgba(var(--g2), 0.12), transparent 55%); font-family: var(--font-main); }
+.sx-rbx:hover, .sx-rbx:focus-visible { transform: translateY(-2px); border-color: rgba(51, 95, 255, 0.7); }
+.sx-rbx-head { position: relative; display: block; height: 6.5rem; background: radial-gradient(ellipse 38% 110% at 50% 15%, rgba(255, 255, 255, 0.13), transparent 70%), radial-gradient(circle at 90% 0, rgba(51, 95, 255, 0.32), transparent 60%), radial-gradient(circle at 8% 0, rgba(150, 130, 255, 0.18), transparent 55%), linear-gradient(180deg, #26282d, #17181c); }
+.sx-rbx-tag { position: absolute; top: 0.75rem; right: 0.85rem; padding: 0.35rem 0.8rem; border-radius: 10px; background: rgba(38, 40, 45, 0.85); color: #e1e2e3; font-size: 0.8rem; font-weight: 700; white-space: nowrap; }
+.sx-rbx-body { display: grid; gap: 0.95rem; padding: 0 1.25rem 1.3rem; }
+.sx-rbx-top { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 0.5rem 1.1rem; min-width: 0; }
+.sx-rbx-avatar { position: relative; display: grid; flex: none; place-items: center; width: 6.5rem; height: 6.5rem; margin-top: -3.25rem; overflow: hidden; border: 4px solid #17181c; border-radius: 50%; background: #2a2c31; box-shadow: 0 10px 24px -10px rgba(0, 0, 0, 0.9); color: #fff; font: 800 2.2rem var(--font-display); }
+.sx-rbx-info { display: grid; flex: 1; gap: 0.1rem; min-width: 0; padding-top: 0.7rem; }
+.sx-rbx-name { color: #fff; font: 800 clamp(1.75rem, 4.5vw, 2.15rem)/1.1 var(--font-main); letter-spacing: -0.02em; overflow-wrap: anywhere; }
+.sx-rbx-user { color: #cfd0d2; font-size: 1.05rem; font-weight: 600; }
+.sx-rbx-acts { display: flex; flex: none; gap: 0.5rem; margin-left: auto; padding-top: 0.7rem; }
+.sx-rbx-btn { display: inline-flex; align-items: center; justify-content: center; height: 2.6rem; padding: 0 1.2rem; border-radius: 10px; background: #2a2c31; color: #f7f7f8; font-weight: 700; font-size: 0.95rem; transition: background-color 0.15s ease; }
+.sx-rbx-btn--primary { min-width: 6.5rem; background: #335fff; color: #fff; }
+.sx-rbx-btn--icon { width: 2.6rem; padding: 0; }
+.sx-rbx-btn--icon svg { width: 1.25rem; height: 1.25rem; }
+.sx-rbx:hover .sx-rbx-btn--primary { background: #5278ff; }
+.sx-rbx:hover .sx-rbx-btn--icon { background: #383a40; }
+.sx-rbx-stats { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.sx-rbx-chip { padding: 0.55rem 1.05rem; border-radius: 999px; background: #26282d; color: #f1f2f3; font-size: 0.95rem; font-weight: 600; white-space: nowrap; }
+.sx-rbx-chip b { font-weight: 800; }
+.sx-rbx-bio { color: #e1e2e3; font-size: 1rem; line-height: 1.5; }
+.sx-rbx-more { display: inline-flex; align-items: center; justify-self: start; gap: 0.35rem; margin-top: -0.35rem; color: #f7f7f8; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+.sx-rbx-more svg { width: 0.8rem; height: 0.8rem; }
+.sx-rbx:hover .sx-rbx-more { color: #7f9bff; }
+@media (max-width: 560px) {
+  .sx-rbx-acts { flex-basis: 100%; margin-left: 0; padding-top: 0.2rem; }
+  .sx-rbx-btn--primary { flex: 1; }
+}
+@media (max-width: 480px) {
+  .sx-rbx-top { flex-direction: column; align-items: center; text-align: center; }
+  .sx-rbx-info { padding-top: 0; }
+  .sx-rbx-stats { justify-content: center; }
+  .sx-rbx-more { justify-self: center; }
+  .sx-rbx-bio { text-align: center; }
+  .sx-rbx-acts { justify-content: center; }
+}
+
+/* ----- Playable pfp ----- */
+.sx-pfp-hit { position: absolute; inset: 0; z-index: 3; border: 0; border-radius: 50%; background: none; cursor: pointer; -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+.sx-pfp-hit:focus-visible { outline: 3px solid var(--color-accent-bright); outline-offset: 4px; }
+.sx-pfpwrap.is-holding { transform: scale(0.95); transition: transform 0.45s ease; }
+.sx-burst { position: absolute; z-index: 5; top: 50%; left: 50%; pointer-events: none; filter: drop-shadow(0 0 4px currentColor); }
+.sx-burst svg { display: block; width: 100%; height: 100%; }
+
+
+.sx-picker { position: absolute; z-index: 8; top: calc(100% + 0.9rem); left: 0; width: min(40rem, calc(100vw - 2 * var(--container-padding, 1rem))); padding: 0.75rem; border: 1px solid rgba(var(--rgb-blue), 0.45); border-radius: 16px; background: rgba(15, 24, 51, 0.97); box-shadow: 0 24px 50px -18px #000, 0 0 50px -26px rgba(var(--rgb-blue), 0.9); animation: sx-fade 0.15s ease both; }
+.sx-picker-t { margin-bottom: 0.55rem; color: var(--color-text-muted); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+.sx-picker-g { display: flex; gap: 0.4rem; }
+.sx-picker button { display: flex; flex: none; flex-direction: column; align-items: center; justify-content: center; gap: 0.4rem; width: 4.9rem; padding: 0.6rem 0.35rem; text-align: center; line-height: 1.2; white-space: nowrap; border: 1px solid var(--color-border); border-radius: 10px; background: rgba(var(--rgb-silver), 0.04); color: var(--color-text); font: 600 0.8rem var(--font-main); cursor: pointer; }
+.sx-picker button:hover, .sx-picker button:focus-visible { border-color: rgba(var(--rgb-blue), 0.7); background: rgba(var(--rgb-blue), 0.14); }
+.sx-picker button[aria-checked="true"] { border-color: var(--color-accent-bright); background: rgba(var(--rgb-blue), 0.2); }
+.sw { flex: none; width: 2.5rem; height: 2.5rem; border-radius: 50%; object-fit: contain; }
+.sw-none { border: 2px dashed rgba(var(--rgb-silver), 0.5); }
+@media (prefers-reduced-motion: reduce) { .sx-picker { animation: none; } }
+
+/* ----- Wide screens: content stays in the narrow column; only the Bcraft Designs card is a bit wider (change 60rem to make it wider or narrower) ----- */
+@media (min-width: 1100px) {
+  .sx-page { max-width: 72rem; }
+  .sx-profile, .sx-feed > .sx-block:not(:first-child) { width: 100%; max-width: 48rem; margin-inline: auto; }
+  .sx-feed > .sx-block:first-child { width: 100%; max-width: 60rem; margin-inline: auto; }
+}
+
+/* Picker: one section per category */
+.sx-picker-body { display: flex; flex-direction: row; align-items: flex-start; gap: 0.9rem; padding-bottom: 0.45rem; overflow-x: auto; overflow-y: hidden; overscroll-behavior-x: contain; scrollbar-width: thin; scrollbar-color: rgba(var(--rgb-blue), 0.5) transparent; }
+.sx-picker-sec { flex: none; }
+.sx-picker-sec + .sx-picker-sec { padding-left: 0.9rem; border-left: 1px solid var(--color-border); }
+.sx-picker-c { margin-bottom: 0.4rem; color: var(--color-orange-bright); font-size: 0.74rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+
+/* ----- Commission status pill ----- */
+.sx-slots { display: inline-flex; align-items: center; gap: 0.5rem; max-width: 100%; padding: 0.3rem 0.8rem 0.3rem 0.65rem; border: 1px solid var(--color-border); border-radius: 999px; background: transparent; color: var(--color-text-muted); font: 600 0.8rem/1.25 var(--font-main); transition: border-color 0.15s ease, color 0.15s ease; }
+.sx-slots:hover, .sx-slots:focus-visible { border-color: rgba(255, 255, 255, 0.3); color: #fff; }
+.sx-slots-dot { flex: none; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: #3ddc84; }
+.sx-slots.is-closed .sx-slots-dot { background: #ff5a5a; }
+@media (prefers-reduced-motion: reduce) { .sx-slots { transition: none; } }
+
+/* ----- Secret confetti ----- */
+.sx-confetti { position: fixed; inset: 0; z-index: 95; overflow: hidden; pointer-events: none; }
+.sx-confetti i { position: absolute; top: 0; display: block; }
+
+
+/* ----- X post sits to the left; the "Follow me on X" bubble tucks under it, to the right, overlapping the card ----- */
+.sx-x { width: 70%; justify-self: start; }
+.sx-x .x-post { padding-bottom: 3.4rem; }          /* spare room so the bubble never covers the post's own content */
+/* X card: dark, but a little brighter than pure black, with the same soft corner light as the other cards */
+.sx-x .x-post {
+  border-color: rgba(255, 255, 255, 0.17);
+  background-color: #11151f;
+  background-image:
+    radial-gradient(circle at 100% 0, rgba(var(--rgb-blue), 0.12), transparent 58%),
+    radial-gradient(circle at 0 100%, rgba(150, 130, 255, 0.08), transparent 55%);
+}
+.sx-say { position: relative; z-index: 2; justify-self: end; width: 88%; margin-top: -3.4rem; }
+.sx-say-bubble { box-shadow: 0 18px 40px -16px rgba(0, 0, 0, 0.95), 0 0 60px -34px rgba(var(--g1), 0.8); }
+@media (max-width: 560px) {
+  .sx-x { width: 75%; }
+  .sx-say { width: 94%; }
+}
+
+/* ----- Roblox communities card: same dark Roblox look as the profile card above it ----- */
+.sx-comm { border-color: rgba(255, 255, 255, 0.08); border-radius: 18px; background-color: #17181c; background-image: radial-gradient(circle at 100% 0, rgba(var(--g1), 0.16), transparent 58%), radial-gradient(circle at 0 100%, rgba(var(--g2), 0.12), transparent 55%); font-family: var(--font-main); }
+.sx-comm .sx-card-icon { border-color: transparent; border-radius: 10px; background: #26282d; color: #fff; }
+.sx-comm .sx-card-title { color: #fff; font-family: var(--font-main); font-weight: 800; }
+.sx-comm .sx-comm-name { color: #fff; font: 800 1.1rem/1.2 var(--font-main); letter-spacing: -0.01em; }
+.sx-comm .sx-card-text { color: #cfd0d2; }
+.sx-comm-item { border-color: rgba(255, 255, 255, 0.08); border-radius: 14px; background: #1f2126; }
+/* both buttons: same Roblox blue, same size, full width of their tile */
+.sx-comm .sx-comm-item .sx-btn { justify-self: stretch; height: 2.6rem; margin-top: 0.6rem; padding: 0 1.1rem 0 0.5rem; border: 0; border-radius: 10px; background: #335fff; box-shadow: none; font-size: 0.95rem; }
+.sx-comm .sx-comm-item .sx-btn:hover, .sx-comm .sx-comm-item .sx-btn:focus-visible { background: #5278ff; box-shadow: none; transform: translateY(-1px); }
+.sx-comm .sx-btn-ico { border-radius: 8px; background: rgba(255, 255, 255, 0.18); }
+
+/* ----- Hero extras: rotating role + local time. Where they sit is set by HERO_ROLE / HERO_CLOCK in socials.js ----- */
+.sx-handle { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.1rem 0.7rem; }
+.sx-tagline { color: var(--color-text-muted); font: 600 1rem/1.45 var(--font-display); }
+.sx-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.45rem 0.9rem; margin-top: 0.65rem; }
+.sx-rot-box { display: inline-grid; overflow: hidden; vertical-align: bottom; }
+.sx-rot, .sx-rot-ghost { grid-area: 1 / 1; white-space: nowrap; font-weight: 800; }
+.sx-rot { color: #fff; }
+.sx-rot-ghost { visibility: hidden; }
+.sx-clock { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.28rem 0.75rem 0.28rem 0.6rem; border: 1px solid var(--color-border); border-radius: 999px; background: rgba(var(--rgb-silver), 0.06); color: var(--color-text-muted); font: 600 0.85rem/1.3 var(--font-main); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.sx-clock svg { flex: none; width: 0.95rem; height: 0.95rem; color: var(--color-accent-bright); }
+.sx-clock time { color: #fff; font-weight: 700; }
+/* in the bio bubble: a quiet footer line under the text */
+.sx-clock[data-pos="bio"] { display: flex; width: 100%; margin-top: 0.7rem; padding: 0.6rem 0 0; border: 0; border-top: 1px solid var(--color-border); border-radius: 0; background: none; }
+.sx-clock[hidden] { display: none; }
+
+/* Bio footer: the commission pill on the left, "My time" on the right */
+.sx-bio-text { margin: 0; }
+.sx-bio-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 0.7rem; margin-top: 0.8rem; padding-top: 0.75rem; border-top: 1px solid var(--color-border); }
+.sx-bio-foot .sx-clock[data-pos="bio"] { width: auto; margin: 0 0 0 auto; padding: 0; border: 0; }
+/* a touch smaller inside the footer so pill, mood chip and clock share one row at the bubble's normal width */
+.sx-bio-foot .sx-slots { font-size: 0.78rem; }
+.sx-bio-foot .sx-clock[data-pos="bio"] { font-size: 0.8rem; }
+
+.sx-sr { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+/* ==========================================================
+   Slot tracker, theme button, greeting,
+   branded QR dialog
+   ========================================================== */
+
+/* ----- Commission pill: one dot per slot (filled green = free) ----- */
+.sx-slot-dots { display: inline-flex; align-items: center; gap: 0.22rem; }
+.sx-slot-dots i { width: 0.56rem; height: 0.56rem; border: 1.5px solid rgba(61, 220, 132, 0.45); border-radius: 50%; }
+.sx-slot-dots i.is-free { border-color: #3ddc84; background: #3ddc84; }
+.sx-slots.is-closed .sx-slot-dots i { border-color: rgba(255, 90, 90, 0.55); box-shadow: none; }
+.sx-slots.has-dots .sx-slots-dot { display: none; }
+.sx-slots-sub { color: rgba(255, 255, 255, 0.62); font-weight: 600; }
+
+/* ----- Theme button in the hero ----- */
+.sx-tool--icon { width: 2.5rem; padding: 0; justify-content: center; }
+
+/* ----- Colour themes: only the accent colours change (nothing heavy, nothing animated) ----- */
+:root[data-sx-theme="mint"]   { --rgb-blue: 61, 220, 170;  --color-accent: #3ddcaa; --color-accent-bright: #8cf0d0; --color-accent-glow: rgba(61, 220, 170, 0.35);  --color-button: #14a77d; --color-button-hover: #1ec293; }
+:root[data-sx-theme="sunset"] { --rgb-blue: 255, 138, 61;  --color-accent: #ff8a3d; --color-accent-bright: #ffb27d; --color-accent-glow: rgba(255, 138, 61, 0.35);  --color-button: #d9671c; --color-button-hover: #f0782b; }
+:root[data-sx-theme="violet"] { --rgb-blue: 150, 120, 255; --color-accent: #9678ff; --color-accent-bright: #bba8ff; --color-accent-glow: rgba(150, 120, 255, 0.35); --color-button: #6a4fe0; --color-button-hover: #7e63f2; }
+
+/* ----- "Hey from YouTube" greeting (?from=youtube) ----- */
+.sx-greet { position: fixed; z-index: 95; top: 4.3rem; left: 50%; display: flex; align-items: center; gap: 0.6rem; max-width: min(92vw, 32rem); padding: 0.5rem 0.55rem 0.5rem 1rem; border: 1px solid rgba(var(--rgb-blue), 0.55); border-radius: 999px; background: rgba(15, 24, 51, 0.96); box-shadow: 0 18px 40px -16px rgba(0, 0, 0, 0.9); color: #fff; font: 700 0.92rem var(--font-main); opacity: 0; transform: translate(-50%, -14px); transition: opacity 0.25s ease, transform 0.35s var(--spring); }
+.sx-greet[hidden] { display: none; }
+.sx-greet.is-on { opacity: 1; transform: translate(-50%, 0); }
+.sx-greet svg { flex: none; width: 1.1rem; height: 1.1rem; color: var(--color-accent-bright); }
+.sx-greet a { flex: none; padding: 0.3rem 0.8rem; border-radius: 999px; background: var(--color-button); color: #fff; font-size: 0.82rem; text-decoration: none; white-space: nowrap; }
+.sx-greet a:hover { background: var(--color-button-hover); }
+.sx-greet button { flex: none; width: 1.75rem; height: 1.75rem; border: 0; border-radius: 50%; background: rgba(255, 255, 255, 0.1); color: #fff; font-size: 1.1rem; line-height: 1; cursor: pointer; }
+.sx-greet button:hover { background: rgba(255, 255, 255, 0.2); }
+.sx-spot { border-radius: 20px; animation: sx-spot 2.2s ease 2; }
+@keyframes sx-spot { 0%, 100% { box-shadow: 0 0 0 0 rgba(var(--rgb-blue), 0); } 50% { box-shadow: 0 0 0 7px rgba(var(--rgb-blue), 0.32); } }
+@media (prefers-reduced-motion: reduce) { .sx-greet { transition: opacity 0.2s ease; transform: translate(-50%, 0); } .sx-spot { animation: none; outline: 2px solid rgba(var(--rgb-blue), 0.6); outline-offset: 4px; } }
+
+/* ----- QR dialog: branded code, save as picture, add contact ----- */
+.sx-dialog--qr { width: min(92vw, 23rem); }
+.sx-qr-box { padding: 0.6rem; }
+.sx-qr-actions { display: flex; gap: 0.5rem; margin-bottom: 0.9rem; }
+.sx-qr-btn { display: inline-flex; flex: 1; align-items: center; justify-content: center; gap: 0.45rem; height: 2.55rem; border: 1px solid rgba(var(--rgb-blue), 0.5); border-radius: 12px; background: rgba(var(--rgb-blue), 0.14); color: #fff; font: 700 0.88rem var(--font-main); cursor: pointer; transition: background-color 0.15s ease, transform 0.2s var(--spring); }
+.sx-qr-btn:hover, .sx-qr-btn:focus-visible { background: rgba(var(--rgb-blue), 0.3); transform: translateY(-1px); }
+.sx-qr-btn svg { width: 1rem; height: 1rem; }
+@media (prefers-reduced-motion: reduce) { .sx-qr-btn { transition: none; } }
+/* ----- Two columns on wide screens: X on the left, Discord + GitHub stacked on the right ----- */
+.sx-duo { display: grid; gap: 2rem; min-width: 0; }
+@media (min-width: 1100px) {
+  .sx-feed > .sx-duo { grid-template-columns: minmax(0, 34rem) minmax(0, 24rem); gap: 2rem 2.5rem; justify-content: center; align-items: start; width: 100%; }
+  .sx-duo .sx-x { width: 100%; }                                /* the column is already as wide as the X card was */
+  .sx-duo .sx-pair { grid-template-columns: minmax(0, 1fr); }   /* one card, the other underneath */
+}
+/* (the last section stays centred on every wide screen: justify-content: center above) */
+
+/* ----- Review: a bubble with the client at the bottom. Beside the Bcraft Designs card on wide screens, tucked under it on smaller ones ----- */
+.sx-order-wrap { display: grid; gap: 0.9rem; min-width: 0; }
+.sx-rev { position: relative; z-index: 3; width: min(24rem, 100%); justify-self: end; margin: -1.1rem 0.9rem 0 0; }
+.sx-rev-bubble {
+  position: relative;
+  display: grid;
+  gap: 0.65rem;
+  padding: 1.05rem 1.2rem 1.1rem;
+  border: 1px solid rgba(var(--rgb-blue), 0.5);
+  border-radius: 18px;
+  background-color: #111b3d;
+  background-image: radial-gradient(circle at 100% 0, rgba(var(--rgb-blue), 0.22), transparent 58%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 18px 40px -16px rgba(0, 0, 0, 0.95), 0 0 60px -30px rgba(var(--rgb-blue), 0.9);
+}
+/* tail: points up at the card (smaller screens) ... */
+.sx-rev-bubble::after { content: ""; position: absolute; top: -0.48rem; left: 2rem; width: 0.9rem; height: 0.9rem; border-top: 1px solid rgba(var(--rgb-blue), 0.5); border-left: 1px solid rgba(var(--rgb-blue), 0.5); background: #111b3d; transform: rotate(45deg); }
+.sx-rev-top { position: relative; z-index: 1; display: flex; align-items: center; gap: 0.5rem; }
+.sx-rev-top::after { content: "\201C"; position: absolute; z-index: 0; top: -0.2rem; right: 0; color: rgba(var(--rgb-blue), 0.28); font: 800 5.2rem/1 var(--font-display); pointer-events: none; }   /* big faded quote mark, top right */
+.sx-rev-stars { display: flex; gap: 0.12rem; }
+.sx-rev-stars svg { width: 1rem; height: 1rem; fill: #ffc94d; filter: drop-shadow(0 0 6px rgba(255, 201, 77, 0.45)); }
+.sx-rev-score { color: #ffc94d; font: 800 0.85rem var(--font-main); }
+.sx-rev-text { position: relative; z-index: 1; margin: 0; font: 600 1rem/1.5 var(--font-display); color: #f1f5ff; }
+.sx-rev-author { display: flex; align-items: center; gap: 0.6rem; margin-top: 0.1rem; }
+.sx-rev-av { position: relative; flex: none; width: 2.6rem; height: 2.6rem; }
+.sx-rev-pfp { position: absolute; inset: 0; display: grid; place-items: center; overflow: hidden; border: 2px solid rgba(var(--rgb-blue), 0.6); border-radius: 50%; background: var(--color-surface-raised); box-shadow: 0 8px 18px -8px rgba(0, 0, 0, 0.9); color: var(--color-accent-bright); font: 800 1rem var(--font-display); }
+.sx-rev-pfp img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.sx-rev-name { min-width: 0; color: #fff; font: 800 0.92rem/1.25 var(--font-main); }
+@media (max-width: 560px) { .sx-rev { width: 100%; margin: -1.1rem 0 0; } .sx-rev-text { font-size: 0.95rem; } }
+
+/* ----- Wide screens (1200px+): the card and the review sit side by side as one centred group, the review as tall as the card ----- */
+@media (min-width: 1200px) {
+  .sx-feed > .sx-block:first-child { width: min(80rem, 100vw - 3rem); max-width: none; margin-left: calc(50% - min(40rem, 50vw - 1.5rem)); margin-right: 0; }   /* a little wider than the column, still centred on the screen */
+  .sx-order-wrap { grid-template-columns: minmax(0, 1fr) 18.5rem; align-items: stretch; gap: 1.4rem; }
+  .sx-rev { width: auto; align-self: center; justify-self: stretch; margin: 0; }
+  /* ... and points left at the card on wide screens */
+  .sx-rev-bubble::after { top: 1.6rem; left: -0.48rem; border-top: 0; border-bottom: 1px solid rgba(var(--rgb-blue), 0.5); }
+}
