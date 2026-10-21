@@ -142,7 +142,7 @@ const MOUSE_LIGHT = true;
 //                  "none" = no seasonal theme at all
 //   SEASON_WINDOWS [month, day] to [month, day], inclusive. They must not overlap.
 // ==========================================================
-const SEASON_MODE = "none";
+const SEASON_MODE = "auto";
 const SEASON_WINDOWS = {
   halloween: { from: [10, 1],  to: [10, 31] },
   christmas: { from: [12, 1],  to: [12, 26] },
@@ -3345,8 +3345,15 @@ const LIGHTBOX_SETTINGS = {
     }
 
     firstImg.alt = data.alt || "";
-    firstImg.addEventListener("load", () => { register(firstImg); findTheRest(); }, { once: true });
-    loadImage(firstImg, sources[0]);
+    const begin = () => { register(firstImg); findTheRest(); };
+    // The <img> now has its src in the HTML, so it may already be loaded before this runs.
+    if (firstImg.complete && firstImg.naturalWidth > 0) {
+      firstImg.classList.add("is-loaded");
+      begin();
+    } else {
+      firstImg.addEventListener("load", begin, { once: true });
+      loadImage(firstImg, sources[0]);
+    }
   }
 
   visual.querySelectorAll("[data-hero-art]").forEach((slot) => {

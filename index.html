@@ -14,12 +14,16 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Figtree:wght@400;500;600;700&display=swap">
   <link rel="stylesheet" href="/style.css">
   <!-- Starts loading the hero artwork right away, so it is ready sooner -->
-  <link rel="preload" as="image" href="/images/hero-main-01.webp">
+  <link rel="preload" as="image" href="/images/hero-main-01.webp" fetchpriority="high">
   <script src="/news-data.js"></script>
   <script src="/script.js" defer></script>
   <script src="/companion.js" defer></script>
   <!-- Homepage "Latest news" strip (data comes from news-data.js) -->
   <style>
+    /* Show the first hero picture right away (before script.js runs).
+       Once the script turns it into a slide it gets .hero-slide and the normal slideshow rules take over. */
+    .hero .hero-art-main .hero-art-image:not(.hero-slide) { opacity: 1; }
+
     /* Homepage: sections flow into each other with the same background.
        The coloured side glows (blue / violet / reviews) that used to fade in
        with every new section were removed, so there is no colour change as you scroll. */
@@ -229,7 +233,7 @@
         </div>
         <figure class="hero-art hero-art-main" data-hero-art="main">
           <div class="hero-art-frame">
-            <img class="hero-art-image" alt="">
+            <img class="hero-art-image" src="/images/hero-main-01.webp" width="1920" height="1080" fetchpriority="high" decoding="async" alt="">
           </div>
         </figure>
       </div>
