@@ -582,10 +582,20 @@
     /* Each hero button keeps its own steady layer (stops buttons blinking out while scrolling) */
     .contact-channels .button { will-change: transform; }
 
+    /* Email Me: the button is narrower than its column, so it sits in the middle of it */
+    .contact-channel:nth-child(2) .contact-channel-btn {
+      align-self: center;
+    }
+
+    .contact-channel:nth-child(2) .contact-channel-hint {
+      text-align: center;
+    }
+
     .contact-channel-hint {
       width: 0;
       min-width: 100%;
       padding: 0 0.2rem;
+      white-space: nowrap;
       color: var(--color-text-muted);
       font-size: 0.85rem;
       line-height: 1.45;
@@ -1741,21 +1751,21 @@
               <button type="button" class="copy-chip" data-copy-key="discord"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M5 15V6.2A2.2 2.2 0 0 1 7.2 4H15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span class="copy-chip-text" aria-live="polite">Copy username</span></button>
               <a class="button button-primary button-lg" href="#" data-social="discord" data-contact-gate="Discord"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>Contact Me Directly</a>
               </div>
-              <p class="contact-channel-hint">Fastest replies, and the easiest place to share references.</p>
+              <p class="contact-channel-hint">Fastest replies, easy to share references.</p>
             </div>
             <div class="contact-channel">
               <div class="contact-channel-btn">
               <button type="button" class="copy-chip" data-copy-key="email"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M5 15V6.2A2.2 2.2 0 0 1 7.2 4H15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span class="copy-chip-text" aria-live="polite">Copy address</span></button>
-              <a class="button button-secondary button-lg" href="mailto:bcraftforbusiness@gmail.com" data-contact-gate="Email"><svg class="mail-trio" viewBox="0 0 38 26" aria-hidden="true" focusable="false"><g transform="translate(1 8) rotate(-16 8 8)"><rect width="16" height="16" rx="3.4" fill="#6001d2"/><path d="M4.2 4.2 8 9.1l3.8-4.9M8 9.1v4" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></g><g transform="translate(21 7) rotate(14 8 8)"><rect width="16" height="16" rx="3.4" fill="#0f6cbd"/><circle cx="8" cy="8" r="3.9" fill="none" stroke="#fff" stroke-width="1.9"/></g><g transform="translate(10 2.5) rotate(-4 9 7)"><rect width="18" height="14" rx="3" fill="#fff"/><path d="M3 11V4.4l6 4.5 6-4.5V11" fill="none" stroke="#ea4335" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g></svg>Email Me</a>
+              <a class="button button-secondary button-lg" href="mailto:bcraftforbusiness@gmail.com" data-contact-gate="Email"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 8l8 5.5L20 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Email Me</a>
               </div>
-              <p class="contact-channel-hint">Best for business enquiries and invoices.</p>
+              <p class="contact-channel-hint">Business and invoices</p>
             </div>
             <div class="contact-channel">
               <div class="contact-channel-btn">
               <button type="button" class="copy-chip" data-copy-key="x"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M5 15V6.2A2.2 2.2 0 0 1 7.2 4H15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span class="copy-chip-text" aria-live="polite">Copy handle</span></button>
               <a class="button button-secondary button-lg" href="#" data-social="x" data-contact-gate="X"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>DM Me on X</a>
               </div>
-              <p class="contact-channel-hint">Quick questions, or if you'd rather chat on X.</p>
+              <p class="contact-channel-hint">Quick questions</p>
             </div>
           </div>
         </div>
@@ -1764,59 +1774,6 @@
         <div class="contact-visual" aria-hidden="true">
           <div class="bubble-main"><img src="/images/logo.webp" alt="" width="512" height="329"></div>
           <div class="bubble-reply"><span></span><span></span><span></span></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== TRUST STRIP =====
-         Status: change data-status to "limited" or "closed" (and the words) when needed.
-         The rating is filled in by script.js from REVIEWS, the same as on the homepage. -->
-    <section class="contact-trust" aria-label="Availability and reply time">
-      <div class="container">
-        <div class="contact-trust-list" data-reveal>
-          <p class="trust-badge" data-status="open">
-            <span class="trust-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" focusable="false"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </span>
-            <span class="trust-copy">
-              <span class="trust-label">Availability</span>
-              <strong class="trust-value">Open for commissions</strong>
-            </span>
-          </p>
-          <p class="trust-badge">
-            <span class="trust-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </span>
-            <span class="trust-copy">
-              <span class="trust-label">Typical reply time</span>
-              <strong class="trust-value">1&ndash;24 hours</strong>
-            </span>
-          </p>
-          <p class="trust-badge" data-local-time hidden>
-            <span class="trust-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 12h17M12 3c2.6 2.6 3.9 5.6 3.9 9s-1.3 6.4-3.9 9c-2.6-2.6-3.9-5.6-3.9-9S9.4 5.6 12 3z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
-            </span>
-            <span class="trust-copy">
-              <span class="trust-label">My time</span>
-              <strong class="trust-value" data-local-time-value></strong>
-            </span>
-          </p>
-          <a class="trust-badge trust-badge--rating" href="/reviews/" data-rating-summary hidden>
-            <span class="trust-icon" aria-hidden="true">
-              <svg viewBox="0 0 16 16" focusable="false"><path fill="currentColor" d="M8 1.3l2.08 4.36 4.77.62-3.5 3.3.88 4.74L8 11.95 3.77 14.32l.88-4.74-3.5-3.3 4.77-.62z"/></svg>
-            </span>
-            <span class="trust-copy">
-              <span class="trust-label">Client rating</span>
-              <span class="trust-value">
-                <span class="hero-rating-score" data-rating-score></span>
-                <span class="rating-stars" aria-hidden="true">
-                  <span class="rating-stars-base"><svg class="rating-star" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 1.3l2.08 4.36 4.77.62-3.5 3.3.88 4.74L8 11.95 3.77 14.32l.88-4.74-3.5-3.3 4.77-.62z"/></svg><svg class="rating-star" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 1.3l2.08 4.36 4.77.62-3.5 3.3.88 4.74L8 11.95 3.77 14.32l.88-4.74-3.5-3.3 4.77-.62z"/></svg><svg class="rating-star" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 1.3l2.08 4.36 4.77.62-3.5 3.3.88 4.74L8 11.95 3.77 14.32l.88-4.74-3.5-3.3 4.77-.62z"/></svg><svg class="rating-star" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 1.3l2.08 4.36 4.77.62-3.5 3.3.88 4.74L8 11.95 3.77 14.32l.88-4.74-3.5-3.3 4.77-.62z"/></svg><svg class="rating-star" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 1.3l2.08 4.36 4.77.62-3.5 3.3.88 4.74L8 11.95 3.77 14.32l.88-4.74-3.5-3.3 4.77-.62z"/></svg></span>
-                  <span class="rating-stars-fill" data-rating-fill><svg class="rating-star" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 1.3l2.08 4.36 4.77.62-3.5 3.3.88 4.74L8 11.95 3.77 14.32l.88-4.74-3.5-3.3 4.77-.62z"/></svg><svg class="rating-star" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 1.3l2.08 4.36 4.77.62-3.5 3.3.88 4.74L8 11.95 3.77 14.32l.88-4.74-3.5-3.3 4.77-.62z"/></svg><svg class="rating-star" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 1.3l2.08 4.36 4.77.62-3.5 3.3.88 4.74L8 11.95 3.77 14.32l.88-4.74-3.5-3.3 4.77-.62z"/></svg><svg class="rating-star" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 1.3l2.08 4.36 4.77.62-3.5 3.3.88 4.74L8 11.95 3.77 14.32l.88-4.74-3.5-3.3 4.77-.62z"/></svg><svg class="rating-star" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 1.3l2.08 4.36 4.77.62-3.5 3.3.88 4.74L8 11.95 3.77 14.32l.88-4.74-3.5-3.3 4.77-.62z"/></svg></span>
-                </span>
-                <span class="hero-rating-count" data-rating-count></span>
-              </span>
-            </span>
-          </a>
         </div>
       </div>
     </section>
@@ -2107,7 +2064,7 @@
             <li><a class="contact-social" href="#" data-social="youtube"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube</a></li>
             <li><a class="contact-social" href="#" data-social="x"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>X / Twitter</a></li>
             <li><a class="contact-social" href="#" data-social="discord"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>Discord</a></li>
-            <li><a class="contact-social" href="mailto:bcraftforbusiness@gmail.com"><svg class="mail-trio" viewBox="0 0 38 26" aria-hidden="true" focusable="false"><g transform="translate(1 8) rotate(-16 8 8)"><rect width="16" height="16" rx="3.4" fill="#6001d2"/><path d="M4.2 4.2 8 9.1l3.8-4.9M8 9.1v4" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></g><g transform="translate(21 7) rotate(14 8 8)"><rect width="16" height="16" rx="3.4" fill="#0f6cbd"/><circle cx="8" cy="8" r="3.9" fill="none" stroke="#fff" stroke-width="1.9"/></g><g transform="translate(10 2.5) rotate(-4 9 7)"><rect width="18" height="14" rx="3" fill="#fff"/><path d="M3 11V4.4l6 4.5 6-4.5V11" fill="none" stroke="#ea4335" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g></svg>Email</a></li>
+            <li><a class="contact-social" href="mailto:bcraftforbusiness@gmail.com"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 8l8 5.5L20 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Email</a></li>
             <li><a class="contact-social" href="#" data-social="github"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>GitHub</a></li>
           </ul>
         </div>

@@ -46,6 +46,7 @@
 //   price-youtube-banners-01.webp
 //   price-sheet-designs-01.webp
 //   payment-render-01.webp                 your own render next to the payment methods
+//   welcome-offer-01.webp                  your render on the sticky Welcome Offer card (transparent PNG/WebP, about 600 x 800)
 //
 //   review-project-gfx-01.webp             artwork shown inside a review (example entries)
 //   review-project-ui-01.webp
@@ -141,7 +142,7 @@ const MOUSE_LIGHT = true;
 //                  "none" = no seasonal theme at all
 //   SEASON_WINDOWS [month, day] to [month, day], inclusive. They must not overlap.
 // ==========================================================
-const SEASON_MODE = "auto";
+const SEASON_MODE = "none";
 const SEASON_WINDOWS = {
   halloween: { from: [10, 1],  to: [10, 31] },
   christmas: { from: [12, 1],  to: [12, 26] },
@@ -980,9 +981,8 @@ const PAYMENT_METHODS = [
   { icon: "steam",  label: "Steam Gift Card", detail: "EUR \u20AC" }
 ];
 
-// Robux icon: the image below (a PNG). To host it yourself, save it as
-// images/robux.webp and change this to "/images/robux.webp".
-const ROBUX_ICON_URL = "https://devforum-uploads.s3.dualstack.us-east-2.amazonaws.com/uploads/original/4X/e/d/f/edfae9388da4cd8496b885a8a2df613372500d9c.png";
+// Robux icon: your own file, images/robux-icon.webp.
+const ROBUX_ICON_URL = "/images/robux-icon.webp";
 
 const PAYMENT_ICONS = {
   robux: '<img class="robux-icon" src="' + ROBUX_ICON_URL + '" alt="" width="64" height="64" decoding="async" draggable="false">'
@@ -1045,6 +1045,123 @@ function setRobux(node, amount, prefix) {
   icon.alt = "Robux";
   node.appendChild(icon);
   node.appendChild(document.createTextNode(formatRobuxAmount(amount)));
+}
+
+
+// ==========================================================
+// WELCOME OFFER  <-- change the offer here
+// A sticky card in the bottom-right corner of every page, stacked right
+// above the sale popup (and its small tab). It starts minimized as a small
+// tab; clicking the tab opens the card. The card's button opens a small
+// "how to redeem" window: the offer is redeemed by DM.
+// The offer does not change any price on the site.
+// The card is built by script.js (see "WELCOME OFFER CARD" near the end),
+// so no page needs extra HTML.
+//
+//   enabled      - false removes the card everywhere
+//   discountUsd  - dollars taken off the order total (shown on the card)
+//   robuxOff     - Robux taken off when paying in Robux (0 = no Robux part)
+//   endsAt       - optional end, e.g. "2026-11-30T23:59:59" (null = no end)
+//   dmLink       - where the "DM me" button in the redeem window goes. The contact
+//                  page fills its message box when the link ends in ?offer=welcome
+//   dmMessage    - the line the contact page pre-fills in the message box
+//   image        - your GFX render (the shopping bag). A transparent .webp / .png.
+//                  Its bottom edge always sits exactly on the bottom edge of the
+//                  art area: empty transparent margins around the render are cut
+//                  off automatically, so the bag can never float above the
+//                  edge. Until the file exists the card simply has no picture
+//                  (and no glow / rays / particles), so nothing looks broken.
+//   glowX/glowY  - where the light comes out of the render (the opening of the
+//                  bag), as a share of the render: "45%" from the left and
+//                  "19%" from the top. Move these if the light is off.
+//   particles    - how many floating sparks (0 = none)
+//   nudge / nudgeDelay / nudgeMax - the tab gives one soft pulse + shine to get noticed.
+//                  nudgeDelay = ms after it appears, nudgeMax = on how many page views at most.
+//                  It stops for good once the visitor has opened the offer.
+//   endsText / countdownTabDays - only when endsAt is set: "Ends in 3 days" on the card and
+//                  in the redeem window, and "$5 off . 2d left" on the tab once there are
+//                  countdownTabDays days or fewer left. The offer disappears by itself at endsAt.
+//   (the widget is not shown on the contact page itself: the notice there takes over)
+//   contactNotice - the notice on the contact page about redeeming by DM:
+//                  "always" = for every visitor while the offer runs,
+//                  "off"    = no notice
+//   contactText  - the wording of that notice (shown in the small "i" reminder)
+//   eyebrow / amountNote / sub / terms / buttonText / tabText - the wording of the card
+//   pathSteps    - the three tiny labels on the card (DM me > Mention it > Done)
+//   modalTitle / modalText / modalSteps / modalButtonText / modalCloseText -
+//                  the wording of the redeem window
+//   modalEmailText / emailLink / emailSubject - the second contact option in the redeem
+//                  window ("Email me"). emailLink is a mailto: link with YOUR address
+//                  (empty = the button is hidden). The e-mail opens with the subject and
+//                  the dmMessage line already filled in.
+//   delay        - milliseconds before the tab slides in on a page
+// ==========================================================
+const WELCOME_OFFER = {
+  enabled: true,
+  discountUsd: 5,
+  robuxOff: 1500,
+  endsAt: null,
+  dmLink: "/contact/?offer=welcome",
+  dmMessage: "Hi! I\u2019d like to redeem the welcome offer.",
+  image: "/images/welcome-offer-01.webp",
+  alt: "",
+  glowX: "45%",
+  glowY: "19%",
+  particles: 18,
+  contactNotice: "always",
+  contactText: "To redeem it, DM me and mention the welcome offer. If you don\u2019t, I can\u2019t apply it to your order.",
+  eyebrow: "Welcome offer",
+  off: "off",
+  sub: "your first order",
+  terms: "New clients only \u00b7 $10 minimum order \u00b7 TOS apply",
+  buttonText: "Redeem",
+  pathSteps: ["DM me", "Mention it", "Done"],
+  tabText: "$5 off",
+  modalTitle: "A little gift for you",
+  modalText: "New here? Mention it when you message me and I\u2019ll take it off your first order.",
+  modalSteps: [
+    "Send me a DM",
+    "Mention the gift",
+    "I take it off"
+  ],
+  modalButtonText: "DM me",
+  modalEmailText: "Email me",
+  emailLink: "mailto:YOUR-EMAIL@example.com",   // <-- put your real e-mail address here
+  emailSubject: "Welcome offer",
+  modalCloseText: "Not now",
+  delay: 1800,
+  nudge: true,
+  nudgeDelay: 4500,
+  nudgeMax: 3,
+  endsText: "Ends in",
+  countdownTabDays: 3
+};
+
+const WELCOME_UI_KEY = "bcraft-welcome-offer-ui";      // "open" once the visitor opened the card
+const WELCOME_SEEN_KEY = "bcraft-welcome-offer-seen";  // "1" once the visitor opened the card or the redeem window
+const WELCOME_NUDGE_KEY = "bcraft-welcome-offer-nudge"; // how many page views the tab has pulsed on
+const welcomeMemory = {};                              // used if the browser blocks storage
+
+function welcomeGet(key) {
+  try { return window.localStorage.getItem(key); } catch (error) { return welcomeMemory[key] || null; }
+}
+
+function welcomeSet(key, value) {
+  welcomeMemory[key] = value;
+  try {
+    if (value === null) window.localStorage.removeItem(key);
+    else window.localStorage.setItem(key, value);
+  } catch (error) { /* storage blocked: it only lasts for this page view */ }
+}
+
+// Is the offer running at all? (switched on, and not past its end date)
+function welcomeOfferLive() {
+  if (!WELCOME_OFFER.enabled) return false;
+  if (WELCOME_OFFER.endsAt) {
+    const end = new Date(WELCOME_OFFER.endsAt).getTime();
+    if (!isNaN(end) && Date.now() >= end) return false;
+  }
+  return true;
 }
 
 
@@ -1491,25 +1608,29 @@ window.addEventListener("resize", () => {
   const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  document.querySelectorAll("[data-price-key]").forEach((card) => {
-    const item = commissionPricing[card.dataset.priceKey];
-    if (!item) return;
+  // Fills every price card
+  function paintPrices() {
+    document.querySelectorAll("[data-price-key]").forEach((card) => {
+      const item = commissionPricing[card.dataset.priceKey];
+      if (!item) return;
 
-    const usd = card.querySelector("[data-price-usd]");
-    const robux = card.querySelector("[data-price-robux]");
-    const note = card.querySelector("[data-price-note]");
+      const usd = card.querySelector("[data-price-usd]");
+      const robux = card.querySelector("[data-price-robux]");
+      const note = card.querySelector("[data-price-note]");
 
-    if (usd) {
-      const isSet = item.base > 0;
-      usd.textContent = isSet ? formatUsd(item.base) : "Price not set yet";
-      usd.classList.toggle("is-unset", !isSet);
-    }
-    if (robux) setRobux(robux, item.robux);
-    if (note && item.note) {
-      note.textContent = item.note;
-      note.hidden = false;
-    }
-  });
+      if (usd) {
+        const isSet = item.base > 0;
+        usd.textContent = isSet ? formatUsd(item.base) : "Price not set yet";
+        usd.classList.toggle("is-unset", !isSet);
+      }
+      if (robux) setRobux(robux, item.robux);
+      if (note && item.note) {
+        note.textContent = item.note;
+        note.hidden = false;
+      }
+    });
+  }
+  paintPrices();
 
   // 3D hover: the card tilts toward the mouse and a soft light follows it.
   // The tilt is applied to the card FACE; the stage around it stays flat, so
@@ -3351,7 +3472,8 @@ function buildSalePopup(cfg, STORAGE_KEY, theme) {
 
   const arrow = '<svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   const tagIcon = '<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12V4a1 1 0 0 1 1-1h8l9 9-9 9-9-9z"/><circle cx="8" cy="8" r="1.4" fill="currentColor"/></svg>';
-  const closeIcon = '<svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" focusable="false"><path d="M2 2l10 10M12 2 2 12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>';
+  // Dropdown arrow: the button folds the popup down into its small tab
+  const closeIcon = '<svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" focusable="false"><path d="M3 5.2l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
   const popup = document.createElement("aside");
   popup.className = "sale-popup" + (theme ? " sale-popup--" + theme : "");
@@ -3359,7 +3481,7 @@ function buildSalePopup(cfg, STORAGE_KEY, theme) {
   popup.setAttribute("aria-label", cfg.eyebrow + ", " + cfg.percent + " " + cfg.off);
   popup.setAttribute("aria-hidden", "true");
   popup.innerHTML =
-    '<button class="sale-popup-close" type="button" aria-label="Close the offer">' + closeIcon + '</button>' +
+    '<button class="sale-popup-close" type="button" aria-label="Minimize the offer">' + closeIcon + '</button>' +
     '<div class="sale-popup-art">' +
       '<img class="sale-popup-image" alt="" width="1430" height="731">' +
     '</div>' +
@@ -3488,6 +3610,701 @@ function buildSalePopup(cfg, STORAGE_KEY, theme) {
   [CHRISTMAS_POPUP, "bcraft-christmas-popup", "christmas"],
   [SUMMER_POPUP, "bcraft-summer-popup", "summer"]
 ].some((entry) => buildSalePopup(entry[0], entry[1], entry[2]));
+
+
+// ==========================================================
+// WELCOME OFFER CARD (settings: WELCOME_OFFER near the top of this file)
+// A sticky card in the bottom-right corner, always stacked right above the
+// sale popup, or above its small tab once that is closed (it moves by itself
+// when the popup opens or closes). It starts minimized as a small blue tab;
+// clicking the tab opens the card, the close button minimizes it again.
+// The card's Redeem button opens a small window that explains how to redeem
+// the offer (DM me). Nothing is added to the HTML pages.
+// ==========================================================
+(function () {
+  if (!welcomeOfferLive()) return;
+  const cfg = WELCOME_OFFER;
+
+  // Not on the contact page: the form is right there, and a notice above it says what to do
+  const page = window.location.pathname.replace(/\/+$/, "").split("/").pop().replace(/\.html$/i, "").toLowerCase();
+  if (page === "contact") return;
+
+  const arrow = '<svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  const closeIcon = '<svg width="12" height="12" viewBox="0 0 14 14" aria-hidden="true" focusable="false"><path d="M2 2l10 10M12 2 2 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
+  // Dropdown arrow: the card's button folds the card down into the small tab
+  const dropIcon = '<svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" focusable="false"><path d="M3 5.2l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  const mailIcon = '<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 7l8.5 6.5L20.5 7"/></svg>';
+  const giftIcon = '<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></svg>';
+  const chevron = '<svg class="welcome-offer-tab-chevron" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2.5 7.5 6 4l3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+  const amount = formatUsd(cfg.discountUsd);
+
+  // Tiny icons for the little path on the card (chat, price tag, check)
+  const pathIcons = [
+    '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H10l-5 4v-4H4z"/></svg>',
+    '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12V4h8l9 9-8 8z"/><circle cx="7.5" cy="8.5" r="1"/></svg>',
+    '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>'
+  ];
+  let pathMarkup = "";
+  (cfg.pathSteps || []).slice(0, 3).forEach((label, i) => {
+    if (i) pathMarkup += '<span class="wo-path-line"></span>';
+    pathMarkup += '<span class="wo-path-step"><span class="wo-path-dot">' + pathIcons[i] + '</span><span class="wo-path-label"></span></span>';
+  });
+
+  // Light show behind the text: floor glow, rays, glow from the bag, the render, sparks.
+  // The card and the redeem window each get their own copy. It is clipped to the
+  // box and only shown once the render exists.
+  const fxMarkup =
+    '<span class="welcome-offer-fx" aria-hidden="true">' +
+      '<span class="wo-floor"></span>' +
+      '<span class="wo-stage">' +
+        '<span class="wo-halo"></span>' +
+        '<span class="wo-burst"></span>' +
+        '<span class="wo-beam"></span>' +
+        '<span class="wo-glow"></span>' +
+        '<img class="welcome-offer-image" alt="" decoding="async">' +
+        '<span class="wo-rim"></span>' +
+        '<span class="wo-particles"></span>' +
+      '</span>' +
+    '</span>';
+
+  // ----- The card -----
+  const card = document.createElement("aside");
+  card.className = "welcome-offer";
+  card.setAttribute("role", "dialog");
+  card.setAttribute("aria-hidden", "true");
+  card.innerHTML =
+    fxMarkup +
+    '<button class="welcome-offer-close" type="button" aria-label="Minimize the welcome offer">' + dropIcon + '</button>' +
+    '<div class="welcome-offer-link">' +
+      '<span class="welcome-offer-text">' +
+        '<span class="tag welcome-offer-tag" data-category="GFX"></span>' +
+        '<span class="welcome-offer-deal">' +
+          '<span class="welcome-offer-row"><span class="welcome-offer-amount"></span><span class="welcome-offer-off"></span></span>' +
+          '<span class="welcome-offer-row welcome-offer-row--robux"><span class="welcome-offer-or">or</span><span class="welcome-offer-robux"></span></span>' +
+        '</span>' +
+        '<span class="welcome-offer-sub"></span>' +
+        '<button class="button button-primary welcome-offer-cta" type="button" aria-haspopup="dialog"><span class="welcome-offer-cta-text"></span>' + arrow + '</button>' +
+      '</span>' +
+    '</div>' +
+    // The info strip: small print in the bottom right corner
+    '<div class="welcome-offer-terms"><span class="welcome-offer-ends"></span><span class="welcome-offer-terms-text"></span></div>';
+
+  // Text is set with textContent so nothing in the settings can inject markup
+  const tag = card.querySelector(".welcome-offer-tag");
+  const cta = card.querySelector(".welcome-offer-cta");
+  card.querySelector(".welcome-offer-cta-text").textContent = cfg.buttonText;
+  tag.textContent = cfg.eyebrow;
+  card.querySelector(".welcome-offer-sub").textContent = cfg.sub;
+  card.querySelector(".welcome-offer-terms-text").textContent = cfg.terms;
+
+  // The price line ("$5 off or [Robux] 1.5K"): same for the card and the redeem window
+  function fillDeal(host) {
+    host.querySelector(".welcome-offer-amount").textContent = amount;
+    host.querySelector(".welcome-offer-off").textContent = cfg.off;
+    const robuxBox = host.querySelector(".welcome-offer-robux");
+    if (cfg.robuxOff > 0) {
+      setRobux(robuxBox, cfg.robuxOff);
+      robuxBox.setAttribute("aria-label", formatRobuxAmount(cfg.robuxOff) + " Robux");
+    } else {
+      host.querySelector(".welcome-offer-row--robux").hidden = true;
+    }
+  }
+  fillDeal(card);
+
+  // ----- The small tab (after closing, or when the card does not fit) -----
+  const tab = document.createElement("button");
+  tab.className = "welcome-offer-tab";
+  tab.type = "button";
+  tab.setAttribute("aria-hidden", "true");
+  tab.tabIndex = -1;
+  tab.innerHTML = '<span class="welcome-offer-tab-icon">' + giftIcon + '</span><span class="welcome-offer-tab-text"></span>' + chevron;
+  const tabText = tab.querySelector(".welcome-offer-tab-text");
+
+  // ----- The redeem window (small, opens from the Redeem button) -----
+  // Built like the card: same panel, same light show behind the render, same price line.
+  const modal = document.createElement("div");
+  modal.className = "welcome-modal";
+  modal.setAttribute("aria-hidden", "true");
+  modal.innerHTML =
+    '<div class="welcome-modal-box" role="dialog" aria-modal="true" aria-labelledby="welcome-modal-title" tabindex="-1">' +
+      fxMarkup +
+      '<span class="welcome-modal-grab" aria-hidden="true"></span>' +
+      '<button class="welcome-modal-close" type="button" aria-label="Close">' + closeIcon + '</button>' +
+      '<div class="welcome-modal-body">' +
+        '<span class="tag welcome-offer-tag" data-category="GFX"></span>' +
+        '<div class="welcome-modal-col welcome-modal-col--main">' +
+        '<h2 class="welcome-modal-title" id="welcome-modal-title"></h2>' +
+        '<span class="welcome-offer-deal welcome-modal-deal">' +
+          '<span class="welcome-offer-row"><span class="welcome-offer-amount"></span><span class="welcome-offer-off"></span></span>' +
+          '<span class="welcome-offer-row welcome-offer-row--robux"><span class="welcome-offer-or">or</span><span class="welcome-offer-robux"></span></span>' +
+        '</span>' +
+        '<span class="welcome-offer-sub"></span>' +
+        '<p class="welcome-modal-text"></p>' +
+        '<ol class="welcome-modal-steps"></ol>' +
+        '</div>' +
+        '<div class="welcome-modal-col welcome-modal-col--side">' +
+        '<div class="welcome-modal-actions">' +
+          '<a class="button button-primary welcome-modal-dm" href="#"><span class="welcome-modal-dm-text"></span>' + arrow + '</a>' +
+          '<a class="button button-secondary welcome-modal-email" href="#">' + mailIcon + '<span class="welcome-modal-email-text"></span></a>' +
+          '<button class="button button-secondary welcome-modal-dismiss" type="button"></button>' +
+        '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="welcome-offer-terms"><span class="welcome-offer-ends"></span><span class="welcome-offer-terms-text"></span></div>' +
+    '</div>';
+  const modalBox = modal.querySelector(".welcome-modal-box");
+  modal.querySelector(".welcome-offer-tag").textContent = cfg.eyebrow;
+  fillDeal(modal);
+  modal.querySelector(".welcome-offer-sub").textContent = cfg.sub;
+  modal.querySelector(".welcome-modal-title").textContent = cfg.modalTitle;
+  modal.querySelector(".welcome-modal-text").textContent = cfg.modalText;
+  (cfg.modalSteps || []).forEach((step) => {
+    const item = document.createElement("li");
+    item.textContent = step;
+    modal.querySelector(".welcome-modal-steps").appendChild(item);
+  });
+  modal.querySelector(".welcome-modal-steps").hidden = !(cfg.modalSteps && cfg.modalSteps.length);
+  modal.querySelector(".welcome-modal-dm").setAttribute("href", cfg.dmLink);
+  modal.querySelector(".welcome-modal-dm-text").textContent = cfg.modalButtonText;
+
+  // Second contact option: e-mail (opens with subject and message already filled in)
+  const emailBtn = modal.querySelector(".welcome-modal-email");
+  modal.querySelector(".welcome-modal-email-text").textContent = cfg.modalEmailText || "Email me";
+  if (cfg.emailLink) {
+    emailBtn.setAttribute("href", cfg.emailLink + (cfg.emailLink.indexOf("?") < 0 ? "?" : "&") +
+      "subject=" + encodeURIComponent(cfg.emailSubject || "") + "&body=" + encodeURIComponent(cfg.dmMessage || ""));
+  } else {
+    emailBtn.hidden = true;
+  }
+  modal.querySelector(".welcome-modal-dismiss").textContent = cfg.modalCloseText;
+  modal.querySelector(".welcome-offer-terms-text").textContent = cfg.terms;
+
+  document.body.appendChild(card);
+  document.body.appendChild(tab);
+  document.body.appendChild(modal);
+
+  // ----- Your render -----
+  const image = card.querySelector(".welcome-offer-image");
+  image.alt = cfg.alt || "";
+  card.style.setProperty("--wo-glow-x", cfg.glowX);
+  card.style.setProperty("--wo-glow-y", cfg.glowY);
+
+  // The redeem window shows the same render (it copies the card's finished picture)
+  const modalImage = modalBox.querySelector(".welcome-offer-image");
+  modalImage.alt = cfg.alt || "";
+  modalImage.addEventListener("load", () => modalImage.classList.add("is-loaded"));
+  modalBox.style.setProperty("--wo-glow-x", cfg.glowX);
+  modalBox.style.setProperty("--wo-glow-y", cfg.glowY);
+
+  // Finds the box around everything that is not transparent, so the bag can
+  // stand exactly on the bottom edge of the card (and the light sits on the
+  // right spot) even if the file has empty margins.
+  function renderBounds() {
+    const w = image.naturalWidth, h = image.naturalHeight;
+    const scale = Math.min(1, 320 / Math.max(w, h));
+    const cw = Math.max(1, Math.round(w * scale)), ch = Math.max(1, Math.round(h * scale));
+    const canvas = document.createElement("canvas");
+    canvas.width = cw;
+    canvas.height = ch;
+    const context = canvas.getContext("2d", { willReadFrequently: true });
+    context.drawImage(image, 0, 0, cw, ch);
+    const data = context.getImageData(0, 0, cw, ch).data;
+    let minX = cw, minY = ch, maxX = -1, maxY = -1;
+    for (let y = 0; y < ch; y++) {
+      for (let x = 0; x < cw; x++) {
+        if (data[(y * cw + x) * 4 + 3] > 24) {
+          if (x < minX) minX = x;
+          if (x > maxX) maxX = x;
+          if (y < minY) minY = y;
+          if (y > maxY) maxY = y;
+        }
+      }
+    }
+    if (maxX < 0) return null;
+    const sx = Math.max(0, Math.floor(minX / scale) - 1);
+    const sy = Math.max(0, Math.floor(minY / scale) - 1);
+    const ex = Math.min(w, Math.ceil((maxX + 1) / scale) + 1);
+    const ey = Math.min(h, Math.ceil((maxY + 1) / scale) + 1);
+    return { sx: sx, sy: sy, tw: ex - sx, th: ey - sy };
+  }
+
+  function showRender(aspect) {
+    if (aspect > 0) {
+      card.style.setProperty("--wo-aspect", String(Math.round(aspect * 1000) / 1000));
+      modalBox.style.setProperty("--wo-aspect", String(Math.round(aspect * 1000) / 1000));
+    }
+    card.classList.add("has-art");
+    modalBox.classList.add("has-art");
+    if (modalImage.getAttribute("src") !== image.src) modalImage.src = image.src;
+    relayout();
+  }
+
+  image.addEventListener("load", () => {
+    if (image.dataset.trimmed === "1") { showRender(image.naturalWidth / image.naturalHeight); return; }
+    try {
+      const box = renderBounds();
+      const cuts = box && (box.tw < image.naturalWidth * 0.98 || box.th < image.naturalHeight * 0.98);
+      if (cuts) {
+        const out = document.createElement("canvas");
+        out.width = box.tw;
+        out.height = box.th;
+        out.getContext("2d").drawImage(image, box.sx, box.sy, box.tw, box.th, 0, 0, box.tw, box.th);
+        out.toBlob((blob) => {
+          if (!blob) { showRender(image.naturalWidth / image.naturalHeight); return; }
+          image.dataset.trimmed = "1";
+          image.src = URL.createObjectURL(blob);     // loads again, then showRender runs
+        }, "image/png");
+        return;
+      }
+    } catch (error) { /* the file cannot be read as pixels: use it as it is */ }
+    showRender(image.naturalWidth / image.naturalHeight);
+  });
+  loadImageFlex(image, cfg.image);
+
+  // ----- Floating sparks: they rise from the opening of the bag -----
+  const sparkColors = ["214,222,255", "255,255,255", "150,170,255", "110,130,255", "176,210,255"];   // the light of the bag
+  const between = (low, high) => low + Math.random() * (high - low);
+  function addSparks(sparkBox) {
+  for (let i = 0; i < (cfg.particles || 0); i++) {
+    const spark = document.createElement("span");
+    const star = i % 4 === 0;            // every 4th one is a little 4-point star
+    const ambient = i % 3 === 2;         // some only drift around the bag
+    spark.className = "wo-particle" + (star ? " is-star" : "");
+    const set = (name, value) => spark.style.setProperty(name, value);
+    set("--ox", Math.round(ambient ? between(-110, 90) : between(-60, 60)) + "px");
+    set("--oy", Math.round(ambient ? between(20, 120) : between(-6, 10)) + "px");
+    set("--dx", Math.round(between(-70, 90)) + "px");
+    set("--dy", "-" + Math.round(ambient ? between(24, 60) : between(80, 200)) + "px");
+    set("--s", (star ? between(8, 13) : between(2, 4.6)).toFixed(1) + "px");
+    set("--dur", between(3.6, 7.4).toFixed(1) + "s");
+    set("--delay", "-" + between(0, 7).toFixed(1) + "s");
+    set("--c", sparkColors[Math.floor(Math.random() * sparkColors.length)]);
+    sparkBox.appendChild(spark);
+  }
+  }
+  addSparks(card.querySelector(".wo-particles"));
+  addSparks(modalBox.querySelector(".wo-particles"));
+
+  // ----- State -----
+  let ready = false;          // false until the short delay is over
+  let ended = false;          // true once endsAt has passed: everything is removed
+  // Minimized (the small tab) by default; it only starts open if the visitor opened it earlier.
+  let userClosed = welcomeGet(WELCOME_UI_KEY) !== "open";
+  card.setAttribute("aria-label", cfg.eyebrow + ": " + amount + " " + cfg.off + " " + cfg.sub);
+
+  const endTime = cfg.endsAt ? new Date(cfg.endsAt).getTime() : NaN;
+  const hasEnd = !isNaN(endTime);
+
+  // "3 days", "1 day 4h", "5h 20m", "40m"
+  function leftLong(ms) {
+    const total = Math.max(1, Math.ceil(ms / 60000));
+    const d = Math.floor(total / 1440), h = Math.floor((total % 1440) / 60), m = total % 60;
+    if (d >= 2) return d + " days";
+    if (d === 1) return "1 day " + h + "h";
+    if (h >= 1) return h + "h " + m + "m";
+    return m + "m";
+  }
+  // "2d left", "5h left", "40m left"
+  function leftShort(ms) {
+    const total = Math.max(1, Math.ceil(ms / 60000));
+    if (total >= 1440) return Math.floor(total / 1440) + "d left";
+    if (total >= 60) return Math.floor(total / 60) + "h left";
+    return total + "m left";
+  }
+
+  // The countdown wording (only does anything when endsAt is set)
+  function refreshState() {
+    if (ended) return;
+    const ms = hasEnd ? endTime - Date.now() : Infinity;
+    if (hasEnd && ms <= 0) { teardown(); return; }
+
+    const endsLabel = hasEnd ? cfg.endsText + " " + leftLong(ms) : "";
+    card.querySelector(".welcome-offer-ends").textContent = endsLabel;
+    modal.querySelector(".welcome-offer-ends").textContent = endsLabel;
+
+    const showLeft = hasEnd && ms <= (cfg.countdownTabDays || 0) * 86400000;
+    tabText.textContent = cfg.tabText + (showLeft ? " \u00b7 " + leftShort(ms) : "");
+    tab.setAttribute("aria-label", "Open the " + cfg.eyebrow.toLowerCase() + (showLeft ? ", " + leftShort(ms) : ""));
+    relayout();
+  }
+
+  // Removes the whole widget when the offer ends while the page is open
+  function teardown() {
+    ended = true;
+    closeModal();
+    window.clearInterval(tickTimer);
+    if (typeof watch !== "undefined") watch.disconnect();
+    card.remove();
+    tab.remove();
+    modal.remove();
+  }
+
+  function render() {
+    // The card stays open until the visitor closes it; the tab only shows after that
+    const showCard = ready && !userClosed;
+    const showTab = ready && userClosed;
+    card.classList.toggle("is-open", showCard);
+    card.setAttribute("aria-hidden", showCard ? "false" : "true");
+    cta.tabIndex = showCard ? 0 : -1;
+    card.querySelector(".welcome-offer-close").tabIndex = showCard ? 0 : -1;
+    tab.classList.toggle("is-visible", showTab);
+    tab.setAttribute("aria-hidden", showTab ? "false" : "true");
+    tab.tabIndex = showTab ? 0 : -1;
+  }
+
+  // "$5 off or [Robux] 1.5K" is one line: it gets the largest size that still fits
+  const dealBox = card.querySelector(".welcome-offer-deal");
+  const textBox = card.querySelector(".welcome-offer-text");
+  function fitDeal() {
+    let size = 2.6;
+    card.style.setProperty("--wo-deal-size", size + "rem");
+    for (let guard = 0; guard < 40 && size > 1.3 && dealBox.scrollWidth > textBox.clientWidth + 1; guard++) {
+      size -= 0.05;
+      card.style.setProperty("--wo-deal-size", size.toFixed(2) + "rem");
+    }
+  }
+
+  // Sit right above the sale popup (or its tab), whatever height the popup has.
+  // The card never closes by itself. If the popup is tall and the window is
+  // short, the card first shrinks a little (down to 80%), and only if that is
+  // still not enough does it slide down over the top of the popup.
+  function place() {
+    if (ended) return;
+    const rootStyle = getComputedStyle(document.documentElement);
+    const rem = parseFloat(rootStyle.fontSize) || 16;
+    const popup = document.querySelector(".sale-popup.is-open");
+    const saleTab = document.querySelector(".sale-tab.is-visible");
+    const ref = popup || saleTab;
+    let base;                                   // the lowest spot: the corner
+    if (document.documentElement.classList.contains("has-liked-banner")) {
+      base = (parseFloat(rootStyle.getPropertyValue("--liked-banner-h")) || 0) + 0.75 * rem;
+    } else {
+      base = (window.matchMedia("(max-width: 520px)").matches ? 0.75 : 1.25) * rem;
+    }
+    const wanted = ref ? (parseFloat(getComputedStyle(ref).bottom) || 0) + ref.offsetHeight + 0.7 * rem : base;
+
+    // Keep clear of the sticky header (and the countdown bar above it)
+    const header = document.querySelector(".site-header");
+    const bar = document.querySelector(".holiday-bar");
+    const top = (header ? header.offsetHeight : 0) + (bar ? bar.offsetHeight : 0) + 8;
+    const room = window.innerHeight - top - wanted;
+
+    const cardHeight = card.offsetHeight;
+    const scale = cardHeight > room ? Math.max(0.8, room / cardHeight) : 1;
+    card.style.setProperty("--wo-scale", scale.toFixed(3));
+    const cardBottom = Math.max(base, Math.min(wanted, window.innerHeight - top - cardHeight * scale));
+    const tabBottom = Math.max(base, Math.min(wanted, window.innerHeight - top - tab.offsetHeight));
+    card.style.bottom = cardBottom + "px";
+    tab.style.bottom = tabBottom + "px";
+    render();
+  }
+
+  function relayout() {
+    fitDeal();
+    place();
+  }
+
+  // ----- Events -----
+  // The redeem window
+  let modalReturn = null;
+  function openModal() {
+    modalReturn = document.activeElement;
+    welcomeSet(WELCOME_SEEN_KEY, "1");
+    // The page behind stays put while the window is open (and does not jump sideways)
+    const gutter = window.innerWidth - document.documentElement.clientWidth;
+    document.documentElement.style.setProperty("--wo-scrollbar", Math.max(0, gutter) + "px");
+    document.documentElement.classList.add("welcome-modal-open");
+    modal.classList.add("is-open");
+    modal.setAttribute("aria-hidden", "false");
+    modalBox.focus({ preventScroll: true });
+  }
+  function closeModal() {
+    if (!modal.classList.contains("is-open")) return;
+    modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden", "true");
+    document.documentElement.classList.remove("welcome-modal-open");
+    if (modalReturn && document.contains(modalReturn)) modalReturn.focus({ preventScroll: true });
+    modalReturn = null;
+  }
+
+  cta.addEventListener("click", openModal);
+
+  // Phones: the window is a bottom sheet. Drag its handle down to close it.
+  const grab = modal.querySelector(".welcome-modal-grab");
+  let dragFrom = null, dragBy = 0;
+  grab.addEventListener("touchstart", (event) => {
+    dragFrom = event.touches[0].clientY;
+    dragBy = 0;
+    modalBox.style.transition = "none";
+  }, { passive: true });
+  grab.addEventListener("touchmove", (event) => {
+    if (dragFrom === null) return;
+    dragBy = Math.max(0, event.touches[0].clientY - dragFrom);
+    modalBox.style.transform = "translateY(" + dragBy + "px)";
+  }, { passive: true });
+  const dragEnd = () => {
+    if (dragFrom === null) return;
+    const far = dragBy > 90;
+    dragFrom = null;
+    dragBy = 0;
+    modalBox.style.transition = "";
+    modalBox.style.transform = "";
+    if (far) closeModal();
+  };
+  grab.addEventListener("touchend", dragEnd);
+  grab.addEventListener("touchcancel", dragEnd);
+  modal.querySelector(".welcome-modal-close").addEventListener("click", closeModal);
+  modal.querySelector(".welcome-modal-dismiss").addEventListener("click", closeModal);
+  modal.addEventListener("click", (event) => { if (event.target === modal) closeModal(); });
+
+  // Keep Tab inside the window while it is open
+  modal.addEventListener("keydown", (event) => {
+    if (event.key !== "Tab") return;
+    const items = Array.from(modalBox.querySelectorAll("button, a[href]:not([hidden]), summary"));
+    if (!items.length) return;
+    const first = items[0], last = items[items.length - 1];
+    if (event.shiftKey && (document.activeElement === first || document.activeElement === modalBox)) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  });
+
+  card.querySelector(".welcome-offer-close").addEventListener("click", () => {
+    userClosed = true;
+    welcomeSet(WELCOME_UI_KEY, "closed");
+    render();
+    if (tab.classList.contains("is-visible")) tab.focus({ preventScroll: true });
+  });
+
+  tab.addEventListener("click", () => {
+    tab.classList.remove("is-nudging");
+    welcomeSet(WELCOME_SEEN_KEY, "1");
+    userClosed = false;
+    welcomeSet(WELCOME_UI_KEY, "open");
+    place();
+    if (card.classList.contains("is-open")) cta.focus({ preventScroll: true });
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+    if (modal.classList.contains("is-open")) { closeModal(); return; }
+    if (card.classList.contains("is-open") && card.contains(document.activeElement)) {
+      card.querySelector(".welcome-offer-close").click();
+    }
+  });
+
+  window.addEventListener("resize", relayout);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(relayout);
+
+  // Follow the sale popup: it opens, closes, and its height can change
+  const watch = new MutationObserver(place);
+  [document.querySelector(".sale-popup"), document.querySelector(".sale-tab")].forEach((node) => {
+    if (node) watch.observe(node, { attributes: true, attributeFilter: ["class"] });
+  });
+  watch.observe(document.documentElement, { attributes: true, attributeFilter: ["class", "style"] });
+  watch.observe(document.body, { childList: true });   // e.g. the countdown bar being closed
+  const popupNode = document.querySelector(".sale-popup");
+  if (popupNode && typeof ResizeObserver === "function") new ResizeObserver(place).observe(popupNode);
+
+  // The countdown stays fresh
+  const tickTimer = window.setInterval(refreshState, 30000);
+  window.addEventListener("pageshow", refreshState);
+
+  // One soft pulse + shine on the tab, only a few page views, never again once the offer was opened
+  function nudgeTab() {
+    if (ended || !cfg.nudge) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (welcomeGet(WELCOME_SEEN_KEY) === "1") return;
+    const count = parseInt(welcomeGet(WELCOME_NUDGE_KEY) || "0", 10) || 0;
+    if (count >= (cfg.nudgeMax || 0)) return;
+    window.setTimeout(() => {
+      if (ended || !tab.classList.contains("is-visible") || modal.classList.contains("is-open")) return;
+      welcomeSet(WELCOME_NUDGE_KEY, String(count + 1));
+      tab.classList.add("is-nudging");
+      window.setTimeout(() => tab.classList.remove("is-nudging"), 2200);
+    }, cfg.nudgeDelay || 0);
+  }
+
+  refreshState();
+  window.setTimeout(() => { ready = true; relayout(); nudgeTab(); }, cfg.delay || 0);
+})();
+
+
+// ==========================================================
+// WELCOME OFFER NOTICE ON THE CONTACT PAGE (settings: WELCOME_OFFER.contactNotice / contactText)
+// A short notice above the contact form: the offer is only redeemed by
+// sending a DM that mentions it. Added by script.js, so contact.html needs
+// no change. It goes right above the form (or, if there is no form, right
+// under the page heading).
+// ==========================================================
+(function () {
+  const cfg = WELCOME_OFFER;
+  if (!welcomeOfferLive() || cfg.contactNotice === "off") return;
+
+  const page = window.location.pathname.replace(/\/+$/, "").split("/").pop().replace(/\.html$/i, "").toLowerCase();
+  if (page !== "contact") return;
+  if (cfg.contactNotice !== "always") return;
+
+  // A small "i" chip with a short label; the reminder itself opens as a little popover
+  const notice = document.createElement("div");
+  notice.className = "welcome-offer-notice";
+  notice.innerHTML =
+    '<button class="welcome-offer-notice-btn" type="button" aria-expanded="false" aria-controls="welcome-offer-notice-pop">' +
+      '<span class="welcome-offer-notice-icon" aria-hidden="true">' +
+        '<svg width="16" height="16" viewBox="0 0 24 24" focusable="false" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M12 11v5.5"/><circle cx="12" cy="7.6" r="0.5" fill="currentColor"/></svg>' +
+      '</span>' +
+      '<span class="welcome-offer-notice-label"></span>' +
+      '<span class="welcome-offer-notice-badge"></span>' +
+    '</button>' +
+    '<div class="welcome-offer-notice-pop" id="welcome-offer-notice-pop" role="note">' +
+      '<strong class="welcome-offer-notice-title"></strong>' +
+      '<p class="welcome-offer-notice-text"></p>' +
+    '</div>';
+  notice.querySelector(".welcome-offer-notice-label").textContent = cfg.eyebrow;
+  notice.querySelector(".welcome-offer-notice-badge").textContent = formatUsd(cfg.discountUsd) + " " + cfg.off;
+  notice.querySelector(".welcome-offer-notice-title").textContent =
+    cfg.eyebrow + ": " + formatUsd(cfg.discountUsd) + " " + cfg.off +
+    (cfg.robuxOff > 0 ? " or " + formatRobuxAmount(cfg.robuxOff) + " Robux " + cfg.off : "");
+  notice.querySelector(".welcome-offer-notice-text").textContent = cfg.contactText;
+
+  const noticeBtn = notice.querySelector(".welcome-offer-notice-btn");
+  const canHover = window.matchMedia("(hover: hover) and (pointer: fine)");
+  let closeTimer = 0;
+
+  // If the popover would run off the right edge of the screen, open it to the left instead
+  function placeNotice() {
+    notice.classList.remove("is-flip");
+    const pop = notice.querySelector(".welcome-offer-notice-pop");
+    const box = pop.getBoundingClientRect();
+    if (box.right > window.innerWidth - 8) notice.classList.add("is-flip");
+  }
+  function setNotice(open) {
+    window.clearTimeout(closeTimer);
+    if (open) placeNotice();
+    notice.classList.toggle("is-open", open);
+    noticeBtn.setAttribute("aria-expanded", open ? "true" : "false");
+  }
+
+  // Desktop (mouse): the info shows while the pointer is on the chip, and closes shortly after it leaves.
+  // Only the chip itself keeps it open: the moment the pointer leaves the chip, the info closes,
+  // even if the pointer ends up on the info frame (the frame ignores the mouse).
+  noticeBtn.addEventListener("mouseenter", () => { if (canHover.matches) setNotice(true); });
+  noticeBtn.addEventListener("mouseleave", () => { if (canHover.matches) setNotice(false); });
+  // Keyboard users get it on focus
+  noticeBtn.addEventListener("focus", () => { if (noticeBtn.matches(":focus-visible")) setNotice(true); });
+  noticeBtn.addEventListener("blur", () => { if (canHover.matches) setNotice(false); });
+  // Touch screens (no hover): tap to open and close
+  noticeBtn.addEventListener("click", () => {
+    if (canHover.matches) return;
+    setNotice(!notice.classList.contains("is-open"));
+  });
+  document.addEventListener("click", (event) => { if (!notice.contains(event.target)) setNotice(false); });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && notice.classList.contains("is-open")) { setNotice(false); noticeBtn.focus({ preventScroll: true }); }
+  });
+
+  // Placement: in the row of contact buttons, as the last item after "DM Me on X".
+  // The row is found from the buttons themselves (their closest shared parent).
+  function findButtonRow() {
+    const scope = document.querySelector(".contact-hero") || document.querySelector("main") || document.body;
+    const labels = [/contact me directly/i, /email me/i, /dm me on x/i];
+    const found = labels.map((re) =>
+      Array.from(scope.querySelectorAll("a, button")).find((el) => !notice.contains(el) && re.test(el.textContent || ""))
+    ).filter(Boolean);
+    if (found.length < 2) return null;
+    let row = found[0].parentElement;
+    while (row && !found.every((el) => row.contains(el))) row = row.parentElement;
+    if (!row || row === document.body || row === scope) return null;
+    // the item of the row that holds the last button (the button plus its caption)
+    const last = found[found.length - 1];
+    let item = last;
+    while (item.parentElement && item.parentElement !== row) item = item.parentElement;
+    return item.parentElement === row ? { row: row, item: item } : null;
+  }
+
+  const slot = findButtonRow();
+  if (slot) {
+    notice.classList.add("welcome-offer-notice--inline");
+    slot.item.insertAdjacentElement("afterend", notice);
+
+    // On wide screens the chip floats right next to the last button, level with the buttons
+    // (it takes no space in the row, so the row can never wrap it onto a new line).
+    // When there is no room on the right it simply stays where it is, as a normal item.
+    const lastButton = Array.from(slot.item.querySelectorAll("a, button")).find((el) => /dm me on x/i.test(el.textContent || "")) ||
+      slot.item.querySelector("a, button");
+    function placeChip() {
+      notice.classList.remove("is-floating");
+      notice.style.left = notice.style.top = notice.style.minHeight = "";
+      slot.row.classList.remove("welcome-offer-row-host");
+      if (window.innerWidth < 900) return;
+      const rowBox = slot.row.getBoundingClientRect();
+      const itemBox = slot.item.getBoundingClientRect();
+      const btnBox = (lastButton || slot.item).getBoundingClientRect();
+      const chipWidth = 16 * parseFloat(getComputedStyle(document.documentElement).fontSize || "16");
+      const left = itemBox.right - rowBox.left + 24;
+      if (rowBox.left + left + chipWidth > window.innerWidth - 24) return;
+      slot.row.classList.add("welcome-offer-row-host");
+      notice.classList.add("is-floating");
+      notice.style.left = Math.round(left) + "px";
+      notice.style.top = Math.round(btnBox.top - rowBox.top) + "px";
+      notice.querySelector(".welcome-offer-notice-btn").style.minHeight = Math.round(btnBox.height) + "px";
+    }
+    placeChip();
+    window.addEventListener("resize", placeChip);
+    window.addEventListener("load", placeChip);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(placeChip);
+    if (typeof ResizeObserver !== "undefined") new ResizeObserver(placeChip).observe(slot.row);
+    window.setTimeout(placeChip, 400);
+    window.setTimeout(placeChip, 1500);
+    return;
+  }
+
+  const form = document.querySelector("main form") || document.querySelector("form");
+  if (form && form.parentNode) {
+    form.parentNode.insertBefore(notice, form);
+    return;
+  }
+  const heading = document.querySelector("main h1, h1");
+  const anchor = heading && (heading.closest("header, section") || heading);
+  if (anchor) anchor.insertAdjacentElement("afterend", notice);
+  else (document.querySelector("main") || document.body).prepend(notice);
+})();
+
+
+// ==========================================================
+// WELCOME OFFER: PRE-FILLED MESSAGE ON THE CONTACT PAGE
+// The "DM me" button in the redeem window opens /contact/?offer=welcome.
+// Here the message box of the form is filled with WELCOME_OFFER.dmMessage
+// (only if it is still empty), so the visitor only has to press send.
+// ==========================================================
+(function () {
+  const cfg = WELCOME_OFFER;
+  if (!welcomeOfferLive()) return;
+  const page = window.location.pathname.replace(/\/+$/, "").split("/").pop().replace(/\.html$/i, "").toLowerCase();
+  if (page !== "contact") return;
+  let wanted = null;
+  try { wanted = new URL(window.location.href).searchParams.get("offer"); } catch (error) { return; }
+  if (wanted !== "welcome") return;
+
+  function fill() {
+    const area = document.querySelector("main form textarea") || document.querySelector("form textarea");
+    if (!area) return false;
+    if (!area.value.trim()) {
+      area.value = cfg.dmMessage;
+      area.dispatchEvent(new Event("input", { bubbles: true }));
+    }
+    return true;
+  }
+  if (fill()) return;
+  // The form may be built after the page loads: look for it for a few seconds
+  const looking = new MutationObserver(() => { if (fill()) looking.disconnect(); });
+  looking.observe(document.body, { childList: true, subtree: true });
+  window.setTimeout(() => looking.disconnect(), 5000);
+})();
 
 
 // ==========================================================
@@ -4401,42 +5218,40 @@ const SEASON_ART = {
 // the day after, it is gone. Visitors can close it (remembered for the
 // visit). Uses the visitor's own clock and time zone.
 // ==========================================================
+// ==========================================================
+// HOLIDAY COUNTDOWN (settings: HOLIDAY_COUNTDOWN near the top)
+// A small pill in the Work menu, in the heading row next to "Browse the work":
+// "Christmas in 71d 04h 12m 09s". On the holiday itself it says Happy Christmas
+// (Halloween); the day after, it is gone. Uses the visitor's own clock and time zone.
+// ==========================================================
 (function () {
   if (!HOLIDAY_COUNTDOWN.enabled) return;
   const season = HALLOWEEN_DECOR ? "halloween" : CHRISTMAS_DECOR ? "christmas" : "";
   const cfg = season && HOLIDAY_COUNTDOWN[season];
-  const header = document.querySelector(".site-header");
-  if (!cfg || !header) return;
-
-  const STORE = "bcraft-holiday-bar-" + season;
-  try { if (sessionStorage.getItem(STORE) === "closed") return; } catch (e) { /* storage blocked: show it */ }
+  const eyebrow = document.querySelector(".mega-work .mega-eyebrow");
+  if (!cfg || !eyebrow) return;
 
   const year = new Date().getFullYear();
   const target = new Date(year, cfg.month - 1, cfg.day);
   const holidayEnd = new Date(year, cfg.month - 1, cfg.day + 1);
   if (Date.now() >= holidayEnd) return;
 
-  const bar = document.createElement("div");
-  bar.className = "holiday-bar holiday-bar--" + season;
-  bar.innerHTML =
-    '<div class="holiday-bar-inner">' +
-      '<span class="holiday-bar-icon" aria-hidden="true">' + (season === "christmas" ? SANTA_HAT_SVG : PUMPKIN_SVG) + "</span>" +
-      '<span class="holiday-bar-label"></span>' +
-      '<span class="holiday-bar-time" data-hb-time></span>' +
-    "</div>" +
-    '<button type="button" class="holiday-bar-close" aria-label="Hide the countdown">' +
-      '<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2 2l8 8M10 2l-8 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>' +
-    "</button>";
-  header.parentNode.insertBefore(bar, header);
+  const chip = document.createElement("span");
+  chip.className = "mega-countdown mega-countdown--" + season;
+  chip.setAttribute("role", "timer");
+  chip.innerHTML =
+    '<span class="holiday-bar-label"></span>' +
+    '<span class="holiday-bar-time" data-hb-time></span>';
+  eyebrow.appendChild(chip);
 
-  const label = bar.querySelector(".holiday-bar-label");
-  const time = bar.querySelector("[data-hb-time]");
+  const label = chip.querySelector(".holiday-bar-label");
+  const time = chip.querySelector("[data-hb-time]");
   const pad = (n) => String(n).padStart(2, "0");
 
   function tick() {
     const now = Date.now();
     const left = target - now;
-    if (now >= holidayEnd) { bar.remove(); clearInterval(timer); return; }
+    if (now >= holidayEnd) { chip.remove(); clearInterval(timer); return; }
     if (left <= 0) {
       label.textContent = "Happy " + cfg.name + "!";
       time.textContent = "";
@@ -4452,12 +5267,6 @@ const SEASON_ART = {
 
   tick();
   const timer = setInterval(() => { if (!document.hidden) tick(); }, 1000);
-
-  bar.querySelector(".holiday-bar-close").addEventListener("click", () => {
-    bar.remove();
-    clearInterval(timer);
-    try { sessionStorage.setItem(STORE, "closed"); } catch (e) { /* ignore */ }
-  });
 })();
 
 
