@@ -22,7 +22,7 @@
   /* ---------- SETTINGS ---------- */
   var AFK_MS = 5000;                                       // no activity for this long = the bubble hides
   var ROTATE_SCREENS = 1.4;                                // in a long section with several lines (gallery, reviews): next line every this many screens of scrolling
-  var IMG_PFP = "/images/socials-pfp";                      // .png, .webp, .jpg, .jpeg are tried in that order
+  var IMG_PFP = "/images/socials-pfp";                      // the .webp file is used
   var DECO_KEY = "sx-deco";                                // same avatar decoration the socials page remembers
   var MUTE_KEY = "sx-pal-mute";                            // "Mute comments" is remembered on this device
   var SEASON_DECO = { 9: "halloween-ghosts", 11: "christmas-aurora" };   // first-visit decoration when nothing is saved (month 0-11)
@@ -248,7 +248,7 @@
       im.src = src;
     })();
   }
-  probe([IMG_PFP], ["png", "webp", "jpg", "jpeg"], function (src) {
+  probe([IMG_PFP], ["webp"], function (src) {
     if (src) { pic.src = src; pic.hidden = false; }
   });
 
@@ -258,7 +258,7 @@
   var decoId = saved === "none" ? null : (saved || SEASON_DECO[new Date().getMonth()] || null);
   var decoSet = false;                                     // true once the socials picker has told us what is active
   if (decoId && /^[a-z0-9-]+$/i.test(decoId)) {
-    probe(["/images/socials-deco-" + decoId], ["gif", "png", "webp"], function (src) {
+    probe(["/images/decorations/socials-deco-" + decoId], ["webp", "gif"], function (src) {
       if (src && !decoSet) { deco.src = src; deco.hidden = false; }
     });
   }

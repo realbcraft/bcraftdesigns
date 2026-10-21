@@ -28,7 +28,7 @@
   <header class="site-header">
     <div class="container header-inner">
       <a class="site-logo" href="/" aria-label="Bcraft Designs, go to homepage" data-tooltip="Go to homepage">
-        <img class="site-logo-image" src="/images/logo.png" alt="" width="512" height="329">
+        <img class="site-logo-image" src="/images/logo.webp" alt="" width="512" height="329">
       </a>
 
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Open menu">
@@ -100,10 +100,6 @@
                     </div>
                     <!-- Large banner slot. Image path is set in script.js (MEGA_BANNER_DATA) -->
                     <figure class="mega-banner" aria-hidden="true">
-                      <div class="mega-banner-placeholder">
-                        <p class="mega-banner-label">Featured artwork</p>
-                        <p class="mega-banner-hint">1430 &times; 731</p>
-                      </div>
                       <img class="mega-banner-image" src="" alt="">
                     </figure>
                   </div>
@@ -154,10 +150,9 @@
   <main id="top">
 
     <!-- ===== 1. INTRO =====
-         MY ROBLOX AVATAR: save it as  images/about-avatar.png  (a PNG with a
+         MY ROBLOX AVATAR: save it as  images/about-avatar.webp  (a WebP with a
          transparent background looks best; about 1000 x 1250 px, full body,
-         standing). .webp / .jpg / .jpeg with the same name also work.
-         Until the file exists, a labeled slot is shown instead. -->
+         standing). -->
     <section class="about-hero" aria-labelledby="page-title">
       <div class="container about-hero-inner">
         <div class="about-hero-copy">
@@ -195,12 +190,7 @@
           <span class="about-avatar-orbit" aria-hidden="true"></span>
           <div class="about-avatar-panel" aria-hidden="true"></div>
           <span class="hero-sticker">That's me</span>
-          <img class="about-avatar-image" data-service-art="/images/about-avatar.png" alt="My Roblox avatar" width="1000" height="1250">
-          <div class="about-avatar-placeholder" aria-hidden="true">
-            <span class="work-placeholder-label">Roblox avatar</span>
-            <span class="work-placeholder-hint">Image slot</span>
-            <span class="work-placeholder-path">images/about-avatar.png</span>
-          </div>
+          <img class="about-avatar-image" data-service-art="/images/about-avatar.webp" alt="My Roblox avatar" width="1000" height="1250">
 
           <!-- Animated chat bubble: typing dots, then "Hi!" -->
           <div class="about-bubble" aria-hidden="true">
@@ -269,11 +259,10 @@
 
     <!-- ===== 2b. THEN VS. NOW =====
          Two drag-to-compare sliders. Left of the handle = 2024, right = Now.
-         Save the artwork (16:9, 1920 x 1080 each, png / webp / jpg) as:
-           images/progress-2024-thumbnail-01.png   images/progress-now-thumbnail-01.png
-           images/progress-2024-thumbnail-02.png   images/progress-now-thumbnail-02.png
-         Until a file exists, a labeled slot is shown. For the best comparison,
-         use the same kind of piece in both images. -->
+         Save the artwork (16:9, 1920 x 1080 each, WebP) as:
+           images/progress-2024-thumbnail-01.webp   images/progress-now-thumbnail-01.webp
+           images/progress-2024-thumbnail-02.webp   images/progress-now-thumbnail-02.webp
+         For the best comparison, use the same kind of piece in both images. -->
     <section class="section about-progress" id="progress" aria-labelledby="progress-title">
       <div class="container">
         <div class="section-head" data-reveal>
@@ -285,12 +274,10 @@
           <figure class="progress" data-compare>
             <div class="progress-frame">
               <div class="progress-pane progress-pane--now">
-                <img class="progress-img" data-service-art="/images/progress-now-thumbnail-01.png" alt="Game thumbnail from today" width="1920" height="1080">
-                <div class="progress-empty" aria-hidden="true"><strong>Now &middot; Game thumbnail</strong><span>images/progress-now-thumbnail-01.png</span></div>
+                <img class="progress-img" data-service-art="/images/progress-now-thumbnail-01.webp" alt="Game thumbnail from today" width="1920" height="1080">
               </div>
               <div class="progress-pane progress-pane--then">
-                <img class="progress-img" data-service-art="/images/progress-2024-thumbnail-01.png" alt="Game thumbnail from 2024" width="1920" height="1080">
-                <div class="progress-empty" aria-hidden="true"><strong>2024 &middot; Game thumbnail</strong><span>images/progress-2024-thumbnail-01.png</span></div>
+                <img class="progress-img" data-service-art="/images/progress-2024-thumbnail-01.webp" alt="Game thumbnail from 2024" width="1920" height="1080">
               </div>
               <span class="progress-chip progress-chip--then" aria-hidden="true">2024</span>
               <span class="progress-chip progress-chip--now" aria-hidden="true">Now</span>
@@ -303,12 +290,10 @@
           <figure class="progress" data-compare>
             <div class="progress-frame">
               <div class="progress-pane progress-pane--now">
-                <img class="progress-img" data-service-art="/images/progress-now-thumbnail-02.png" alt="Second game thumbnail from today" width="1920" height="1080">
-                <div class="progress-empty" aria-hidden="true"><strong>Now &middot; Game thumbnail 02</strong><span>images/progress-now-thumbnail-02.png</span></div>
+                <img class="progress-img" data-service-art="/images/progress-now-thumbnail-02.webp" alt="Second game thumbnail from today" width="1920" height="1080">
               </div>
               <div class="progress-pane progress-pane--then">
-                <img class="progress-img" data-service-art="/images/progress-2024-thumbnail-02.png" alt="Second game thumbnail from 2024" width="1920" height="1080">
-                <div class="progress-empty" aria-hidden="true"><strong>2024 &middot; Game thumbnail 02</strong><span>images/progress-2024-thumbnail-02.png</span></div>
+                <img class="progress-img" data-service-art="/images/progress-2024-thumbnail-02.webp" alt="Second game thumbnail from 2024" width="1920" height="1080">
               </div>
               <span class="progress-chip progress-chip--then" aria-hidden="true">2024</span>
               <span class="progress-chip progress-chip--now" aria-hidden="true">Now</span>
@@ -373,7 +358,7 @@
       <div class="footer-top">
         <div class="footer-intro">
           <a class="footer-brand" href="#top" aria-label="Bcraft Designs, back to top">
-            <img class="footer-logo" src="/images/logo.png" alt="" width="512" height="329">
+            <img class="footer-logo" src="/images/logo.webp" alt="" width="512" height="329">
           </a>
           <p class="footer-tagline">Custom GFX and UI that make your game look as good as it plays.</p>
           <a class="button button-primary footer-cta" href="/pricing/">

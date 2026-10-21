@@ -3,49 +3,53 @@
 // Every image has its own name that says where it belongs.
 // Never reuse one file for two places.
 //
-//   logo.png                              the Bcraft Designs logo (header, footer)
+// Sub-folders inside images/:
+//   images/avatars/       client profile pictures (reviews)
+//   images/decorations/   avatar decorations (socials page): socials-deco-<id>.webp
+//   images/work/          the work page: featured-*, portfolio-* and work-hero.webp
 //
-//   hero-main-01.png                      homepage hero, big piece
-//   hero-secondary-01.png                 homepage hero, small piece
-//   homepage-twitter-pfp-01.png           profile picture in the X/Twitter post (Your Perks section)
+//   logo.webp                              the Bcraft Designs logo (header, footer)
 //
-//   featured-gfx-01.png                   Featured Work (homepage) + portfolio
-//   featured-thumbnail-01.png
-//   featured-ui-01.png                    (portfolio only now, no longer on the homepage)
-//   featured-pfp-01.png                   the profile picture on the homepage
-//   featured-logo-01.png
-//   featured-thumbnail-02.png
-//   featured-gfx-02.png
+//   hero-main-01.webp                      homepage hero, big piece
+//   hero-secondary-01.webp                 homepage hero, small piece
+//   homepage-twitter-pfp-01.webp           profile picture in the X/Twitter post (Your Perks section)
 //
-//   portfolio-gfx-01.png ... -03.png      portfolio page only
-//   portfolio-thumbnail-01.png ... -02.png
-//   portfolio-logo-01.png ... -02.png
-//   portfolio-ui-01.png ... -02.png
+//   work/featured-gfx-01.webp              Featured Work (homepage) + portfolio
+//   work/featured-thumbnail-01.webp
+//   work/featured-ui-01.webp               (portfolio only now, no longer on the homepage)
+//   work/featured-pfp-01.webp              the profile picture on the homepage
+//   work/featured-logo-01.webp
+//   work/featured-thumbnail-02.webp
+//   work/featured-gfx-02.webp
 //
-//   mega-work-banner-01.png               Work mega menu, wide banner
-//   mega-work-gfx-01.png                  Work mega menu previews
-//   mega-work-thumbnail-01.png
-//   mega-work-logo-01.png
-//   mega-work-ui-01.png
+//   work/portfolio-gfx-01.webp ... -03.webp      portfolio page only
+//   work/portfolio-thumbnail-01.webp ... -02.webp
+//   work/portfolio-logo-01.webp ... -02.webp
+//   work/portfolio-ui-01.webp ... -02.webp
 //
-//   social-gfx-01.png                     homepage Socials: Roblox Community tile
-//   social-gfx-02.png                     homepage Socials: YouTube tile
-//   social-gfx-03.png                     homepage Socials: Roblox Profile tile
+//   mega-work-banner-01.webp               Work mega menu, wide banner
+//   mega-work-gfx-01.webp                  Work mega menu previews
+//   mega-work-thumbnail-01.webp
+//   mega-work-logo-01.webp
+//   mega-work-ui-01.webp
 //
-//   price-renders-01.png                  Pricing page (pricing.html) product cards
-//   price-profile-pictures-01.png
-//   price-game-thumbnails-01.png
-//   price-youtube-thumbnails-01.png
-//   price-game-icons-01.png
-//   price-ads-posters-01.png
-//   price-youtube-banners-01.png
-//   price-sheet-designs-01.png
-//   payment-render-01.png                 your own render next to the payment methods
-//                                         (png, webp, jpg and jpeg all work for the pricing page artwork)
+//   social-gfx-01.webp                     homepage Socials: Roblox Community tile
+//   social-gfx-02.webp                     homepage Socials: YouTube tile
+//   social-gfx-03.webp                     homepage Socials: Roblox Profile tile
 //
-//   review-project-gfx-01.png             artwork shown inside a review (example entries)
-//   review-project-ui-01.png
-//   review-avatar-01.png                  optional client pictures (-02, -03 ...)
+//   price-renders-01.webp                  Pricing page (pricing.html) product cards
+//   price-profile-pictures-01.webp
+//   price-game-thumbnails-01.webp
+//   price-youtube-thumbnails-01.webp
+//   price-game-icons-01.webp
+//   price-ads-posters-01.webp
+//   price-youtube-banners-01.webp
+//   price-sheet-designs-01.webp
+//   payment-render-01.webp                 your own render next to the payment methods
+//
+//   review-project-gfx-01.webp             artwork shown inside a review (example entries)
+//   review-project-ui-01.webp
+//   review-avatar-01.webp                  optional client pictures (-02, -03 ...)
 // ==========================================================
 
 // ==========================================================
@@ -59,9 +63,8 @@
 //   image       - path to your image inside the images folder
 //   description - optional short line under the title
 //
-// Example: save your image as  images/mega-work-gfx-01.png
-// and it shows up automatically. Until the file exists, a
-// placeholder is shown instead (nothing breaks).
+// Example: save your image as  images/mega-work-gfx-01.webp
+// and it shows up automatically (nothing breaks if the file is missing).
 //
 // The keys (thumbnails, game-icons, ui, more) must match the data-preview
 // attributes on the links in index.html. (Only the Work menu has
@@ -72,22 +75,22 @@ const MEGA_MENU_DATA = {
   work: {
     thumbnails: {
       title: "Thumbnails",
-      image: "/images/mega-work-gfx-01.png",
+      image: "/images/mega-work-gfx-01.webp",
       description: "Game and YouTube thumbnails."
     },
     "game-icons": {
       title: "Game Icons",
-      image: "/images/mega-work-thumbnail-01.png",
+      image: "/images/mega-work-thumbnail-01.webp",
       description: "Small squares, big first impressions."
     },
     ui: {
       title: "UI",
-      image: "/images/mega-work-ui-01.png",
+      image: "/images/mega-work-ui-01.webp",
       description: "Roblox interface and UI design."
     },
     more: {
       title: "More",
-      image: "/images/mega-work-logo-01.png",
+      image: "/images/mega-work-logo-01.webp",
       description: "Everything else I make."
     }
   }
@@ -96,14 +99,13 @@ const MEGA_MENU_DATA = {
 
 // ----------------------------------------------------------
 // MEGA MENU BANNER (the large slot under "View all work")
-// Save your artwork as images/mega-work-banner-01.png (about 1600 x 500 px,
+// Save your artwork as images/mega-work-banner-01.webp (about 1600 x 500 px,
 // a long 16:5 shape) and it appears automatically.
 //   image - path to the picture inside the images folder
-// Until the file exists, the placeholder is shown.
 // ----------------------------------------------------------
 const MEGA_BANNER_DATA = {
   work: {
-    image: "/images/mega-work-banner-01.png"
+    image: "/images/mega-work-banner-01.webp"
   }
 };
 
@@ -217,7 +219,7 @@ const SUMMER_DECOR = CURRENT_SEASON === "summer";
 //
 //   enabled    - set to false to remove the popup from every page
 //   image      - your picture, saved at 1430 x 731 px
-//                (you can point this at images/mega-work-banner-01.png
+//                (you can point this at images/mega-work-banner-01.webp
 //                 to reuse the menu banner)
 //   alt        - description of the picture for screen readers
 //   eyebrow    - small line above the offer
@@ -233,11 +235,10 @@ const SUMMER_DECOR = CURRENT_SEASON === "summer";
 //                moment and then disappears for good (the tab too). It uses
 //                the visitor's own clock/time zone. Currently 31 October at
 //                23:59:59, one second before 1 November.
-// Until the picture file exists, a placeholder shows the file name.
 // ==========================================================
 const HALLOWEEN_POPUP = {
   enabled: CURRENT_SEASON === "halloween",
-  image: "/images/halloween-popup-01.png",
+  image: "/images/halloween-popup-01.webp",
   alt: "Halloween sale artwork",
   eyebrow: "Halloween Sale",
   percent: "20%",
@@ -262,7 +263,7 @@ const HALLOWEEN_POPUP = {
 // ==========================================================
 const CHRISTMAS_POPUP = {
   enabled: CURRENT_SEASON === "christmas",
-  image: "/images/christmas-popup-01.png",
+  image: "/images/christmas-popup-01.webp",
   alt: "Christmas sale artwork",
   eyebrow: "Christmas Sale",
   percent: "25%",
@@ -290,7 +291,7 @@ const CHRISTMAS_POPUP = {
 // ==========================================================
 const SUMMER_POPUP = {
   enabled: CURRENT_SEASON === "summer",
-  image: "/images/summer-popup-01.png",
+  image: "/images/summer-popup-01.webp",
   alt: "Summer sale artwork",
   eyebrow: "Summer Sale",
   percent: "20%",
@@ -315,11 +316,11 @@ const SUMMER_POPUP = {
 // ==========================================================
 const HERO_ARTWORK = {
   main: {
-    image: "/images/hero-main-01.png",
+    image: "/images/hero-main-01.webp",
     alt: "Featured Bcraft Designs artwork"
   },
   secondary: {
-    image: "/images/hero-secondary-01.png",
+    image: "/images/hero-secondary-01.webp",
     alt: "Bcraft Designs artwork"
   }
 };
@@ -327,10 +328,10 @@ const HERO_ARTWORK = {
 // ==========================================================
 // HERO SLIDESHOW (homepage)
 // The hero cycles through several pieces with a soft cross-fade.
-//   images    - leave [] to auto-detect: it loads images/hero-main-01.png,
-//               hero-main-02.png, hero-main-03.png ... in order and stops at
+//   images    - leave [] to auto-detect: it loads images/hero-main-01.webp,
+//               hero-main-02.webp, hero-main-03.webp ... in order and stops at
 //               the first missing number. Or list the files yourself, e.g.
-//               ["/images/a.png", "/images/b.png"] (they play in that order).
+//               ["/images/a.webp", "/images/b.webp"] (they play in that order).
 //   folder / prefix / maxSlides - how auto-detect names and counts the files.
 //   interval  - milliseconds each piece stays on screen.
 // With only one image there is no slideshow and no dots.
@@ -361,49 +362,24 @@ function loadImage(img, src) {
   loadImageFlex(img, src);
 }
 
-// Checks which file exists for a name (PNG first, then the name as written, then
-// .webp .jpg .jpeg) WITHOUT touching the page. Resolves with the working URL or null.
+// Checks that an image file exists WITHOUT touching the page. Resolves with the URL or null.
 function probeImage(src) {
-  const dot = src.lastIndexOf(".");
-  const base = dot > src.lastIndexOf("/") ? src.slice(0, dot) : src;
-  const candidates = [base + ".png", src]
-    .concat([".webp", ".jpg", ".jpeg"].map((ext) => base + ext))
-    .filter((value, index, all) => all.indexOf(value) === index);
   return new Promise((resolve) => {
-    let attempt = 0;
     const probe = new Image();
-    probe.onload = () => resolve(candidates[attempt]);
-    probe.onerror = () => {
-      attempt += 1;
-      if (attempt < candidates.length) probe.src = candidates[attempt];
-      else resolve(null);
-    };
-    probe.src = candidates[0];
+    probe.onload = () => resolve(src);
+    probe.onerror = () => resolve(null);
+    probe.src = src;
   });
 }
 
-// Loads an image. PNG is tried first; if that file is missing it falls back to the
-// name as written, then .webp, .jpg and .jpeg. Used for all artwork, so you can
-// save a piece as PNG (or any of these formats) without editing code.
+// Loads an image and fades it in. If the file is missing, the <img> is removed.
 function loadImageFlex(img, src) {
-  const dot = src.lastIndexOf(".");
-  const base = dot > src.lastIndexOf("/") ? src.slice(0, dot) : src;
-  // PNG is tried first, then the name as written, then the other formats
-  const candidates = [base + ".png", src]
-    .concat([".webp", ".jpg", ".jpeg"].map((ext) => base + ext))
-    .filter((value, index, all) => all.indexOf(value) === index);
-  let attempt = 0;
   img.addEventListener("load", () => img.classList.add("is-loaded"));
   img.addEventListener("error", () => {
-    attempt += 1;
-    if (attempt < candidates.length) img.src = candidates[attempt];
-    else {
-      // No file found in any format: tell the frame, so its placeholder can show
-      if (img.parentElement) img.parentElement.classList.add("is-missing");
-      img.remove();
-    }
+    if (img.parentElement) img.parentElement.classList.add("is-missing");
+    img.remove();
   });
-  img.src = candidates[0];
+  img.src = src;
 }
 
 
@@ -414,8 +390,8 @@ function loadImageFlex(img, src) {
 // HOW TO REMOVE A PIECE:  delete its line.
 // That is all. The portfolio, the homepage and the viewer update by themselves.
 //
-//   "/images/my-new-piece.png",                    <- the simplest line
-//   { image: "/images/my-new-piece.png", featured: true },   <- with extras
+//   "/images/my-new-piece.webp",                    <- the simplest line
+//   { image: "/images/my-new-piece.webp", featured: true },   <- with extras
 //
 // Extras you can add inside { }:
 //   featured - true = also shown in Featured Work on the homepage.
@@ -475,46 +451,46 @@ const WORK_FORMATS = {
 
 // One block per category. Use exactly the names from WORK_CATEGORIES above.
 // Example with an extra:
-//   { image: "/images/new-piece.png", featured: true }
+//   { image: "/images/new-piece.webp", featured: true }
 // A category with nothing in it (like "More") just shows "More coming soon".
 const WORK = {
   "Game Thumbnails": [
-    { image: "/images/featured-gfx-01.png",              id: 1,  featured: 1 },
-    { image: "/images/portfolio-thumbnail-01.png",       id: 9,  featured: 3 },
-    { image: "/images/portfolio-game-thumbnail-03.png",  id: 17 },
-    { image: "/images/portfolio-game-thumbnail-04.png",  id: 18 },
-    { image: "/images/portfolio-game-thumbnail-05.png",  id: 19 },
-    { image: "/images/portfolio-game-thumbnail-06.png",  id: 20 }
+    { image: "/images/work/featured-gfx-01.webp",              id: 1,  featured: 1 },
+    { image: "/images/work/portfolio-thumbnail-01.webp",       id: 9,  featured: 3 },
+    { image: "/images/work/portfolio-game-thumbnail-03.webp",  id: 17 },
+    { image: "/images/work/portfolio-game-thumbnail-04.webp",  id: 18 },
+    { image: "/images/work/portfolio-game-thumbnail-05.webp",  id: 19 },
+    { image: "/images/work/portfolio-game-thumbnail-06.webp",  id: 20 }
   ],
   "Game Icons": [
-    { image: "/images/featured-logo-01.png",             id: 4,  featured: 5 }
+    { image: "/images/work/featured-logo-01.webp",             id: 4,  featured: 5 }
   ],
   "Profile Pictures": [
-    { image: "/images/featured-pfp-01.png",              id: 26, featured: 4 },
-    { image: "/images/portfolio-logo-01.png",            id: 8 },
-    { image: "/images/portfolio-pfp-02.png",             id: 24 },
-    { image: "/images/portfolio-pfp-03.png",             id: 25 }
+    { image: "/images/work/featured-pfp-01.webp",              id: 26, featured: 4 },
+    { image: "/images/work/portfolio-logo-01.webp",            id: 8 },
+    { image: "/images/work/portfolio-pfp-02.webp",             id: 24 },
+    { image: "/images/work/portfolio-pfp-03.webp",             id: 25 }
   ],
   "Commission Sheets": [
-    { image: "/images/portfolio-gfx-02.png",             id: 11 }
+    { image: "/images/work/portfolio-gfx-02.webp",             id: 11 }
   ],
   "Ads & Posters": [
-    { image: "/images/portfolio-ad-01.png",              id: 22 }
+    { image: "/images/work/portfolio-ad-01.webp",              id: 22 }
   ],
   "Renders": [
-    { image: "/images/featured-gfx-02.png",              id: 6,  featured: 7 },
-    { image: "/images/portfolio-gfx-01.png",             id: 7 },
-    { image: "/images/portfolio-render-03.png",          id: 21 }
+    { image: "/images/work/featured-gfx-02.webp",              id: 6,  featured: 7 },
+    { image: "/images/work/portfolio-gfx-01.webp",             id: 7 },
+    { image: "/images/work/portfolio-render-03.webp",          id: 21 }
   ],
   "YouTube Thumbnails": [
-    { image: "/images/featured-thumbnail-01.png",        id: 2,  featured: 2 },
-    { image: "/images/featured-thumbnail-02.png",        id: 5,  featured: 6 }
+    { image: "/images/work/featured-thumbnail-01.webp",        id: 2,  featured: 2 },
+    { image: "/images/work/featured-thumbnail-02.webp",        id: 5,  featured: 6 }
   ],
   "YouTube Banners": [
-    { image: "/images/portfolio-thumbnail-02.png",       id: 13 }
+    { image: "/images/work/portfolio-thumbnail-02.webp",       id: 13 }
   ],
   "UI/UX": [
-    { image: "/images/featured-ui-01.png",               id: 3 }
+    { image: "/images/work/featured-ui-01.webp",               id: 3 }
   ],
   "More": []
 };
@@ -667,7 +643,7 @@ const REVIEWS = [
     pageOrder: 3,
     rating: 5,
     text: "5/5 Stars, absolutely exceeded my expectations. Id rate it more if I could, super patient and listens very well. I will definitely be returning for more work. I also have someone interested in working with Bcraft after seeing the work.",
-    avatar: "/images/avatars/Scott.jpg",
+    avatar: "/images/avatars/Scott.webp",
     premium: true,
     featured: true
   },
@@ -677,7 +653,7 @@ const REVIEWS = [
     pageOrder: 7,
     rating: 5,
     text: "Amazing service, lovely to work with, would definitely recommend to others! 🙂",
-    avatar: "/images/avatars/Nadz.jpg",
+    avatar: "/images/avatars/Nadz.webp",
     premium: true,
     verified: true,
     featured: true
@@ -688,7 +664,7 @@ const REVIEWS = [
     pageOrder: 13,
     rating: 5,
     text: "This GFX is AMAZING. Went beyond expectations and let me have alot of revisions. Highly recommend! 5/5 stars!",
-    avatar: "/images/avatars/HobPlayzRoblox.jpg",
+    avatar: "/images/avatars/HobPlayzRoblox.webp",
     premium: true,
     verified: true,
     youtuber: true,
@@ -700,7 +676,7 @@ const REVIEWS = [
     pageOrder: 29,
     rating: 4,
     text: "fast worker. Does what you ask 🙂",
-    avatar: "/images/avatars/Masol.jpg",
+    avatar: "/images/avatars/Masol.webp",
     featured: true
   },
   {
@@ -709,7 +685,7 @@ const REVIEWS = [
     pageOrder: 19,
     rating: 5,
     text: "Definitely exceeded my expectations, and was patient with my revisions.",
-    avatar: "/images/avatars/Hero_Ravensong.jpg",
+    avatar: "/images/avatars/Hero_Ravensong.webp",
     featured: true
   },
   {
@@ -718,7 +694,7 @@ const REVIEWS = [
     pageOrder: 11,
     rating: 5,
     text: "fast worker good art and cheap not much else to say 5 stars",
-    avatar: "/images/avatars/supaa.jpg",
+    avatar: "/images/avatars/supaa.webp",
     featured: true
   },
   {
@@ -727,7 +703,7 @@ const REVIEWS = [
     pageOrder: 9,
     rating: 5,
     text: "🌟 5-Star Review for Bcraft! 🌟\n\nBcraft did an amazing job on the graphics for my Roblox game. Professional, creative, and timely, they delivered outstanding quality that perfectly matched my vision. Great customer service and reasonable pricing make Bcraft my go‒to for Roblox graphics. Highly recommend!\n\nThank you, Bcraft! ⭐⭐⭐⭐⭐",
-    avatar: "/images/avatars/%E2%9C%9D%20dankz.jpg",
+    avatar: "/images/avatars/%E2%9C%9D%20dankz.webp",
     featured: true
   },
   {
@@ -736,7 +712,7 @@ const REVIEWS = [
     pageOrder: 6,
     rating: 5,
     text: "Finished work in a timely manner, was very communicative, made necessary changes, and over all high quality product.",
-    avatar: "/images/avatars/fadeluc_123.jpg",
+    avatar: "/images/avatars/fadeluc_123.webp",
     featured: true
   },
   {
@@ -745,7 +721,7 @@ const REVIEWS = [
     pageOrder: 25,
     rating: 4,
     text: "This pfp is vibrant and eye-catching, showcasing a unique outfit that reflects creativity. The background complements the character but feels a bit generic; incorporating thematic elements could enhance its appeal. Overall, it’s a fun and engaging pfp that effectively represents the my style.",
-    avatar: "/images/avatars/Leviathan.jpg",
+    avatar: "/images/avatars/Leviathan.webp",
     featured: true
   },
   {
@@ -754,7 +730,7 @@ const REVIEWS = [
     pageOrder: 24,
     rating: 5,
     text: "This is so good fast reply and perfectly graphic.",
-    avatar: "/images/avatars/TeenTitansgoneu.jpg",
+    avatar: "/images/avatars/TeenTitansgoneu.webp",
     featured: true
   },
   {
@@ -763,7 +739,7 @@ const REVIEWS = [
     pageOrder: 22,
     rating: 5,
     text: "Worked with BCraft to get a few thumbnails done, He was very accommodating and quick to implemented changes. 5/5 Would recommend 👍",
-    avatar: "/images/avatars/ChrisC.jpg",
+    avatar: "/images/avatars/ChrisC.webp",
     featured: true
   },
   {
@@ -772,7 +748,7 @@ const REVIEWS = [
     pageOrder: 8,
     rating: 5,
     text: "I’ll rate it a 5, very quick and just how I imagined it.",
-    avatar: "/images/avatars/%21%20Xonlz.jpg",
+    avatar: "/images/avatars/%21%20Xonlz.webp",
     featured: true
   },
   {
@@ -781,7 +757,7 @@ const REVIEWS = [
     pageOrder: 5,
     rating: 5,
     text: "He's very trusted in my opinion and cheap! I asked to change a lot of things and he didnt complain once! He deserves 5 stars! Go check him out!\n\nRating: (5/5)\n\n⭐ ⭐ ⭐ ⭐ ⭐",
-    avatar: "/images/avatars/V4lkran.jpg",
+    avatar: "/images/avatars/V4lkran.webp",
     featured: true
   },
   {
@@ -790,7 +766,7 @@ const REVIEWS = [
     pageOrder: 14,
     rating: 5,
     text: "5 Stars, perfect work, and very good communication with this man! Totally recommend him.",
-    avatar: "/images/avatars/trickytactical.jpg",
+    avatar: "/images/avatars/trickytactical.webp",
     featured: true
   },
   {
@@ -799,7 +775,7 @@ const REVIEWS = [
     pageOrder: 10,
     rating: 5,
     text: "Great person to work with not only a good person but also a very talented artist. They made sure I was happy with my product and made the necessary changes. I have worked with many artists, but he is by far one of the best!",
-    avatar: "/images/avatars/exodus.jpg",
+    avatar: "/images/avatars/exodus.webp",
     featured: true
   },
   {
@@ -808,7 +784,7 @@ const REVIEWS = [
     pageOrder: 2,
     rating: 5,
     text: "Bcraft is an outstanding GFX artist, Fast, Efficient, and really cooperative....will soon hire him more for future commissions.",
-    avatar: "/images/avatars/mitrix.jpg",
+    avatar: "/images/avatars/mitrix.webp",
     featured: true
   },
   {
@@ -817,7 +793,7 @@ const REVIEWS = [
     pageOrder: 18,
     rating: 5,
     text: "paid for a icon and thumbnail, both came out crazy good. fast worker and knows how to shape it into what u like",
-    avatar: "/images/avatars/jaytee.jpg",
+    avatar: "/images/avatars/jaytee.webp",
     featured: true
   },
   {
@@ -826,7 +802,7 @@ const REVIEWS = [
     pageOrder: 1,
     rating: 5,
     text: "perfect experince fast and easy and is easy to talk to no matter what and walks you through the proccess you can fully custumize it to your liking",
-    avatar: "/images/avatars/CvshLvrs_29k.jpg",
+    avatar: "/images/avatars/CvshLvrs_29k.webp",
     featured: true
   },
   {
@@ -835,7 +811,7 @@ const REVIEWS = [
     pageOrder: 17,
     rating: 5,
     text: "responded quick asked for 50% first and got to work showed me progress and and asked me if i wanted the add or change something too and not a scam great service",
-    avatar: "/images/avatars/sonny.jpg",
+    avatar: "/images/avatars/sonny.webp",
     featured: true
   },
   {
@@ -844,7 +820,7 @@ const REVIEWS = [
     pageOrder: 16,
     rating: 4,
     text: "The Thumbnails Were Great, Captivating and Full Of Bright Colous. Bcraft Did Exactly What I Said !! Plus The Delivery Was Always On Time.",
-    avatar: "/images/avatars/Shadow_Hunter.jpg",
+    avatar: "/images/avatars/Shadow_Hunter.webp",
     featured: true
   },
   {
@@ -853,7 +829,7 @@ const REVIEWS = [
     pageOrder: 27,
     rating: 5,
     text: "I have ordered a game Thumbnail and a game Icon, I was speechless when I saw the high quality of these! This guy is an absolute professional! I can only recommend you buying from him! This is just such an amazing, fantastic, unforgettable experience!!!",
-    avatar: "/images/avatars/bobbetadev_32611.jpg",
+    avatar: "/images/avatars/bobbetadev_32611.webp",
     featured: true
   },
   {
@@ -862,7 +838,7 @@ const REVIEWS = [
     pageOrder: 20,
     rating: 5,
     text: "Good service, 5 stars",
-    avatar: "/images/avatars/jehrice.jpg",
+    avatar: "/images/avatars/jehrice.webp",
     featured: true
   },
   {
@@ -871,7 +847,7 @@ const REVIEWS = [
     pageOrder: 28,
     rating: 5,
     text: "5 Stars\n\nQuick and quality! Matched the style of my game perfectly.",
-    avatar: "/images/avatars/Dante.jpg",
+    avatar: "/images/avatars/Dante.webp",
     featured: true
   },
   {
@@ -880,7 +856,7 @@ const REVIEWS = [
     pageOrder: 12,
     rating: 5,
     text: "The work was done quickly and with high quality👍 We could make changes and discuss every detail during the process. I highly recommend this author 10/10",
-    avatar: "/images/avatars/MJBroski.jpg",
+    avatar: "/images/avatars/MJBroski.webp",
     featured: true
   },
   {
@@ -889,7 +865,7 @@ const REVIEWS = [
     pageOrder: 26,
     rating: 5,
     text: "5 Stars: Extremely professional and an expert at graphics. Very quick response and adaptable to changes, giving the buyer the perfect product based on their needs.",
-    avatar: "/images/avatars/Bodeyo.jpg",
+    avatar: "/images/avatars/Bodeyo.webp",
     featured: true
   },
   {
@@ -898,7 +874,7 @@ const REVIEWS = [
     pageOrder: 23,
     rating: 5,
     text: "🔥epic service, he literally works as hard as he can to get the one you feel the most satisfaction!! He reacts to messages almost instantly except for when he has work! He includes every small detail you ask for!! Also he has good attitude for a seller lmao (If u mess with braft I come for u)🔥",
-    avatar: "/images/avatars/%F0%9D%99%88%F0%9D%99%A7.%20%F0%9D%98%BF%F0%9D%99%9E%F0%9D%99%A3%F0%9D%99%A4%F0%9F%A6%96.jpg",
+    avatar: "/images/avatars/%F0%9D%99%88%F0%9D%99%A7.%20%F0%9D%98%BF%F0%9D%99%9E%F0%9D%99%A3%F0%9D%99%A4%F0%9F%A6%96.webp",
     featured: true
   },
   {
@@ -907,7 +883,7 @@ const REVIEWS = [
     pageOrder: 15,
     rating: 4,
     text: "Very attentive, he leaves it as you want, good treat, very recommended!",
-    avatar: "/images/avatars/ItsDavid_Dev.jpg",
+    avatar: "/images/avatars/ItsDavid_Dev.webp",
     featured: true
   },
   {
@@ -916,7 +892,7 @@ const REVIEWS = [
     pageOrder: 4,
     rating: 5,
     text: "Great service, very quick respond. The work was done at it's highest level, all expectation were done! I could only recommend this GFX maker, @Bcraft! I would definitely purchase more in future!",
-    avatar: "/images/avatars/shocly.jpg",
+    avatar: "/images/avatars/shocly.webp",
     featured: true
   },
   {
@@ -925,7 +901,7 @@ const REVIEWS = [
     pageOrder: 21,
     rating: 5,
     text: "The delivery was very fast and the price was extremely reasonable. Bcraft was easy to work with and realized my vision well. I'm highly satisfied with the final product.",
-    avatar: "/images/avatars/propemet.jpg",
+    avatar: "/images/avatars/propemet.webp",
     featured: true
   }
 ];
@@ -1005,7 +981,7 @@ const PAYMENT_METHODS = [
 ];
 
 // Robux icon: the image below (a PNG). To host it yourself, save it as
-// images/robux.png and change this to "/images/robux.png".
+// images/robux.webp and change this to "/images/robux.webp".
 const ROBUX_ICON_URL = "https://devforum-uploads.s3.dualstack.us-east-2.amazonaws.com/uploads/original/4X/e/d/f/edfae9388da4cd8496b885a8a2df613372500d9c.png";
 
 const PAYMENT_ICONS = {
@@ -1013,7 +989,7 @@ const PAYMENT_ICONS = {
 };
 
 // Images shown on the PayPal / Roblox / Steam cards. Change the links here.
-// (To host one yourself, save it in the images folder and use e.g. "/images/paypal.png".)
+// (To host one yourself, save it in the images folder and use e.g. "/images/paypal.webp".)
 // If a link ever stops working, the card falls back to the drawn mark below.
 const PAYMENT_IMAGES = {
   paypal: "https://newsroom.deatch.paypal-corp.com/images/fillers/Library_PayPal_VenmoBlue.png",
@@ -1153,10 +1129,6 @@ function loadBanner(mega) {
   const data = MEGA_BANNER_DATA[mega.name];
   const image = mega.panel.querySelector(".mega-banner-image");
   if (!data || !data.image || !image) return;
-
-  // The placeholder tells you which file to use until it exists
-  const hint = mega.panel.querySelector(".mega-banner-hint");
-  if (hint) hint.textContent = data.image + " \u00b7 1600 \u00d7 500";
 
   image.onload = () => {
     requestAnimationFrame(() => image.classList.add("is-loaded"));
@@ -1445,13 +1417,6 @@ window.addEventListener("resize", () => {
     art.href = "/work/#" + slug;
     art.setAttribute("aria-label", "View in portfolio: " + item.title + ", " + item.category);
 
-    // Shown until the artwork loads (or if the file is missing)
-    const placeholder = make("div", "work-placeholder");
-    placeholder.appendChild(make("span", "work-placeholder-label", item.category));
-    const sizeText = format.fit ? "Artwork slot" : "Artwork slot \u00b7 " + format.width + " \u00d7 " + format.height;
-    placeholder.appendChild(make("span", "work-placeholder-hint", sizeText));
-    placeholder.appendChild(make("span", "work-placeholder-path", item.image));
-    art.appendChild(placeholder);
 
     const img = make("img", "work-image");
     img.alt = item.alt || item.category + " artwork by Bcraft Designs";
@@ -1865,13 +1830,6 @@ const LIGHTBOX_SETTINGS = {
         openViewer(index, art);
       });
 
-      // Shown until the artwork loads (or if the file is missing)
-      const placeholder = createEl("div", "work-placeholder");
-      placeholder.appendChild(createEl("span", "work-placeholder-label", item.category));
-      const sizeText = format.fit ? "Artwork slot" : "Artwork slot \u00b7 " + format.width + " \u00d7 " + format.height;
-      placeholder.appendChild(createEl("span", "work-placeholder-hint", sizeText));
-      placeholder.appendChild(createEl("span", "work-placeholder-path", item.image));
-      art.appendChild(placeholder);
 
       const img = createEl("img", "work-image");
       img.alt = item.alt || item.category + " artwork by Bcraft Designs";
@@ -2987,9 +2945,9 @@ const LIGHTBOX_SETTINGS = {
       img.height = 40;
       img.loading = "lazy";
       // Inline handlers (not addEventListener) so the featured strip, which clones these cards, keeps them.
-      // The three animated pictures are saved as .png: retry once, then fall back to the letter.
+      // If the picture is missing, it is removed and the letter circle stays.
       img.setAttribute("onload", "this.classList.add('is-loaded')");
-      img.setAttribute("onerror", "if(!this.dataset.r){this.dataset.r=1;this.src=this.src.replace(/\\.jpg$/,'.png')}else{this.remove()}");
+      img.setAttribute("onerror", "this.remove()");
       img.src = review.avatar;
       avatar.appendChild(img);
     }
@@ -3168,7 +3126,7 @@ const LIGHTBOX_SETTINGS = {
     if (explicit) {
       cfg.images.forEach((s) => sources.push(s));
     } else {
-      for (let n = 1; n <= cfg.maxSlides; n++) sources.push(cfg.folder + cfg.prefix + String(n).padStart(2, "0") + ".png");
+      for (let n = 1; n <= cfg.maxSlides; n++) sources.push(cfg.folder + cfg.prefix + String(n).padStart(2, "0") + ".webp");
       if (data.image) sources[0] = data.image;
     }
 
@@ -3403,7 +3361,6 @@ function buildSalePopup(cfg, STORAGE_KEY, theme) {
   popup.innerHTML =
     '<button class="sale-popup-close" type="button" aria-label="Close the offer">' + closeIcon + '</button>' +
     '<div class="sale-popup-art">' +
-      '<div class="sale-popup-placeholder"><strong></strong><span></span></div>' +
       '<img class="sale-popup-image" alt="" width="1430" height="731">' +
     '</div>' +
     '<div class="sale-popup-body">' +
@@ -3437,24 +3394,19 @@ function buildSalePopup(cfg, STORAGE_KEY, theme) {
   if (cfg.note) note.textContent = cfg.note; else note.remove();
   popup.querySelector(".sale-popup-cta span").textContent = cfg.buttonText;
   popup.querySelector(".sale-popup-cta").setAttribute("href", cfg.buttonLink);
-  popup.querySelector(".sale-popup-placeholder strong").textContent = cfg.eyebrow;
-  popup.querySelector(".sale-popup-placeholder span").textContent = cfg.image + " \u00b7 1430 \u00d7 731";
   tab.querySelector(".sale-tab-text").textContent = cfg.tabText;
 
   document.body.appendChild(popup);
   document.body.appendChild(tab);
 
-  // Picture: shown when the file exists, placeholder until then
+  // Picture: fades in once it has loaded
   const image = popup.querySelector(".sale-popup-image");
-  const placeholder = popup.querySelector(".sale-popup-placeholder");
   image.alt = cfg.alt || "";
   image.onload = () => {
-    placeholder.hidden = true;
     requestAnimationFrame(() => image.classList.add("is-loaded"));
   };
   image.onerror = () => {
     image.classList.remove("is-loaded");
-    placeholder.hidden = false;
   };
   image.src = cfg.image;
 
@@ -4842,7 +4794,7 @@ const SEASON_ART = {
     const avatar = make("span", "mock-avatar mock-avatar--pfp", "B");
     avatar.setAttribute("aria-hidden", "true");
     const pfp = document.createElement("img");
-    pfp.src = "/images/homepage-twitter-pfp-01.png";
+    pfp.src = "/images/homepage-twitter-pfp-01.webp";
     pfp.alt = "";
     pfp.loading = "lazy";
     pfp.addEventListener("error", () => pfp.remove());

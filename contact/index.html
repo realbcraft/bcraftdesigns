@@ -937,8 +937,7 @@
 
     .collab-card--bulk { --p1: var(--rgb-blue); --p2: 150, 130, 255; }
     /* Business & teams: blue glass-tower look to match its render (the sky, the towers, the blue hoodie).
-       The picture lives in images/contact-business.webp (.png / .jpg also work). Until it exists, a CSS
-       sky + window grid is shown instead, so the card never looks empty. */
+       The picture lives in images/contact-business.webp. */
     .collab-card--biz { --p1: 90, 175, 255; --p2: 47, 111, 224; overflow: hidden; }
 
     /* Small screens / narrow cards: the picture is a banner across the top with a slanted bottom edge */
@@ -1600,7 +1599,7 @@
   <header class="site-header">
     <div class="container header-inner">
       <a class="site-logo" href="/" aria-label="Bcraft Designs, go to homepage" data-tooltip="Go to homepage">
-        <img class="site-logo-image" src="/images/logo.png" alt="" width="512" height="329">
+        <img class="site-logo-image" src="/images/logo.webp" alt="" width="512" height="329">
       </a>
 
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Open menu">
@@ -1672,10 +1671,6 @@
                     </div>
                     <!-- Large banner slot. Image path is set in script.js (MEGA_BANNER_DATA) -->
                     <figure class="mega-banner" aria-hidden="true">
-                      <div class="mega-banner-placeholder">
-                        <p class="mega-banner-label">Featured artwork</p>
-                        <p class="mega-banner-hint">1430 &times; 731</p>
-                      </div>
                       <img class="mega-banner-image" src="" alt="">
                     </figure>
                   </div>
@@ -1767,7 +1762,7 @@
 
         <!-- Decorative only: the official logo in a speech bubble, plus a typing reply -->
         <div class="contact-visual" aria-hidden="true">
-          <div class="bubble-main"><img src="/images/logo.png" alt="" width="512" height="329"></div>
+          <div class="bubble-main"><img src="/images/logo.webp" alt="" width="512" height="329"></div>
           <div class="bubble-reply"><span></span><span></span><span></span></div>
         </div>
       </div>
@@ -1845,7 +1840,7 @@
             <h3 class="collab-title">Looking for a YouTuber to work with long&#8209;term</h3>
             <p class="yt-meta">Thumbnails &middot; Long&#8209;term &middot; Price can be discussed</p>
             <div class="yt-channel">
-              <span class="yt-avatar" aria-hidden="true">B<img src="/images/homepage-twitter-pfp-01.png" alt="" width="64" height="64" loading="lazy" decoding="async" onerror="this.remove()"></span>
+              <span class="yt-avatar" aria-hidden="true">B<img src="/images/homepage-twitter-pfp-01.webp" alt="" width="64" height="64" loading="lazy" decoding="async" onerror="this.remove()"></span>
               <span class="yt-channel-name">Bcraft <svg class="yt-check" viewBox="0 0 24 24" role="img" aria-label="Verified" focusable="false"><circle cx="12" cy="12" r="10" fill="currentColor"/><path d="M7.4 12.4l3.2 3.1 6-6.6" fill="none" stroke="#0b1226" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             </div>
             <p class="collab-text">I&rsquo;m looking for long-term work with a YouTuber to create YouTube thumbnails. Price can be discussed.</p>
@@ -1885,11 +1880,11 @@
     </section>
 
     <script>
-      /* Business & teams picture: finds images/contact-business.webp (or .png / .jpg / .jpeg). If none exists the CSS placeholder stays. */
+      /* Business & teams picture: loads images/contact-business.webp. */
       (function () {
         var img = document.getElementById("biz-render");
         if (!img) return;
-        var list = ["webp", "png", "jpg", "jpeg"].map(function (e) { return "/images/contact-business." + e; }), i = 0;
+        var list = ["/images/contact-business.webp"], i = 0;
         (function next() {
           if (i >= list.length) return;
           var src = list[i++], t = new Image();
@@ -2131,7 +2126,7 @@
       <div class="footer-top">
         <div class="footer-intro">
           <a class="footer-brand" href="#top" aria-label="Bcraft Designs, back to top">
-            <img class="footer-logo" src="/images/logo.png" alt="" width="512" height="329">
+            <img class="footer-logo" src="/images/logo.webp" alt="" width="512" height="329">
           </a>
           <p class="footer-tagline">Custom GFX and UI that make your game look as good as it plays.</p>
           <a class="button button-primary footer-cta" href="/pricing/">

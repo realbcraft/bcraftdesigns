@@ -39,9 +39,9 @@
 
    IMAGE FILE NAMES: save each thumbnail in the images/ folder with
    exactly the name written in its "image" line below:
-     images/news-website-launch-01.png    "Our brand new website is live"
-     images/halloween-popup-01.png        "20% Off Everything Halloween Sale"
-   For a new post, follow the same pattern: images/news-<topic>-01.png
+     images/news-website-launch-01.webp    "Our brand new website is live"
+     images/halloween-popup-01.webp        "20% Off Everything Halloween Sale"
+   For a new post, follow the same pattern: images/news-<topic>-01.webp
 
    Anything you still need to fill in can be written as [[LIKE THIS]]
    and it is highlighted orange so it can't be missed.
@@ -55,7 +55,7 @@ const NEWS_POSTS = [
     title: "Our brand new website is live",
     summary: "Our work, pricing, client reviews and contact details are all in one place now. Better than ever!",
     featured: true,
-    image: "images/news-website-launch-01.png",
+    image: "images/news-website-launch-01.webp",
     imageAlt: "The new Bcraft Designs website",
     content: [
       "Take a look around on my new website, and if you'd like something made, you can commission us straight from the site."
@@ -67,7 +67,7 @@ const NEWS_POSTS = [
     category: "Promotions",
     title: "20% Off Everything Halloween Sale",
     imageSize: "1430x731",
-    image: "images/halloween-popup-01.png",
+    image: "images/halloween-popup-01.webp",
     imageAlt: "Halloween sale: 20% off everything",
     summary: "Everything is 20% off during our Halloween sale, which runs until October 31st.",
     cta: { text: "Commission Me", href: "/pricing/" }
@@ -150,7 +150,7 @@ function parseNewsDate(value) {
   };
 }
 
-/* Image paths: "images/x.png" and "/images/x.png" both work. Pages now live in
+/* Image paths: "images/x.webp" and "/images/x.webp" both work. Pages now live in
    folders (/news/, /socials/ ...), so a relative path is turned into a root path here. */
 (function () {
   const root = (p) => (p && !/^(\/|[a-z][a-z0-9+.-]*:)/i.test(p) ? "/" + p : p);

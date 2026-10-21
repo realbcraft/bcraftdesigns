@@ -29,7 +29,7 @@
   <header class="site-header">
     <div class="container header-inner">
       <a class="site-logo" href="/" aria-label="Bcraft Designs, go to homepage" data-tooltip="Go to homepage">
-        <img class="site-logo-image" src="/images/logo.png" alt="" width="512" height="329">
+        <img class="site-logo-image" src="/images/logo.webp" alt="" width="512" height="329">
       </a>
 
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Open menu">
@@ -101,10 +101,6 @@
                     </div>
                     <!-- Large banner slot. Image path is set in script.js (MEGA_BANNER_DATA) -->
                     <figure class="mega-banner" aria-hidden="true">
-                      <div class="mega-banner-placeholder">
-                        <p class="mega-banner-label">Featured artwork</p>
-                        <p class="mega-banner-hint">1430 &times; 731</p>
-                      </div>
                       <img class="mega-banner-image" src="" alt="">
                     </figure>
                   </div>
@@ -165,8 +161,8 @@
           </p>
         </div>
 
-        <!-- Floating hero render. Put your image at images/work-hero.png
-             (a transparent PNG with the board at the bottom works best). -->
+        <!-- Floating hero render. Put your image at images/work/work-hero.webp
+             (a transparent WebP with the board at the bottom works best). -->
         <div class="page-hero-visual" aria-hidden="true">
           <div class="hover-stage">
             <span class="hover-glow"></span>
@@ -175,7 +171,7 @@
             <span class="hover-ripple hover-ripple-2"></span>
             <span class="hover-shadow"></span>
             <div class="hover-float">
-              <img class="hover-image" src="/images/work-hero.png" alt="" width="725" height="851" onerror="this.hidden=true">
+              <img class="hover-image" src="/images/work/work-hero.webp" alt="" width="725" height="851" onerror="this.hidden=true">
               <!-- Chat bubble, same as on the About page: typing dots, then the text.
                    Change the words here. -->
               <div class="about-bubble hover-bubble" aria-hidden="true">
@@ -196,7 +192,7 @@
 
     <!-- ===== GALLERY =====
          Every piece in the WORK list (script.js) is shown here automatically.
-         To add or remove artwork, add or delete a line in WORK (script.js) and put the images in images/. -->
+         To add or remove artwork, add or delete a line in WORK (script.js) and put the images in images/work/. -->
     <section class="portfolio" aria-label="Portfolio gallery">
       <div class="container">
         <div class="filter-bar" role="group" aria-label="Filter the portfolio by category" data-portfolio-filters>
@@ -249,7 +245,7 @@
       <div class="footer-top">
         <div class="footer-intro">
           <a class="footer-brand" href="#top" aria-label="Bcraft Designs, back to top">
-            <img class="footer-logo" src="/images/logo.png" alt="" width="512" height="329">
+            <img class="footer-logo" src="/images/logo.webp" alt="" width="512" height="329">
           </a>
           <p class="footer-tagline">Custom GFX and UI that make your game look as good as it plays.</p>
           <a class="button button-primary footer-cta" href="/pricing/">
