@@ -52,31 +52,31 @@ const NEWS_POSTS = [
     id: "new-client-promotion",
     date: "2026-10-22",
     category: "Promotions",
-    title: "New Client Offer: Get $5 Off Your First Commission!",
-    summary: "We're introducing a special welcome offer for new Bcraft Designs clients! New clients can receive $5 off their first eligible commission!",
+    title: "New Client Offer: Get $5.00 Off Your First Commission!",
+    summary: "We're introducing a special welcome offer for new Bcraft Designs clients! New clients can receive $5.00 or 1.500 Robux off their first eligible commission!",
     featured: true,
     image: "images/news-5-client-promotion.webp",
     imageAlt: "New $5 gift promotion",
     content: [
       { heading: "💸 How It Works:" },
-      { list: ["$5 OFF your first eligible order.", "$10 minimum order value before the discount is applied.", "Available exclusively to new Bcraft Designs clients who have not previously commissioned us.", "The offer applies to one eligible order per new client.", "The discount cannot be combined with our usual seasonal discounts or other promotional offers."] },
+      { list: ["$5.00 OFF your first eligible order.", "$10.00 minimum order value before the discount is applied.", "Available exclusively to new Bcraft Designs clients who have not previously commissioned me.", "The offer applies to one eligible order per new client.", "The discount cannot be combined with our usual seasonal discounts or other promotional offers."] },
       { heading: "❓ How to Claim Your Discount" },
-      "Claiming your discount is simple, but you must DM us and explicitly mention this $5 New Client Offer before placing your order.",
-      { list: ["1. Browse our Pricing page and choose the service you're interested in.", "2: Send us a direct message (DM) to discuss your commission.", "3: Clearly mention the $5 New Client Offer in your message.", "4: We'll confirm your eligibility and apply the discount to your first qualifying order."] },
-      "Important: If you don't DM us and mention this specific offer, the discount will not be applied. The offer will not be granted retroactively to orders that have already been placed. TOS apply."
+      "Claiming your discount is simple, but you must DM me and explicitly mention this $5.00 New Client Offer before placing your order.",
+      { list: ["1. Browse my Pricing page and choose the service you're interested in.", "2: Send me a direct message (DM) to discuss your commission.", "3: Clearly mention the $5.00 New Client Offer in your message.", "4: We'll confirm your eligibility and apply the discount to your first qualifying order."] },
+      "Important: If you don't DM me and mention this specific offer, the discount will not be applied. The offer will not be granted retroactively to orders that have already been placed. TOS apply."
     ]
     },
   {
     id: "new-website-launch",
     date: "2026-10-20",
     category: "Announcements",
-    title: "Our brand new website is live",
-    summary: "Our work, pricing, client reviews and contact details are all in one place now. Better than ever!",
+    title: "my brand new website is live",
+    summary: "my work, pricing, client reviews and contact details are all in one place now. Better than ever!",
     featured: true,
     image: "images/news-website-launch-01.webp",
     imageAlt: "The new Bcraft Designs website",
     content: [
-      "Take a look around on my new website, and if you'd like something made, you can commission us straight from the site."
+      "Take a look around on my new website, and if you'd like something made, you can commission me straight from the site."
     ]
     },
   {
@@ -87,7 +87,7 @@ const NEWS_POSTS = [
     imageSize: "1430x731",
     image: "images/halloween-popup-01.webp",
     imageAlt: "Halloween sale: 20% off everything",
-    summary: "Everything is 20% off during our Halloween sale, which runs until October 31st.",
+    summary: "Everything is 20% off during my Halloween sale, which runs until October 31st.",
     cta: { text: "Commission Me", href: "/pricing/" }
     }
   
