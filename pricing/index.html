@@ -15,6 +15,162 @@
   <link rel="stylesheet" href="/style.css">
   <script src="/script.js" defer></script>
   <script src="/companion.js" defer></script>
+  <style>
+    /* ===== BUNDLES v7: shop-style picker + roomy card =====
+       Left: a vertical picker (artwork preview, name, price). Right: the open bundle (artwork, piece labels, compact contents list, price, button).
+       The artwork ignores the pointer: a piece only lifts (and shows its number) when its row in the contents list is hovered.
+       On phones the picker becomes a snapping row of cards and the price + button stick to the bottom of the card. */
+    .bk-upto { display: inline-block; margin: 0.6rem 0 0; padding: 0.2rem 0.7rem; border-radius: 6px; background: rgba(64, 200, 140, 0.16); border: 1px solid rgba(64, 200, 140, 0.55); color: #7ff0b8; font-size: 0.82rem; font-weight: 800; }
+    .sp-shop { --t: 74, 163, 255; --g: 245, 200, 80; --sp-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+      display: grid; grid-template-columns: 16.5rem minmax(0, 1fr); gap: 1.25rem; align-items: start; max-width: 62rem; margin-inline: auto; }
+
+    /* ---- Picker (left) ---- */
+    .sp-chips { position: relative; display: flex; flex-direction: column; gap: 0.5rem; }
+    .sp-chip { display: flex; align-items: center; gap: 0.75rem; width: 100%; padding: 0.55rem 0.75rem 0.55rem 0.55rem; border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 16px; background: rgba(255, 255, 255, 0.05); color: var(--color-text-muted); font: inherit; text-align: left; cursor: pointer; transition: background-color 0.2s ease, color 0.2s ease; }
+    .sp-chip:hover { background: rgba(255, 255, 255, 0.09); color: var(--color-text); }
+    .sp-chip:focus-visible { outline: 2px solid var(--color-accent-bright); outline-offset: 2px; }
+    .sp-chip[aria-selected="true"] { background: rgba(var(--t), 0.2); border-color: rgba(var(--t), 0.55); color: #fff; }
+    .sp-cthumb { position: relative; flex: none; width: 3.2rem; height: 3.2rem; overflow: hidden; border-radius: 12px; background: rgba(var(--t), 0.18); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1); }
+    .sp-cthumb img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; }
+    .sp-cfall { position: absolute; inset: 0; display: grid; place-items: center; color: rgb(var(--t)); }
+    .sp-cfall svg { display: block; width: 1.7rem; height: 1.7rem; }
+    .sp-chip[data-ico="youtube"] .sp-cthumb { background: rgba(255, 64, 64, 0.2); } .sp-chip[data-ico="youtube"] .sp-cfall { color: #ff5a5a; }
+    .sp-ctext { display: grid; flex: 1; min-width: 0; gap: 0.15rem; line-height: 1.2; }
+    .sp-ctext strong { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: 0.98rem; font-weight: 700; }
+    .sp-ctext small { font-size: 0.84rem; font-weight: 600; opacity: 0.75; font-variant-numeric: tabular-nums; }
+    .sp-cflags { display: grid; flex: none; justify-items: end; gap: 0.3rem; }
+    .sp-star { display: block; width: 0.95rem; height: 0.95rem; color: rgb(var(--g)); }
+    .sp-best { padding: 0.1rem 0.5rem; border-radius: 999px; background: #2fd68f; color: #03281a; font-size: 0.74rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+
+    /* ---- The open bundle ---- */
+    .sp-card { position: relative; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 22px; background: var(--color-surface); box-shadow: 0 30px 60px -34px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.04); }
+    .sp-card:focus-visible { outline: 2px solid var(--color-accent-bright); outline-offset: 3px; }
+
+    .sp-stage { position: relative; height: clamp(13rem, 27vw, 18rem);
+      background: radial-gradient(ellipse 60% 90% at 50% 120%, rgba(var(--t), 0.28), transparent 70%), rgba(255, 255, 255, 0.02); }
+    .sp-pile { position: absolute; top: 1.1rem; bottom: 3.6rem; left: 50%; width: min(var(--pile-w, 30rem), calc(100% - 2.5rem)); transform: translateX(-50%); container-type: size; }
+
+    /* Artwork tiles. Size comes from the picture's real ratio (--ar), so nothing is cropped or stretched.
+       The middle piece (--base) sits in front, a little bigger. Tiles ignore the pointer. */
+    .sp-tile { --lift: 0; --rt: 1; --base: 1; --sc: var(--base); --wd: min(calc(var(--hh, 50) * 1cqh * var(--ar, 1.6)), calc(var(--cap, 50) * 1cqw));
+      position: absolute; z-index: var(--z); top: calc(var(--y) * 1%); left: calc((100% - var(--wd)) * var(--f)); display: block; width: var(--wd); aspect-ratio: var(--ar, 1.6); overflow: hidden; pointer-events: none;
+      border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 9px; background: rgba(var(--t), 0.3);
+      box-shadow: 0 12px 18px -8px rgba(0, 0, 0, 0.85);
+      transform: translateY(calc(-50% + var(--lift) * 1px)) rotate(calc(var(--r) * var(--rt) * 1deg)) scale(var(--sc));
+      transition: transform 0.35s var(--sp-ease);
+      animation: sp-deal 0.45s var(--sp-ease) backwards; animation-delay: calc(var(--i) * 60ms); }
+    .sp-tile img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; }
+    .sp-tile.is-missing { display: grid; place-items: center; border-style: dashed; color: rgba(255, 255, 255, 0.75); font-size: 0.7rem; font-weight: 700; text-align: center; line-height: 1.1; padding: 0.2rem; }
+    /* Number marker: shows on a piece only while its row is hovered */
+    .sp-tile::after { content: attr(data-n); position: absolute; top: 0.4rem; left: 0.4rem; display: grid; place-items: center; width: 1.4rem; height: 1.4rem; border-radius: 50%; background: rgb(var(--t)); color: #06101f; font-size: 0.78rem; font-weight: 800; opacity: 0; transform: scale(0.6); transition: opacity 0.2s ease, transform 0.25s var(--sp-ease); }
+    @keyframes sp-deal { from { opacity: 0; transform: translateY(calc(-50% + 0.8rem)) rotate(0deg) scale(0.95); } }
+    .sp-stage.is-focus .sp-tile.is-lit { --lift: -5; --rt: 0; --sc: calc(var(--base) + 0.04); z-index: 98; }
+    .sp-stage.is-focus .sp-tile.is-lit::after { opacity: 0; }
+
+
+    /* Piece labels under the artwork */
+    .sp-strip { position: absolute; z-index: 120; left: 0.8rem; right: 0.8rem; bottom: 0.8rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem; }
+    .sp-pchip { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.22rem 0.7rem 0.22rem 0.25rem; border-radius: 999px; background: rgba(6, 10, 20, 0.62); color: #c3cde0; font-size: 0.8rem; font-weight: 700; transition: background-color 0.2s ease, color 0.2s ease; }
+    .sp-pchip b { display: grid; place-items: center; width: 1.25rem; height: 1.25rem; border-radius: 50%; background: rgba(var(--t), 0.3); color: #fff; font-size: 0.72rem; font-weight: 800; transition: background-color 0.2s ease, color 0.2s ease; }
+    .sp-stage.is-focus .sp-pchip.is-lit { background: rgb(var(--t)); color: #06101f; }
+    .sp-stage.is-focus .sp-pchip.is-lit b { background: #06101f; color: rgb(var(--t)); }
+
+    /* Badges on the stage */
+    .sp-pop { position: absolute; z-index: 130; top: 0.8rem; left: 0.8rem; display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.25rem 0.7rem 0.25rem 0.55rem; border-radius: 999px; background: rgba(var(--g), 0.16); color: rgb(var(--g)); font-size: 0.82rem; font-weight: 800; }
+    .sp-off { position: absolute; z-index: 130; top: 0.8rem; right: 0.8rem; padding: 0.25rem 0.7rem; border-radius: 999px; background: #2fd68f; color: #03281a; font-size: 0.82rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+
+    /* ---- Body ---- */
+    .sp-body { display: grid; gap: 1.15rem; padding: 1.4rem 1.5rem 1.5rem; animation: sp-rise 0.3s var(--sp-ease) backwards; }
+    @keyframes sp-rise { from { opacity: 0; transform: translateY(0.4rem); } }
+    .sp-name { margin: 0; font-family: var(--font-display); font-size: 1.7rem; font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; }
+    .sp-text { margin: 0.5rem 0 0; color: #c3cde0; font-size: 1rem; line-height: 1.5; }
+    .sp-meta { margin: 0.6rem 0 0; color: var(--color-text-muted); font-size: 0.86rem; font-weight: 700; }
+
+    /* Contents: one compact line per item */
+    .sp-layers { display: grid; gap: 0.35rem; margin: 0; padding: 0; list-style: none; font-variant-numeric: tabular-nums; }
+    .sp-layer { display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem 0.9rem 0.5rem 0.55rem; border-radius: 11px; background: rgba(255, 255, 255, 0.04); transition: background-color 0.2s ease; }
+    .sp-layer:hover, .sp-layer:focus-visible { background: rgba(255, 255, 255, 0.09); outline: 0; }
+    .sp-lnum { display: grid; flex: none; place-items: center; width: 1.6rem; height: 1.6rem; border-radius: 50%; background: rgba(var(--t), 0.2); color: rgb(var(--t)); font-size: 0.8rem; font-weight: 800; transition: background-color 0.2s ease, color 0.2s ease; }
+    .sp-layer:hover .sp-lnum, .sp-layer:focus-visible .sp-lnum { background: rgb(var(--t)); color: #06101f; }
+    .sp-lname { display: flex; flex: 1; flex-wrap: wrap; align-items: baseline; gap: 0 0.6rem; min-width: 0; line-height: 1.3; }
+    .sp-lname strong { font-size: 0.98rem; font-weight: 700; }
+    .sp-lname small { color: var(--color-text-muted); font-size: 0.8rem; font-weight: 600; }
+    .sp-lprice { flex: none; color: var(--color-text-muted); font-size: 0.96rem; font-weight: 700; }
+
+    /* Price, then a big button */
+    .sp-foot { display: grid; gap: 1rem; padding-top: 1.2rem; border-top: 1px solid rgba(255, 255, 255, 0.07); }
+    .sp-price { display: grid; gap: 0.35rem; }
+    .sp-price-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.1rem 0.8rem; }
+    .sp-new-usd { font-family: var(--font-display); font-size: 2.6rem; font-weight: 800; line-height: 1; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+    .sp-new-usd.is-unset { font-size: 1.15rem; letter-spacing: 0; }
+    .sp-new-rbx { display: inline-flex; align-items: center; gap: 0.3rem; color: #c3cde0; font-size: 1.1rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+    .sp-sub { display: flex; flex-wrap: wrap; align-items: center; gap: 0.2rem 0.7rem; color: var(--color-text-muted); font-size: 0.88rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+    .sp-old-usd, .sp-old-rbx { display: inline-flex; align-items: center; gap: 0.2rem; text-decoration: line-through; text-decoration-color: #ff5a5a; text-decoration-thickness: 2px; }
+    .sp-save { color: #7ff0b8; font-weight: 800; }
+    .sp-price-row { align-items: center; }
+    .sp-sub { gap: 0.4rem 0.8rem; font-size: 1rem; }
+    .sp-old-usd, .sp-old-rbx { font-size: 1.15rem; font-weight: 700; }
+    .sp-save { display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.3rem 0.85rem; border-radius: 999px; background: rgba(47, 214, 143, 0.16); border: 1px solid rgba(47, 214, 143, 0.5); font-size: 1.05rem; }
+    .sp-save .pc-robux-icon { width: 1.05em; height: 1.05em; }
+    .sp-pct { display: inline-block; padding: 0.15rem 0.6rem; border-radius: 8px; background: #2fd68f; color: #03281a; font-size: 1rem; font-weight: 900; font-variant-numeric: tabular-nums; }
+    .pc-robux-icon { vertical-align: -0.1em; }
+    .sp-old-rbx .pc-robux-icon, .sp-new-rbx .pc-robux-icon, .sp-save .pc-robux-icon { width: 0.95em; height: 0.95em; }
+    .sp-buy .button { width: 100%; justify-content: center; padding-block: 0.95rem; border-radius: 13px; font-size: 1.05rem; font-weight: 800; box-shadow: 0 4px 0 rgba(0, 0, 0, 0.35); transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.2s ease; }
+    .sp-buy .button:active { transform: translateY(3px); box-shadow: 0 1px 0 rgba(0, 0, 0, 0.35); }
+
+
+    /* ---- v8: closer to the product carousel ---- */
+    .sp-head { display: grid; gap: 0.1rem; }
+    .sp-specs { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.8rem 0 0; padding: 0; list-style: none; }
+    .sp-specs li { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.25rem 0.7rem; border-radius: 999px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.08); color: var(--color-text-muted); font-size: 0.82rem; font-weight: 700; }
+    .sp-specs svg { width: 0.95rem; height: 0.95rem; opacity: 0.85; }
+    .sp-from { color: var(--color-text-muted); font-size: 0.82rem; font-weight: 700; }
+    .sp-pop svg.sp-star { width: 0.9rem; height: 0.9rem; }
+    .sp-layer .sp-lico { display: grid; flex: none; place-items: center; width: 1.6rem; height: 1.6rem; border-radius: 8px; background: rgba(var(--t), 0.16); color: rgb(var(--t)); }
+    .sp-lico svg { width: 1rem; height: 1rem; }
+    .sp-layer:hover .sp-lico, .sp-layer:focus-visible .sp-lico { background: rgb(var(--t)); color: #06101f; }
+    .sp-layer .sp-lnum { display: none; }
+    .sp-pchip svg { width: 0.95rem; height: 0.95rem; margin-left: 0.2rem; color: rgb(var(--t)); }
+    .sp-pchip b { display: none; }
+    .sp-stage.is-focus .sp-pchip.is-lit svg { color: #06101f; }
+
+    /* ---- YouTuber card: channel look (red accent, play badge, subscribe row) ---- */
+    .sp-card.is-yt { --t: 255, 64, 64; }
+    .sp-card.is-yt .sp-pile { top: 2.9rem; bottom: 3.4rem; }
+    .sp-card.is-yt .sp-stage { background: radial-gradient(ellipse 60% 90% at 50% 120%, rgba(255, 40, 40, 0.3), transparent 70%), rgba(255, 255, 255, 0.02); }
+    .sp-yt-top { position: absolute; z-index: 125; top: 0.8rem; left: 50%; transform: translateX(-50%); display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.22rem 0.8rem 0.22rem 0.3rem; border-radius: 999px; background: rgba(6, 10, 20, 0.62); color: #fff; font-size: 0.82rem; font-weight: 800; }
+    .sp-yt-top .sp-yt-logo { display: grid; place-items: center; width: 1.7rem; height: 1.2rem; border-radius: 0.4rem; background: #ff1f1f; color: #fff; }
+    .sp-yt-top .sp-yt-logo svg { width: 0.7rem; height: 0.7rem; }
+    .sp-yt-top .sp-yt-sub { display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.12rem 0.55rem; border-radius: 999px; background: #fff; color: #0b0b0b; font-size: 0.74rem; font-weight: 800; }
+    .sp-yt-top .sp-yt-sub svg { width: 0.8rem; height: 0.8rem; }
+    .sp-yt-stats { position: absolute; z-index: 125; right: 0.9rem; bottom: 3.1rem; display: grid; gap: 0.35rem; }
+    .sp-yt-stat { display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.2rem 0.55rem; border-radius: 999px; background: rgba(6, 10, 20, 0.62); color: #fff; font-size: 0.74rem; font-weight: 800; }
+    .sp-yt-stat svg { width: 0.85rem; height: 0.85rem; color: #ff5a5a; }
+    .sp-card.is-yt .sp-pile .sp-tile[data-p="youtube-thumbnails"]::before { content: ""; position: absolute; z-index: 2; right: 0.3rem; bottom: 0.3rem; padding: 0.05rem 0.3rem; border-radius: 3px; background: rgba(0, 0, 0, 0.85); color: #fff; font-size: 0.62rem; font-weight: 800; content: "12:34"; }
+    .sp-card.is-yt .sp-tile[data-p="profile-pictures"] { border-radius: 50%; border: 2px solid #ff4040; }
+    @media (max-width: 760px) { .sp-yt-stats { display: none; } }
+
+    /* ---- Phones: snapping picker row on top, price + button pinned to the bottom of the card ---- */
+    @media (max-width: 760px) {
+      .sp-shop { grid-template-columns: minmax(0, 1fr); gap: 0.9rem; }
+      .sp-chips { flex-direction: row; gap: 0.6rem; overflow-x: auto; padding-inline: calc(50% - 6.5rem); scroll-snap-type: x mandatory; scrollbar-width: none; }
+      .sp-chips::-webkit-scrollbar { display: none; }
+      .sp-chip { flex: none; width: 13rem; scroll-snap-align: center; }
+      .sp-card { overflow: clip; }
+      .sp-body { padding: 1.1rem 1.1rem 0; }
+      .sp-foot { position: sticky; bottom: 0; z-index: 140; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 0.8rem; margin: 0.2rem -1.1rem 0; padding: 0.8rem 1.1rem calc(0.8rem + env(safe-area-inset-bottom, 0px)); border-top: 1px solid rgba(255, 255, 255, 0.1); background: var(--color-surface); box-shadow: 0 -10px 20px -12px rgba(0, 0, 0, 0.8); }
+      .sp-new-usd { font-size: 1.8rem; }
+      .sp-new-rbx { font-size: 0.95rem; }
+      .sp-sub { font-size: 0.76rem; }
+      .sp-name { font-size: 1.45rem; }
+    }
+    @media (max-width: 520px) {
+      .sp-stage { height: 11.5rem; }
+      .sp-pile { bottom: 3.2rem; }
+      .sp-pchip { font-size: 0.74rem; }
+    }
+    @media (prefers-reduced-motion: reduce) { .sp-tile, .sp-body { animation: none; transition: none; } }
+  </style>
 </head>
 <body>
 
@@ -130,11 +286,6 @@
           <li>
             <a class="nav-social" href="#" data-social="x" data-tooltip="X / Twitter" aria-label="Bcraft Designs on X (Twitter)">
               <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>
-            </a>
-          </li>
-          <li>
-            <a class="nav-social" href="#" data-social="github" data-tooltip="GitHub" aria-label="Bcraft Designs on GitHub">
-              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
             </a>
           </li>
           <li>
@@ -393,8 +544,7 @@
 
     <!-- ===== BUNDLES =====
          Several pieces together for one price. The cards are built by the script at the bottom from
-         BUNDLES (edit them there only). Every card uses the same design as the product cards above, with the artwork arranged on its stage:
-         scene "game", "channel", "cards" or "pinboard". -->
+         BUNDLES (edit them there only). Built like the product carousel: the open bundle is a slide (artwork, details, price), with arrows, a counter and one chip per bundle. -->
     <section class="pc-bundles" id="bundles" aria-labelledby="bundles-title">
       <div class="container">
         <div class="section-head" data-reveal>
@@ -403,7 +553,10 @@
             <p class="services-lead">Ordering more than one piece? Bundles cost less together.</p>
           </div>
         </div>
-        <ul class="pc-bundle-grid" data-bundle-grid></ul>
+        <div class="sp-shop" data-shop data-reveal>
+          <div class="sp-chips" data-shop-tabs role="tablist" aria-orientation="vertical" aria-label="Bundles"></div>
+          <div class="sp-card" data-shop-panel id="sp-panel" role="tabpanel" tabindex="0"></div>
+        </div>
       </div>
     </section>
 
@@ -733,11 +886,6 @@
               </a>
             </li>
             <li>
-              <a class="footer-social" href="#" data-social="github" aria-label="Bcraft Designs on GitHub" title="GitHub">
-                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
-              </a>
-            </li>
-            <li>
               <a class="footer-social" href="#" data-social="discord" aria-label="Bcraft Designs on Discord" title="Discord">
                 <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
               </a>
@@ -798,37 +946,29 @@
 
       // BUNDLES: several pieces together. The cards in the Bundles section are built from this list.
       //   items       : { product: <a key from PRICES>, qty: <number>, art: [<image paths>] }
-//                 art is optional: one image per piece (a list shorter than qty repeats). Leave it out to use the product's own artwork.
+      //                 art is optional: one image per piece (a list shorter than qty repeats). Leave it out to use the product's own artwork.
       //   usd, robux  : the bundle price as text, like in PRICES. Left out (or "") shows "Price coming soon".
-      //   size        : not used any more (the cards sit in an even grid)
-      //   tone        : the card's colour: "blue", "red", "violet", "green", "orange", "gold", "cyan", "rose" or "silver"
-      //   icon        : the small emblem next to the name and the faint mark behind the artwork: "rocket", "briefcase", "cube" or "youtube"
-      //   scene       : the little picture on the card, built from the artwork of the pieces inside:
-      //                 "game"     thumbnails and the icon, overlapped (needs game-thumbnails + game-icons)
-      //                 "channel"  banner, profile picture and thumbnails, just the artwork (needs youtube-banners + profile-pictures + youtube-thumbnails)
-      //                 "pinboard" posters and a sheet pinned to a wall (needs ads-posters + commission-sheets)
-      //                 "cards"    collectible cards, works with any pieces (also the fallback)
-      //   The "Separately" price, the saving, the percent sticker and the savings bar are worked out from PRICES.
-      //   The biggest saving gets a tag by itself once two bundles have a price.
+      //   popular     : true shows the gold "Popular" badge and premium styling (like the featured product cards). The first two have it.
+      //   All bundles share one accent colour, so there is no tone any more.
+      //   The "Bought separately" price, the saving and the percent tag are worked out from PRICES.
       //   These are EXAMPLES (names, texts and prices too): change or delete them, and add your own.
       var BUNDLES = [
-        { id: "youtuber-starter-pack", size: "medium", tone: "red", scene: "channel", icon: "youtube", name: "YouTuber Starter Pack",
+        { id: "youtuber-starter-pack", popular: true, icon: "youtube", name: "YouTuber Starter Pack",
           text: "Look like a real channel from your very first upload: profile picture, banner and two thumbnails.",
           items: [ { product: "profile-pictures", qty: 1 }, { product: "youtube-banners", qty: 1 }, { product: "youtube-thumbnails", qty: 2, art: [ "/images/work/featured-thumbnail-01.webp", "/images/work/featured-thumbnail-02.webp" ] } ],
           usd: "$60", robux: "15K R$" },
-        { id: "game-launch-pack", size: "medium", tone: "blue", scene: "game", icon: "rocket", name: "Game Launch Pack",
+        { id: "game-launch-pack", popular: true, icon: "roblox", name: "Game Launch Pack",
           text: "Two thumbnails and an icon: your game page, ready for launch.",
           items: [ { product: "game-thumbnails", qty: 2, art: [ "/images/work/featured-gfx-01.webp", "/images/work/portfolio-thumbnail-01.webp" ] }, { product: "game-icons", qty: 1 } ],
           usd: "$75", robux: "20.5K R$" },
-        { id: "hire-me-kit", size: "medium", tone: "green", scene: "pinboard", icon: "briefcase", name: "Hire Me Kit",
+        { id: "hire-me-kit", icon: "hire", name: "Hire Me Kit",
           text: "Posters to get you noticed, a commission sheet to get you booked.",
           items: [ { product: "ads-posters", qty: 2 }, { product: "commission-sheets", qty: 1 } ],
           usd: "$50", robux: "12.5K R$" },
-        { id: "render-pack", size: "medium", tone: "violet", scene: "cards", icon: "cube", name: "Render Pack",
+        { id: "render-pack", icon: "render", name: "Render Pack",
           text: "Three different renders, one collectible set.",
           items: [ { product: "renders", qty: 3, art: [ "/images/work/featured-gfx-02.webp", "/images/work/portfolio-gfx-01.webp", "/images/work/portfolio-render-03.webp" ] } ],
-          usd: "$17", robux: "5K R$" },
-
+          usd: "$17", robux: "5K R$" }
       ];
 
       // ---- Price helpers (cards and bundles use these) ----
@@ -841,17 +981,20 @@
         if (isNaN(n)) return null;
         return m[2] ? n * 1000 : n;
       }
-      function formatUsd(n) { return '$' + (n % 1 ? n.toFixed(2) : String(n)); }
-      function formatRobux(n) { return n >= 1000 ? String(Math.round(n / 100) / 10) + 'K' : String(Math.round(n)); }
+      // 30 -> "$30.00", 1250 -> "$1,250.00"
+      function formatUsd(n) { return '$' + n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+      // 8000 -> "8.000", 20500 -> "20.500" (dot as the thousands separator)
+      function formatRobux(n) { return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
       function el(tag, className, text) {
         var node = document.createElement(tag);
         if (className) node.className = className;
         if (text) node.textContent = text;
         return node;
       }
-      // "7.9K R$" -> "7.9K" + Robux icon (a trailing "R$" in PRICES is dropped automatically)
-      function fillRobux(node, text) {
-        node.textContent = text.replace(/\s*R\$\s*$/, '');
+      // Bundles: "8K R$" or a number -> "8.000" + Robux icon. Product cards pass asWritten and keep "8K".
+      function fillRobux(node, value, asWritten) {
+        var n = typeof value === 'number' ? value : toNumber(value);
+        node.textContent = (n === null || asWritten) ? String(value).replace(/\s*R\$\s*$/, '') : formatRobux(n);
         var icon = document.createElement('img');
         icon.className = 'pc-robux-icon';
         icon.src = ROBUX_ICON;
@@ -879,15 +1022,16 @@
         usd.classList.remove('is-unset');
         row.classList.add('has-price');   // shows the small "From" label
         var robux = row.querySelector('[data-robux]');
-        if (p.robux) fillRobux(robux, p.robux);
+        if (p.robux) fillRobux(robux, p.robux, true);
         var note = row.closest('.pc-slide').querySelector('[data-note]');
         if (p.note && note) { note.textContent = p.note; note.hidden = false; }
       });
 
-      // ---- Bundles: a grid of horizontal cards built from BUNDLES ----
-      // Same card design as the products above. The "Separately" price and the saving are worked out from PRICES.
-      var bundleGrid = document.querySelector('[data-bundle-grid]');
-      if (bundleGrid) {
+      // ---- Bundles: price-tag packs in a carousel, built from BUNDLES ----
+      // Own scope on purpose: nothing in here can clash with the names the product carousel below uses.
+      (function () {
+        var shop = document.querySelector('[data-shop]');
+        if (!shop) return;
         // What the cards need to know about each product, read from the product cards above
         var productInfo = {};
         document.querySelectorAll('.pc-slide[data-product]').forEach(function (s) {
@@ -940,238 +1084,349 @@
           if (entry.state === 'loading') entry.waiting.push(done); else done(entry);
         }
 
-        // One piece of artwork at its real resolution (the YouTube banner at the PC banner size).
-        // Shows the product name until the picture has loaded; a dashed frame if the file cannot be found.
-        function makePiece(slug, override) {
-          var info = productInfo[slug] || { name: slug, src: '', shape: 'wide' };
-          var piece = el('span', 'pc-piece pc-piece--' + info.shape);
-          if (slug === 'youtube-banners') piece.style.aspectRatio = '2560 / 423';   // PC banner size
-          piece.appendChild(el('span', 'pc-piece-label', info.name));
-          loadArt(slug, function (art) {
-            if (art.state !== 'ready') { piece.classList.add('is-missing'); return; }
-            if (slug !== 'youtube-banners' && art.w && art.h) piece.style.aspectRatio = art.w + ' / ' + art.h;
-            var picture = new Image();
-            picture.alt = '';
-            picture.decoding = 'async';
-            picture.src = art.url;
-            piece.classList.add('has-art');
-            piece.appendChild(picture);
-          }, override);
-          return piece;
-        }
-
-
-        // Emblems: one per bundle (the YouTube mark is the same one used in the footer)
+        // Emblems: one per bundle. Roblox and YouTube are the brand marks (same paths as the nav and footer).
+        // "hire" and "render" are drawn for this site. To use another official logo, paste its <svg> as a new key here
+        // (viewBox 0 0 24 24, fill="currentColor") and set icon: "yourkey" on the bundle.
         var BUNDLE_ICONS = {
-          youtube: '<svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>',
-          rocket: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M12 2c3.5 2 5.5 6 5.5 10v3l-2 2h-7l-2-2v-3C6.5 8 8.5 4 12 2Z"/><circle cx="12" cy="10" r="1.8"/><path d="M6.5 14 4 17l3 .5M17.5 14 20 17l-3 .5M10 20l2 2.5 2-2.5"/></svg>',
-          briefcase: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7M3 13h18M11 13v2h2v-2"/></svg>',
-          cube: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M12 2.5 20 7v10l-8 4.5L4 17V7l8-4.5Z"/><path d="m4 7 8 4.5L20 7M12 11.5v10"/></svg>'
+          // channel: a video player with a play triangle and a progress line
+          youtube: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="3" y="4.5" width="18" height="12.5" rx="3"/><path d="m10.2 8.6 4.3 2.2-4.3 2.2z"/><path d="M7 20.5h10"/></svg>',
+          // game: a controller
+          roblox: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M7.2 8h9.6a4.2 4.2 0 0 1 4.1 3.3l.9 4.2a2.4 2.4 0 0 1-4.1 2.1L16 15.8H8L6.3 17.6a2.4 2.4 0 0 1-4.1-2.1l.9-4.2A4.2 4.2 0 0 1 7.2 8Z"/><path d="M8 10.6v3M6.5 12.1h3"/><circle cx="15.6" cy="11.4" r=".6" fill="currentColor"/><circle cx="17.6" cy="12.9" r=".6" fill="currentColor"/></svg>',
+          // hire: a briefcase
+          hire: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="3" y="7.5" width="18" height="12" rx="2.5"/><path d="M9 7.5V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1.5"/><path d="M3 13h18"/><path d="M10.5 13v1.6h3V13"/></svg>',
+          // render: a wireframe cube with a sparkle
+          render: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m12 3 7.5 4.2v8.6L12 20 4.5 15.8V7.2z"/><path d="m4.5 7.2 7.5 4.3 7.5-4.3M12 11.5V20"/></svg>'
         };
+        // Small icons for the piece labels, the contents list and the spec pills
+        var PRODUCT_ICONS = {
+          'profile-pictures': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="12" cy="9" r="3.6"/><path d="M5 20a7 7 0 0 1 14 0"/></svg>',
+          'youtube-banners': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="2.5" y="7" width="19" height="10" rx="2"/><path d="M2.5 14.5 8 11l4 2.5 3-2 6.5 3.5"/></svg>',
+          'youtube-thumbnails': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m10.2 9.2 4.3 2.8-4.3 2.8z"/></svg>',
+          'game-thumbnails': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3.5 16 5-5 4 4 2.5-2.5 5.5 5"/></svg>',
+          'game-icons': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="4" y="4" width="16" height="16" rx="4.5"/><path d="m12 8.2 1.2 2.5 2.7.3-2 1.9.5 2.7-2.4-1.3-2.4 1.3.5-2.7-2-1.9 2.7-.3z"/></svg>',
+          'renders': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m12 3 7.5 4.2v8.6L12 20 4.5 15.8V7.2z"/><path d="m4.5 7.2 7.5 4.3 7.5-4.3M12 11.5V20"/></svg>',
+          'ads-posters': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="5" y="3" width="14" height="18" rx="2.5"/><path d="M8.5 8h7M8.5 11.5h7M8.5 15h4"/></svg>',
+          'commission-sheets': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="4" y="3" width="16" height="18" rx="2.5"/><path d="M8 8h8M8 12h8M8 16h4"/></svg>'
+        };
+        var I_IMG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="3.5" y="4.5" width="17" height="15" rx="3"/><circle cx="9" cy="10" r="1.6"/><path d="m4 17 5-4.5 4 3.5 3-2.5 4 3.5"/></svg>';
+        var I_CLOCK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>';
+        var I_BELL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 2h-15z"/><path d="M10 21h4"/></svg>';
+        var I_EYE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="2.8"/></svg>';
+        var I_LIKE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M7.5 11 11 4.5a2 2 0 0 1 2.6 2.4L13 9.5h5.2a2 2 0 0 1 2 2.4l-1.2 6a2 2 0 0 1-2 1.6H7.5z"/><path d="M3.5 11h4v9h-4z"/></svg>';
+        var I_PLAY = '<svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M8 5.5v13l11-6.5z"/></svg>';
+        BUNDLE_ICONS.rocket = BUNDLE_ICONS.roblox; BUNDLE_ICONS.briefcase = BUNDLE_ICONS.hire; BUNDLE_ICONS.cube = BUNDLE_ICONS.render;   // old names still work
 
-        // Decoration behind the artwork (no blur): a faint emblem, plus a few touches that fit each bundle
-        function makeDeco(b) {
-          var deco = el('span', 'pc-deco pc-deco--' + (b.tone || 'blue'));
-          deco.setAttribute('aria-hidden', 'true');
-          var mark = el('span', 'pc-deco-mark');
-          mark.innerHTML = BUNDLE_ICONS[b.icon] || '';
-          deco.appendChild(mark);
-          if (b.tone === 'red') deco.appendChild(el('span', 'pc-deco-bar'));                       // a video progress bar along the bottom
-          if (b.tone === 'green') deco.appendChild(el('span', 'pc-deco-stamp', 'Hire me'));        // a stamp
-          if (b.tone === 'violet') {                                                                // sparkles
-            [[14, 24, 0], [82, 18, 0.9], [70, 76, 1.7], [24, 72, 2.4]].forEach(function (s, i) {
-              var spark = el('span', 'pc-deco-spark');
-              spark.style.cssText = 'left:' + s[0] + '%;top:' + s[1] + '%;animation-delay:' + s[2] + 's;' + (i % 2 ? '--s:0.7rem;' : '');
-              deco.appendChild(spark);
-            });
-          }
-          return deco;
+        var SHORT_NAMES = { 'commission-sheets': 'Commission Sheets', 'game-thumbnails': 'Game Thumbnails', 'game-icons': 'Game Icons' };
+        var SINGLE_NAMES = { 'game-thumbnails': 'Game Thumbnail', 'game-icons': 'Game Icon', 'renders': 'Render', 'profile-pictures': 'Profile Picture', 'youtube-thumbnails': 'YouTube Thumbnail', 'youtube-banners': 'YouTube Banner', 'ads-posters': 'Ad / Poster', 'commission-sheets': 'Commission Sheet' };
+        var ARROW = '<svg class="pc-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+        var CHEV_L = '<svg width="18" height="18" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+        var CHEV_R = '<svg width="18" height="18" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="m6 3 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+        var STAR = '<svg class="sp-star" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m12 2.5 2.9 6.1 6.6.8-4.9 4.6 1.3 6.6-5.9-3.3-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"/></svg>';
+
+        // Hover effects that follow the pointer only run with a real mouse and when motion is allowed
+        var FINE = !!(window.matchMedia && matchMedia('(hover: hover) and (pointer: fine)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+        // Artwork sizing. Each piece takes its real width / height ratio from the loaded picture (so nothing is cropped),
+        // and its height is scaled so wide and square pieces look about equally big.
+        var RATIO = { square: 1, poster: 4 / 3, wide: 1.6, banner: 3.2 };   // used until the picture has loaded
+        var RANK = { square: 4, poster: 3, wide: 2, banner: 1 };            // small pieces sit on top of big ones, and drift more on hover
+        var TILT = [-5, 3.5, -2.5, 5, -4];
+        var LIFT = [-9, 7, -4, 9, -6];
+        function kindOf(slug) {
+          var info = productInfo[slug];
+          return slug === 'youtube-banners' ? 'banner' : (info ? info.shape : 'wide');
+        }
+        function sizeTile(tile, ratio) {
+          tile.style.setProperty('--ar', ratio.toFixed(4));
+          tile.style.setProperty('--hh', Math.round(74 / Math.sqrt(ratio)));
         }
 
-        // The scenes: only the artwork, arranged. Each gets the pieces sorted by product (pool) and returns the scene,
-        // or null when a product it needs is missing (the bundle then falls back to the collectible cards).
-        var SCENES = {
-          // Two thumbnails overlap at an angle, the game icon sits across them
-          game: function (pool) {
-            var shots = pool['game-thumbnails'] || [], icon = (pool['game-icons'] || [])[0];
-            if (!shots.length || !icon) return null;
-            var scene = el('div', 'pc-scene pc-scene--game');
-            shots.slice(0, 2).forEach(function (s, i) {
-              s.classList.add('pc-game-shot', i ? 'is-b' : 'is-a');
-              scene.appendChild(s);
-            });
-            icon.classList.add('pc-game-icon');
-            scene.appendChild(icon);
-            return scene;
-          },
+        // One piece of artwork on the stage (the product name shows if its picture cannot be found)
+        function makeTile(slug, override, kind) {
+          var info = productInfo[slug] || { name: slug };
+          var tile = el('span', 'sp-tile');
+          tile.setAttribute('data-p', slug);
+          sizeTile(tile, RATIO[kind]);
+          loadArt(slug, function (art) {
+            if (art.state !== 'ready') { tile.classList.add('is-missing'); tile.textContent = info.name; return; }
+            if (art.w && art.h) sizeTile(tile, art.w / art.h);
+            var img = new Image();
+            img.alt = '';
+            img.decoding = 'async';
+            img.src = art.url;
+            tile.appendChild(img);
+          }, override);
+          return tile;
+        }
+        // The small square picture in the contents list
+        function makeThumb(slug, override, stacked) {
+          var th = el('span', 'sp-lthumb' + (stacked ? ' is-stack' : ''));
+          loadArt(slug, function (art) {
+            if (art.state !== 'ready') return;
+            var img = new Image();
+            img.alt = '';
+            img.decoding = 'async';
+            img.src = art.url;
+            th.appendChild(img);
+          }, override);
+          return th;
+        }
 
-          // The PC banner across the top, the profile picture on its edge, the thumbnails below
-          channel: function (pool) {
-            var banner = (pool['youtube-banners'] || [])[0], pfp = (pool['profile-pictures'] || [])[0], videos = pool['youtube-thumbnails'] || [];
-            if (!banner || !pfp || !videos.length) return null;
-            var scene = el('div', 'pc-scene pc-scene--channel');
-            banner.classList.add('pc-ch-banner');
-            pfp.classList.add('pc-ch-pfp');
-            var row = el('div', 'pc-ch-videos');
-            videos.slice(0, 2).forEach(function (v) { row.appendChild(v); });
-            scene.appendChild(banner);
-            scene.appendChild(row);
-            scene.appendChild(pfp);
-            return scene;
-          },
+        // ---- Bundle slide: the open bundle, with a counter and one chip per bundle below ----
+        var DEFAULT_BUNDLE = 'youtuber-starter-pack';   // opens first on page load (any id from BUNDLES)
+        var chipsBox = shop.querySelector('[data-shop-tabs]');
+        var panel = shop.querySelector('[data-shop-panel]');
+        var posEl = shop.querySelector('[data-shop-pos]');
+        var totalEl = shop.querySelector('[data-shop-total]');
+        var data = [], tabs = [], bestPct = 0, current = -1;
 
-          // Posters either side of a commission sheet
-          pinboard: function (pool) {
-            var posters = pool['ads-posters'] || [], sheet = (pool['commission-sheets'] || [])[0];
-            if (!posters.length || !sheet) return null;
-            var scene = el('div', 'pc-scene pc-scene--pinboard');
-            posters.slice(0, 2).forEach(function (p, i) {
-              var pin = el('span', 'pc-pin pc-pin--poster ' + (i ? 'is-right' : 'is-left'));
-              pin.appendChild(p);
-              scene.appendChild(pin);
-            });
-            var main = el('span', 'pc-pin pc-pin--sheet');
-            main.appendChild(sheet);
-            scene.appendChild(main);
-            return scene;
-          },
-
-          // Cards fanned out (also the fallback): one per piece, up to five
-          cards: function (pool, b) {
-            var all = [];
-            b.items.forEach(function (it) {
-              (pool[it.product] || []).forEach(function (piece) { all.push(piece); });
-            });
-            all = all.slice(0, 5);
-            if (!all.length) return null;
-            var scene = el('div', 'pc-scene pc-scene--cards');
-            scene.style.setProperty('--k', all.length <= 3 ? '21' : '13');
-            scene.style.setProperty('--w', all.length <= 3 ? '28' : '22');
-            all.forEach(function (piece, i) {
-              var o = i - (all.length - 1) / 2;
-              var card = el('span', 'pc-trade');
-              card.style.setProperty('--o', String(o));
-              card.style.zIndex = String(10 - Math.round(Math.abs(o) * 2));
-              piece.classList.add('pc-trade-art');
-              card.appendChild(piece);
-              scene.appendChild(card);
-            });
-            return scene;
-          }
-        };
-
-        var bestStage = null, bestPercent = 0, pricedCount = 0;
-
+        // Work out the totals for every bundle once
         BUNDLES.forEach(function (b) {
-          var card = el('li', 'pc-bundle');
-          card.setAttribute('data-bundle', b.id);
-          card.classList.add('pc-bundle--' + (b.tone || 'blue'));
-
-          // What is inside + totals
-          var regularUsd = 0, regularRobux = 0, usdKnown = true, robuxKnown = true, pool = {};
-          var inside = el('ul', 'pc-specs');
-          inside.setAttribute('aria-label', 'Included in this bundle');
+          var pieces = 0, regUsd = 0, regRbx = 0, usdOk = true, rbxOk = true;
           b.items.forEach(function (it) {
-            var p = PRICES[it.product] || {};
-            var info = productInfo[it.product] || { name: it.product };
-            var u = toNumber(p.usd), r = toNumber(p.robux);
-            if (u === null) usdKnown = false; else regularUsd += u * it.qty;
-            if (r === null) robuxKnown = false; else regularRobux += r * it.qty;
-            pool[it.product] = [];
-            for (var k = 0; k < it.qty; k++) pool[it.product].push(makePiece(it.product, it.art && it.art.length ? it.art[k % it.art.length] : ''));
-            inside.appendChild(el('li', '', it.qty + '\u00d7 ' + info.name));
+            var p = PRICES[it.product] || {}, u = toNumber(p.usd), r = toNumber(p.robux);
+            pieces += it.qty;
+            if (u === null) usdOk = false; else regUsd += u * it.qty;
+            if (r === null) rbxOk = false; else regRbx += r * it.qty;
           });
-
-          // Saving: measured in USD when possible, otherwise in Robux
           var bu = toNumber(b.usd), br = toNumber(b.robux);
-          var isPriced = bu !== null || br !== null;
-          var regular = null, paid = 0, money = formatUsd;
-          if (bu !== null && usdKnown && regularUsd > 0) { regular = regularUsd; paid = bu; }
-          else if (br !== null && robuxKnown && regularRobux > 0) {
-            regular = regularRobux; paid = br;
-            money = function (n) { return formatRobux(n) + ' Robux'; };
-          }
-          var saved = regular !== null ? regular - paid : 0;
-          var percent = saved > 0 ? Math.round(saved / regular * 100) : 0;
-          if (isPriced) pricedCount++;
+          var d = { b: b, pieces: pieces, regUsd: regUsd, regRbx: regRbx, bu: bu, br: br, isPriced: bu !== null || br !== null };
+          d.savedUsd = (bu !== null && usdOk) ? regUsd - bu : 0;
+          d.savedRbx = (br !== null && rbxOk) ? regRbx - br : 0;
+          d.pct = d.savedUsd > 0 ? Math.round(d.savedUsd / regUsd * 100) : (d.savedRbx > 0 ? Math.round(d.savedRbx / regRbx * 100) : 0);
+          if (d.pct > bestPct) bestPct = d.pct;
+          data.push(d);
+        });
 
-          // Stage: transparent, with the bundle's own decoration behind the artwork
-          var stage = el('div', 'pc-stage pc-bundle-stage');
+        // Small helpers shared by the picker and the card
+        function itemLabel(it) {
+          var info = productInfo[it.product] || { name: it.product };
+          return it.qty + '\u00d7 ' + (it.qty > 1 ? (SHORT_NAMES[it.product] || info.name) : (SINGLE_NAMES[it.product] || info.name));
+        }
+        // Every piece of a bundle in order; n is the number of the contents row it belongs to
+        function piecesOf(b) {
+          var out = [];
+          b.items.forEach(function (it, idx) {
+            for (var k = 0; k < it.qty; k++) out.push({ slug: it.product, art: it.art && it.art.length ? it.art[k % it.art.length] : '', n: idx + 1 });
+          });
+          return out;
+        }
+        // The piece shown in front (and as the picker preview): the middle one
+        function heroOf(len) { return len >= 3 ? Math.floor(len / 2) : 0; }
+
+        // The open bundle
+        function renderPanel(d) {
+          var b = d.b, pop = !!b.popular;
+          panel.textContent = '';
+          panel.className = 'sp-card' + (b.icon === 'youtube' ? ' is-yt' : '');
+          panel.setAttribute('aria-labelledby', 'sp-tab-' + b.id);
+
+          // Stage: the pieces side by side, the middle one in front and a little bigger
+          var stage = el('div', 'sp-stage');
           stage.setAttribute('aria-hidden', 'true');
-          var scene = (SCENES[b.scene] || SCENES.cards)(pool, b) || SCENES.cards(pool, b);
-          if (scene) stage.appendChild(scene);
-          if (percent > 0) stage.appendChild(el('p', 'tag pc-price-note', 'Save ' + percent + '%'));
-          if (percent > bestPercent) { bestPercent = percent; bestStage = stage; }
-          stage.insertBefore(makeDeco(b), stage.firstChild);
-          // Order in the card: text (name, description, contents), then the artwork, then the price
-          var body = el('div', 'pc-body pc-bundle-head');
-          var title = el('div', 'pc-bundle-title');
-          var emblem = el('span', 'pc-bundle-emblem');
-          emblem.setAttribute('aria-hidden', 'true');
-          emblem.innerHTML = BUNDLE_ICONS[b.icon] || '';
-          title.appendChild(emblem);
-          title.appendChild(el('h3', 'pc-name', b.name));
-          body.appendChild(title);
-          if (b.text) body.appendChild(el('p', 'pc-desc', b.text));
-          body.appendChild(inside);
+          var pile = el('div', 'sp-pile');
+          var pieces = piecesOf(b), hero = heroOf(pieces.length);
+          var cap = Math.min(52, 100 / pieces.length + 10);
+          pile.style.setProperty('--pile-w', (pieces.length === 1 ? 14 : pieces.length === 2 ? 22 : 27) + 'rem');
+          pieces.forEach(function (p, i) {
+            var kind = kindOf(p.slug), tile = makeTile(p.slug, p.art, kind);
+            tile.setAttribute('data-n', p.n);
+            tile.style.setProperty('--cap', cap.toFixed(1));
+            tile.style.setProperty('--f', pieces.length > 1 ? (i / (pieces.length - 1)).toFixed(3) : '0.5');
+            tile.style.setProperty('--i', i);
+            if (i === hero) {
+              tile.style.setProperty('--y', 50);
+              tile.style.setProperty('--r', 0);
+              tile.style.setProperty('--z', 90);
+              tile.style.setProperty('--base', 1.1);
+            } else {
+              tile.style.setProperty('--y', 50 + LIFT[i % LIFT.length]);
+              tile.style.setProperty('--r', TILT[i % TILT.length]);
+              tile.style.setProperty('--z', RANK[kind] * 10 + i);
+            }
+            pile.appendChild(tile);
+          });
+          stage.appendChild(pile);
 
-          var buy = el('div', 'pc-buy');
-          var price = el('p', 'pc-price' + (isPriced ? ' has-price' : ''));
-          // "Separately" comes first and stands out: what the pieces cost on their own, struck through, and what you keep
-          if (percent > 0) {
-            var was = el('span', 'pc-bundle-was');
-            was.appendChild(el('span', 'pc-bundle-was-label', 'Separately'));
-            was.appendChild(el('s', 'pc-bundle-was-price', money(regular)));
-            was.appendChild(el('span', 'pc-bundle-save', 'You save ' + money(saved)));
-            price.appendChild(was);
-          }
-          if (isPriced) price.appendChild(el('span', 'pc-price-from', 'Bundle price'));
-          var amounts = el('span', 'pc-price-row');
-          if (!isPriced) {
-            amounts.appendChild(el('span', 'pc-price-amount is-unset', 'Price coming soon'));
-          } else {
-            if (bu !== null) amounts.appendChild(el('span', 'pc-price-amount', b.usd));
-            if (br !== null) { var rb = el('span', 'pc-price-robux'); fillRobux(rb, b.robux); amounts.appendChild(rb); }
-          }
-          price.appendChild(amounts);
-          buy.appendChild(price);
+          // Piece labels (numbers match the rows in the list)
+          var strip = el('div', 'sp-strip');
+          b.items.forEach(function (it, idx) {
+            var chip = el('span', 'sp-pchip');
+            chip.setAttribute('data-p', it.product);
+            var ci = el('span', ''); ci.innerHTML = PRODUCT_ICONS[it.product] || I_IMG; ci.firstChild.setAttribute('aria-hidden', 'true');
+            chip.appendChild(ci.firstChild);
+            chip.appendChild(document.createTextNode(itemLabel(it)));
+            strip.appendChild(chip);
+          });
+          stage.appendChild(strip);
 
+          if (b.icon === 'youtube') {
+            var top = el('div', 'sp-yt-top');
+            top.setAttribute('aria-hidden', 'true');
+            var logo = el('span', 'sp-yt-logo'); logo.innerHTML = I_PLAY; top.appendChild(logo);
+            top.appendChild(el('span', '', 'Your channel'));
+            var sub = el('span', 'sp-yt-sub'); sub.innerHTML = I_BELL; sub.appendChild(document.createTextNode('Subscribe')); top.appendChild(sub);
+            stage.appendChild(top);
+            var stats = el('div', 'sp-yt-stats');
+            stats.setAttribute('aria-hidden', 'true');
+            var v = el('span', 'sp-yt-stat'); v.innerHTML = I_EYE; v.appendChild(document.createTextNode('1.2M')); stats.appendChild(v);
+            var l = el('span', 'sp-yt-stat'); l.innerHTML = I_LIKE; l.appendChild(document.createTextNode('48K')); stats.appendChild(l);
+            stage.appendChild(stats);
+          }
+
+          if (pop) {
+            var badge = el('span', 'sp-pop');
+            badge.innerHTML = STAR;
+            badge.appendChild(el('span', '', 'Popular'));
+            stage.appendChild(badge);
+          }
+          if (d.pct > 0) stage.appendChild(el('span', 'sp-off', d.pct + '% off'));
+          panel.appendChild(stage);
+
+          // Hovering a row in the list lifts its pieces and numbers them (the only way to highlight them)
+          function light(slug) {
+            stage.classList.toggle('is-focus', !!slug);
+            stage.querySelectorAll('.sp-tile, .sp-pchip').forEach(function (t) { t.classList.toggle('is-lit', t.getAttribute('data-p') === slug); });
+          }
+
+          var body = el('div', 'sp-body');
+          var head = el('div', 'sp-head');
+          head.appendChild(el('h3', 'sp-name', b.name));
+          if (b.text) head.appendChild(el('p', 'sp-text', b.text));
+          body.appendChild(head);
+
+          // Contents: one line per item
+          var list = el('ul', 'sp-layers');
+          list.setAttribute('aria-label', 'Included in this bundle');
+          b.items.forEach(function (it, idx) {
+            var p = PRICES[it.product] || {}, u = toNumber(p.usd);
+            var li = el('li', 'sp-layer');
+            li.tabIndex = 0;
+            li.addEventListener('pointerenter', function () { light(it.product); });
+            li.addEventListener('pointerleave', function () { light(''); });
+            li.addEventListener('focus', function () { light(it.product); });
+            li.addEventListener('blur', function () { light(''); });
+            var lico = el('span', 'sp-lico'); lico.setAttribute('aria-hidden', 'true'); lico.innerHTML = PRODUCT_ICONS[it.product] || I_IMG; li.appendChild(lico);
+            var label = el('span', 'sp-lname');
+            label.appendChild(el('strong', '', itemLabel(it)));
+            if (it.qty > 1 && u !== null) label.appendChild(el('small', '', formatUsd(u) + ' each'));
+            li.appendChild(label);
+            li.appendChild(el('span', 'sp-lprice', u === null ? '\u2013' : formatUsd(u * it.qty)));
+            list.appendChild(li);
+          });
+          body.appendChild(list);
+
+          // Footer: price, then the button
+          var foot = el('div', 'sp-foot');
+          var hasOldUsd = d.savedUsd > 0, hasOldRbx = d.savedRbx > 0;
+          var price = el('div', 'sp-price');
+          if (d.isPriced) price.appendChild(el('span', 'sp-from', 'Bundle price'));
+          var row = el('div', 'sp-price-row');
+          if (d.bu !== null) row.appendChild(el('span', 'sp-new-usd', formatUsd(d.bu)));
+          else if (!d.isPriced) row.appendChild(el('span', 'sp-new-usd is-unset', 'Price coming soon'));
+          if (d.br !== null) { var nr = el('span', 'sp-new-rbx'); fillRobux(nr, d.br); row.appendChild(nr); }
+          price.appendChild(row);
+          if (hasOldUsd || hasOldRbx) {
+            var sub = el('div', 'sp-sub');
+            if (hasOldUsd) sub.appendChild(el('s', 'sp-old-usd', formatUsd(d.regUsd)));
+            if (hasOldRbx) { var os = el('s', 'sp-old-rbx'); fillRobux(os, d.regRbx); sub.appendChild(os); }
+            if (d.pct > 0) sub.appendChild(el('span', 'sp-pct', '\u2212' + d.pct + '%'));
+            sub.appendChild(el('span', 'sp-save', 'You save ' + (hasOldUsd ? formatUsd(d.savedUsd) : formatRobux(d.savedRbx) + ' Robux')));
+            price.appendChild(sub);
+          }
+          foot.appendChild(price);
+
+          var buy = el('div', 'sp-buy');
           var cta = el('a', 'button button-primary pc-button');
           cta.href = '/contact/?product=bundle-' + b.id;
           cta.setAttribute('aria-label', 'Commission the ' + b.name + ' bundle');
-          cta.innerHTML = 'Commission <svg class="pc-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+          cta.innerHTML = 'Commission ' + ARROW;
           buy.appendChild(cta);
-          var foot = el('div', 'pc-body pc-bundle-foot');
           foot.appendChild(buy);
-          card.appendChild(body);
-          card.appendChild(stage);
-          card.appendChild(foot);
-
-          bundleGrid.appendChild(card);
-        });
-
-        // The biggest percentage saving, once at least two bundles have a price (same orange badge as "Popular")
-        if (pricedCount > 1 && bestStage) bestStage.appendChild(el('span', 'pc-badge', 'Biggest saving'));
-
-        // The scenes fade in when a card scrolls into view (the cards fan out)
-        var section = bundleGrid.closest('.pc-bundles');
-        var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        var cards = Array.prototype.slice.call(bundleGrid.children);
-        if ('IntersectionObserver' in window && !calm) {
-          section.classList.add('is-ready');
-          var seen = new IntersectionObserver(function (entries) {
-            entries.forEach(function (entry) {
-              if (!entry.isIntersecting) return;
-              entry.target.classList.add('is-visible');
-              seen.unobserve(entry.target);
-            });
-          }, { threshold: 0.25 });
-          cards.forEach(function (c) { seen.observe(c); });
-        } else {
-          cards.forEach(function (c) { c.classList.add('is-visible'); });
+          body.appendChild(foot);
+          panel.appendChild(body);
         }
 
-      }
+        function select(i, focusTab) {
+          if (i !== current) {
+            var first = current === -1;
+            current = i;
+            tabs.forEach(function (t, j) {
+              t.setAttribute('aria-selected', j === i ? 'true' : 'false');
+              t.tabIndex = j === i ? 0 : -1;
+            });
+            if (posEl) posEl.textContent = i + 1;
+            renderPanel(data[i]);
+            // Phone layout (picker scrolls sideways): bring the open bundle to the middle
+            if (chipsBox.scrollWidth > chipsBox.clientWidth + 1) {
+              var c = tabs[i];
+              chipsBox.scrollTo({ left: c.offsetLeft - (chipsBox.clientWidth - c.offsetWidth) / 2, behavior: first ? 'auto' : 'smooth' });
+            }
+          }
+          if (focusTab) tabs[i].focus();
+        }
+
+        // One row per bundle in the picker: artwork preview (the icon shows until it loads), name, price
+        var bestMarked = false;
+        data.forEach(function (d, i) {
+          var b = d.b;
+          var chip = el('button', 'sp-chip' + (b.popular ? ' is-popular' : ''));
+          chip.type = 'button';
+          chip.id = 'sp-tab-' + b.id;
+          chip.setAttribute('role', 'tab');
+          chip.setAttribute('aria-controls', 'sp-panel');
+          chip.setAttribute('aria-selected', 'false');
+          chip.tabIndex = -1;
+          chip.setAttribute('data-ico', b.icon || '');
+
+          var pcs = piecesOf(b), h = pcs[heroOf(pcs.length)];
+          var thumb = el('span', 'sp-cthumb');
+          thumb.setAttribute('aria-hidden', 'true');
+          var fall = el('span', 'sp-cfall');
+          fall.innerHTML = BUNDLE_ICONS[b.icon] || BUNDLE_ICONS.render;
+          thumb.appendChild(fall);
+          chip.appendChild(thumb);
+
+          var txt = el('span', 'sp-ctext');
+          txt.appendChild(el('strong', '', b.name));
+          if (b.usd) txt.appendChild(el('small', '', b.usd));
+          chip.appendChild(txt);
+
+          var flags = el('span', 'sp-cflags');
+          if (!bestMarked && bestPct > 0 && d.pct === bestPct) {
+            bestMarked = true;
+            var best = el('span', 'sp-best', '\u2212' + d.pct + '%');
+            best.title = 'Best value';
+            flags.appendChild(best);
+          }
+          if (b.popular) { var st = el('span', ''); st.innerHTML = STAR; st.setAttribute('aria-hidden', 'true'); flags.appendChild(st); }
+          if (flags.firstChild) chip.appendChild(flags);
+
+          chip.addEventListener('click', function () { select(i, false); });
+          chipsBox.appendChild(chip);
+          tabs.push(chip);
+        });
+        if (totalEl) totalEl.textContent = data.length;
+
+        // Arrow keys / Home / End move between bundles
+        chipsBox.addEventListener('keydown', function (e) {
+          var n = tabs.indexOf(document.activeElement);
+          if (n < 0 || e.altKey || e.ctrlKey || e.metaKey) return;
+          var to = -1;
+          if (e.key === 'ArrowDown' || e.key === 'ArrowRight') to = (n + 1) % tabs.length;
+          else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') to = (n - 1 + tabs.length) % tabs.length;
+          else if (e.key === 'Home') to = 0;
+          else if (e.key === 'End') to = tabs.length - 1;
+          if (to > -1) { e.preventDefault(); select(to, true); }
+        });
+
+        var aside = document.querySelector('#bundles .pc-head-aside');
+        if (aside && bestPct > 0) aside.appendChild(el('p', 'bk-upto', 'Save up to ' + bestPct + '%'));
+
+        var start = 0;
+        data.forEach(function (d, i) { if (d.b.id === DEFAULT_BUNDLE) start = i; });
+        select(start, false);
+      })();
 
       // Backdrop behind square artwork: a tiny copy of the image that the browser smooths when it is stretched.
       // This looks like a blur but costs almost nothing (no CSS blur filter on a full-size image).

@@ -49,6 +49,24 @@
    ========================================================== */
 const NEWS_POSTS = [
   {
+    id: "new-client-promotion",
+    date: "2026-10-22",
+    category: "Promotions",
+    title: "New Client Offer: Get $5 Off Your First Commission!",
+    summary: "We're introducing a special welcome offer for new Bcraft Designs clients! New clients can receive $5 off their first eligible commission!",
+    featured: true,
+    image: "images/news-5-client-promotion.webp",
+    imageAlt: "New $5 gift promotion",
+    content: [
+      { heading: "💸 How It Works:" },
+      { list: ["$5 OFF your first eligible order.", "$10 minimum order value before the discount is applied.", "Available exclusively to new Bcraft Designs clients who have not previously commissioned us.", "The offer applies to one eligible order per new client.", "The discount cannot be combined with our usual seasonal discounts or other promotional offers."] },
+      { heading: "❓ How to Claim Your Discount" },
+      "Claiming your discount is simple, but you must DM us and explicitly mention this $5 New Client Offer before placing your order.",
+      { list: ["1. Browse our Pricing page and choose the service you're interested in.", "2: Send us a direct message (DM) to discuss your commission.", "3: Clearly mention the $5 New Client Offer in your message.", "4: We'll confirm your eligibility and apply the discount to your first qualifying order."] },
+      "Important: If you don't DM us and mention this specific offer, the discount will not be applied. The offer will not be granted retroactively to orders that have already been placed. TOS apply."
+    ]
+    },
+  {
     id: "new-website-launch",
     date: "2026-10-20",
     category: "Announcements",
@@ -60,7 +78,7 @@ const NEWS_POSTS = [
     content: [
       "Take a look around on my new website, and if you'd like something made, you can commission us straight from the site."
     ]
-  },
+    },
   {
     id: "halloween-sale-2026",
     date: "2026-10",

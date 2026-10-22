@@ -9,6 +9,9 @@
   <meta name="theme-color" content="#060a14">
   <title>Bcraft Designs | Roblox Graphics Designer</title>
   <meta name="description" content="Bcraft Designs creates graphics, thumbnails, branding, and visual assets for Roblox creators and communities.">
+  <meta name="color-scheme" content="dark">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Bcraft Designs", "description": "Graphics, thumbnails, branding, and visual assets for Roblox creators and communities.", "sameAs": ["https://x.com/realbcraft", "https://www.roblox.com/groups/15703623/Bcrafts-community"]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Can I request a custom design?", "acceptedAnswer": {"@type": "Answer", "text": "Yes! Custom requests are welcome. Contact me with your idea, and the price will depend on the product or service it most closely matches."}}, {"@type": "Question", "name": "Are bulk orders available?", "acceptedAnswer": {"@type": "Answer", "text": "Bulk order discounts are available for renders. Contact me to discuss your requirements."}}, {"@type": "Question", "name": "How do I start a commission?", "acceptedAnswer": {"@type": "Answer", "text": "Choose a product from the pricing carousel and use its commission button to contact me. You can also contact me about a custom request."}}, {"@type": "Question", "name": "Are the listed prices final?", "acceptedAnswer": {"@type": "Answer", "text": "The listed prices are the starting prices for the specified products. Contact me to confirm the details of your project before proceeding."}}, {"@type": "Question", "name": "How long does a commission take?", "acceptedAnswer": {"@type": "Answer", "text": "Delivery time is 1-3 days depending on complexity."}}, {"@type": "Question", "name": "Can I ask a question before ordering?", "acceptedAnswer": {"@type": "Answer", "text": "Absolutely. Use the Contact page to discuss your idea or ask any questions before committing."}}, {"@type": "Question", "name": "Do you require a deposit?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — I require a 50% deposit before starting work, with the remaining balance due once your order is delivered."}}, {"@type": "Question", "name": "What details do I need to provide for my GFX order?", "acceptedAnswer": {"@type": "Answer", "text": "Please provide character references, poses, background ideas, models and any specific features you’d like included."}}]}</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Figtree:wght@400;500;600;700&display=swap">
@@ -20,6 +23,12 @@
   <script src="/companion.js" defer></script>
   <!-- Homepage "Latest news" strip (data comes from news-data.js) -->
   <style>
+    /* Skip link: first Tab stop, lets keyboard users jump past the menu */
+    .skip-link { position: fixed; top: 0.75rem; left: 0.75rem; z-index: 1000; padding: 0.6rem 1rem; border-radius: 10px; background: var(--color-accent-bright); color: #04101f; font-weight: 800; transform: translateY(-200%); transition: transform 0.2s ease; }
+    .skip-link:focus-visible { transform: none; outline: 2px solid #fff; outline-offset: 2px; }
+    #top:focus { outline: none; }
+    html { scroll-padding-top: 5.5rem; }
+
     /* Show the first hero picture right away (before script.js runs).
        Once the script turns it into a slide it gets .hero-slide and the normal slideshow rules take over. */
     .hero .hero-art-main .hero-art-image:not(.hero-slide) { opacity: 1; }
@@ -35,9 +44,19 @@
     .section.reviews { padding-top: var(--space-3); padding-bottom: var(--space-2); }
     .section.reviews .section-head { margin-bottom: var(--space-3); }
 
-    /* Review arrows + dots sit in the centre, under the whole carousel */
+    /* Reviews: round arrows float beside the cards on wide screens, dots sit centred underneath.
+       Below 1000px the arrows move to the two ends of one slim control bar. */
+    .review-carousel .review-controls[hidden] { display: none !important; }
+    .review-carousel[data-review-carousel] .review-controls { justify-content: space-between; width: min(100%, 20rem); margin: var(--space-1) auto 0; padding: 0.3rem; border: 1px solid var(--color-border); border-radius: 999px; background: rgba(6, 10, 20, 0.6); }
+    .review-carousel .review-arrow { width: 40px; height: 40px; border-radius: 50%; border-color: rgba(var(--rgb-blue), 0.35); background-color: rgba(10, 18, 40, 0.85); }
+    .review-carousel .review-dots { justify-content: center; }
     @media (min-width: 1000px) {
-      .review-carousel.is-nav-under .review-controls { position: static; width: auto !important; margin-top: var(--space-1); }
+      .review-carousel[data-review-carousel] { padding-inline: 4rem; }
+      .review-carousel[data-review-carousel] .review-controls { display: contents; }
+      .review-carousel .review-arrow { position: absolute; top: calc(50% - 1.6rem); width: 48px; height: 48px; margin-top: -24px; -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); box-shadow: 0 10px 24px -12px rgba(0, 0, 0, 0.9); }
+      .review-carousel [data-review-prev] { left: 0; }
+      .review-carousel [data-review-next] { right: 0; }
+      .review-carousel .review-dots { margin-top: 0.5rem; }
     }
 
     /* Compact "Latest news": small side-by-side cards */
@@ -53,7 +72,7 @@
     .news-card:hover .news-card-body { border-color: rgba(var(--rgb-blue), 0.55); }
     .news-card:focus-visible { outline: none; }
     .news-card:focus-visible .news-card-body { outline: 2px solid var(--color-accent-bright); outline-offset: 3px; }
-    .news-card-thumb { position: relative; position: relative; z-index: 2; flex: none; align-self: center; width: 17rem; max-width: 100%; margin-bottom: -1.5rem; overflow: hidden; aspect-ratio: 1430 / 731; border: 1px solid var(--color-border); border-radius: 10px; box-shadow: 0 14px 22px -8px rgba(0, 0, 0, 0.95), 0 0 0 3px var(--color-bg, #060a14); background: linear-gradient(135deg, #10204a, #08112a); }
+    .news-card-thumb { position: relative; z-index: 2; flex: none; align-self: center; width: 17rem; max-width: 100%; margin-bottom: -1.5rem; overflow: hidden; aspect-ratio: 1430 / 731; border: 1px solid var(--color-border); border-radius: 10px; box-shadow: 0 14px 22px -8px rgba(0, 0, 0, 0.95), 0 0 0 3px var(--color-bg, #060a14); background: linear-gradient(135deg, #10204a, #08112a); }
     .news-card-thumb img.news-card-img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: contain; }
     .news-card-thumb:not(.is-template)::before { content: ""; position: absolute; inset: -16px; background: var(--img, none) center / cover no-repeat; filter: blur(22px) brightness(0.65) saturate(1.15); }
     .news-card-thumb.is-template { display: flex; align-items: center; justify-content: center; }
@@ -83,6 +102,7 @@
 
 </head>
 <body class="is-home">
+  <a class="skip-link" href="#top">Skip to main content</a>
 
   <!-- ===== BACKGROUND (decorative, sits behind everything) =====
        The design grid and its details are drawn by style.css (section 3b).
@@ -199,11 +219,6 @@
             </a>
           </li>
           <li>
-            <a class="nav-social" href="#" data-social="github" data-tooltip="GitHub" aria-label="Bcraft Designs on GitHub">
-              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
-            </a>
-          </li>
-          <li>
             <a class="nav-social" href="#" data-social="discord" data-tooltip="Discord" aria-label="Bcraft Designs on Discord">
               <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
             </a>
@@ -214,7 +229,7 @@
     </div>
   </header>
 
-  <main id="top">
+  <main id="top" tabindex="-1">
 
     <!-- ===== HERO ===== -->
     <section class="hero" aria-labelledby="hero-title">
@@ -281,11 +296,6 @@
                 </a>
               </li>
               <li>
-                <a class="nav-social" href="#" data-social="github" data-tooltip="GitHub" aria-label="Bcraft Designs on GitHub">
-                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
-                </a>
-              </li>
-              <li>
                 <a class="nav-social" href="#" data-social="discord" data-tooltip="Discord" aria-label="Bcraft Designs on Discord">
                   <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
                 </a>
@@ -312,6 +322,7 @@
         </div>
 
         <div class="work-grid" data-work-grid></div>
+        <noscript><p class="x-posts-noscript">The gallery needs JavaScript. You can browse everything on the <a href="/work/">Work page</a>.</p></noscript>
 
         <div class="work-footer" data-reveal>
           <span class="work-footer-rule" aria-hidden="true"></span>
@@ -491,7 +502,7 @@
         @media (min-width: 1000px) {
           .fm-yt { grid-column: span 7; }
           .fm-rbx { grid-column: span 5; }
-          .fm-x, .fm-dc, .fm-gh { grid-column: span 4; }
+          .fm-x, .fm-dc { grid-column: span 6; }
         }
 
         /* Shared card look: dark brand surface, soft corner glows, lift on hover (same recipe as the socials page) */
@@ -599,7 +610,7 @@
         .fm-rbx-profile:hover > svg { transform: translate(2px, -2px); color: var(--color-accent-bright); }
         .fm-rbx-profile > .fm-ico:first-child { width: 1.3rem; height: 1.3rem; color: #fff; }
 
-        /* ---------- X: follow card (button matches GitHub; the band grows so there is never an empty gap) ---------- */
+        /* ---------- X: follow card (the band grows so there is never an empty gap) ---------- */
         .fm-x { --g1: 230, 236, 255; --g2: 74, 163, 255; background-color: #0b0e14; }
         a.fm-x:hover, a.fm-x:focus-visible { border-color: rgba(230, 236, 255, 0.45); }
         .fm-x-band { position: relative; isolation: isolate; overflow: hidden; display: flex; flex: 1 1 auto; align-items: flex-start; justify-content: space-between; gap: 0.75rem; min-height: 4.5rem; padding: 1.15rem; background: radial-gradient(circle at 85% 0, rgba(var(--g2), 0.22), transparent 60%), radial-gradient(rgba(255, 255, 255, 0.14) 1px, transparent 1.6px) 0 0 / 16px 16px; }
@@ -630,22 +641,6 @@
         .fm-dc-card > .fm-text + .fm-pill { margin-top: 0.8rem; }
         a.fm-dc:hover .fm-pill { background: #6d79ff; }
 
-        /* ---------- GitHub: repo-style card with a contribution graph ---------- */
-        .fm-gh { --g1: 176, 140, 255; background-color: #0d1117; padding: 1.15rem; gap: 0.85rem; }
-        a.fm-gh:hover, a.fm-gh:focus-visible { border-color: rgba(176, 140, 255, 0.65); }
-        .fm-gh-head { display: flex; align-items: center; gap: 0.6rem; font: 700 1.05rem var(--font-main); }
-        .fm-gh-head svg { width: 1.5rem; height: 1.5rem; }
-        .fm-gh-path b { margin: 0 0.15em; color: #7d8590; font-weight: 400; }
-        .fm-gh-graph { display: grid; grid-template-columns: repeat(14, 1fr); grid-template-rows: repeat(5, 1fr); grid-auto-flow: column; gap: 3px; }
-        .fm-gh-graph i { aspect-ratio: 1; border-radius: 2px; background: #161b22; }
-        .fm-gh-graph i[data-l="1"] { background: rgba(var(--rgb-blue), 0.25); }
-        .fm-gh-graph i[data-l="2"] { background: rgba(var(--rgb-blue), 0.45); }
-        .fm-gh-graph i[data-l="3"] { background: rgba(var(--rgb-blue), 0.7); }
-        .fm-gh-graph i[data-l="4"] { background: var(--color-accent-bright); }
-        .fm-gh .fm-text { color: #9aa4b2; }
-        .fm-gh .fm-pill { align-self: flex-start; margin-top: auto; padding: 0.45rem 0.9rem; border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 8px; background: #21262d; color: #fff; }
-        a.fm-gh:hover .fm-pill { background: #2d333b; }
-
         /* Soft entrance is handled by data-reveal; keep motion off for people who ask */
         @media (prefers-reduced-motion: reduce) {
           .fm-card, .fm-art-img, .fm-pill, .fm-pill svg, .fm-rbx-join, .fm-rbx-profile, .fm-rbx-join > svg:last-child, .fm-rbx-profile > svg { transition: none; }
@@ -658,7 +653,6 @@
         <symbol id="fm-roblox" viewBox="0 0 24 24"><path fill="currentColor" d="M18.926 23.998 0 18.892 5.075 0 24 5.108ZM15.348 10.09l-5.282-1.453-1.414 5.273 5.282 1.453z"/></symbol>
         <symbol id="fm-youtube" viewBox="0 0 24 24"><path fill="currentColor" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></symbol>
         <symbol id="fm-x" viewBox="0 0 24 24"><path fill="currentColor" d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></symbol>
-        <symbol id="fm-github" viewBox="0 0 24 24"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></symbol>
         <symbol id="fm-discord" viewBox="0 0 24 24"><path fill="currentColor" d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></symbol>
         <symbol id="fm-arrow" viewBox="0 0 16 16"><path d="M4 12 12 4M5.5 4H12v6.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
         <symbol id="fm-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></g></symbol>
@@ -667,7 +661,7 @@
       <div class="container">
         <div class="section-head socials-head" data-reveal>
           <h2 id="socials-title" class="section-title">Find Me Around</h2>
-          <p class="socials-lead">Come hang out, watch, follow or poke around the code.</p>
+          <p class="socials-lead">Come hang out, watch, or follow along.</p>
         </div>
 
         <div class="fm-hub">
@@ -759,14 +753,6 @@
             </span>
           </a>
 
-          <!-- GitHub -->
-          <a class="fm-card fm-gh" data-social="github" href="#" aria-label="GitHub: See the code" data-reveal data-reveal-index="3">
-            <span class="fm-gh-head"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#fm-github"/></svg><span class="fm-gh-path">realbcraft<b>/</b>projects</span></span>
-            <span class="fm-gh-graph" data-fm-graph aria-hidden="true"></span>
-            <span class="fm-text">Projects and experiments, straight from the code.</span>
-            <span class="fm-pill">See the code <svg viewBox="0 0 16 16" aria-hidden="true"><use href="#fm-arrow"/></svg></span>
-          </a>
-
         </div>
       </div>
 
@@ -782,18 +768,6 @@
           }
           img.addEventListener("load", tint);
           if (img.complete && img.naturalWidth) tint();
-        })();
-        // Decorative contribution graph for the GitHub card (fixed pattern, nothing is fetched)
-        (function () {
-          var g = document.querySelector("[data-fm-graph]");
-          if (!g) return;
-          var html = "";
-          for (var i = 0; i < 70; i++) {
-            var n = Math.abs(Math.sin(i * 12.9898 + 4.1414) * 43758.5453) % 1;
-            var l = n < 0.38 ? 0 : n < 0.62 ? 1 : n < 0.8 ? 2 : n < 0.93 ? 3 : 4;
-            html += '<i data-l="' + l + '"></i>';
-          }
-          g.innerHTML = html;
         })();
       </script>
     </section>
@@ -814,7 +788,7 @@
                 <span class="faq-icon" aria-hidden="true"></span>
               </button>
             </h3>
-            <div class="faq-panel" id="faq-a1" role="region" aria-labelledby="faq-q1">
+            <div class="faq-panel" id="faq-a1">
               <div class="faq-panel-inner"><p class="faq-answer">Yes! Custom requests are welcome. Contact me with your idea, and the price will depend on the product or service it most closely matches.</p></div>
             </div>
           </div>
@@ -825,7 +799,7 @@
                 <span class="faq-icon" aria-hidden="true"></span>
               </button>
             </h3>
-            <div class="faq-panel" id="faq-a2" role="region" aria-labelledby="faq-q2">
+            <div class="faq-panel" id="faq-a2">
               <div class="faq-panel-inner"><p class="faq-answer">Bulk order discounts are available for renders. Contact me to discuss your requirements.</p></div>
             </div>
           </div>
@@ -836,7 +810,7 @@
                 <span class="faq-icon" aria-hidden="true"></span>
               </button>
             </h3>
-            <div class="faq-panel" id="faq-a3" role="region" aria-labelledby="faq-q3">
+            <div class="faq-panel" id="faq-a3">
               <div class="faq-panel-inner"><p class="faq-answer">Choose a product from the pricing carousel and use its commission button to contact me. You can also contact me about a custom request.</p></div>
             </div>
           </div>
@@ -847,7 +821,7 @@
                 <span class="faq-icon" aria-hidden="true"></span>
               </button>
             </h3>
-            <div class="faq-panel" id="faq-a4" role="region" aria-labelledby="faq-q4">
+            <div class="faq-panel" id="faq-a4">
               <div class="faq-panel-inner"><p class="faq-answer">The listed prices are the starting prices for the specified products. Contact me to confirm the details of your project before proceeding.</p></div>
             </div>
           </div>
@@ -858,7 +832,7 @@
                 <span class="faq-icon" aria-hidden="true"></span>
               </button>
             </h3>
-            <div class="faq-panel" id="faq-a5" role="region" aria-labelledby="faq-q5">
+            <div class="faq-panel" id="faq-a5">
               <div class="faq-panel-inner"><p class="faq-answer">Delivery time is 1-3 days depending on complexity.</p></div>
             </div>
           </div>
@@ -869,7 +843,7 @@
                 <span class="faq-icon" aria-hidden="true"></span>
               </button>
             </h3>
-            <div class="faq-panel" id="faq-a6" role="region" aria-labelledby="faq-q6">
+            <div class="faq-panel" id="faq-a6">
               <div class="faq-panel-inner"><p class="faq-answer">Absolutely. Use the <a href="/contact/">Contact page</a> to discuss your idea or ask any questions before committing.</p></div>
             </div>
           </div>
@@ -880,7 +854,7 @@
                 <span class="faq-icon" aria-hidden="true"></span>
               </button>
             </h3>
-            <div class="faq-panel" id="faq-a7" role="region" aria-labelledby="faq-q7">
+            <div class="faq-panel" id="faq-a7">
               <div class="faq-panel-inner"><p class="faq-answer">Yes &mdash; I require a 50% deposit before starting work, with the remaining balance due once your order is delivered.</p></div>
             </div>
           </div>
@@ -891,7 +865,7 @@
                 <span class="faq-icon" aria-hidden="true"></span>
               </button>
             </h3>
-            <div class="faq-panel" id="faq-a8" role="region" aria-labelledby="faq-q8">
+            <div class="faq-panel" id="faq-a8">
               <div class="faq-panel-inner"><p class="faq-answer">Please provide character references, poses, background ideas, models and any specific features you&rsquo;d like included.</p></div>
             </div>
           </div>
@@ -975,11 +949,6 @@
               </a>
             </li>
             <li>
-              <a class="footer-social" href="#" data-social="github" aria-label="Bcraft Designs on GitHub" title="GitHub">
-                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
-              </a>
-            </li>
-            <li>
               <a class="footer-social" href="#" data-social="discord" aria-label="Bcraft Designs on Discord" title="Discord">
                 <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
               </a>
@@ -990,7 +959,7 @@
       </div>
 
       <div class="footer-bottom">
-        <p class="footer-copy">&copy; <span data-year>2024</span> Bcraft Designs</p>
+        <p class="footer-copy">&copy; <span data-year>2026</span> Bcraft Designs</p>
         <a class="footer-top-link" href="#top">Back to top <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 10V2M2.5 5.5 6 2l3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       </div>
     </div>
@@ -1091,36 +1060,6 @@
         host.appendChild(card);
       });
       strip.hidden = false;
-    })();
-  </script>
-  <script>
-    // Reviews: on wide screens put the arrows + dots directly under HobPlayzRoblox's review
-    (function () {
-      var carousel = document.querySelector("[data-review-carousel]");
-      var controls = carousel && carousel.querySelector(".review-controls");
-      var track = carousel && carousel.querySelector("[data-review-track]");
-      if (!controls || !track) return;
-      var wide = window.matchMedia("(min-width: 1000px)");
-      function place() {
-        if (!wide.matches) {
-          carousel.classList.remove("is-nav-under");
-          controls.style.top = controls.style.width = "";
-          return;
-        }
-        var cards = Array.prototype.slice.call(track.querySelectorAll(".review-card"));
-        if (!cards.length) return;
-        var hob = cards.filter(function (c) { return /HobPlayzRoblox/i.test(c.textContent); })[0] || cards[2] || cards[cards.length - 1];
-        var c = hob.getBoundingClientRect();
-        var host = carousel.getBoundingClientRect();
-        carousel.classList.add("is-nav-under");
-        controls.style.width = c.width + "px";
-        controls.style.top = (c.bottom - host.top + 14) + "px";
-      }
-      window.addEventListener("load", place);
-      window.addEventListener("resize", place);
-      if (wide.addEventListener) wide.addEventListener("change", place);
-      if (document.fonts && document.fonts.ready) document.fonts.ready.then(place);
-      place();
     })();
   </script>
   <!-- FAQ accordion: buttons toggle aria-expanded; Up / Down / Home / End move between questions. -->
