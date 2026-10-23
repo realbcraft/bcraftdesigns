@@ -142,7 +142,7 @@ const MOUSE_LIGHT = true;
 //                  "none" = no seasonal theme at all
 //   SEASON_WINDOWS [month, day] to [month, day], inclusive. They must not overlap.
 // ==========================================================
-const SEASON_MODE = "none";
+const SEASON_MODE = "auto";
 const SEASON_WINDOWS = {
   halloween: { from: [10, 1],  to: [10, 31] },
   christmas: { from: [12, 1],  to: [12, 26] },
