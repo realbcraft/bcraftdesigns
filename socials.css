@@ -231,7 +231,6 @@
 .sx-icons .nav-social[href*="roblox.com"]  { --brand: 235, 64, 52; }
 .sx-icons .nav-social[href*="youtube.com"] { --brand: 255, 60, 60; }
 .sx-icons .nav-social[href*="://x.com"]    { --brand: 230, 236, 255; }
-.sx-icons .nav-social[href*="github.com"]  { --brand: 176, 140, 255; }
 .sx-icons .nav-social[href*="discord"]     { --brand: 88, 101, 242; }
 
 .sx-icons .nav-social:hover,
@@ -300,10 +299,10 @@
   inset: 0;
   z-index: -1;
   background:
-    linear-gradient(90deg, var(--color-surface) 12%, rgba(11, 18, 38, 0.82) 55%, rgba(11, 18, 38, 0.5) 100%),
-    radial-gradient(circle at 0 50%, rgba(var(--rgb-blue), 0.22), transparent 55%),
-    url("images/hero-main-01.png") right 30% / cover no-repeat;
+    linear-gradient(90deg, rgba(11, 18, 38, 0.94) 8%, rgba(11, 18, 38, 0.74) 55%, rgba(11, 18, 38, 0.5) 100%),
+    radial-gradient(circle at 0 50%, rgba(var(--rgb-blue), 0.22), transparent 55%);
 }
+.sx-order-bg { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
 .sx-order-logo { display: grid; place-items: center; width: 6.5rem; aspect-ratio: 1; border: 1px solid var(--color-border); border-radius: 16px; background: #08112a; }
 .sx-order-logo img { width: 74%; height: auto; filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 14px rgba(var(--rgb-blue), 0.35)); }
 .sx-order-body { display: grid; gap: 0.4rem; min-width: 0; }
@@ -419,30 +418,14 @@
 .sx-dc-btn svg { width: 1.1rem; height: 1.1rem; }
 .sx-dc:hover .sx-dc-btn { background: #6d79ff; }
 
-/* ----- GitHub-style card ----- */
-.sx-gh { display: grid; align-content: start; gap: 0.85rem; padding: 1.1rem; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; background: #0d1117; transition: transform 0.22s var(--spring), border-color 0.18s ease; }
-.sx-gh:hover, .sx-gh:focus-visible { transform: translateY(-2px); border-color: rgba(var(--rgb-blue), 0.7); }
-.sx-gh-head { display: flex; align-items: center; gap: 0.6rem; font: 700 1.05rem var(--font-main); }
-.sx-gh-head svg { width: 1.5rem; height: 1.5rem; }
-.sx-gh-path b { margin: 0 0.15em; color: #7d8590; font-weight: 400; }
-.sx-gh-graph { display: grid; grid-template-columns: repeat(14, 1fr); grid-template-rows: repeat(5, 1fr); grid-auto-flow: column; gap: 3px; }
-.sx-gh-graph i { aspect-ratio: 1; border-radius: 2px; background: #161b22; }
-.sx-gh-graph i[data-l="1"] { background: rgba(var(--rgb-blue), 0.25); }
-.sx-gh-graph i[data-l="2"] { background: rgba(var(--rgb-blue), 0.45); }
-.sx-gh-graph i[data-l="3"] { background: rgba(var(--rgb-blue), 0.7); }
-.sx-gh-graph i[data-l="4"] { background: var(--color-accent-bright); }
-.sx-gh-text { color: #9aa4b2; font-size: 0.92rem; line-height: 1.45; }
-.sx-gh-btn { display: inline-flex; align-items: center; justify-self: start; gap: 0.45rem; padding: 0.45rem 0.9rem; border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 8px; background: #21262d; font-weight: 700; font-size: 0.9rem; transition: background-color 0.15s ease; }
-.sx-gh:hover .sx-gh-btn { background: #2d333b; }
-.sx-gh-btn svg { width: 0.85rem; height: 0.85rem; }
 
 @media (prefers-reduced-motion: reduce) {
-  .sx-btn, .sx-btn::after, .sx-btn-arrow, .sx-tool, .sx-dc, .sx-gh, .sx-toast { transition: none; }
-  .sx-btn:hover, .sx-tool:hover, .sx-dc:hover, .sx-gh:hover { transform: none; }
+  .sx-btn, .sx-btn::after, .sx-btn-arrow, .sx-tool, .sx-dc, .sx-toast { transition: none; }
+  .sx-btn:hover, .sx-tool:hover, .sx-dc:hover { transform: none; }
 }
 
 /* ----- The X-post glow, on every card: soft corner light + an outer blue/violet halo ----- */
-.sx-order, .sx-comm, .sx-rbx, .sx-ytp, .sx-dc, .sx-gh, .sx-say-bubble {
+.sx-order, .sx-comm, .sx-rbx, .sx-ytp, .sx-dc, .sx-say-bubble {
   --g1: var(--rgb-blue);
   --g2: 150, 130, 255;
   box-shadow:
@@ -454,7 +437,7 @@
 }
 .sx-ytp { --g1: 255, 70, 70; }
 .sx-dc { --g1: 88, 101, 242; }
-.sx-comm, .sx-ytp, .sx-dc, .sx-gh {
+.sx-comm, .sx-ytp, .sx-dc {
   background-image:
     radial-gradient(circle at 100% 0, rgba(var(--g1), 0.2), transparent 58%),
     radial-gradient(circle at 0 100%, rgba(var(--g2), 0.16), transparent 55%);
@@ -465,7 +448,7 @@
     radial-gradient(circle at 0 100%, rgba(var(--g2), 0.16), transparent 55%),
     linear-gradient(180deg, var(--color-surface-raised), var(--color-surface));
 }
-.sx-order:hover, .sx-rbx:hover, .sx-ytp:hover, .sx-dc:hover, .sx-gh:hover, .sx-say:hover .sx-say-bubble {
+.sx-order:hover, .sx-rbx:hover, .sx-ytp:hover, .sx-dc:hover, .sx-say:hover .sx-say-bubble {
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.1),
     0 28px 54px -28px rgba(0, 0, 0, 0.9),
@@ -587,13 +570,6 @@
 .sx-picker-sec + .sx-picker-sec { padding-left: 0.9rem; border-left: 1px solid var(--color-border); }
 .sx-picker-c { margin-bottom: 0.4rem; color: var(--color-orange-bright); font-size: 0.74rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
 
-/* ----- Commission status pill ----- */
-.sx-slots { display: inline-flex; align-items: center; gap: 0.5rem; max-width: 100%; padding: 0.3rem 0.8rem 0.3rem 0.65rem; border: 1px solid var(--color-border); border-radius: 999px; background: transparent; color: var(--color-text-muted); font: 600 0.8rem/1.25 var(--font-main); transition: border-color 0.15s ease, color 0.15s ease; }
-.sx-slots:hover, .sx-slots:focus-visible { border-color: rgba(255, 255, 255, 0.3); color: #fff; }
-.sx-slots-dot { flex: none; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: #3ddc84; }
-.sx-slots.is-closed .sx-slots-dot { background: #ff5a5a; }
-@media (prefers-reduced-motion: reduce) { .sx-slots { transition: none; } }
-
 /* ----- Secret confetti ----- */
 .sx-confetti { position: fixed; inset: 0; z-index: 95; overflow: hidden; pointer-events: none; }
 .sx-confetti i { position: absolute; top: 0; display: block; }
@@ -602,14 +578,16 @@
 /* ----- X post sits to the left; the "Follow me on X" bubble tucks under it, to the right, overlapping the card ----- */
 .sx-x { width: 70%; justify-self: start; }
 .sx-x .x-post { padding-bottom: 3.4rem; }          /* spare room so the bubble never covers the post's own content */
-/* X card: dark, but a little brighter than pure black, with the same soft corner light as the other cards */
-.sx-x .x-post {
-  border-color: rgba(255, 255, 255, 0.17);
-  background-color: #11151f;
-  background-image:
-    radial-gradient(circle at 100% 0, rgba(var(--rgb-blue), 0.12), transparent 58%),
-    radial-gradient(circle at 0 100%, rgba(150, 130, 255, 0.08), transparent 55%);
+/* X card: near-black, with only a faint corner light. The "background" shorthand resets every layer
+   style.css paints (including its gradient border-box layer), so nothing lighter shows through. */
+.sx-x .x-post, .sx-x .x-post--custom {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background:
+    radial-gradient(circle at 100% 0, rgba(var(--rgb-blue), 0.05), transparent 58%),
+    radial-gradient(circle at 0 100%, rgba(150, 130, 255, 0.035), transparent 55%),
+    #020306;
 }
+.sx-x .x-post-media { background: #020306; }
 .sx-say { position: relative; z-index: 2; justify-self: end; width: 88%; margin-top: -3.4rem; }
 .sx-say-bubble { box-shadow: 0 18px 40px -16px rgba(0, 0, 0, 0.95), 0 0 60px -34px rgba(var(--g1), 0.8); }
 @media (max-width: 560px) {
@@ -644,12 +622,10 @@
 .sx-clock[data-pos="bio"] { display: flex; width: 100%; margin-top: 0.7rem; padding: 0.6rem 0 0; border: 0; border-top: 1px solid var(--color-border); border-radius: 0; background: none; }
 .sx-clock[hidden] { display: none; }
 
-/* Bio footer: the commission pill on the left, "My time" on the right */
+/* Bio footer: "My time" */
 .sx-bio-text { margin: 0; }
 .sx-bio-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 0.7rem; margin-top: 0.8rem; padding-top: 0.75rem; border-top: 1px solid var(--color-border); }
-.sx-bio-foot .sx-clock[data-pos="bio"] { width: auto; margin: 0 0 0 auto; padding: 0; border: 0; }
-/* a touch smaller inside the footer so pill, mood chip and clock share one row at the bubble's normal width */
-.sx-bio-foot .sx-slots { font-size: 0.78rem; }
+.sx-bio-foot .sx-clock[data-pos="bio"] { width: auto; margin: 0; padding: 0; border: 0; }
 .sx-bio-foot .sx-clock[data-pos="bio"] { font-size: 0.8rem; }
 
 .sx-sr { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
@@ -658,14 +634,6 @@
    Slot tracker, theme button, greeting,
    branded QR dialog
    ========================================================== */
-
-/* ----- Commission pill: one dot per slot (filled green = free) ----- */
-.sx-slot-dots { display: inline-flex; align-items: center; gap: 0.22rem; }
-.sx-slot-dots i { width: 0.56rem; height: 0.56rem; border: 1.5px solid rgba(61, 220, 132, 0.45); border-radius: 50%; }
-.sx-slot-dots i.is-free { border-color: #3ddc84; background: #3ddc84; }
-.sx-slots.is-closed .sx-slot-dots i { border-color: rgba(255, 90, 90, 0.55); box-shadow: none; }
-.sx-slots.has-dots .sx-slots-dot { display: none; }
-.sx-slots-sub { color: rgba(255, 255, 255, 0.62); font-weight: 600; }
 
 /* ----- Theme button in the hero ----- */
 .sx-tool--icon { width: 2.5rem; padding: 0; justify-content: center; }
@@ -696,7 +664,7 @@
 .sx-qr-btn:hover, .sx-qr-btn:focus-visible { background: rgba(var(--rgb-blue), 0.3); transform: translateY(-1px); }
 .sx-qr-btn svg { width: 1rem; height: 1rem; }
 @media (prefers-reduced-motion: reduce) { .sx-qr-btn { transition: none; } }
-/* ----- Two columns on wide screens: X on the left, Discord + GitHub stacked on the right ----- */
+/* ----- Two columns on wide screens: X on the left, Discord on the right ----- */
 .sx-duo { display: grid; gap: 2rem; min-width: 0; }
 @media (min-width: 1100px) {
   .sx-feed > .sx-duo { grid-template-columns: minmax(0, 34rem) minmax(0, 24rem); gap: 2rem 2.5rem; justify-content: center; align-items: start; width: 100%; }
@@ -741,4 +709,95 @@
   .sx-rev { width: auto; align-self: center; justify-self: stretch; margin: 0; }
   /* ... and points left at the card on wide screens */
   .sx-rev-bubble::after { top: 1.6rem; left: -0.48rem; border-top: 0; border-bottom: 1px solid rgba(var(--rgb-blue), 0.5); }
+}
+/* ==========================================================
+   MOBILE POLISH (phones only, 640px and below)
+   Everything here lives inside this one media query, so
+   desktop and tablet layouts are completely untouched.
+   ========================================================== */
+@media (max-width: 640px) {
+  /* Taller banner so the avatar, thinking bubble and share buttons each get their own space */
+  .sx-banner { height: 14.5rem; }
+  .sx-tools { top: 0.75rem; right: 0.75rem; }
+
+  /* Thinking bubble: scaled down, beside the avatar, clear of the share buttons */
+  .sx-think {
+    left: calc(100% - 1rem);
+    bottom: calc(100% + 0.4rem);
+    width: min(10.5rem, calc(100vw - var(--pfp, 6.5rem) - 3rem));
+    min-height: 0;
+    padding: 0.4rem 0.7rem;
+    border-radius: 16px;
+    font-size: 0.74rem;
+    line-height: 1.3;
+  }
+  .sx-think-dot.a { left: 0.8rem; bottom: -0.8rem; width: 0.55rem; height: 0.55rem; }
+  .sx-think-dot.b { left: 0.35rem; bottom: -1.3rem; width: 0.35rem; height: 0.35rem; }
+
+  /* Header layout:
+       [avatar]  Bcraft
+                 @realbcraft
+       Your friendly GFX wizard   (left, under the avatar, same column as the dock + bio) */
+  .sx-id {
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas: "pfp name" "pfp at" "tag tag" "dock dock" "bio bio";
+    column-gap: 1.5rem;
+  }
+  .sx-who, .sx-handle { display: contents; }
+  .sx-namerow { grid-area: name; align-self: end; margin-top: 0.7rem; }
+  .sx-name { font-size: 2.3rem; }
+  .sx-handle-at { grid-area: at; align-self: start; margin-top: 0.3rem; font-size: 1rem; }
+  .sx-tagline { grid-area: tag; margin-top: 0.7rem; font-size: 0.98rem; white-space: nowrap; }
+
+  /* Social dock: ONE row, five small square buttons (never wraps) */
+  .sx-dock { width: auto; justify-self: start; align-items: flex-start; margin-top: 0.9rem; }
+  .sx-icons {
+    display: grid;
+    grid-template-columns: repeat(5, 2.2rem);
+    grid-auto-flow: column;
+    grid-auto-columns: 2.2rem;
+    gap: 0.6rem;
+    width: auto;
+    padding: 0.55rem 0.7rem;
+    border-radius: 18px;
+  }
+  .sx-icons li:nth-child(1) { margin: 0; padding: 0; background: none; }
+  .sx-icons .nav-social { width: 2.2rem; height: 2.2rem; aspect-ratio: 1 / 1; border-radius: 10px; justify-self: center; }
+  .sx-icons .nav-social svg { width: 1rem; height: 1rem; }
+  .sx-icons .nav-social img { width: 1.25rem; }
+
+  /* Bio bubble: easier to read */
+  .sx-bio { margin-top: 0.9rem; padding: 1rem 1.05rem 1rem; }
+  .sx-bio-text { font-size: 0.97rem; line-height: 1.6; letter-spacing: 0.005em; color: #e6ebf7; text-wrap: pretty; hyphens: none; }
+
+  /* Footer: "My time" on the left */
+  .sx-bio-foot { flex-direction: column; align-items: flex-start; justify-content: flex-start; gap: 0.55rem; }
+  .sx-bio-foot .sx-clock[data-pos="bio"] { margin: 0; }
+
+  /* Section headings a bit tighter */
+  .sx-feed, .sx-duo { gap: 1.75rem; }
+  .sx-h { font-size: 0.78rem; letter-spacing: 0.1em; }
+
+  /* Order card: logo + text in a row, full-width buttons underneath */
+  .sx-order { grid-template-columns: auto minmax(0, 1fr); justify-items: stretch; text-align: left; gap: 0.9rem 1rem; padding: 1.05rem; }
+  .sx-order-logo { width: 4.5rem; border-radius: 14px; }
+  .sx-order-title { font-size: 1.2rem; }
+  .sx-order-text { font-size: 0.88rem; line-height: 1.45; }
+  .sx-order-actions { grid-column: 1 / -1; grid-template-columns: minmax(0, 1fr); }
+  .sx-order-actions .sx-btn { width: 100%; justify-content: flex-start; }
+
+  /* Review bubble tucks neatly under the order card */
+  .sx-rev { width: calc(100% - 1rem); margin: -0.9rem 0 0 auto; }
+  .sx-rev-bubble::after { left: 1.6rem; }
+
+  /* X post: full width on phones, "Follow me on X" bubble overlapping its bottom edge */
+  .sx-x { width: 100%; }
+  .sx-say { width: 100%; }
+  .sx-say-text { font-size: 1rem; }
+}
+
+/* Very small phones */
+@media (max-width: 360px) {
+  .sx-name { font-size: 2.05rem; }
+  .sx-tagline { font-size: 0.9rem; }
 }

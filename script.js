@@ -43,7 +43,7 @@
 //   price-youtube-thumbnails-01.webp
 //   price-game-icons-01.webp
 //   price-ads-posters-01.webp
-//   price-youtube-banners-01.webp
+//   price-youtube-banners-01.webp         (file name kept; it is the Social Banners pricing card art)
 //   price-sheet-designs-01.webp
 //   payment-render-01.webp                 your own render next to the payment methods
 //   welcome-offer-01.webp                  your render on the sticky Welcome Offer card (transparent PNG/WebP, about 600 x 800)
@@ -142,7 +142,7 @@ const MOUSE_LIGHT = true;
 //                  "none" = no seasonal theme at all
 //   SEASON_WINDOWS [month, day] to [month, day], inclusive. They must not overlap.
 // ==========================================================
-const SEASON_MODE = "auto";
+const SEASON_MODE = "none";
 const SEASON_WINDOWS = {
   halloween: { from: [10, 1],  to: [10, 31] },
   christmas: { from: [12, 1],  to: [12, 26] },
@@ -400,7 +400,9 @@ function loadImageFlex(img, src) {
 //              first piece. Pieces without a number come after the numbered ones.
 //              Featured Work shows up to WORK_FEATURED_LIMIT pieces.
 //   alt      - description for screen readers (optional)
-//   title    - the project name (optional, only used for screen readers)
+//   title    - the name shown on the piece's card and in the viewer (optional).
+//              Leave it out and the category name is shown, e.g. "Social Banners".
+//              Example: { image: "/images/x.webp", title: "YouTube Banner" }
 //   id       - ONLY needed if a page refers to the piece by number
 //              (the About page does, see data-glimpse-grid). Leave it out
 //              otherwise: the file name is used. Never change an id that is
@@ -422,7 +424,7 @@ const WORK_CATEGORIES = [
   "Ads & Posters",
   "Renders",
   "YouTube Thumbnails",
-  "YouTube Banners",
+  "Social Banners",
   "UI/UX",
   "More"
 ];
@@ -445,7 +447,7 @@ const WORK_FORMATS = {
   "Ads & Posters":      { width: 1920, height: 1080 },
   "Renders":            { width: 1000, height: 1000 },
   "YouTube Thumbnails": { width: 1920, height: 1080 },
-  "YouTube Banners":    { width: 2560, height: 1440 },
+  "Social Banners":    { width: 2560, height: 1440 },
   "UI/UX":              { width: 1920, height: 1080 },
   "More":               { width: 4, height: 3, fit: "contain" }
 };
@@ -487,8 +489,8 @@ const WORK = {
     { image: "/images/work/featured-thumbnail-01.webp",        id: 2,  featured: 2 },
     { image: "/images/work/featured-thumbnail-02.webp",        id: 5,  featured: 6 }
   ],
-  "YouTube Banners": [
-    { image: "/images/work/portfolio-thumbnail-02.webp",       id: 13 }
+  "Social Banners": [
+    { image: "/images/work/portfolio-thumbnail-02.webp",       id: 13, title: "YouTube Banner" }
   ],
   "UI/UX": [
     { image: "/images/work/featured-ui-01.webp",               id: 3 }
@@ -508,6 +510,7 @@ const WORK_ITEMS = (function () {
       items.push({
         id: piece.id !== undefined ? piece.id : file.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""),
         title: piece.title || "Artwork",
+        label: piece.title || category,   // what the card and the viewer show
         category: category,
         image: piece.image,
         alt: piece.alt || "",
@@ -541,7 +544,7 @@ const WORK_PRICING_SLUG = {
   "Renders": "renders",
   "Profile Pictures": "profile-pictures",
   "YouTube Thumbnails": "youtube-thumbnails",
-  "YouTube Banners": "youtube-banners",
+  "Social Banners": "youtube-banners",
   "Ads & Posters": "ads-posters",
   "Commission Sheets": "commission-sheets"
 };
@@ -953,7 +956,7 @@ const commissionPricing = {
   ytthumbs:   { label: "YouTube Thumbnails",             category: "YouTube Thumbnails", base: 20, robux: 5000 },
   icons:      { label: "Game Icons",                     category: "Game Icons",        base: 25, robux: 7500 },
   ads:        { label: "Ads & Posters",                  category: "Ads & Posters",     base: 20, robux: 5000 },
-  banners:    { label: "YouTube Banners",                category: "YouTube Banners",   base: 20, robux: 5000 },
+  banners:    { label: "Social Banners",                category: "Social Banners",   base: 20, robux: 5000 },
   sheets:     { label: "Commission/Price Sheet Designs", category: "Commission Sheets", base: 20, robux: 5000 }
 };
 
@@ -1115,7 +1118,7 @@ const WELCOME_OFFER = {
   terms: "New clients only \u00b7 $10 minimum order \u00b7 TOS apply",
   buttonText: "Redeem",
   pathSteps: ["DM me", "Mention it", "Done"],
-  tabText: "$5 off",
+  tabText: "$5.00 off",
   modalTitle: "A little gift for you",
   modalText: "New here? Mention it when you message me and I\u2019ll take it off your first order.",
   modalSteps: [
@@ -1544,7 +1547,7 @@ window.addEventListener("resize", () => {
     card.appendChild(art);
 
     const caption = make("figcaption", "portfolio-caption");
-    caption.appendChild(make("span", "tag", item.category));
+    caption.appendChild(make("span", "tag", item.label));
     card.appendChild(caption);
 
     grid.appendChild(card);
@@ -1878,7 +1881,7 @@ const LIGHTBOX_SETTINGS = {
     "Ads & Posters": "Promo art that stops the scroll.",
     "Renders": "Renders and key art for games, groups and events.",
     "YouTube Thumbnails": "Made to get clicked.",
-    "YouTube Banners": "Channel art that sets the tone.",
+    "Social Banners": "Banners sized right for every platform.",
     "UI/UX": "Menus you can actually read.",
     "More": "Everything that does not fit in a box."
   };
@@ -1961,7 +1964,7 @@ const LIGHTBOX_SETTINGS = {
       card.appendChild(art);
 
       const caption = createEl("figcaption", "portfolio-caption");
-      caption.appendChild(createEl("span", "tag", item.category));
+      caption.appendChild(createEl("span", "tag", item.label));
       card.appendChild(caption);
 
       grid.appendChild(card);
@@ -2495,8 +2498,8 @@ const LIGHTBOX_SETTINGS = {
 
     resetZoom();
 
-    // Category and position (no title)
-    viewer.countCat.textContent = item.category;
+    // Name (the piece's title, or its category) and position
+    viewer.countCat.textContent = item.label;
     viewer.countPos.textContent = count > 1 ? (viewerIndex + 1) + " / " + count : "";
     viewer.prev.hidden = count < 2;
     viewer.next.hidden = count < 2;
@@ -2733,7 +2736,7 @@ const LIGHTBOX_SETTINGS = {
     "Ads & Posters": "Made to stop scrolls",
     "Renders": "Shiny, shiny renders",
     "YouTube Thumbnails": "Click magnets!",
-    "YouTube Banners": "Channel art time",
+    "Social Banners": "Banner time!",
     "UI/UX": "Menus you can read",
     "More": "Secrets live here"
   };

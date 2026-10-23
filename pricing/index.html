@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#060a14">
   <title>Pricing | Bcraft Designs</title>
-  <meta name="description" content="Bcraft Designs pricing: custom Roblox GFX and UI commissions including game thumbnails, game icons, profile pictures, commission sheets, renders, YouTube thumbnails, YouTube banners and UI/UX.">
+  <meta name="description" content="Bcraft Designs pricing: custom Roblox GFX and UI commissions including game thumbnails, game icons, profile pictures, commission sheets, renders, YouTube thumbnails, social banners and UI/UX.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Figtree:wght@400;500;600;700&display=swap">
@@ -26,15 +26,17 @@
 
     /* ---- Picker (left) ---- */
     .sp-chips { position: relative; display: flex; flex-direction: column; gap: 0.5rem; }
-    .sp-chip { display: flex; align-items: center; gap: 0.75rem; width: 100%; padding: 0.55rem 0.75rem 0.55rem 0.55rem; border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 16px; background: rgba(255, 255, 255, 0.05); color: var(--color-text-muted); font: inherit; text-align: left; cursor: pointer; transition: background-color 0.2s ease, color 0.2s ease; }
+    /* Hero: See Bundles button + commission status on one row */
+    .pc-actions { align-items: center; }
+    .pc-actions .pc-status { margin: 0; }
+    .pc-bundles-btn { display: inline-flex; align-items: center; gap: 0.6rem; border-color: rgba(47, 214, 143, 0.55); }
+    .pc-bundles-btn:hover, .pc-bundles-btn:focus-visible { border-color: #2fd68f; }
+    .pc-bundles-save { display: inline-block; padding: 0.15rem 0.6rem; border-radius: 999px; background: #2fd68f; color: #03281a; font-size: 0.8rem; font-weight: 800; line-height: 1.3; white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .pc-bundles-save[hidden] { display: none; }
+    .sp-chip { display: flex; align-items: center; gap: 0.75rem; width: 100%; padding: 0.6rem 0.9rem 0.6rem 0.6rem; border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 16px; background: rgba(255, 255, 255, 0.05); color: var(--color-text-muted); font: inherit; text-align: left; cursor: pointer; transition: background-color 0.2s ease, color 0.2s ease; }
     .sp-chip:hover { background: rgba(255, 255, 255, 0.09); color: var(--color-text); }
     .sp-chip:focus-visible { outline: 2px solid var(--color-accent-bright); outline-offset: 2px; }
     .sp-chip[aria-selected="true"] { background: rgba(var(--t), 0.2); border-color: rgba(var(--t), 0.55); color: #fff; }
-    .sp-cthumb { position: relative; flex: none; width: 3.2rem; height: 3.2rem; overflow: hidden; border-radius: 12px; background: rgba(var(--t), 0.18); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1); }
-    .sp-cthumb img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; }
-    .sp-cfall { position: absolute; inset: 0; display: grid; place-items: center; color: rgb(var(--t)); }
-    .sp-cfall svg { display: block; width: 1.7rem; height: 1.7rem; }
-    .sp-chip[data-ico="youtube"] .sp-cthumb { background: rgba(255, 64, 64, 0.2); } .sp-chip[data-ico="youtube"] .sp-cfall { color: #ff5a5a; }
     .sp-ctext { display: grid; flex: 1; min-width: 0; gap: 0.15rem; line-height: 1.2; }
     .sp-ctext strong { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: 0.98rem; font-weight: 700; }
     .sp-ctext small { font-size: 0.84rem; font-weight: 600; opacity: 0.75; font-variant-numeric: tabular-nums; }
@@ -43,12 +45,12 @@
     .sp-best { padding: 0.1rem 0.5rem; border-radius: 999px; background: #2fd68f; color: #03281a; font-size: 0.74rem; font-weight: 800; font-variant-numeric: tabular-nums; }
 
     /* ---- The open bundle ---- */
-    .sp-card { position: relative; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 22px; background: var(--color-surface); box-shadow: 0 30px 60px -34px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.04); }
+    .sp-card { position: relative; z-index: 0; isolation: isolate; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 22px; background: var(--color-surface); box-shadow: 0 30px 60px -34px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.04); }
     .sp-card:focus-visible { outline: 2px solid var(--color-accent-bright); outline-offset: 3px; }
 
     .sp-stage { position: relative; height: clamp(13rem, 27vw, 18rem);
       background: radial-gradient(ellipse 60% 90% at 50% 120%, rgba(var(--t), 0.28), transparent 70%), rgba(255, 255, 255, 0.02); }
-    .sp-pile { position: absolute; top: 1.1rem; bottom: 3.6rem; left: 50%; width: min(var(--pile-w, 30rem), calc(100% - 2.5rem)); transform: translateX(-50%); container-type: size; }
+    .sp-pile { position: absolute; top: 0.7rem; bottom: 3.3rem; left: 50%; width: min(var(--pile-w, 30rem), calc(100% - 2.5rem)); transform: translateX(-50%); container-type: size; }
 
     /* Artwork tiles. Size comes from the picture's real ratio (--ar), so nothing is cropped or stretched.
        The middle piece (--base) sits in front, a little bigger. Tiles ignore the pointer. */
@@ -105,7 +107,7 @@
     .sp-new-usd.is-unset { font-size: 1.15rem; letter-spacing: 0; }
     .sp-new-rbx { display: inline-flex; align-items: center; gap: 0.3rem; color: #c3cde0; font-size: 1.1rem; font-weight: 800; font-variant-numeric: tabular-nums; }
     .sp-sub { display: flex; flex-wrap: wrap; align-items: center; gap: 0.2rem 0.7rem; color: var(--color-text-muted); font-size: 0.88rem; font-weight: 600; font-variant-numeric: tabular-nums; }
-    .sp-old-usd, .sp-old-rbx { display: inline-flex; align-items: center; gap: 0.2rem; text-decoration: line-through; text-decoration-color: #ff5a5a; text-decoration-thickness: 2px; }
+    .sp-old-usd, .sp-old-rbx { display: inline-flex; align-items: center; gap: 0.2rem; text-decoration: line-through; text-decoration-color: rgba(255, 90, 90, 0.8); text-decoration-thickness: 1px; }
     .sp-save { color: #7ff0b8; font-weight: 800; }
     .sp-price-row { align-items: center; }
     .sp-sub { gap: 0.4rem 0.8rem; font-size: 1rem; }
@@ -126,13 +128,8 @@
     .sp-specs svg { width: 0.95rem; height: 0.95rem; opacity: 0.85; }
     .sp-from { color: var(--color-text-muted); font-size: 0.82rem; font-weight: 700; }
     .sp-pop svg.sp-star { width: 0.9rem; height: 0.9rem; }
-    .sp-layer .sp-lico { display: grid; flex: none; place-items: center; width: 1.6rem; height: 1.6rem; border-radius: 8px; background: rgba(var(--t), 0.16); color: rgb(var(--t)); }
-    .sp-lico svg { width: 1rem; height: 1rem; }
-    .sp-layer:hover .sp-lico, .sp-layer:focus-visible .sp-lico { background: rgb(var(--t)); color: #06101f; }
     .sp-layer .sp-lnum { display: none; }
-    .sp-pchip svg { width: 0.95rem; height: 0.95rem; margin-left: 0.2rem; color: rgb(var(--t)); }
     .sp-pchip b { display: none; }
-    .sp-stage.is-focus .sp-pchip.is-lit svg { color: #06101f; }
 
     /* ---- YouTuber card: channel look (red accent, play badge, subscribe row) ---- */
     .sp-card.is-yt { --t: 255, 64, 64; }
@@ -149,6 +146,22 @@
     .sp-card.is-yt .sp-pile .sp-tile[data-p="youtube-thumbnails"]::before { content: ""; position: absolute; z-index: 2; right: 0.3rem; bottom: 0.3rem; padding: 0.05rem 0.3rem; border-radius: 3px; background: rgba(0, 0, 0, 0.85); color: #fff; font-size: 0.62rem; font-weight: 800; content: "12:34"; }
     .sp-card.is-yt .sp-tile[data-p="profile-pictures"] { border-radius: 50%; border: 2px solid #ff4040; }
     @media (max-width: 760px) { .sp-yt-stats { display: none; } }
+
+    /* ---- v9: YouTube / Roblox brand marks, builder ---- */
+
+    /* ---- v10: tags, saved Robux, lighter render backing ---- */
+    .sp-ctag { justify-self: start; padding: 0.05rem 0.5rem; border-radius: 999px; background: rgba(var(--g), 0.16); color: rgb(var(--g)); font-size: 0.68rem; font-weight: 800; letter-spacing: 0.02em; line-height: 1.5; }
+    .sp-chip[aria-selected="true"] .sp-ctag { background: rgba(255, 255, 255, 0.16); color: #fff; }
+    .sp-pop.is-tag { padding-left: 0.7rem; background: rgba(var(--t), 0.22); color: #fff; }
+    .sp-save-rbx { display: inline-flex; align-items: center; gap: 0.2rem; }
+    .sp-tile[data-p="renders"] { background: rgba(var(--t), 0.04); border-color: rgba(255, 255, 255, 0.05); box-shadow: 0 12px 18px -10px rgba(0, 0, 0, 0.3); }
+
+    /* ---- v11: picker icons (one meaningful icon per bundle) ---- */
+    .sp-cico { display: grid; flex: none; place-items: center; width: 2.6rem; height: 2.6rem; border-radius: 12px; background: rgba(var(--t), 0.16); color: rgb(var(--t)); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08); transition: background-color 0.2s ease, color 0.2s ease; }
+    .sp-cico svg { display: block; width: 1.45rem; height: 1.45rem; }
+    .sp-chip[aria-selected="true"] .sp-cico { background: rgb(var(--t)); color: #06101f; }
+    .sp-chip[data-ico="youtube"] .sp-cico { background: rgba(255, 64, 64, 0.18); color: #ff4a4a; }
+    .sp-chip[data-ico="youtube"][aria-selected="true"] .sp-cico { background: #ff2d2d; color: #fff; }
 
     /* ---- Phones: snapping picker row on top, price + button pinned to the bottom of the card ---- */
     @media (max-width: 760px) {
@@ -170,6 +183,11 @@
       .sp-pchip { font-size: 0.74rem; }
     }
     @media (prefers-reduced-motion: reduce) { .sp-tile, .sp-body { animation: none; transition: none; } }
+    /* ---- Social Banners card: platform chips use the normal spec-chip look; only the icon is added ---- */
+    .pc-specs-platforms { flex-wrap: nowrap; }
+    .pc-specs-platforms li { display: inline-flex; align-items: center; gap: 0.35em; white-space: nowrap; }
+    .pc-specs-platforms svg { display: block; width: 1em; height: 1em; flex: none; }
+    @media (max-width: 40rem) { .pc-specs-platforms .pc-plat-name { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; } }
   </style>
 </head>
 <body>
@@ -303,30 +321,29 @@
 
     <!-- ===== HERO ===== -->
     <section class="page-hero pc-hero" aria-labelledby="page-title">
+      <!-- HERO ARTWORK: decorative image covering the right side, fading out where the headline starts. Swap the file to change it. -->
+      <div class="pc-hero-visual" aria-hidden="true">
+        <img class="pc-hero-art" src="/images/hero-main-07.webp" alt="" width="1280" height="720" decoding="async">
+      </div>
       <div class="container">
         <h1 id="page-title" class="page-title">Your vision<span class="pc-dot" aria-hidden="true"></span> My next creation<span class="pc-dot" aria-hidden="true"></span></h1>
         <p class="page-text">
           Custom Roblox GFX and UI commissions, made around your game, your channel
-          and your ideas. Browse the products below, or tell me about something new.
+          and your ideas. Browse the products below, or grab a bundle and save.
         </p>
         <div class="page-actions pc-actions">
           <a class="button button-primary button-lg" href="#catalogue">Explore Pricing</a>
-          <a class="button button-secondary button-lg" href="/contact/">Discuss a Project</a>
+          <a class="button button-secondary button-lg pc-bundles-btn" href="#bundles">See Bundles <span class="pc-bundles-save" data-bundles-save hidden></span></a>
+          <!-- COMMISSION AVAILABILITY: sits next to the buttons.
+               TO CHANGE THE STATUS: edit COMMISSION_STATUS at the top of the script at the bottom
+               of this page (set it to "open", "limited" or "closed"). The wording for each
+               status is in STATUS_TEXT right below it. -->
+          <p class="pc-status" data-status="open" data-commission-status aria-label="Commission availability">
+            <span class="pc-status-dot" aria-hidden="true"></span>
+            <span class="pc-status-label">Commission status</span>
+            <span class="pc-status-text">Commissions are open.</span>
+          </p>
         </div>
-      </div>
-    </section>
-
-    <!-- ===== COMMISSION AVAILABILITY =====
-         TO CHANGE THE STATUS: edit COMMISSION_STATUS at the top of the script at the bottom
-         of this page (set it to "open", "limited" or "closed"). The wording for each
-         status is in STATUS_TEXT right below it. -->
-    <section class="pc-status-strip" aria-label="Commission availability">
-      <div class="container">
-        <p class="pc-status" data-status="open" data-commission-status>
-          <span class="pc-status-dot" aria-hidden="true"></span>
-          <span class="pc-status-label">Commission status</span>
-          <span class="pc-status-text">Commissions are open.</span>
-        </p>
       </div>
     </section>
 
@@ -356,7 +373,7 @@
       <div class="pc-carousel" data-carousel role="region" aria-roledescription="carousel" aria-label="Products">
         <div class="pc-track">
           <div class="pc-viewport" data-viewport tabindex="0" aria-label="Product slides. Use the left and right arrow keys to move between products.">
-            <article class="pc-slide is-featured" id="game-thumbnails" data-product="game-thumbnails" role="group" aria-roledescription="slide" aria-label="1 of 8: Thumbnails">
+            <article class="pc-slide is-featured" id="game-thumbnails" data-product="game-thumbnails" role="group" aria-roledescription="slide" aria-label="1 of 9: Thumbnails">
               <div class="pc-stage">
                 <span class="pc-badge">Popular</span>
                 <p class="tag pc-price-note" data-note hidden></p>
@@ -376,7 +393,7 @@
                 <a class="pc-portfolio" href="/work/#game-thumbnails" aria-label="See Thumbnails in the portfolio">View in portfolio <svg class="pc-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
               </div>
             </article>
-            <article class="pc-slide is-featured" id="game-icons" data-product="game-icons" role="group" aria-roledescription="slide" aria-label="2 of 8: Game Icons">
+            <article class="pc-slide is-featured" id="game-icons" data-product="game-icons" role="group" aria-roledescription="slide" aria-label="2 of 9: Game Icons">
               <div class="pc-stage">
                 <span class="pc-badge">Popular</span>
                 <p class="tag pc-price-note" data-note hidden></p>
@@ -396,7 +413,27 @@
                 <a class="pc-portfolio" href="/work/#game-icons" aria-label="See Game Icons in the portfolio">View in portfolio <svg class="pc-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
               </div>
             </article>
-            <article class="pc-slide" id="renders" data-product="renders" role="group" aria-roledescription="slide" aria-label="3 of 8: Renders">
+            <article class="pc-slide" id="game-logos" data-product="game-logos" role="group" aria-roledescription="slide" aria-label="3 of 9: Game Logos">
+              <div class="pc-stage">
+                
+                <p class="tag pc-price-note" data-note hidden></p>
+                <div class="pc-art r-wide">
+                  <img class="work-image" data-pc-art="/images/price-game-logos-01.webp" data-pc-fallback="/images/work/featured-logo-01.webp" alt="Example of Game Logos artwork by Bcraft Designs" loading="lazy">
+                </div>
+              </div>
+              <div class="pc-body">
+                <h3 class="pc-name">Game Logos</h3>
+                <p class="pc-desc">Custom text logos for your game. A bold wordmark that pairs with your game icon and stands out anywhere.</p>
+                <ul class="pc-specs" aria-label="Details"><li>PNG</li><li>1&ndash;3 days</li></ul>
+                <div class="pc-buy">
+                  <!-- PRICE: filled in from PRICES in the script at the bottom of this page. Edit prices there only. -->
+                  <p class="pc-price" data-price-for="game-logos"><span class="pc-price-from">From</span><span class="pc-price-row"><span class="pc-price-amount is-unset" data-usd>Price coming soon</span><span class="pc-price-robux" data-robux hidden></span></span></p>
+                  <a class="button button-primary pc-button" href="/contact/?product=game-logos" aria-label="Commission Game Logos">Commission <svg class="pc-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                </div>
+                <a class="pc-portfolio" href="/work/#game-logos" aria-label="See Game Logos in the portfolio">View in portfolio <svg class="pc-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+              </div>
+            </article>
+            <article class="pc-slide" id="renders" data-product="renders" role="group" aria-roledescription="slide" aria-label="4 of 9: Renders">
               <div class="pc-stage">
                 
                 <p class="tag pc-price-note" data-note hidden></p>
@@ -416,7 +453,7 @@
                 <a class="pc-portfolio" href="/work/#renders" aria-label="See Renders in the portfolio">View in portfolio <svg class="pc-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
               </div>
             </article>
-            <article class="pc-slide" id="profile-pictures" data-product="profile-pictures" role="group" aria-roledescription="slide" aria-label="4 of 8: Profile Pictures">
+            <article class="pc-slide" id="profile-pictures" data-product="profile-pictures" role="group" aria-roledescription="slide" aria-label="5 of 9: Profile Pictures">
               <div class="pc-stage">
                 
                 <p class="tag pc-price-note" data-note hidden></p>
@@ -436,7 +473,7 @@
                 <a class="pc-portfolio" href="/work/#profile-pictures" aria-label="See Profile Pictures in the portfolio">View in portfolio <svg class="pc-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
               </div>
             </article>
-            <article class="pc-slide" id="youtube-thumbnails" data-product="youtube-thumbnails" role="group" aria-roledescription="slide" aria-label="5 of 8: YouTube Thumbnails">
+            <article class="pc-slide" id="youtube-thumbnails" data-product="youtube-thumbnails" role="group" aria-roledescription="slide" aria-label="6 of 9: YouTube Thumbnails">
               <div class="pc-stage">
                 
                 <p class="tag pc-price-note" data-note hidden></p>
@@ -456,27 +493,27 @@
                 <a class="pc-portfolio" href="/work/#youtube-thumbnails" aria-label="See YouTube Thumbnails in the portfolio">View in portfolio <svg class="pc-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
               </div>
             </article>
-            <article class="pc-slide" id="youtube-banners" data-product="youtube-banners" role="group" aria-roledescription="slide" aria-label="6 of 8: YouTube Banners">
+            <article class="pc-slide" id="youtube-banners" data-product="youtube-banners" role="group" aria-roledescription="slide" aria-label="7 of 9: Social Banners">
               <div class="pc-stage">
                 
                 <p class="tag pc-price-note" data-note hidden></p>
                 <div class="pc-art r-wide">
-                  <img class="work-image" data-pc-art="/images/price-youtube-banners-01.webp" data-pc-fallback="/images/work/portfolio-thumbnail-02.webp" alt="Example of YouTube Banners artwork by Bcraft Designs" loading="lazy">
+                  <img class="work-image" data-pc-art="/images/price-youtube-banners-01.webp" data-pc-fallback="/images/work/portfolio-thumbnail-02.webp" alt="Example of Social Banners artwork by Bcraft Designs" loading="lazy">
                 </div>
               </div>
               <div class="pc-body">
-                <h3 class="pc-name">YouTube Banners</h3>
-                <p class="pc-desc">Channel banners that give your YouTube channel a consistent look.</p>
-                <ul class="pc-specs" aria-label="Details"><li class="pc-spec-size">2560 &times; 1440</li><li>PNG</li><li>1&ndash;3 days</li></ul>
+                <h3 class="pc-name">Social Banners</h3>
+                <p class="pc-desc">Banners for every social platform, made in the right size and ratio for each one.</p>
+                <ul class="pc-specs pc-specs-platforms" aria-label="Works for X, YouTube, Discord, Twitch and more"><li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg><span class="pc-plat-name">X</span></li><li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg><span class="pc-plat-name">YouTube</span></li><li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg><span class="pc-plat-name">Discord</span></li><li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.43l-3 3v-3H6.857V1.714h13.714Z"/></svg><span class="pc-plat-name">Twitch</span></li></ul>
                 <div class="pc-buy">
                   <!-- PRICE: filled in from PRICES in the script at the bottom of this page. Edit prices there only. -->
                   <p class="pc-price" data-price-for="youtube-banners"><span class="pc-price-from">From</span><span class="pc-price-row"><span class="pc-price-amount is-unset" data-usd>Price coming soon</span><span class="pc-price-robux" data-robux hidden></span></span></p>
-                  <a class="button button-primary pc-button" href="/contact/?product=youtube-banners" aria-label="Commission YouTube Banners">Commission <svg class="pc-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                  <a class="button button-primary pc-button" href="/contact/?product=youtube-banners" aria-label="Commission Social Banners">Commission <svg class="pc-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
                 </div>
-                <a class="pc-portfolio" href="/work/#youtube-banners" aria-label="See YouTube Banners in the portfolio">View in portfolio <svg class="pc-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                <a class="pc-portfolio" href="/work/#youtube-banners" aria-label="See Social Banners in the portfolio">View in portfolio <svg class="pc-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
               </div>
             </article>
-            <article class="pc-slide" id="ads-posters" data-product="ads-posters" role="group" aria-roledescription="slide" aria-label="7 of 8: Ads and Posters">
+            <article class="pc-slide" id="ads-posters" data-product="ads-posters" role="group" aria-roledescription="slide" aria-label="8 of 9: Ads and Posters">
               <div class="pc-stage">
                 
                 <p class="tag pc-price-note" data-note hidden></p>
@@ -496,7 +533,7 @@
                 <a class="pc-portfolio" href="/work/#ads" aria-label="See Ads &amp; Posters in the portfolio">View in portfolio <svg class="pc-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
               </div>
             </article>
-            <article class="pc-slide" id="commission-sheets" data-product="commission-sheets" role="group" aria-roledescription="slide" aria-label="8 of 8: Commission / Price Sheet Designs">
+            <article class="pc-slide" id="commission-sheets" data-product="commission-sheets" role="group" aria-roledescription="slide" aria-label="9 of 9: Commission / Price Sheet Designs">
               <div class="pc-stage">
                 
                 <p class="tag pc-price-note" data-note hidden></p>
@@ -522,16 +559,17 @@
         </div>
 
         <div class="pc-controls">
-          <p class="pc-count" data-count aria-live="polite"><span class="pc-pos" data-pos>1</span> / 8</p>
+          <p class="pc-count" data-count aria-live="polite"><span class="pc-pos" data-pos>1</span> / 9</p>
         </div>
 
         <div class="pc-chips" role="group" aria-label="Choose a product">
           <button class="pc-chip is-featured" type="button" data-chip aria-label="Go to Thumbnails" aria-current="true"><span class="pc-chip-label">Thumbnails</span></button>
           <button class="pc-chip is-featured" type="button" data-chip aria-label="Go to Game Icons" aria-current="false"><span class="pc-chip-label">Game Icons</span></button>
+          <button class="pc-chip" type="button" data-chip aria-label="Go to Game Logos" aria-current="false"><span class="pc-chip-label">Game Logos</span></button>
           <button class="pc-chip" type="button" data-chip aria-label="Go to Renders" aria-current="false"><span class="pc-chip-label">Renders</span></button>
           <button class="pc-chip" type="button" data-chip aria-label="Go to Profile Pictures" aria-current="false"><span class="pc-chip-label">Profile Pictures</span></button>
           <button class="pc-chip" type="button" data-chip aria-label="Go to YouTube Thumbnails" aria-current="false"><span class="pc-chip-label">YouTube Thumbnails</span></button>
-          <button class="pc-chip" type="button" data-chip aria-label="Go to YouTube Banners" aria-current="false"><span class="pc-chip-label">YouTube Banners</span></button>
+          <button class="pc-chip" type="button" data-chip aria-label="Go to Social Banners" aria-current="false"><span class="pc-chip-label">Social Banners</span></button>
           <button class="pc-chip" type="button" data-chip aria-label="Go to Ads and Posters" aria-current="false"><span class="pc-chip-label">Ads &amp; Posters</span></button>
           <button class="pc-chip" type="button" data-chip aria-label="Go to Commission / Price Sheet Designs" aria-current="false"><span class="pc-chip-label">Commission / Price Sheet Designs</span></button>
         </div>
@@ -549,9 +587,6 @@
       <div class="container">
         <div class="section-head" data-reveal>
           <h2 id="bundles-title" class="section-title">Bundles</h2>
-          <div class="pc-head-aside">
-            <p class="services-lead">Ordering more than one piece? Bundles cost less together.</p>
-          </div>
         </div>
         <div class="sp-shop" data-shop data-reveal>
           <div class="sp-chips" data-shop-tabs role="tablist" aria-orientation="vertical" aria-label="Bundles"></div>
@@ -936,6 +971,7 @@
       var PRICES = {
         "game-thumbnails":    { usd: "$30", robux: "8K R$" },
         "game-icons":         { usd: "$25", robux: "7.5K R$" },
+        "game-logos":         { usd: "",    robux: "" },   // set the Game Logos price here (shows "Price coming soon" until then)
         "renders":            { usd: "$7",  robux: "2K R$", note: "Bulk Order Discounts Available!" },
         "profile-pictures":   { usd: "$10", robux: "2.5K R$" },
         "youtube-thumbnails": { usd: "$20", robux: "5K R$" },
@@ -948,25 +984,47 @@
       //   items       : { product: <a key from PRICES>, qty: <number>, art: [<image paths>] }
       //                 art is optional: one image per piece (a list shorter than qty repeats). Leave it out to use the product's own artwork.
       //   usd, robux  : the bundle price as text, like in PRICES. Left out (or "") shows "Price coming soon".
-      //   popular     : true shows the gold "Popular" badge and premium styling (like the featured product cards). The first two have it.
+      //   tag         : optional small label ("Popular", "Best Offer", ...) shown on the picker card and on the stage.
+      //   badge       : optional text for that badge (default "Popular").
+      //   popular     : true shows the gold "Popular" badge and premium styling (like the featured product cards). Only the Full Game Launch Bundle has it, with badge: "Best Value".
       //   All bundles share one accent colour, so there is no tone any more.
       //   The "Bought separately" price, the saving and the percent tag are worked out from PRICES.
       //   These are EXAMPLES (names, texts and prices too): change or delete them, and add your own.
       var BUNDLES = [
-        { id: "youtuber-starter-pack", popular: true, icon: "youtube", name: "YouTuber Starter Pack",
-          text: "Look like a real channel from your very first upload: profile picture, banner and two thumbnails.",
+        { id: "creator-starter-pack", tag: "Popular", icon: "youtube", name: "Creator Starter Pack",
+          text: "For new YouTubers who want a full channel look from the very first upload.",
           items: [ { product: "profile-pictures", qty: 1 }, { product: "youtube-banners", qty: 1 }, { product: "youtube-thumbnails", qty: 2, art: [ "/images/work/featured-thumbnail-01.webp", "/images/work/featured-thumbnail-02.webp" ] } ],
           usd: "$60", robux: "15K R$" },
-        { id: "game-launch-pack", popular: true, icon: "roblox", name: "Game Launch Pack",
-          text: "Two thumbnails and an icon: your game page, ready for launch.",
-          items: [ { product: "game-thumbnails", qty: 2, art: [ "/images/work/featured-gfx-01.webp", "/images/work/portfolio-thumbnail-01.webp" ] }, { product: "game-icons", qty: 1 } ],
-          usd: "$75", robux: "20.5K R$" },
+        { id: "youtube-growth-pack", tag: "Great Value", icon: "growth", name: "YouTube Growth Pack",
+          text: "For growing channels that upload often and need thumbnails that stand out.",
+          items: [ { product: "youtube-banners", qty: 1 }, { product: "youtube-thumbnails", qty: 4, art: [ "/images/work/featured-thumbnail-01.webp", "/images/work/featured-thumbnail-02.webp" ] } ],
+          usd: "$80", robux: "20K R$" },
+        { id: "game-starter-pack", icon: "gamepad", name: "Game Starter Pack",
+          text: "For small games that need a solid first look: icon, thumbnail, profile picture and a render.",
+          items: [ { product: "game-icons", qty: 1 }, { product: "game-thumbnails", qty: 1, art: [ "/images/work/featured-gfx-01.webp", "/images/work/portfolio-thumbnail-01.webp", "/images/work/portfolio-thumbnail-02.webp" ] }, { product: "profile-pictures", qty: 1 }, { product: "renders", qty: 1, art: [ "/images/work/featured-gfx-02.webp", "/images/work/portfolio-gfx-01.webp", "/images/work/portfolio-render-03.webp" ] } ],
+          usd: "$60", robux: "16.5K R$" },
+        { id: "game-launch-pack", tag: "Popular", icon: "rocket", name: "Game Launch Pack",
+          text: "For Roblox developers ready to launch: icon, thumbnails and ads in one go.",
+          items: [ { product: "game-icons", qty: 1 }, { product: "game-thumbnails", qty: 2, art: [ "/images/work/featured-gfx-01.webp", "/images/work/portfolio-thumbnail-01.webp", "/images/work/portfolio-thumbnail-02.webp" ] }, { product: "ads-posters", qty: 2 } ],
+          usd: "$100", robux: "27K R$" },
+        { id: "full-game-launch-bundle", popular: true, badge: "Best Value", icon: "trophy", name: "Full Game Launch Bundle",
+          text: "For serious launches: everything your game needs in one set, at our biggest saving.",
+          items: [ { product: "game-icons", qty: 1 }, { product: "game-thumbnails", qty: 3, art: [ "/images/work/featured-gfx-01.webp", "/images/work/portfolio-thumbnail-01.webp", "/images/work/portfolio-thumbnail-02.webp" ] }, { product: "ads-posters", qty: 4 }, { product: "renders", qty: 3, art: [ "/images/work/featured-gfx-02.webp", "/images/work/portfolio-gfx-01.webp", "/images/work/portfolio-render-03.webp" ] } ],
+          usd: "$172.80", robux: "46K R$" },
+        { id: "promotion-pack", tag: "Best Offer", icon: "megaphone", name: "Promotion Pack",
+          text: "For game owners running a promo who need ads and thumbnails that grab attention.",
+          items: [ { product: "ads-posters", qty: 4 }, { product: "game-thumbnails", qty: 2, art: [ "/images/work/featured-gfx-01.webp", "/images/work/portfolio-thumbnail-01.webp", "/images/work/portfolio-thumbnail-02.webp" ] } ],
+          usd: "$112", robux: "29K R$" },
+        { id: "developer-branding-pack", icon: "code", name: "Developer Branding Pack",
+          text: "For developers building a personal brand across their profile, channel and portfolio.",
+          items: [ { product: "profile-pictures", qty: 1 }, { product: "youtube-banners", qty: 1 }, { product: "commission-sheets", qty: 1 }, { product: "renders", qty: 1, art: [ "/images/work/featured-gfx-02.webp", "/images/work/portfolio-gfx-01.webp", "/images/work/portfolio-render-03.webp" ] } ],
+          usd: "$47", robux: "12K R$" },
         { id: "hire-me-kit", icon: "hire", name: "Hire Me Kit",
-          text: "Posters to get you noticed, a commission sheet to get you booked.",
-          items: [ { product: "ads-posters", qty: 2 }, { product: "commission-sheets", qty: 1 } ],
-          usd: "$50", robux: "12.5K R$" },
-        { id: "render-pack", icon: "render", name: "Render Pack",
-          text: "Three different renders, one collectible set.",
+          text: "For freelancers who want to get noticed and get booked.",
+          items: [ { product: "ads-posters", qty: 2 }, { product: "commission-sheets", qty: 1 }, { product: "profile-pictures", qty: 1 } ],
+          usd: "$58", robux: "14.5K R$" },
+        { id: "render-pack", tag: "Budget Pick", icon: "render", name: "Render Pack",
+          text: "For creators and devs who just need a clean, matching set of renders.",
           items: [ { product: "renders", qty: 3, art: [ "/images/work/featured-gfx-02.webp", "/images/work/portfolio-gfx-01.webp", "/images/work/portfolio-render-03.webp" ] } ],
           usd: "$17", robux: "5K R$" }
       ];
@@ -1088,10 +1146,10 @@
         // "hire" and "render" are drawn for this site. To use another official logo, paste its <svg> as a new key here
         // (viewBox 0 0 24 24, fill="currentColor") and set icon: "yourkey" on the bundle.
         var BUNDLE_ICONS = {
-          // channel: a video player with a play triangle and a progress line
-          youtube: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="3" y="4.5" width="18" height="12.5" rx="3"/><path d="m10.2 8.6 4.3 2.2-4.3 2.2z"/><path d="M7 20.5h10"/></svg>',
-          // game: a controller
-          roblox: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M7.2 8h9.6a4.2 4.2 0 0 1 4.1 3.3l.9 4.2a2.4 2.4 0 0 1-4.1 2.1L16 15.8H8L6.3 17.6a2.4 2.4 0 0 1-4.1-2.1l.9-4.2A4.2 4.2 0 0 1 7.2 8Z"/><path d="M8 10.6v3M6.5 12.1h3"/><circle cx="15.6" cy="11.4" r=".6" fill="currentColor"/><circle cx="17.6" cy="12.9" r=".6" fill="currentColor"/></svg>',
+          // YouTube brand mark
+          youtube: '<svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>',
+          // Roblox brand mark
+          roblox: '<svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M18.926 23.998 0 18.892 5.075 0 24 5.108ZM15.348 10.09l-5.282-1.453-1.414 5.273 5.282 1.453z"/></svg>',
           // hire: a briefcase
           hire: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="3" y="7.5" width="18" height="12" rx="2.5"/><path d="M9 7.5V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1.5"/><path d="M3 13h18"/><path d="M10.5 13v1.6h3V13"/></svg>',
           // render: a wireframe cube with a sparkle
@@ -1114,10 +1172,17 @@
         var I_EYE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="2.8"/></svg>';
         var I_LIKE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M7.5 11 11 4.5a2 2 0 0 1 2.6 2.4L13 9.5h5.2a2 2 0 0 1 2 2.4l-1.2 6a2 2 0 0 1-2 1.6H7.5z"/><path d="M3.5 11h4v9h-4z"/></svg>';
         var I_PLAY = '<svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M8 5.5v13l11-6.5z"/></svg>';
-        BUNDLE_ICONS.rocket = BUNDLE_ICONS.roblox; BUNDLE_ICONS.briefcase = BUNDLE_ICONS.hire; BUNDLE_ICONS.cube = BUNDLE_ICONS.render;   // old names still work
+        BUNDLE_ICONS.sparkle = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M11 4l1.9 5.1L18 11l-5.1 1.9L11 18l-1.9-5.1L4 11l5.1-1.9z"/><path d="M19 3.5v4M17 5.5h4M18.5 15v3.5M16.8 16.8h3.4"/></svg>';
+        BUNDLE_ICONS.trophy = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H4.5v1.5A3 3 0 0 0 8 10.5M16 6h3.5v1.5a3 3 0 0 1-3.500 3"/><path d="M12 13v4M8.5 20h7M9.5 17h5"/></svg>';
+        BUNDLE_ICONS.megaphone = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4 10.500v3a1 1 0 0 0 1 1h2.500L16 19V5L7.500 9.500H5a1 1 0 0 0-1 1z"/><path d="M19 9.500a3.500 3.500 0 0 1 0 5"/><path d="M8 14.500l1 4.500h2.500l-.8-3.800"/></svg>';
+        BUNDLE_ICONS.gamepad = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M7.2 8h9.6a4.2 4.2 0 0 1 4.1 3.3l.9 4.2a2.4 2.4 0 0 1-4.1 2.1L16 15.8H8L6.3 17.6a2.4 2.4 0 0 1-4.1-2.1l.9-4.2A4.2 4.2 0 0 1 7.2 8Z"/><path d="M8 10.6v3M6.5 12.1h3"/><circle cx="15.6" cy="11.4" r=".6" fill="currentColor"/><circle cx="17.6" cy="12.9" r=".6" fill="currentColor"/></svg>';
+        BUNDLE_ICONS.growth = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M3.5 17.5 9 12l3.5 3.5L20 8"/><path d="M14.5 8H20v5.500"/></svg>';
+        BUNDLE_ICONS.code = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m8.5 7-5 5 5 5M15.5 7l5 5-5 5M13.500 5l-3 14"/></svg>';
+        BUNDLE_ICONS.rocket = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M12 2.500c3 2.300 4.500 5.400 4.500 9V15h-9v-3.500c0-3.600 1.500-6.700 4.500-9z"/><circle cx="12" cy="9.500" r="1.700"/><path d="M7.500 12.500 5 16l2.500-.7M16.500 12.500 19 16l-2.500-.7M10.500 18.500 12 21.500l1.500-3"/></svg>';
+        BUNDLE_ICONS.briefcase = BUNDLE_ICONS.hire; BUNDLE_ICONS.cube = BUNDLE_ICONS.render;   // old names still work
 
         var SHORT_NAMES = { 'commission-sheets': 'Commission Sheets', 'game-thumbnails': 'Game Thumbnails', 'game-icons': 'Game Icons' };
-        var SINGLE_NAMES = { 'game-thumbnails': 'Game Thumbnail', 'game-icons': 'Game Icon', 'renders': 'Render', 'profile-pictures': 'Profile Picture', 'youtube-thumbnails': 'YouTube Thumbnail', 'youtube-banners': 'YouTube Banner', 'ads-posters': 'Ad / Poster', 'commission-sheets': 'Commission Sheet' };
+        var SINGLE_NAMES = { 'game-thumbnails': 'Game Thumbnail', 'game-icons': 'Game Icon', 'renders': 'Render', 'profile-pictures': 'Profile Picture', 'youtube-thumbnails': 'YouTube Thumbnail', 'youtube-banners': 'Social Banner', 'ads-posters': 'Ad / Poster', 'commission-sheets': 'Commission Sheet' };
         var ARROW = '<svg class="pc-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
         var CHEV_L = '<svg width="18" height="18" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>';
         var CHEV_R = '<svg width="18" height="18" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="m6 3 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>';
@@ -1138,7 +1203,7 @@
         }
         function sizeTile(tile, ratio) {
           tile.style.setProperty('--ar', ratio.toFixed(4));
-          tile.style.setProperty('--hh', Math.round(74 / Math.sqrt(ratio)));
+          tile.style.setProperty('--hh', Math.round(84 / Math.sqrt(ratio)));
         }
 
         // One piece of artwork on the stage (the product name shows if its picture cannot be found)
@@ -1173,7 +1238,7 @@
         }
 
         // ---- Bundle slide: the open bundle, with a counter and one chip per bundle below ----
-        var DEFAULT_BUNDLE = 'youtuber-starter-pack';   // opens first on page load (any id from BUNDLES)
+        var DEFAULT_BUNDLE = 'creator-starter-pack';   // opens first on page load (any id from BUNDLES)
         var chipsBox = shop.querySelector('[data-shop-tabs]');
         var panel = shop.querySelector('[data-shop-panel]');
         var posEl = shop.querySelector('[data-shop-pos]');
@@ -1226,8 +1291,8 @@
           stage.setAttribute('aria-hidden', 'true');
           var pile = el('div', 'sp-pile');
           var pieces = piecesOf(b), hero = heroOf(pieces.length);
-          var cap = Math.min(52, 100 / pieces.length + 10);
-          pile.style.setProperty('--pile-w', (pieces.length === 1 ? 14 : pieces.length === 2 ? 22 : 27) + 'rem');
+          var cap = pieces.length === 1 ? 60 : Math.min(60, 100 / (1 + 0.5 * (pieces.length - 1)));
+          pile.style.setProperty('--pile-w', (pieces.length === 1 ? 16 : pieces.length === 2 ? 28 : pieces.length === 3 ? 36 : 42) + 'rem');
           pieces.forEach(function (p, i) {
             var kind = kindOf(p.slug), tile = makeTile(p.slug, p.art, kind);
             tile.setAttribute('data-n', p.n);
@@ -1253,8 +1318,6 @@
           b.items.forEach(function (it, idx) {
             var chip = el('span', 'sp-pchip');
             chip.setAttribute('data-p', it.product);
-            var ci = el('span', ''); ci.innerHTML = PRODUCT_ICONS[it.product] || I_IMG; ci.firstChild.setAttribute('aria-hidden', 'true');
-            chip.appendChild(ci.firstChild);
             chip.appendChild(document.createTextNode(itemLabel(it)));
             strip.appendChild(chip);
           });
@@ -1277,8 +1340,12 @@
           if (pop) {
             var badge = el('span', 'sp-pop');
             badge.innerHTML = STAR;
-            badge.appendChild(el('span', '', 'Popular'));
+            badge.appendChild(el('span', '', b.badge || 'Popular'));
             stage.appendChild(badge);
+          } else if (b.tag) {
+            var tg = el('span', 'sp-pop is-tag');
+            tg.appendChild(el('span', '', b.tag));
+            stage.appendChild(tg);
           }
           if (d.pct > 0) stage.appendChild(el('span', 'sp-off', d.pct + '% off'));
           panel.appendChild(stage);
@@ -1306,7 +1373,6 @@
             li.addEventListener('pointerleave', function () { light(''); });
             li.addEventListener('focus', function () { light(it.product); });
             li.addEventListener('blur', function () { light(''); });
-            var lico = el('span', 'sp-lico'); lico.setAttribute('aria-hidden', 'true'); lico.innerHTML = PRODUCT_ICONS[it.product] || I_IMG; li.appendChild(lico);
             var label = el('span', 'sp-lname');
             label.appendChild(el('strong', '', itemLabel(it)));
             if (it.qty > 1 && u !== null) label.appendChild(el('small', '', formatUsd(u) + ' each'));
@@ -1331,7 +1397,13 @@
             if (hasOldUsd) sub.appendChild(el('s', 'sp-old-usd', formatUsd(d.regUsd)));
             if (hasOldRbx) { var os = el('s', 'sp-old-rbx'); fillRobux(os, d.regRbx); sub.appendChild(os); }
             if (d.pct > 0) sub.appendChild(el('span', 'sp-pct', '\u2212' + d.pct + '%'));
-            sub.appendChild(el('span', 'sp-save', 'You save ' + (hasOldUsd ? formatUsd(d.savedUsd) : formatRobux(d.savedRbx) + ' Robux')));
+            var sv = el('span', 'sp-save');
+            sv.appendChild(document.createTextNode('You save' + (hasOldUsd ? ' ' + formatUsd(d.savedUsd) : '')));
+            if (hasOldRbx) {
+              if (hasOldUsd) sv.appendChild(document.createTextNode(' \u00b7'));
+              var sr = el('span', 'sp-save-rbx'); fillRobux(sr, d.savedRbx); sv.appendChild(sr);
+            }
+            sub.appendChild(sv);
             price.appendChild(sub);
           }
           foot.appendChild(price);
@@ -1379,15 +1451,14 @@
           chip.tabIndex = -1;
           chip.setAttribute('data-ico', b.icon || '');
 
-          var pcs = piecesOf(b), h = pcs[heroOf(pcs.length)];
-          var thumb = el('span', 'sp-cthumb');
-          thumb.setAttribute('aria-hidden', 'true');
-          var fall = el('span', 'sp-cfall');
-          fall.innerHTML = BUNDLE_ICONS[b.icon] || BUNDLE_ICONS.render;
-          thumb.appendChild(fall);
-          chip.appendChild(thumb);
+          var ico = el('span', 'sp-cico');
+          ico.setAttribute('aria-hidden', 'true');
+          ico.innerHTML = BUNDLE_ICONS[b.icon] || BUNDLE_ICONS.render;
+          chip.appendChild(ico);
 
           var txt = el('span', 'sp-ctext');
+          var tagText = b.badge || b.tag;
+          if (tagText) txt.appendChild(el('span', 'sp-ctag', tagText));
           txt.appendChild(el('strong', '', b.name));
           if (b.usd) txt.appendChild(el('small', '', b.usd));
           chip.appendChild(txt);
@@ -1420,8 +1491,8 @@
           if (to > -1) { e.preventDefault(); select(to, true); }
         });
 
-        var aside = document.querySelector('#bundles .pc-head-aside');
-        if (aside && bestPct > 0) aside.appendChild(el('p', 'bk-upto', 'Save up to ' + bestPct + '%'));
+        var saveTag = document.querySelector('[data-bundles-save]');
+        if (saveTag && bestPct > 0) { saveTag.textContent = 'Save up to ' + bestPct + '%'; saveTag.hidden = false; }
 
         var start = 0;
         data.forEach(function (d, i) { if (d.b.id === DEFAULT_BUNDLE) start = i; });
@@ -1468,7 +1539,7 @@
       }
 
       // ---- Artwork: shows the real file if it exists, otherwise the labelled slot stays ----
-      // Each example is shown at its real resolution (the YouTube banner at the PC banner size, 2560 x 423).
+      // Each example is shown at its real resolution (the social banner at a wide banner shape, 2560 x 423).
       // Anything that is not 16:9 is centred at its own shape instead of being cropped to fill the frame.
       document.querySelectorAll('img[data-pc-art]').forEach(function (img) {
         var tries = artCandidates(img.getAttribute('data-pc-art'), img.getAttribute('data-pc-fallback'));

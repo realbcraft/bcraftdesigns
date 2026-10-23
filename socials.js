@@ -22,7 +22,6 @@
   var X_AVATAR = "/images/homepage-twitter-pfp-01.webp";       // same X picture the main site uses
   var QR_SCRIPT = "https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js";
   var X_HANDLE_FALLBACK = "realbcraft";
-  var COMMISSIONS = { open: true, slots: 3, total: 3, from: "$7", next: "" };   // the green/red pill. open: true/false. slots: free spots (0 hides the dots). total: how many spots you offer (the dots). from: e.g. "\u20ac15" shows "from \u20ac15". next: e.g. "May 12" shows when closed
   var YT_CHANNEL_ID = "UCPNySTRqrKEo8vA8EzB_sTA";                                   // your channel (@realbcraft). The "Watch latest video" card finds your newest upload by itself (through the free rss2json service) and remembers it for 30 minutes
   var YT_API_KEY = "";                                      // optional but the most reliable: a free YouTube Data API v3 key (restrict it to your domain in Google Cloud). Empty = use the free feed services
   var YT_LATEST_ID = "";                                    // or pin a video yourself: the part after watch?v= in its link (11 characters). When set, nothing is looked up
@@ -31,7 +30,7 @@
   var ROLES = ["GFX wizard", "UI/UX designer", "thumbnail nerd", "YouTuber", "Roblox dev"];   // the words that rotate after "Your friendly ..."
   var ROLE_MS = 2800;                                       // how long each word stays (milliseconds)
   var HERO_ROLE = "handle";                                 // where the rotating role sits: "handle" (same line as @realbcraft) or "under" (own line below it)
-  var HERO_CLOCK = "bio";                                   // where "My time" sits: "bio" (footer of the bio bubble), "status" (under the social icons, next to the commissions pill) or "under" (below the handle)
+  var HERO_CLOCK = "bio";                                   // where "My time" sits: "bio" (footer of the bio bubble) or "under" (below the handle)
   var SECRET_REWARD = "";                                   // shown when someone finds the secret (7 quick clicks on the pfp, or typing "gfx"), e.g. "Code SECRET10 for 10% off". Empty = just confetti.
 
   var $ = function (s) { return document.querySelector(s); };
@@ -61,6 +60,7 @@
     probe(bases, function (src) { if (src) { img.src = src; img.hidden = false; } });
   }
   fill("#sx-pfp", [IMG_PFP]);
+  fill("#sx-order-bg", [IMG_BANNER]);
   fill("#sx-banner", [IMG_BANNER]);
   fill("#sx-rbx-avatar", [IMG_ROBLOX_AVATAR, IMG_PFP]);
   fill("#sx-yt-avatar", [IMG_PFP]);
@@ -76,37 +76,8 @@
 
   document.querySelectorAll("[data-year]").forEach(function (n) { n.textContent = new Date().getFullYear(); });
 
-  // GitHub-style contribution squares (decoration only)
-  var graph = $("#sx-gh-graph");
-  for (var g = 0; g < 70; g++) {
-    var sq = document.createElement("i");
-    sq.dataset.l = String((g * 7 + (g >> 2) * 3 + (g % 5)) % 5);
-    graph.appendChild(sq);
-  }
-
-  /* ---------- Commission status: a dot per slot (green = free) ---------- */
-  var slotsEl = $("#sx-slots"), slotsText = $("#sx-slots-text");
-  if (slotsEl && slotsText) {
-    var nSlots = Math.max(0, COMMISSIONS.slots | 0);
-    var nTotal = Math.min(8, Math.max(nSlots, COMMISSIONS.total | 0));
-    var isOpen = !!COMMISSIONS.open;
-    slotsEl.classList.toggle("is-closed", !isOpen);
-    if (nTotal > 0 && (nSlots > 0 || !isOpen)) {
-      var dotsBox = make("span", "sx-slot-dots");
-      dotsBox.setAttribute("aria-hidden", "true");
-      for (var d = 0; d < nTotal; d++) dotsBox.appendChild(make("i", isOpen && d < nSlots ? "is-free" : ""));
-      slotsEl.insertBefore(dotsBox, slotsText);
-      slotsEl.classList.add("has-dots");
-    }
-    var sub = isOpen ? (COMMISSIONS.from ? "from " + COMMISSIONS.from : "") : (COMMISSIONS.next ? "next slot " + COMMISSIONS.next : "");
-    slotsText.textContent = isOpen ? "Commissions open" : "Commissions closed";
-    if (sub) slotsText.appendChild(make("span", "sx-slots-sub", " \u00b7 " + sub));
-    slotsEl.setAttribute("aria-label", slotsText.textContent + (isOpen && nSlots ? ", " + nSlots + (nTotal > nSlots ? " of " + nTotal : "") + (nSlots === 1 ? " slot" : " slots") + " left" : ""));
-    slotsEl.title = isOpen && nSlots ? nSlots + (nTotal > nSlots ? " of " + nTotal : "") + (nSlots === 1 ? " slot" : " slots") + " left" : "";
-  }
-
   /* ---------- Where the role and the time sit (settings: HERO_ROLE, HERO_CLOCK). The page ships with "handle" and "bio". ---------- */
-  var heroHandle = $(".sx-handle"), roleNode = $("#sx-tagline"), clockNode = $("#sx-clock"), slotsNode = $("#sx-slots");
+  var heroHandle = $(".sx-handle"), roleNode = $("#sx-tagline"), clockNode = $("#sx-clock");
   if (heroHandle && roleNode && clockNode) {
     var heroMeta = null;
     if (HERO_ROLE === "under" || HERO_CLOCK === "under") {
@@ -115,7 +86,6 @@
     }
     if (HERO_ROLE === "under") { heroMeta.appendChild(roleNode); roleNode.dataset.pos = "under"; }
     if (HERO_CLOCK === "under") { heroMeta.appendChild(clockNode); clockNode.dataset.pos = "under"; }
-    else if (HERO_CLOCK === "status" && slotsNode) { slotsNode.parentNode.insertBefore(clockNode, slotsNode.nextSibling); clockNode.dataset.pos = "status"; }
   }
 
   /* ---------- "Watch latest video" card ---------- */
@@ -818,7 +788,7 @@
     try { raw = new URLSearchParams(location.search).get("from") || ""; } catch (e) {}
     raw = raw.toLowerCase().replace(/[^a-z0-9 _-]/g, "").trim().slice(0, 24);
     if (!greet || !raw) return;
-    var MAP = { youtube: ["YouTube", "#h-yt"], yt: ["YouTube", "#h-yt"], roblox: ["Roblox", "#h-rbx"], x: ["X", "#h-x"], twitter: ["X", "#h-x"], discord: ["Discord", "#h-more"], github: ["GitHub", "#h-more"] };
+    var MAP = { youtube: ["YouTube", "#h-yt"], yt: ["YouTube", "#h-yt"], roblox: ["Roblox", "#h-rbx"], x: ["X", "#h-x"], twitter: ["X", "#h-x"], discord: ["Discord", "#h-more"] };
     var hit = MAP[raw], name = hit ? hit[0] : raw.charAt(0).toUpperCase() + raw.slice(1), hideT;
     gText.textContent = "Hey " + name + " friend, welcome!";
     var target = hit && $(hit[1]), box = target && target.closest("section");
