@@ -125,6 +125,7 @@ const NEWS_POSTS = [
    ========================================================== */
 const X_HANDLE = "realbcraft";
 const X_NAME = "Bcraft | bcraftdesigns.com";
+/* X-POSTS:START  (auto-generated from x-links.txt by GitHub Actions. Do not edit by hand, add links to x-links.txt instead) */
 const X_POSTS = [
   {
     url: "https://x.com/realbcraft/status/2112657102183506230",
@@ -152,6 +153,7 @@ const X_POSTS = [
     tags: ["robloxart", "robloxGFX", "pfp"]
     }
 ];
+/* X-POSTS:END */
 
 /* Reads "2026-10" or "2026-10-20". Used by both pages; no need to edit. */
 const NEWS_MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
