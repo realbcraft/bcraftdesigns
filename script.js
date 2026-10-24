@@ -924,6 +924,7 @@ const SOCIAL_LINKS = {
   x:               "https://x.com/realbcraft",
   discord:         "https://discordid.netlify.app/?id=1433205220892217496",
   youtube:         "https://www.youtube.com/@realbcraft",
+  tiktok:          "https://www.tiktok.com/@realbcraft",
   robloxCommunity: "https://www.roblox.com/communities/35405048/Bcraft-Designs",
   robloxProfile:   "",                 // paste your Roblox profile link here. Until then, links that use it are hidden
   commission:      "/pricing/"      // where "commission" links go (or a Discord invite, form, mailto: ...)
@@ -1562,11 +1563,44 @@ window.addEventListener("resize", () => {
 // Socials section. A missing image just leaves its slot showing.
 // ==========================================================
 (function () {
+  // TikTok: one more icon right after YouTube in every icon row (navbar, hero,
+  // footer ...), copied from the YouTube one so it looks the same everywhere.
+  // Runs on every page, so no HTML file needs to change. The link itself comes
+  // from SOCIAL_LINKS.tiktok below.
+  const TIKTOK_PATH = "M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z";
+  const tiktokIcon = (svg) => {
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.setAttribute("viewBox", "0 0 24 24");
+    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    path.setAttribute("fill", "currentColor");
+    path.setAttribute("d", TIKTOK_PATH);
+    svg.appendChild(path);
+  };
+  document.querySelectorAll('a[data-social="youtube"]').forEach((youtube) => {
+    const item = youtube.closest("li");
+    if (!item || !item.parentElement || item.parentElement.querySelector('[data-social="tiktok"]')) return;
+    const copy = item.cloneNode(true);
+    const link = copy.querySelector("a[data-social]");
+    if (!link) return;
+    link.setAttribute("data-social", "tiktok");
+    link.setAttribute("href", "#");
+    link.removeAttribute("target");
+    link.removeAttribute("rel");
+    link.setAttribute("aria-label", "Bcraft Designs on TikTok");
+    if (link.hasAttribute("data-tooltip")) link.setAttribute("data-tooltip", "TikTok");
+    if (link.hasAttribute("title")) link.setAttribute("title", "TikTok");
+    copy.hidden = false;
+    const svg = link.querySelector("svg");
+    if (svg) tiktokIcon(svg);
+    item.after(copy);
+  });
+
   // Top bar: Roblox next to the other icons (added here too so every page gets them)
   const navSocials = document.querySelector(".nav-socials");
   if (navSocials) {
     [
       ["robloxCommunity", "Roblox", "Bcraft Designs on Roblox", "M18.926 23.998 0 18.892 5.075 0 24 5.108ZM15.348 10.09l-5.282-1.453-1.414 5.273 5.282 1.453z"],
+      ["tiktok", "TikTok", "Bcraft Designs on TikTok", TIKTOK_PATH],
     ].forEach((entry) => {
       if (navSocials.querySelector('[data-social="' + entry[0] + '"]')) return;
       const li = document.createElement("li");
@@ -3388,19 +3422,34 @@ const LIGHTBOX_SETTINGS = {
     if (!frameId) frameId = requestAnimationFrame(tick);
   }
 
-  hero.addEventListener("pointermove", (event) => {
+  // The image keeps following the cursor everywhere (over the headline, the
+  // navbar, ...) and only lets go once the cursor reaches the section BELOW
+  // the hero, or leaves the window.
+  let following = false;
+
+  function release() {
+    if (!following) return;
+    following = false;
+    targetX = 0;
+    targetY = 0;
+    start();
+  }
+
+  window.addEventListener("pointermove", (event) => {
     if (event.pointerType !== "mouse" || !capable.matches || reduceMotion.matches) return;
     const rect = hero.getBoundingClientRect();
+    if (rect.bottom <= 0 || rect.top >= window.innerHeight || event.clientY > rect.bottom) {
+      release();
+      return;
+    }
+    following = true;
     targetX = Math.max(-1, Math.min(1, ((event.clientX - rect.left) / rect.width - 0.5) * 2));
     targetY = Math.max(-1, Math.min(1, ((event.clientY - rect.top) / rect.height - 0.5) * 2));
     start();
   });
 
-  hero.addEventListener("pointerleave", () => {
-    targetX = 0;
-    targetY = 0;
-    start();
-  });
+  document.documentElement.addEventListener("pointerleave", release);
+  window.addEventListener("blur", release);
 })();
 
 
@@ -3451,6 +3500,75 @@ const LIGHTBOX_SETTINGS = {
 // the top of this file. Only one popup shows at a time: the first enabled
 // one (Halloween, then Christmas, then Summer).
 // ==========================================================
+// Shared by the two corner popups (the seasonal sale popup and the welcome offer card):
+// the button label scrolls up on hover and a soft shine sweeps across now and then (and once
+// on hover). The real label stays for screen readers.
+//   opts.gift    - the arrow becomes a little gift whose lid pops open on hover and lets
+//                  light out; now and then it wiggles to get noticed (welcome "Redeem")
+//   opts.tag     - a little price tag ("20% off") hangs on the button's corner and swings
+//                  on a pin when the button is hovered (seasonal popup)
+//   neither      - seven stars burst out above the button (not used right now)
+function addButtonFx(button, textEl, opts) {
+  opts = opts || {};
+  if (!button || !textEl || button.classList.contains("hfx-btn")) return;
+  const text = textEl.textContent;
+  if (!text.trim()) return;
+  const mk = (tag, cls) => { const n = document.createElement(tag); n.className = cls; return n; };
+  textEl.textContent = "";
+  textEl.classList.add("hfx-roll");
+  const a = mk("span", "hfx-roll-a");
+  const b = mk("span", "hfx-roll-b");
+  a.textContent = text;
+  b.textContent = text;
+  b.setAttribute("aria-hidden", "true");
+  textEl.appendChild(a);
+  textEl.appendChild(b);
+
+  const shine = mk("span", "hfx-shine");
+  shine.setAttribute("aria-hidden", "true");
+  button.appendChild(shine);
+
+  if (opts.tag) {
+    const tag = mk("span", "hfx-tag");
+    tag.setAttribute("aria-hidden", "true");
+    const body = mk("span", "hfx-tag-body");
+    body.textContent = opts.tag;
+    tag.appendChild(body);
+    button.appendChild(tag);
+  } else if (opts.gift) {
+    const arrowIcon = button.querySelector(":scope > svg");
+    const gift = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    gift.setAttribute("class", "wo-gift");
+    gift.setAttribute("width", "18");
+    gift.setAttribute("height", "18");
+    gift.setAttribute("viewBox", "0 0 24 24");
+    gift.setAttribute("aria-hidden", "true");
+    gift.setAttribute("focusable", "false");
+    gift.setAttribute("fill", "none");
+    gift.setAttribute("stroke", "currentColor");
+    gift.setAttribute("stroke-width", "1.8");
+    gift.setAttribute("stroke-linecap", "round");
+    gift.setAttribute("stroke-linejoin", "round");
+    gift.innerHTML =
+      '<circle class="wo-gift-glow" cx="12" cy="10" r="5"/>' +
+      '<path d="M4 12v8a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-8"/><path d="M12 12v9"/>' +
+      '<g class="wo-gift-lid"><rect x="3" y="8" width="18" height="4" rx="1"/>' +
+      '<path d="M12 8c-1.2-3.4-5-3.6-5-1.6 0 1.4 2.6 1.6 5 1.6zM12 8c1.2-3.4 5-3.6 5-1.6 0 1.4-2.6 1.6-5 1.6z"/></g>';
+    if (arrowIcon) arrowIcon.replaceWith(gift); else button.appendChild(gift);
+  } else {
+    const SPARK = '<svg viewBox="0 0 16 16" focusable="false"><path d="M8 1.3l2.08 4.36 4.77.62-3.5 3.3.88 4.74L8 11.95 3.77 14.32l.88-4.74-3.5-3.3 4.77-.62z"/></svg>';
+    const sparks = mk("span", "hfx-sparks");
+    sparks.setAttribute("aria-hidden", "true");
+    for (let i = 1; i <= 7; i++) {
+      const s = mk("span", "hfx-spark hfx-spark--" + i);
+      s.innerHTML = SPARK;
+      sparks.appendChild(s);
+    }
+    button.appendChild(sparks);
+  }
+  button.classList.add("hfx-btn", "hfx-pop");
+}
+
 function buildSalePopup(cfg, STORAGE_KEY, theme) {
   if (!cfg || !cfg.enabled) return false;
 
@@ -3524,6 +3642,7 @@ function buildSalePopup(cfg, STORAGE_KEY, theme) {
   if (cfg.note) note.textContent = cfg.note; else note.remove();
   popup.querySelector(".sale-popup-cta span").textContent = cfg.buttonText;
   popup.querySelector(".sale-popup-cta").setAttribute("href", cfg.buttonLink);
+  addButtonFx(popup.querySelector(".sale-popup-cta"), popup.querySelector(".sale-popup-cta span"), { tag: cfg.percent + " " + cfg.off });
   tab.querySelector(".sale-tab-text").textContent = cfg.tabText;
 
   document.body.appendChild(popup);
@@ -3702,6 +3821,7 @@ function buildSalePopup(cfg, STORAGE_KEY, theme) {
   const tag = card.querySelector(".welcome-offer-tag");
   const cta = card.querySelector(".welcome-offer-cta");
   card.querySelector(".welcome-offer-cta-text").textContent = cfg.buttonText;
+  addButtonFx(cta, card.querySelector(".welcome-offer-cta-text"), { gift: true });
   tag.textContent = cfg.eyebrow;
   card.querySelector(".welcome-offer-sub").textContent = cfg.sub;
   card.querySelector(".welcome-offer-terms-text").textContent = cfg.terms;
@@ -4848,6 +4968,201 @@ const SEASON_ART = {
 
 
 // ==========================================================
+// NAV BUTTON "COMMISSION ME": TEXT ROLL + CURSOR SPOTLIGHT
+// Runs on every page, because every page has the same .site-menu button,
+// so no HTML file needs to change. On hover / keyboard focus the label
+// rolls up and a second line rolls in (NAV_CTA_ROLL_TEXT), and a soft light
+// follows the cursor across the button. The styling is in style.css ("NAV
+// BUTTON COMMISSION ME"). Set NAV_CTA_FX to false to switch the whole effect
+// off. The season badges and webs are not touched.
+// ==========================================================
+const NAV_CTA_FX = true;
+const NAV_CTA_ROLL_TEXT = "Let\u2019s Build It!";
+
+(function () {
+  if (!NAV_CTA_FX) return;
+
+  document.querySelectorAll(".site-menu > .button").forEach((button) => {
+    if (button.classList.contains("cta-fx")) return;
+
+    // The label is the text that sits directly inside the button
+    const textNodes = Array.from(button.childNodes).filter((node) => node.nodeType === 3 && node.nodeValue.trim());
+    if (!textNodes.length) return;
+    const label = textNodes.map((node) => node.nodeValue.trim()).join(" ");
+
+    // Light layer: the spotlight and a bright edge that follow the cursor
+    const light = document.createElement("span");
+    light.className = "cta-fx-light";
+    light.setAttribute("aria-hidden", "true");
+
+    // Text roll: the real label stays readable for screen readers, the second line is decoration
+    const roll = document.createElement("span");
+    roll.className = "cta-roll";
+    const lineA = document.createElement("span");
+    lineA.className = "cta-roll-line";
+    lineA.textContent = label;
+    const lineB = document.createElement("span");
+    lineB.className = "cta-roll-line cta-roll-line--alt";
+    lineB.setAttribute("aria-hidden", "true");
+    lineB.textContent = NAV_CTA_ROLL_TEXT;
+    roll.append(lineA, lineB);
+
+    textNodes[0].replaceWith(roll);
+    textNodes.slice(1).forEach((node) => node.remove());
+    button.insertBefore(light, button.firstChild);
+    button.classList.add("cta-fx");
+
+    // Cursor position inside the button (mouse only, only while it is over the button)
+    button.addEventListener("pointermove", (event) => {
+      if (event.pointerType !== "mouse") return;
+      const rect = button.getBoundingClientRect();
+      button.style.setProperty("--cta-x", (event.clientX - rect.left).toFixed(1) + "px");
+      button.style.setProperty("--cta-y", (event.clientY - rect.top).toFixed(1) + "px");
+    });
+  });
+})();
+
+// ==========================================================
+// HOMEPAGE HOVER FX
+// Homepage only. Adds the layers that the hover animations in style.css
+// ("HOMEPAGE HOVER FX") need.
+//
+// SWITCHES (true = on, false = off):
+//  - HERO_BUTTON_FX: the two hero buttons. "View My Work" = Uiverse stars
+//    button (by MuhammadHasann). "View Reviews" = its text scrolls up on hover and five
+//    rating stars pop out above it. The rating pill has its own, separate hover.
+//    Off = the hero buttons look exactly like they did before.
+//  - HOME_HOVER_FX: the FAQ (accent bar, nudge, cursor-following light).
+// The real label always stays in the button for screen readers.
+// ==========================================================
+const HERO_BUTTON_FX = true;
+const HOME_HOVER_FX = true;
+
+(function () {
+  if (!IS_HOME_PAGE) return;
+
+  const mk = (tag, cls) => { const n = document.createElement(tag); n.className = cls; return n; };
+  const labelOf = (button) => {
+    const nodes = Array.from(button.childNodes).filter((n) => n.nodeType === 3 && n.nodeValue.trim());
+    return nodes.length ? { nodes, text: nodes.map((n) => n.nodeValue.trim()).join(" ") } : null;
+  };
+
+  if (HERO_BUTTON_FX) {
+    // ----- View My Work (Uiverse stars button) -----
+    const primary = document.querySelector(".hero-actions .button-primary");
+    const pl = primary && labelOf(primary);
+    if (pl) {
+      const label = mk("span", "hfx-label");
+      label.textContent = pl.text;
+      pl.nodes[0].replaceWith(label);
+      pl.nodes.slice(1).forEach((n) => n.remove());
+
+      // six four-point stars; the CSS flies them out of the button on hover
+      const STAR = '<svg viewBox="0 0 24 24" focusable="false"><path d="M12 0C12.9 7.5 16.5 11.1 24 12 16.5 12.9 12.9 16.5 12 24 11.1 16.5 7.5 12.9 0 12 7.5 11.1 11.1 7.5 12 0Z"/></svg>';
+      const stars = mk("span", "hfx-stars");
+      stars.setAttribute("aria-hidden", "true");
+      for (let i = 1; i <= 6; i++) {
+        const s = mk("span", "hfx-star hfx-star--" + i);
+        s.innerHTML = STAR;
+        stars.appendChild(s);
+      }
+      primary.appendChild(stars);
+      primary.classList.add("hfx-btn");
+    }
+
+    // ----- View Reviews: scroll-up text + five rating stars (the rating pill above is NOT involved) -----
+    const secondary = document.querySelector(".hero-actions .button-secondary");
+    if (secondary) {
+      const sl = labelOf(secondary);
+      if (sl) {
+        // rolling label: the real text stays for screen readers, a copy rolls up from below on hover
+        const roll = mk("span", "hfx-roll");
+        const a = mk("span", "hfx-roll-a");
+        const b = mk("span", "hfx-roll-b");
+        a.textContent = sl.text;
+        b.textContent = sl.text;
+        b.setAttribute("aria-hidden", "true");
+        roll.appendChild(a);
+        roll.appendChild(b);
+        sl.nodes[0].replaceWith(roll);
+        sl.nodes.slice(1).forEach((n) => n.remove());
+      }
+      const SPARK = '<svg viewBox="0 0 16 16" focusable="false"><path d="M8 1.3l2.08 4.36 4.77.62-3.5 3.3.88 4.74L8 11.95 3.77 14.32l.88-4.74-3.5-3.3 4.77-.62z"/></svg>';
+      const sparks = mk("span", "hfx-sparks");
+      sparks.setAttribute("aria-hidden", "true");
+      for (let i = 1; i <= 5; i++) {
+        const s = mk("span", "hfx-spark hfx-spark--" + i);
+        s.innerHTML = SPARK;
+        sparks.appendChild(s);
+      }
+      secondary.appendChild(sparks);
+      secondary.classList.add("hfx-btn");
+    }
+  }
+
+  if (HOME_HOVER_FX) {
+    // ----- FAQ: light follows the cursor (one delegated listener) -----
+    const CARDS = ".faq-item";
+    let frame = 0;
+    const host = (el) => {
+      if (!el.classList.contains("hfx-host")) {
+        if (getComputedStyle(el).position === "static") el.style.position = "relative";
+        const glow = mk("span", "hfx-glow");
+        glow.setAttribute("aria-hidden", "true");
+        el.insertBefore(glow, el.firstChild);
+        el.classList.add("hfx-host");
+      }
+      return el;
+    };
+    document.addEventListener("pointermove", (e) => {
+      if (e.pointerType !== "mouse" || frame) return;
+      const card = e.target.closest && e.target.closest(CARDS);
+      if (!card) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        host(card);
+        const r = card.getBoundingClientRect();
+        card.style.setProperty("--hx", (e.clientX - r.left).toFixed(1) + "px");
+        card.style.setProperty("--hy", (e.clientY - r.top).toFixed(1) + "px");
+      });
+    }, { passive: true });
+  }
+})();
+
+// Top bar "Commission Me": same scroll-up text + star burst as the hero buttons (all pages; the
+// CSS removes the lighting-up hover for it). Off with HERO_BUTTON_FX = false.
+(function () {
+  if (!HERO_BUTTON_FX) return;
+  const button = document.querySelector(".site-header .button-primary");
+  if (!button || button.classList.contains("hfx-btn")) return;
+  const mk = (tag, cls) => { const n = document.createElement(tag); n.className = cls; return n; };
+  const nodes = Array.from(button.childNodes).filter((n) => n.nodeType === 3 && n.nodeValue.trim());
+  if (!nodes.length) return;
+  const text = nodes.map((n) => n.nodeValue.trim()).join(" ");
+  const roll = mk("span", "hfx-roll");
+  const a = mk("span", "hfx-roll-a");
+  const b = mk("span", "hfx-roll-b");
+  a.textContent = text;
+  b.textContent = text;
+  b.setAttribute("aria-hidden", "true");
+  roll.appendChild(a);
+  roll.appendChild(b);
+  nodes[0].replaceWith(roll);
+  nodes.slice(1).forEach((n) => n.remove());
+  const SPARK = '<svg viewBox="0 0 16 16" focusable="false"><path d="M8 1.3l2.08 4.36 4.77.62-3.5 3.3.88 4.74L8 11.95 3.77 14.32l.88-4.74-3.5-3.3 4.77-.62z"/></svg>';
+  const sparks = mk("span", "hfx-sparks");
+  sparks.setAttribute("aria-hidden", "true");
+  for (let i = 1; i <= 5; i++) {
+    const s = mk("span", "hfx-spark hfx-spark--" + i);
+    s.innerHTML = SPARK;
+    sparks.appendChild(s);
+  }
+  button.appendChild(sparks);
+  button.classList.add("hfx-btn", "hfx-nav");
+})();
+
+
+// ==========================================================
 // SEASONAL EXTRAS: BUTTON DECORATIONS AND MEGA MENU DECOR
 // Follows the same switches as the season decorations above
 // (HALLOWEEN_DECOR, CHRISTMAS_DECOR, SUMMER_DECOR; the first one that is
@@ -5456,19 +5771,36 @@ const SEASON_ART = {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
   const capable = window.matchMedia("(min-width: 960px) and (hover: hover) and (pointer: fine)");
 
-  card.addEventListener("pointermove", (event) => {
+  // Same rule as the depth shift above: keep following the cursor over the
+  // whole hero (text, navbar, ...) and only stop when it reaches the section
+  // below the hero or leaves the window.
+  const heroEl = visual.closest(".hero") || card;
+  let held = false;
+
+  function letGo() {
+    if (!held) return;
+    held = false;
+    card.style.setProperty("--tx", "0");
+    card.style.setProperty("--ty", "0");
+  }
+
+  window.addEventListener("pointermove", (event) => {
     if (event.pointerType !== "mouse" || !capable.matches || reduce.matches) return;
+    const zone = heroEl.getBoundingClientRect();
+    if (zone.bottom <= 0 || zone.top >= window.innerHeight || event.clientY > zone.bottom) {
+      letGo();
+      return;
+    }
     const rect = card.getBoundingClientRect();
-    const px = (event.clientX - rect.left) / rect.width;
-    const py = (event.clientY - rect.top) / rect.height;
+    const px = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
+    const py = Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height));
+    held = true;
     card.style.setProperty("--tx", (px - 0.5).toFixed(3));
     card.style.setProperty("--ty", (py - 0.5).toFixed(3));
   });
 
-  card.addEventListener("pointerleave", () => {
-    card.style.setProperty("--tx", "0");
-    card.style.setProperty("--ty", "0");
-  });
+  document.documentElement.addEventListener("pointerleave", letGo);
+  window.addEventListener("blur", letGo);
 
 })();
 

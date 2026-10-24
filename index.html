@@ -257,7 +257,7 @@
 
         <div class="hero-content">
           <h1 id="hero-title" class="hero-title">
-            <span class="hero-line">Roblox</span>
+            <span class="hero-line"><span class="hero-fx-word" data-text="Roblox">Roblox</span></span>
             <span class="hero-line hero-line-indent">GFX that</span>
             <span class="hero-line">stands out<span class="brick" aria-hidden="true"></span></span>
           </h1>
@@ -277,7 +277,7 @@
             </a>
             <div class="hero-actions">
               <a class="button button-primary button-lg" href="#work">View My Work</a>
-              <a class="button button-secondary button-lg" href="/pricing/">Commission Me</a>
+              <a class="button button-secondary button-lg" href="#reviews">View Reviews</a>
             </div>
             <ul class="hero-socials" aria-label="Bcraft Designs on social media">
               <li>
@@ -377,7 +377,7 @@
                 <svg class="mock-x" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>
               </div>
               <p class="mock-post-text">Fresh GFX for <b>@YourGame</b>, made for <b>@YourProfile</b>.</p>
-              <div class="mock-post-art"><img src="/images/logo.webp" alt="" width="512" height="329" loading="lazy"><span>Your finished GFX</span></div>
+              <div class="mock-post-art"><img src="/images/work/portfolio-thumbnail-01.webp" alt="" width="1280" height="720" loading="lazy" onerror="this.remove()"><span>Your finished GFX</span></div>
             </div>
           </li>
 
@@ -398,7 +398,7 @@
             <p class="perk-text">Keep an eye out for discounts around Christmas, summer and Halloween. I run limited-time sales throughout the year.</p>
           </li>
 
-          <li class="perk-card" data-reveal data-reveal-index="1">
+          <li class="perk-card" id="perk-portfolio" data-reveal data-reveal-index="1">
             <h3 class="perk-title">Portfolio Placement</h3>
             <p class="perk-text">Your finished piece may be featured in my portfolio.</p>
             <div class="perk-mock mock-portfolio" aria-hidden="true">
@@ -408,12 +408,67 @@
             </div>
           </li>
 
-          <li class="perk-card perk-card--referral" data-reveal data-reveal-index="2">
-            <p class="perk-big" aria-hidden="true"><span class="perk-big-num">15%</span><span class="perk-big-label">off</span></p>
-            <h3 class="perk-title">Referral Discount</h3>
-            <p class="perk-text">Refer a friend who orders, and you both get <strong>15% off</strong> on your next commission.</p>
-          </li>
         </ul>
+        <div class="perks-more" data-perks-more hidden>
+          <button class="button button-secondary perks-more-btn" type="button" aria-expanded="false" aria-controls="perk-portfolio"><span class="perks-more-label">View more</span><svg class="perks-more-chevron" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" focusable="false"><path d="M3 5.2l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
+        <script>
+          // Portfolio Placement starts as a faded peek (just its top shows); the button grows it open
+          // and folds it back. Runs right here (not in script.js) so the full card never flashes first.
+          (function () {
+            var card = document.getElementById('perk-portfolio');
+            var wrap = document.querySelector('[data-perks-more]');
+            var btn = wrap && wrap.querySelector('button');
+            if (!card || !btn) return;
+            var label = btn.querySelector('.perks-more-label');
+            var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            var timer = 0;
+            card.classList.add('is-peek');
+            card.inert = true;               // the peek is for looking at: no focus, no clicks
+            wrap.classList.add('is-peek');
+            wrap.hidden = false;
+
+            function settle(opened) {
+              clearTimeout(timer);
+              card.style.maxHeight = '';
+              card.classList.remove('is-anim');
+              card.inert = !opened;
+            }
+            function finish(opened) {
+              if (calm) { settle(opened); return; }
+              var done = function (e) {
+                if (e && e.propertyName !== 'max-height') return;
+                card.removeEventListener('transitionend', done);
+                settle(opened);
+              };
+              card.addEventListener('transitionend', done);
+              clearTimeout(timer);
+              timer = setTimeout(function () { card.removeEventListener('transitionend', done); settle(opened); }, 900);
+            }
+
+            btn.addEventListener('click', function () {
+              var opening = card.classList.contains('is-peek');
+              btn.setAttribute('aria-expanded', opening ? 'true' : 'false');
+              label.textContent = opening ? 'Show less' : 'View more';
+              card.classList.add('is-visible');
+              card.classList.add('is-anim');
+              if (opening) {
+                card.inert = false;
+                card.style.maxHeight = card.scrollHeight + 'px';
+                card.classList.remove('is-peek');
+                wrap.classList.remove('is-peek');
+                finish(true);
+              } else {
+                card.style.maxHeight = card.offsetHeight + 'px';
+                void card.offsetHeight;      // lets the browser see the start height
+                card.style.maxHeight = '';
+                card.classList.add('is-peek');
+                wrap.classList.add('is-peek');
+                finish(false);
+              }
+            });
+          })();
+        </script>
       </div>
     </section>
 
@@ -502,7 +557,7 @@
         @media (min-width: 1000px) {
           .fm-yt { grid-column: span 7; }
           .fm-rbx { grid-column: span 5; }
-          .fm-x, .fm-dc { grid-column: span 6; }
+          .fm-x, .fm-dc, .fm-tt { grid-column: span 4; }
         }
 
         /* Shared card look: dark brand surface, soft corner glows, lift on hover (same recipe as the socials page) */
@@ -641,6 +696,22 @@
         .fm-dc-card > .fm-text + .fm-pill { margin-top: 0.8rem; }
         a.fm-dc:hover .fm-pill { background: #6d79ff; }
 
+        /* ---------- TikTok: profile card ---------- */
+        .fm-tt { --g1: 37, 244, 238; --g2: 254, 44, 85; background-color: #0b0c10; }
+        @media (min-width: 640px) and (max-width: 999px) { .fm-tt { grid-column: span 12; } }
+        a.fm-tt:hover, a.fm-tt:focus-visible { border-color: rgba(37, 244, 238, 0.55); }
+        .fm-tt-banner { display: block; height: 4.4rem; flex: none; background: radial-gradient(circle at 15% 130%, rgba(37, 244, 238, 0.5), transparent 60%), radial-gradient(circle at 88% -30%, rgba(254, 44, 85, 0.55), transparent 60%), #0b0c10; }
+        .fm-tt-top { display: flex; align-items: flex-end; justify-content: space-between; margin: -2.3rem 1rem 0; position: relative; }
+        .fm-tt .fm-avatar { width: 4.6rem; height: 4.6rem; border: 5px solid #0b0c10; font-size: 1.6rem; }
+        .fm-tt-logo { display: grid; place-items: center; width: 2.6rem; height: 2.6rem; margin-bottom: 0.3rem; border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 12px; background: #000; color: #fff; }
+        .fm-tt-logo svg { width: 1.3rem; height: 1.3rem; filter: drop-shadow(-1px -1px 0 #25f4ee) drop-shadow(1px 1px 0 #fe2c55); }
+        .fm-tt-card { display: flex; flex: 1; flex-direction: column; gap: 0.1rem; margin: 0.6rem 0.75rem 0.75rem; padding: 0.85rem 0.95rem 0.95rem; border-radius: 12px; background: #06070a; }
+        .fm-tt-card .fm-who-name { font-size: 1.2rem; }
+        .fm-tt-card .fm-text { margin-top: 0.45rem; }
+        .fm-tt .fm-pill { align-self: flex-start; margin-top: auto; padding: 0.5rem 0.95rem; border-radius: 8px; background: #fe2c55; color: #fff; }
+        .fm-tt-card > .fm-text + .fm-pill { margin-top: 0.8rem; }
+        a.fm-tt:hover .fm-pill { background: #ff4a6d; }
+
         /* Soft entrance is handled by data-reveal; keep motion off for people who ask */
         @media (prefers-reduced-motion: reduce) {
           .fm-card, .fm-art-img, .fm-pill, .fm-pill svg, .fm-rbx-join, .fm-rbx-profile, .fm-rbx-join > svg:last-child, .fm-rbx-profile > svg { transition: none; }
@@ -654,6 +725,7 @@
         <symbol id="fm-youtube" viewBox="0 0 24 24"><path fill="currentColor" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></symbol>
         <symbol id="fm-x" viewBox="0 0 24 24"><path fill="currentColor" d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></symbol>
         <symbol id="fm-discord" viewBox="0 0 24 24"><path fill="currentColor" d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></symbol>
+        <symbol id="fm-tiktok" viewBox="0 0 24 24"><path fill="currentColor" d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></symbol>
         <symbol id="fm-arrow" viewBox="0 0 16 16"><path d="M4 12 12 4M5.5 4H12v6.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
         <symbol id="fm-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></g></symbol>
       </svg>
@@ -750,6 +822,21 @@
               <span class="fm-who-user">realbcraft</span>
               <span class="fm-text">Chat, ask questions, start a commission.</span>
               <span class="fm-pill"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:1.1rem;height:1.1rem"><use href="#fm-discord"/></svg>Add me on Discord</span>
+            </span>
+          </a>
+
+          <!-- TikTok -->
+          <a class="fm-card fm-tt" data-social="tiktok" href="#" aria-label="TikTok: Follow Bcraft on TikTok" data-reveal data-reveal-index="3">
+            <span class="fm-tt-banner" aria-hidden="true"></span>
+            <span class="fm-tt-top" aria-hidden="true">
+              <span class="fm-avatar">B<img data-social-art="/images/socials-pfp.webp" alt=""></span>
+              <span class="fm-tt-logo"><svg viewBox="0 0 24 24"><use href="#fm-tiktok"/></svg></span>
+            </span>
+            <span class="fm-tt-card">
+              <span class="fm-who-name">Bcraft</span>
+              <span class="fm-who-user">@realbcraft</span>
+              <span class="fm-text">Follow along on TikTok.</span>
+              <span class="fm-pill">Follow <svg viewBox="0 0 16 16" aria-hidden="true"><use href="#fm-arrow"/></svg></span>
             </span>
           </a>
 

@@ -10339,13 +10339,25 @@ body::after {
     linear-gradient(135deg, #10204a, #08112a);
 }
 
+.mock-post-art {
+  aspect-ratio: 16 / 9;                       /* a real thumbnail now, not the faded logo */
+}
+
 .mock-post-art img {
-  width: 22%;
-  height: auto;
-  opacity: 0.4;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .mock-post-art span {
+  z-index: 1;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(6, 10, 20, 0.62);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
   position: absolute;
   left: 0.7rem;
   bottom: 0.5rem;
@@ -15248,4 +15260,647 @@ html.welcome-modal-open {
   .pc-hero-art {
     opacity: 0.22;
   }
+}
+
+/* ==========================================================
+   NAV BUTTON "COMMISSION ME": TEXT ROLL + CURSOR SPOTLIGHT
+   script.js (section "NAV BUTTON COMMISSION ME") adds two layers inside
+   .site-menu > .button on every page. The button keeps the normal blue
+   look of the other main buttons (brighter blue and soft shadow on hover,
+   the light sweep, the lift and the press). On top of that: the label
+   rolls up while a second line rolls in, and a soft light with a bright
+   edge follows the cursor across the button. Only this one button is
+   affected. Colour of the light: --cta-light (an R, G, B triplet).
+   ========================================================== */
+.cta-fx {
+  --cta-light: 255, 255, 255;
+  --cta-x: 50%;
+  --cta-y: 50%;
+}
+
+/* This button does not lift on hover: it stays exactly where it is.
+   The little press when it is clicked stays. */
+.site-menu > .button.cta-fx:hover,
+.site-menu > .button.cta-fx:focus-visible {
+  transform: none;
+}
+
+.site-menu > .button.cta-fx:active {
+  transform: scale(0.97);
+}
+
+/* Light layer: sits behind the label, in front of the blue surface */
+.cta-fx-light {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(110px circle at var(--cta-x) var(--cta-y), rgba(var(--cta-light), 0.3), rgba(var(--cta-light), 0) 70%);
+  transition: opacity 0.25s ease;
+}
+
+/* Bright edge: only the 1px rim is lit, brightest near the cursor */
+.cta-fx-light::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: radial-gradient(80px circle at var(--cta-x) var(--cta-y), rgba(var(--cta-light), 0.95), rgba(var(--cta-light), 0) 70%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+}
+
+@media (hover: hover) {
+  .cta-fx:hover .cta-fx-light,
+  .cta-fx:focus-visible .cta-fx-light {
+    opacity: 1;
+  }
+}
+
+/* Text roll: both lines share one grid cell, so the button never changes width */
+.cta-roll {
+  display: inline-grid;
+  overflow: hidden;
+  padding: 0.1em 0;
+  margin: -0.1em 0;
+}
+
+.cta-roll-line {
+  grid-area: 1 / 1;
+  display: block;
+  text-align: center;
+  white-space: nowrap;
+  transition: transform 0.45s cubic-bezier(0.22, 0.9, 0.3, 1);
+}
+
+.cta-roll-line--alt {
+  transform: translateY(120%);
+  transition-delay: 0.04s;
+}
+
+.cta-fx:hover .cta-roll-line,
+.cta-fx:focus-visible .cta-roll-line {
+  transform: translateY(-120%);
+}
+
+.cta-fx:hover .cta-roll-line--alt,
+.cta-fx:focus-visible .cta-roll-line--alt {
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta-fx-light {
+    display: none;
+  }
+
+  .cta-roll-line {
+    transition: none;
+  }
+}
+
+/* ==========================================================
+   HERO HEADLINE "ROBLOX": HOVER WIPE
+   Idea from a Uiverse snippet (satyamchaudharydev), adapted: the word stays
+   solid white; on hover an icy-blue copy wipes in from the left with a bar
+   on its right edge and a soft glow. No JS: the copy is a ::after that reads
+   the word from data-text in index.html. Colours: --hfx-color, --hfx-glow.
+   ========================================================== */
+.hero-fx-word {
+  --hfx-color: var(--color-accent-bright);
+  --hfx-glow: rgba(var(--rgb-blue), 0.85);
+  position: relative;
+  display: inline-block;
+  padding-right: 0.06em;
+}
+
+.hero-fx-word::after {
+  content: attr(data-text);
+  content: attr(data-text) / "";
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  color: var(--hfx-color);
+  border-right: 0.05em solid var(--hfx-color);
+  pointer-events: none;
+  transition: width 0.5s ease, filter 0.5s ease;
+}
+
+@media (hover: hover) {
+  .hero-fx-word:hover::after {
+    width: 100%;
+    filter: drop-shadow(0 0 23px var(--hfx-glow));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-fx-word::after {
+    transition: none;
+  }
+}
+
+
+/* ==========================================================
+   HOMEPAGE HOVER FX ("hfx")
+   script.js (section "HOMEPAGE HOVER FX") adds the helper layers; everything
+   is drawn here. Homepage only (body.is-home).
+   - Hero "View My Work": Uiverse button by MuhammadHasann (a royal blue
+     button that goes see-through on hover while six stars fly out of it).
+   - Hero "View Reviews": its text scrolls up on hover and five orange stars pop out above it.
+   - Hero rating pill: its five stars lift and glow in a left-to-right wave on hover (separate).
+   - FAQ: accent bar, nudge and a cursor-following light.
+   Switches in script.js: HERO_BUTTON_FX (hero buttons) and HOME_HOVER_FX (FAQ).
+   The hero rules only apply to buttons that script.js marked with .hfx-btn,
+   so with HERO_BUTTON_FX = false the buttons look exactly like before.
+   ========================================================== */
+
+/* ---------- Primary hero button: Uiverse "stars" button (by MuhammadHasann) ---------- */
+.hero-actions .button-primary.hfx-btn {
+  justify-content: center;
+  padding: 0.95rem 1.8rem;     /* same size and type as the other hero button */
+  border: 1px solid var(--color-button);
+  border-radius: var(--radius-button);
+  background-color: var(--color-button);
+  background-image: none;
+  color: #ffffff;
+  overflow: visible;           /* the stars fly out past the edge */
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24), 0 6px 16px -8px rgba(28, 100, 220, 0.7);
+  transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out, color 0.3s ease-in-out, box-shadow 0.3s ease-in-out, transform 0.2s var(--spring);
+}
+.hero-actions .button-primary.hfx-btn::after { display: none; }
+.hero-actions .button-primary.hfx-btn:hover,
+.hero-actions .button-primary.hfx-btn:focus-visible {
+  transform: none;
+  background-color: transparent;
+  border-color: var(--color-accent);
+  color: var(--color-accent-bright);
+  box-shadow: 0 0 25px -2px rgba(var(--rgb-blue), 0.5);
+}
+.hero-actions .button-primary.hfx-btn:active { transform: scale(0.97); }
+
+.hfx-label { position: relative; z-index: 1; }
+
+.hfx-stars { position: absolute; inset: 0; pointer-events: none; }
+.hfx-star {
+  position: absolute;
+  height: auto;
+  opacity: 0;
+  filter: drop-shadow(0 0 0 rgba(var(--rgb-blue), 0));
+  z-index: -5;
+}
+.hfx-star svg { display: block; width: 100%; height: auto; }
+.hfx-star path { fill: #dff0ff; }
+.hero-actions .button-primary.hfx-btn:is(:hover, :focus-visible) .hfx-star {
+  opacity: 1;
+  filter: drop-shadow(0 0 10px rgba(var(--rgb-blue), 0.95));
+  z-index: 2;
+}
+.hfx-star--1 { top: 20%; left: 20%; width: 25px; transition: all 1s cubic-bezier(0.05, 0.83, 0.43, 0.96); }
+.hfx-star--2 { top: 45%; left: 45%; width: 15px; transition: all 1s cubic-bezier(0, 0.4, 0, 1.01); }
+.hfx-star--3 { top: 40%; left: 40%; width: 5px; transition: all 1s cubic-bezier(0, 0.4, 0, 1.01); }
+.hfx-star--4 { top: 20%; left: 40%; width: 8px; transition: all 0.8s cubic-bezier(0, 0.4, 0, 1.01); }
+.hfx-star--5 { top: 25%; left: 45%; width: 15px; transition: all 0.6s cubic-bezier(0, 0.4, 0, 1.01); }
+.hfx-star--6 { top: 5%; left: 50%; width: 5px; transition: all 0.8s ease; }
+.hero-actions .button-primary.hfx-btn:is(:hover, :focus-visible) .hfx-star--1 { top: -80%; left: -30%; }
+.hero-actions .button-primary.hfx-btn:is(:hover, :focus-visible) .hfx-star--2 { top: -25%; left: 10%; }
+.hero-actions .button-primary.hfx-btn:is(:hover, :focus-visible) .hfx-star--3 { top: 55%; left: 25%; }
+.hero-actions .button-primary.hfx-btn:is(:hover, :focus-visible) .hfx-star--4 { top: 30%; left: 80%; }
+.hero-actions .button-primary.hfx-btn:is(:hover, :focus-visible) .hfx-star--5 { top: 25%; left: 115%; }
+.hero-actions .button-primary.hfx-btn:is(:hover, :focus-visible) .hfx-star--6 { top: 5%; left: 60%; }
+
+/* ---------- Secondary hero button "View Reviews": scroll-up text + rating-star burst ----------
+   On hover the label rolls up and a copy rolls in from below, while five orange stars spin
+   out above the button and twinkle left to right. This is separate from the rating pill
+   above the buttons, which has its own hover (next section). */
+.hero-actions .button-secondary.hfx-btn {
+  overflow: visible;
+  transition: border-color 0.25s ease, background-color 0.25s ease, box-shadow 0.3s ease, transform 0.25s var(--spring);
+}
+.hero-actions .button-secondary.hfx-btn::after { display: none; }
+.hero-actions .button-secondary.hfx-btn:is(:hover, :focus-visible) {
+  border-color: rgba(var(--rgb-orange), 0.6);
+  background-color: rgba(var(--rgb-orange), 0.1);
+  box-shadow:
+    0 12px 26px -14px rgba(0, 0, 0, 0.9),
+    0 0 0 3px rgba(var(--rgb-orange), 0.1),
+    0 0 26px -8px rgba(var(--rgb-orange), 0.55);
+}
+
+/* Scroll-up text */
+.hfx-roll {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  line-height: 1.3;
+  vertical-align: middle;
+}
+.hfx-roll-a, .hfx-roll-b {
+  display: block;
+  transition: transform 0.45s cubic-bezier(0.65, 0, 0.2, 1);
+}
+.hfx-roll-b { position: absolute; top: 100%; left: 0; width: 100%; text-align: center; color: var(--color-orange-bright); }
+.hfx-btn:is(:hover, :focus-visible) .hfx-roll-a,
+.hfx-btn:is(:hover, :focus-visible) .hfx-roll-b { transform: translateY(-100%); }
+
+/* Stars */
+.hfx-sparks { position: absolute; inset: 0; pointer-events: none; }
+.hfx-spark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  width: var(--s);
+  height: var(--s);
+  margin: calc(var(--s) / -2) 0 0 calc(var(--s) / -2);
+  opacity: 0;
+  transform: translate(0, 0) scale(0) rotate(-120deg);
+  transition: transform 0.2s ease, opacity 0.15s ease;   /* quick, tidy exit */
+}
+.hfx-spark svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: var(--spark-fill, var(--color-orange));
+  filter: drop-shadow(0 0 5px var(--spark-glow, rgba(var(--rgb-orange), 0.75)));
+}
+.hfx-btn:is(:hover, :focus-visible) .hfx-spark {
+  opacity: 1;
+  transform: translate(var(--x), var(--y)) scale(1) rotate(var(--r));
+  transition: transform 0.6s cubic-bezier(0.2, 1.5, 0.4, 1), opacity 0.2s ease;
+  transition-delay: var(--d);
+}
+.hfx-btn:is(:hover, :focus-visible) .hfx-spark svg {
+  animation: hfx-twinkle 1.3s ease-in-out infinite;
+  animation-delay: calc(var(--d) + 0.55s);               /* the wave starts once the stars have landed */
+}
+@keyframes hfx-twinkle {
+  0%, 55%, 100% { transform: scale(1); filter: drop-shadow(0 0 5px var(--spark-glow, rgba(var(--rgb-orange), 0.75))); }
+  25%           { transform: scale(1.3); filter: drop-shadow(0 0 9px rgba(255, 190, 120, 1)) brightness(1.25); }
+}
+.hfx-spark--1 { --s: 11px; --x: -62px; --y: -32px; --r: -16deg; --d: 0ms; }
+.hfx-spark--2 { --s: 14px; --x: -32px; --y: -39px; --r: 10deg;  --d: 60ms; }
+.hfx-spark--3 { --s: 18px; --x: 0px;   --y: -43px; --r: -6deg;  --d: 120ms; }
+.hfx-spark--4 { --s: 14px; --x: 32px;  --y: -39px; --r: 14deg;  --d: 180ms; }
+.hfx-spark--5 { --s: 11px; --x: 62px;  --y: -32px; --r: -12deg; --d: 240ms; }
+@media (prefers-reduced-motion: reduce) {
+  .hfx-roll-b { display: none; }
+  .hfx-btn:is(:hover, :focus-visible) .hfx-roll-a { transform: none; }
+}
+
+/* ---------- Top bar "Commission Me": scroll-up text + stars, but NO lighting up on hover ----------
+   Same effect as "View Reviews" (the stars burst out below the button, because the top
+   bar has no room above it). Hover keeps the button's resting colour and shadow, and the
+   light sweep is off. The rolled-in text stays white. */
+.site-header .button-primary.hfx-nav {
+  position: relative;
+  overflow: visible;
+  --spark-fill: #dff0ff;
+  --spark-glow: rgba(var(--rgb-blue), 0.9);
+}
+.site-header .button-primary.hfx-nav::after { display: none; }
+.site-header .button-primary.hfx-nav:is(:hover, :focus-visible) {
+  background-color: var(--color-button);
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0) 62%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24), 0 6px 16px -8px rgba(28, 100, 220, 0.7);
+}
+.hfx-nav .hfx-roll-b { color: inherit; }
+.hfx-nav .hfx-spark--1 { --s: 10px; --x: -64px; --y: 30px; --r: -16deg; }
+.hfx-nav .hfx-spark--2 { --s: 13px; --x: -34px; --y: 38px; --r: 10deg; }
+.hfx-nav .hfx-spark--3 { --s: 17px; --x: 0px;   --y: 42px; --r: -6deg; }
+.hfx-nav .hfx-spark--4 { --s: 13px; --x: 34px;  --y: 38px; --r: 14deg; }
+.hfx-nav .hfx-spark--5 { --s: 10px; --x: 64px;  --y: 30px; --r: -12deg; }
+
+/* ---------- Corner popup buttons: seasonal sale popup + welcome offer ("Redeem") ----------
+   script.js (addButtonFx) adds the layers. The label scrolls up on hover, seven stars burst
+   out above the button and twinkle left to right, and a soft shine sweeps across every few
+   seconds (once, quicker, on hover). The normal hover look of these buttons is unchanged. */
+.hfx-pop {
+  position: relative;
+  overflow: visible;
+  --spark-fill: #dff0ff;
+  --spark-glow: rgba(var(--rgb-blue), 0.9);
+}
+.sale-popup .hfx-pop {                       /* the seasonal popup is orange-themed */
+  --spark-fill: #ffe2c2;
+  --spark-glow: rgba(var(--rgb-orange), 0.95);
+}
+.hfx-pop::after { display: none; }           /* the shine below replaces the old sweep */
+.hfx-pop .hfx-roll-b { color: inherit; }
+.hfx-pop .hfx-sparks { z-index: 3; }
+
+.hfx-shine {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  border-radius: inherit;                    /* stays inside the button's rounded corners */
+  pointer-events: none;
+}
+.hfx-shine::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 45%;
+  background: linear-gradient(105deg, transparent, rgba(255, 255, 255, 0.38), transparent);
+  transform: translateX(-130%) skewX(-18deg);
+  animation: hfx-shine-idle 5.5s ease-in-out 1.5s infinite;
+}
+.hfx-pop:is(:hover, :focus-visible) .hfx-shine::before { animation: hfx-shine-hover 0.8s ease-out; }
+@keyframes hfx-shine-idle {
+  0%, 62% { transform: translateX(-130%) skewX(-18deg); }
+  100%    { transform: translateX(330%) skewX(-18deg); }
+}
+@keyframes hfx-shine-hover {
+  from { transform: translateX(-130%) skewX(-18deg); }
+  to   { transform: translateX(330%) skewX(-18deg); }
+}
+
+/* Seven stars along the top edge of the (wide) button */
+.hfx-pop .hfx-spark--1 { --s: 10px; --x: -105px; --y: -31px; --r: -16deg; --d: 0ms; }
+.hfx-pop .hfx-spark--2 { --s: 13px; --x: -70px;  --y: -39px; --r: 10deg;  --d: 40ms; }
+.hfx-pop .hfx-spark--3 { --s: 16px; --x: -35px;  --y: -45px; --r: -6deg;  --d: 80ms; }
+.hfx-pop .hfx-spark--4 { --s: 20px; --x: 0px;    --y: -49px; --r: 8deg;   --d: 120ms; }
+.hfx-pop .hfx-spark--5 { --s: 16px; --x: 35px;   --y: -45px; --r: 14deg;  --d: 160ms; }
+.hfx-pop .hfx-spark--6 { --s: 13px; --x: 70px;   --y: -39px; --r: -10deg; --d: 200ms; }
+.hfx-pop .hfx-spark--7 { --s: 10px; --x: 105px;  --y: -31px; --r: 12deg;  --d: 240ms; }
+
+/* The arrow nudge (.button:hover svg) must not push the star shapes around */
+.button.hfx-btn:is(:hover, :focus-visible) .hfx-spark svg,
+.button.hfx-btn:is(:hover, :focus-visible) .hfx-star svg { transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hfx-shine { display: none; }
+}
+
+
+/* ---------- Welcome "Redeem": a little gift that opens (no stars) ----------
+   The arrow is swapped for a gift box. On hover the lid tips open and a soft light spills out;
+   every few seconds it gives a small wiggle so the offer gets noticed. */
+.button .wo-gift {
+  flex: none;
+  overflow: visible;
+  transform-origin: 50% 90%;
+  transition: filter 0.3s ease;
+  animation: wo-gift-wiggle 5.5s ease-in-out 2.5s infinite;
+}
+.wo-gift-lid {
+  transform-box: view-box;
+  transform-origin: 3px 12px;                  /* the lid hinges on its left edge */
+  transition: transform 0.45s var(--spring);
+}
+.wo-gift-glow {
+  fill: #fff;
+  stroke: none;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: scale(0.3);
+  filter: blur(1.4px);
+  transition: opacity 0.3s ease, transform 0.5s var(--spring);
+}
+.button.hfx-pop:is(:hover, :focus-visible) svg.wo-gift { transform: none; animation: none; filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.65)); }
+.hfx-pop:is(:hover, :focus-visible) .wo-gift-lid { transform: translate(1px, -3.5px) rotate(-18deg); }
+.hfx-pop:is(:hover, :focus-visible) .wo-gift-glow { opacity: 0.85; transform: scale(1.5) translateY(-1px); }
+@keyframes wo-gift-wiggle {
+  0%, 22%, 100% { transform: rotate(0deg); }
+  4%  { transform: rotate(-12deg); }
+  8%  { transform: rotate(10deg); }
+  12% { transform: rotate(-7deg); }
+  16% { transform: rotate(4deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .button .wo-gift { animation: none; }
+  .wo-gift-lid, .wo-gift-glow { transition: none; }
+}
+
+
+/* ---------- Seasonal popup button: a price tag swinging on the corner (no stars) ----------
+   The tag ("20% off") is pinned to the top-right corner of the button. It sways a little every
+   few seconds and swings like a pendulum, pivoting on its hole, when the button is hovered. */
+.hfx-tag {
+  position: absolute;
+  top: -12px;
+  right: 14px;
+  z-index: 4;
+  pointer-events: none;
+  filter: drop-shadow(0 4px 5px rgba(0, 0, 0, 0.45));
+  transform: rotate(-6deg);
+  transform-origin: 16% 50%;                   /* the hole */
+  animation: hfx-tag-idle 6s ease-in-out 3s infinite;
+}
+.hfx-tag-body {
+  position: relative;
+  display: block;
+  padding: 0.24rem 0.65rem 0.24rem 1.2rem;
+  clip-path: polygon(0 50%, 12% 0, 100% 0, 100% 100%, 12% 100%);
+  background: linear-gradient(180deg, var(--color-orange-bright), var(--color-orange));
+  color: var(--color-orange-ink);
+  font-size: 0.72rem;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+.hfx-tag-body::before {                          /* the hole */
+  content: "";
+  position: absolute;
+  left: 0.5rem;
+  top: 50%;
+  width: 5px;
+  height: 5px;
+  margin-top: -2.5px;
+  border-radius: 50%;
+  background: rgba(8, 13, 28, 0.95);
+}
+.sale-popup--christmas .hfx-tag-body,
+.sale-popup--summer .hfx-tag-body {              /* these buttons are orange already: use a cream tag */
+  background: linear-gradient(180deg, #fffaf2, #ffe6cc);
+}
+.hfx-btn:is(:hover, :focus-visible) .hfx-tag { animation: hfx-tag-swing 1.1s ease-out; }
+@keyframes hfx-tag-idle {
+  0%, 16%, 100% { transform: rotate(-6deg); }
+  5%  { transform: rotate(-13deg); }
+  10% { transform: rotate(1deg); }
+}
+@keyframes hfx-tag-swing {
+  0%   { transform: rotate(-6deg) scale(1); }
+  18%  { transform: rotate(-24deg) scale(1.12); }
+  38%  { transform: rotate(10deg) scale(1.08); }
+  56%  { transform: rotate(-14deg) scale(1.04); }
+  74%  { transform: rotate(2deg) scale(1.02); }
+  100% { transform: rotate(-6deg) scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hfx-tag, .hfx-btn:is(:hover, :focus-visible) .hfx-tag { animation: none; }
+}
+
+/* ---------- Hero rating pill: star wave (only while the pill itself is hovered / focused) ----------
+   The five stars lift one after another from left to right and glow. They only move up
+   (no scaling), so the last star, which is only partly filled, is never cut off.
+   "View Reviews" itself has no extra effect; it just scrolls to the reviews section. */
+.hero-rating .rating-stars-fill {
+  overflow: visible;                         /* lets the stars lift above the box ... */
+  clip-path: inset(-10px 0 -10px 0);         /* ... while the fill width still cuts the right side */
+}
+.hero-rating:is(:hover, :focus-visible) {
+  border-color: rgba(var(--rgb-orange), 0.55);
+  background-color: rgba(var(--rgb-orange), 0.1);
+  box-shadow: 0 0 22px -8px rgba(var(--rgb-orange), 0.6);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero-rating:is(:hover, :focus-visible) .rating-stars-fill .rating-star {
+    animation: hfx-rate-wave 1.3s ease-in-out infinite;
+  }
+  .hero-rating:is(:hover, :focus-visible) .rating-stars-fill .rating-star:nth-child(1) { animation-delay: 0s; }
+  .hero-rating:is(:hover, :focus-visible) .rating-stars-fill .rating-star:nth-child(2) { animation-delay: 0.08s; }
+  .hero-rating:is(:hover, :focus-visible) .rating-stars-fill .rating-star:nth-child(3) { animation-delay: 0.16s; }
+  .hero-rating:is(:hover, :focus-visible) .rating-stars-fill .rating-star:nth-child(4) { animation-delay: 0.24s; }
+  .hero-rating:is(:hover, :focus-visible) .rating-stars-fill .rating-star:nth-child(5) { animation-delay: 0.32s; }
+  /* soft glow around the whole row (drawn outside the clipped layer, so it is never cut) */
+  .hero-rating:is(:hover, :focus-visible) .rating-stars { animation: hfx-rate-glow 1.3s ease-in-out infinite; }
+}
+@keyframes hfx-rate-wave {
+  0%, 55%, 100% { transform: translateY(0); filter: none; }
+  25%           { transform: translateY(-2px); filter: brightness(1.3); }
+}
+@keyframes hfx-rate-glow {
+  0%, 100% { filter: drop-shadow(0 0 0 rgba(var(--rgb-orange), 0)); }
+  35%      { filter: drop-shadow(0 0 6px rgba(var(--rgb-orange), 0.8)); }
+}
+
+/* ---------- Cards: light that follows the cursor ---------- */
+.hfx-glow {
+  position: absolute; inset: 0; z-index: 0; border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity 0.3s ease;
+  background: radial-gradient(260px circle at var(--hx, 50%) var(--hy, 50%), rgba(134, 197, 255, 0.10), transparent 70%);
+}
+.hfx-glow::before {
+  content: ""; position: absolute; inset: 0; padding: 1px; border-radius: inherit;
+  background: radial-gradient(180px circle at var(--hx, 50%) var(--hy, 50%), rgba(134, 197, 255, 0.85), transparent 70%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+}
+@media (hover: hover) {
+  .hfx-host:hover > .hfx-glow { opacity: 1; }
+}
+
+/* ---------- FAQ: accent bar + nudge ---------- */
+.faq-trigger { position: relative; }
+.faq-trigger::before {
+  content: ""; position: absolute; left: 0; top: 24%; bottom: 24%; width: 3px; border-radius: 3px;
+  background: var(--color-accent-bright); box-shadow: 0 0 10px rgba(var(--rgb-blue), 0.8);
+  transform: scaleY(0); transition: transform 0.3s var(--spring);
+}
+.faq-q-text { transition: transform 0.3s var(--spring), color 0.2s ease; }
+.faq-trigger:hover::before, .faq-trigger:focus-visible::before, .faq-item.is-open .faq-trigger::before { transform: scaleY(1); }
+.faq-trigger:hover .faq-q-text, .faq-trigger:focus-visible .faq-q-text { transform: translateX(5px); color: var(--color-accent-bright); }
+
+@media (prefers-reduced-motion: reduce) {
+  .hfx-stars, .hfx-sparks { display: none; }
+   .faq-trigger::before, .faq-q-text, .hfx-glow { transition: none; }
+  .faq-trigger:hover .faq-q-text, .faq-trigger:focus-visible .faq-q-text { transform: none; }
+}
+
+/* ==========================================================
+   PERKS: "View more" on the last card (Portfolio Placement)
+   The card starts collapsed (index.html hides it right away), so the section
+   is only as tall as your original layout's first two rows. The button under
+   the grid shows / hides it. Everything else is your original perks layout.
+   ========================================================== */
+.perk-card[hidden] { display: none !important; }
+.perks-more { display: flex; justify-content: center; margin-top: var(--space-3); }
+.perks-more[hidden] { display: none; }
+
+/* ----- Portfolio Placement sits in the middle (it is the only card on the last row) ----- */
+
+#perk-portfolio { justify-self: center; width: 100%; max-width: 36rem; }
+
+@media (min-width: 960px) {
+
+  #perk-portfolio { grid-column: 4 / span 6; grid-row: 3; max-width: none; }   /* columns 4-9 of 12 = centred */
+
+}
+
+
+
+/* ----- "View more": the last perk shows as a faded peek, the button sits on top of it ----- */
+
+@property --perk-fade { syntax: "<percentage>"; inherits: false; initial-value: 100%; }
+
+#perk-portfolio { transition: max-height 0.6s cubic-bezier(0.65, 0, 0.2, 1), --perk-fade 0.6s ease, transform 0.3s var(--spring), border-color 0.25s ease, box-shadow 0.3s ease; }
+
+#perk-portfolio.is-peek,
+
+#perk-portfolio.is-anim {
+
+  overflow: hidden;
+
+  -webkit-mask-image: linear-gradient(to bottom, #000 var(--perk-fade), transparent 100%);
+
+          mask-image: linear-gradient(to bottom, #000 var(--perk-fade), transparent 100%);
+
+}
+
+#perk-portfolio.is-peek {
+
+  --perk-fade: 32%;
+
+  max-height: 7.75rem;
+
+  pointer-events: none;
+
+  user-select: none;
+
+}
+
+.perks-more { position: relative; z-index: 4; transition: margin-top 0.6s cubic-bezier(0.65, 0, 0.2, 1); }
+
+.perks-more.is-peek { margin-top: -3.4rem; }          /* the button overlaps the faded bottom of the card */
+
+.perks-more .perks-more-btn {
+
+  gap: 0.55rem;
+
+  background-color: rgba(10, 18, 40, 0.92);
+
+  -webkit-backdrop-filter: blur(8px);
+
+  backdrop-filter: blur(8px);
+
+  box-shadow: 0 10px 26px -12px rgba(0, 0, 0, 0.9);
+
+}
+
+.perks-more-chevron { flex: none; transition: transform 0.35s var(--spring); }
+
+.perks-more.is-peek .perks-more-btn:not(:hover):not(:focus-visible) .perks-more-chevron { animation: perks-bob 1.8s ease-in-out infinite; }
+
+.perks-more .perks-more-btn:is(:hover, :focus-visible) .perks-more-chevron { transform: translateY(2px); }
+
+.perks-more:not(.is-peek) .perks-more-btn .perks-more-chevron,
+
+.perks-more:not(.is-peek) .perks-more-btn:is(:hover, :focus-visible) .perks-more-chevron { transform: rotate(180deg); }
+
+@keyframes perks-bob { 0%, 100% { transform: translateY(-1px); } 50% { transform: translateY(3px); } }
+
+@media (prefers-reduced-motion: reduce) {
+
+  #perk-portfolio, .perks-more { transition: none; }
+
+  .perks-more.is-peek .perks-more-btn .perks-more-chevron { animation: none; }
+
+}
+
+
+/* Tablet: Seasonal Sales used to pair up with the removed card, so it takes the full row */
+@media (min-width: 640px) and (max-width: 959px) {
+  .perk-card:nth-child(3) { grid-column: span 2; }
 }
