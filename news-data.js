@@ -128,30 +128,34 @@ const X_NAME = "Bcraft | bcraftdesigns.com";
 /* X-POSTS:START  (auto-generated from x-links.txt by GitHub Actions. Do not edit by hand, add links to x-links.txt instead) */
 const X_POSTS = [
   {
-    url: "https://x.com/realbcraft/status/2112657102183506230",
-    date: "2026-10-20",
-    image: "images/x-post-thumbnail-01.webp",
-    text: [
-      "🌐 Bcraft Designs is officially LIVE! 🎉",
-      "After countless hours of looking at Html's, my new website is finally here! 🚀",
-      "🤩Now everything in one place!",
-      "🌐 https://bcraftdesigns.com",
-      "Go check it out & let me know what you think! 🔥",
-      "👀Expect Updates soon!"
-    ],
-    tags: ["BcraftDesigns", "robloxGFX"]
+    "url": "https://x.com/realbcraft/status/2113664464348172378",
+    "date": "2026-10-23",
+    "image": "images/x-2113664464348172378.webp",
+    "text": [
+      "Linktree? Not anymore. 👀",
+      "I built my own custom socials page for me. Complete with a new design, easter eggs, beautiful buttons, and all my socials in one place. 💙",
+      "🫣Take a look: https://bcraftdesigns.com/socials"
+    ]
   },
   {
-     url: "https://x.com/realbcraft/status/2111673604496670964",
-    date: "2026-10-18",
-    image: "images/x-post-thumbnail-02.webp",
-    text: [
-      "👀New Profile Picture!",
-      "🌐https://bcraftdesigns.com",
-      "💙Like & 🔄Repost if you like this one"
+    "url": "https://x.com/realbcraft/status/2113283931659534803",
+    "date": "2026-10-22",
+    "image": "images/x-2113283931659534803.webp",
+    "text": [
+      "🎁 NEW CLIENT OFFER!",
+      "Get $5 OFF your first Bcraft Designs commission!",
+      "💰 $10 minimum order",
+      "👤 New clients only",
+      "📩 DM me & mention the offer before ordering",
+      "🚫 Cannot be combined with other promos",
+      "Full details & TOS 👇",
+      "🔗 https://bcraftdesigns.com/news/#post=new-client-promotion"
     ],
-    tags: ["robloxart", "robloxGFX", "pfp"]
-    }
+    "tags": [
+      "BcraftDesigns",
+      "RobloxGFX"
+    ]
+  }
 ];
 /* X-POSTS:END */
 
